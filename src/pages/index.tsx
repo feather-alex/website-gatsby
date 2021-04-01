@@ -1,8 +1,15 @@
 import React from "react";
 import { graphql } from "gatsby";
 import get from "lodash/get";
-import { Helmet } from "react-helmet";
-import Layout from "../components/layout";
+import styled from "@emotion/styled";
+import Helmet from "../components/Helmet";
+import Layout from "../components/Layout";
+import { BRAND } from "../ui/variables";
+import HomepageHeader from "../components/homepage/HomepageHeader";
+
+const HomepageSection = styled.section`
+  background-color: ${BRAND.BACKGROUND};
+`;
 
 class RootIndex extends React.Component {
   render() {
@@ -11,13 +18,18 @@ class RootIndex extends React.Component {
 
     console.log("homepage data: ", homepageData);
     return (
-      <Layout location={this.props.location}>
-        <div style={{ background: "#fff" }}>
-          <Helmet title={"Homepage"} />
-          {/* {homepageData.map((data) => (
-            <div>{data}</div>
-          ))} */}
-        </div>
+      <Layout>
+        <Helmet
+          title={homepageData.meta.title}
+          description={homepageData.meta.description.description}
+          imageUrl={homepageData.meta.imageUrl}
+        />
+        <HomepageSection>
+          <HomepageHeader
+            heroContent={homepageData.hero}
+            isMobileBreakpoint={false}
+          />
+        </HomepageSection>
       </Layout>
     );
   }
