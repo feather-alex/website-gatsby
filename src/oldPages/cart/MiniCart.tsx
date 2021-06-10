@@ -1,19 +1,29 @@
 /** @jsx jsx */
-import { Component, Fragment } from 'react';
-import { css, jsx } from '@emotion/core';
-import { normalizeCartPrices, NormalizeCartPrices } from './store/cart.actions';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { State as GlobalState } from '../../types/ReduxState';
-import MiniCartProductsList from './components/MiniCartProductsList';
-import { CartItem, ProductIdentifiers } from '../../pages/cart/store/cart.types';
-import { connect } from 'react-redux';
-import Analytics from '../../analytics/analytics';
-import { MINI_CART } from '../../analytics/cart/events';
-import { Overlays } from '../../app/store/overlay/overlay.types';
-import { toggleOverlay, ToggleOverlay } from '../../app/store/overlay/overlay.actions';
-import { getIsMiniCartOpen } from '../../app/store/overlay/overlay.selectors';
-import { cartViewedPayloadMapping } from '../../analytics/cart/payload-mappings';
-import { getCartItems, getCartUuid, getCartTotals } from './store/cart.selectors';
+import { Component, Fragment } from "react";
+import { css, jsx } from "@emotion/core";
+import { normalizeCartPrices, NormalizeCartPrices } from "./store/cart.actions";
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { State as GlobalState } from "../../types/ReduxState";
+import MiniCartProductsList from "./components/MiniCartProductsList";
+import {
+  CartItem,
+  ProductIdentifiers,
+} from "../../oldPages/cart/store/cart.types";
+import { connect } from "react-redux";
+import Analytics from "../../analytics/analytics";
+import { MINI_CART } from "../../analytics/cart/events";
+import { Overlays } from "../../app/store/overlay/overlay.types";
+import {
+  toggleOverlay,
+  ToggleOverlay,
+} from "../../app/store/overlay/overlay.actions";
+import { getIsMiniCartOpen } from "../../app/store/overlay/overlay.selectors";
+import { cartViewedPayloadMapping } from "../../analytics/cart/payload-mappings";
+import {
+  getCartItems,
+  getCartUuid,
+  getCartTotals,
+} from "./store/cart.selectors";
 import {
   getDeliveryZipCode,
   getRentalLength,
@@ -21,15 +31,21 @@ import {
   getMembershipState,
   getMonthlyMembershipFee,
   getDeliveryFee,
-  getDeliveryAreaIdentifier
-} from '../../app/store/plan/plan.selectors';
-import { getBodyMarginTop, getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import { DeliveryAreaIdentifier, MembershipState } from '../../app/store/plan/plan.types';
-import CloseSignIcon from '../../ui/icons/CloseSignIcon';
-import MiniCartFooter from './components/MiniCartFooter';
-import MiniCartEmpty from './components/MiniCartEmpty';
-import { SHADES } from '../../ui/variables';
-import { Z_INDICIES } from '../../ui/zIndicies';
+  getDeliveryAreaIdentifier,
+} from "../../app/store/plan/plan.selectors";
+import {
+  getBodyMarginTop,
+  getIsMobileBreakpoint,
+} from "../../app/store/dimensions/dimensions.selectors";
+import {
+  DeliveryAreaIdentifier,
+  MembershipState,
+} from "../../app/store/plan/plan.types";
+import CloseSignIcon from "../../ui/icons/CloseSignIcon";
+import MiniCartFooter from "./components/MiniCartFooter";
+import MiniCartEmpty from "./components/MiniCartEmpty";
+import { SHADES } from "../../ui/variables";
+import { Z_INDICIES } from "../../ui/zIndicies";
 
 interface StateProps {
   rentalLength: 3 | 12 | null;
@@ -60,11 +76,11 @@ interface State {
 
 class MiniCartOverlay extends Component<Props, State> {
   public readonly state: Readonly<State> = {
-    showBelowMinimum: false
+    showBelowMinimum: false,
   };
 
   componentDidMount() {
-    document.addEventListener('keydown', this.handleEsc);
+    document.addEventListener("keydown", this.handleEsc);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -79,10 +95,16 @@ class MiniCartOverlay extends Component<Props, State> {
         membershipState,
         postalCode,
         deliveryAreaIdentifier,
-        cartTotals
+        cartTotals,
       } = this.props;
 
-      if (rentalLength && membershipFee !== null && deliveryFee !== null && deliveryAreaIdentifier && postalCode) {
+      if (
+        rentalLength &&
+        membershipFee !== null &&
+        deliveryFee !== null &&
+        deliveryAreaIdentifier &&
+        postalCode
+      ) {
         Analytics.trackEvent(
           MINI_CART.VIEW,
           cartViewedPayloadMapping({
@@ -93,7 +115,7 @@ class MiniCartOverlay extends Component<Props, State> {
             deliveryZipCode: postalCode,
             deliveryAreaIdentifier,
             cartItems,
-            cartUuid
+            cartUuid,
           })
         );
       }
@@ -101,11 +123,11 @@ class MiniCartOverlay extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleEsc);
+    document.removeEventListener("keydown", this.handleEsc);
   }
 
   handleEsc = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
+    if (e.key === "Escape") {
       this.closeCartOverlay();
     }
   };
@@ -115,7 +137,12 @@ class MiniCartOverlay extends Component<Props, State> {
   };
 
   renderMiniCartProducts = () => {
-    const { cartItems, rentalLength, deliverToPostal, isMobileBreakpoint } = this.props;
+    const {
+      cartItems,
+      rentalLength,
+      deliverToPostal,
+      isMobileBreakpoint,
+    } = this.props;
 
     // We've decided not to make this network request each time
     // the users opens the mini cart. By passing an empty array
@@ -160,7 +187,12 @@ class MiniCartOverlay extends Component<Props, State> {
   };
 
   render() {
-    const { bodyMarginTop, isMobileBreakpoint, isMiniCartOpen, cartItems } = this.props;
+    const {
+      bodyMarginTop,
+      isMobileBreakpoint,
+      isMiniCartOpen,
+      cartItems,
+    } = this.props;
 
     return (
       <Fragment>
@@ -168,14 +200,19 @@ class MiniCartOverlay extends Component<Props, State> {
           css={css`
             width: ${isMobileBreakpoint ? 100 : 50}vw;
             position: fixed;
-            right: ${isMiniCartOpen ? 0 : '-100vw'};
+            right: ${isMiniCartOpen ? 0 : "-100vw"};
             bottom: 0;
             transition: right 600ms ease-in-out;
             background-color: white;
             top: ${bodyMarginTop}px;
-            z-index: ${isMobileBreakpoint ? Z_INDICIES.MINI_CART_MOBILE : Z_INDICIES.MINI_CART};
-            ${isMiniCartOpen && !isMobileBreakpoint && 'box-shadow: -16px 0px 24px rgba(51, 51, 51, 0.1);'}
-            ${isMobileBreakpoint && `height: calc(100% - ${bodyMarginTop}px);`}
+            z-index: ${isMobileBreakpoint
+              ? Z_INDICIES.MINI_CART_MOBILE
+              : Z_INDICIES.MINI_CART};
+            ${isMiniCartOpen &&
+            !isMobileBreakpoint &&
+            "box-shadow: -16px 0px 24px rgba(51, 51, 51, 0.1);"}
+            ${isMobileBreakpoint &&
+            `height: calc(100% - ${bodyMarginTop}px);`}
             display: flex;
             flex-direction: column;
           `}
@@ -246,12 +283,14 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   deliveryFee: getDeliveryFee(state),
   deliveryAreaIdentifier: getDeliveryAreaIdentifier(state),
   bodyMarginTop: getBodyMarginTop(state),
-  isMobileBreakpoint: getIsMobileBreakpoint(state)
+  isMobileBreakpoint: getIsMobileBreakpoint(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
   toggleOverlay,
-  normalizeCartPrices
+  normalizeCartPrices,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MiniCartOverlay));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MiniCartOverlay)
+);

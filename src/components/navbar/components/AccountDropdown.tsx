@@ -1,9 +1,11 @@
 /** @jsx jsx **/
-import { css, jsx } from '@emotion/core';
-import AccountMenu, { DisplayMode } from '../../../pages/account/AccountMenu';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import NavDropdown from './NavDropdown';
+import { css, jsx } from "@emotion/core";
+import AccountMenu, {
+  DisplayMode,
+} from "../../../oldPages/account/AccountMenu";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import NavDropdown from "./NavDropdown";
 
 interface Props {
   isVisible: boolean;
@@ -13,7 +15,13 @@ interface Props {
   handleMouseOut: () => void;
 }
 
-const AccountDropdown = ({ isVisible, bodyMarginTop, isAuthenticated, handleMouseOver, handleMouseOut }: Props) => (
+const AccountDropdown = ({
+  isVisible,
+  bodyMarginTop,
+  isAuthenticated,
+  handleMouseOver,
+  handleMouseOut,
+}: Props) => (
   <NavDropdown
     isVisible={isVisible}
     bodyMarginTop={bodyMarginTop}
@@ -40,7 +48,9 @@ const AccountDropdown = ({ isVisible, bodyMarginTop, isAuthenticated, handleMous
             margin-bottom: 28px;
           `}
         >
-          <Paragraph2>Current customers can manage their Feather account online</Paragraph2>
+          <Paragraph2>
+            Current customers can manage their Feather account online
+          </Paragraph2>
         </div>
         <div
           css={css`

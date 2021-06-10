@@ -5,12 +5,12 @@
 // import NavbarBanner from './NavbarBanner';
 // import MobileNavbar from './MobileNavbar';
 // import DesktopNavbar from './DesktopNavbar';
-// import MiniCart from '../../pages/cart/MiniCart';
+// import MiniCart from '../../oldPages/cart/MiniCart';
 // import { State as GlobalState } from '../../types/ReduxState';
 // import { toggleOverlay as toggleOverlayAction, ToggleOverlay } from '../store/overlay/overlay.actions';
 // import { getIsMiniCartOpen, getIsQuizOverlayOpen, getIsMobileNavOpen } from '../store/overlay/overlay.selectors';
-// import { getNumberOfItemsInCart } from '../../pages/cart/store/cart.selectors';
-// import { getIsAuthenticated } from '../../pages/auth/login/store/login.selectors';
+// import { getNumberOfItemsInCart } from '../../oldPages/cart/store/cart.selectors';
+// import { getIsAuthenticated } from '../../oldPages/auth/login/store/login.selectors';
 // import { getIsNavbarBannerVisible } from '../store/navbar/navbar.selectors';
 // import { getIsNavbarBreakpoint, getBodyMarginTop, getBannerHeight } from '../store/dimensions/dimensions.selectors';
 // import { Overlays } from '../store/overlay/overlay.types';

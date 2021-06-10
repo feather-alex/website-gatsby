@@ -6,15 +6,15 @@ import {
   getMembershipState,
   getIsFetching,
 } from "../../app/store/plan/plan.selectors";
-import { getProductBestsellers } from "../../pages/detailsPage/store/productPairings/productPairings.selectors";
-import { getError } from "../../pages/account/planAndBilling/store/billing.information.selectors";
+import { getProductBestsellers } from "../../oldPages/detailsPage/store/productPairings/productPairings.selectors";
+import { getError } from "../../oldPages/account/planAndBilling/store/billing.information.selectors";
 import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
 import useMount from "../../utils/useMount";
-import { getProductBestsellersRequest } from "../../pages/detailsPage/store/productPairings/productPairings.actions";
+import { getProductBestsellersRequest } from "../../oldPages/detailsPage/store/productPairings/productPairings.actions";
 import { MembershipState } from "../../app/store/plan/plan.types";
 import ItemCard, { DescriptionDisplay, ItemType } from "../products/ItemCard";
 import { SHADES, BREAKPOINTS } from "../variables";
-import { isThereAVariantPriceDifference } from "../../pages/productListing/productList.service";
+import { isThereAVariantPriceDifference } from "../../oldPages/productListing/productList.service";
 import ErrorPage from "../../components/ErrorPage";
 import Header2 from "../headers/Header2";
 import Loading from "../../components/Loading";
