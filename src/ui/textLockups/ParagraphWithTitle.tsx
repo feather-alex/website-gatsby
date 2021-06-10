@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import Title1 from "../titles/Title1";
 import Paragraph2 from "../paragraphs/Paragraph2";
 

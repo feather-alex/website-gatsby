@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import { SHADES, BRAND, COLORS } from "../variables";
 
 interface Props {

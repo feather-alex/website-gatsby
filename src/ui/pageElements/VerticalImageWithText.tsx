@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 import { ReactNode } from "react";
 import ImageWithText from "./ImageWithText";
 

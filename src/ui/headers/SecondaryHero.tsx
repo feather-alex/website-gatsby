@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/react";
+import { jsx, css } from "@emotion/core";
 import { BRAND, FONTS, GRID_BREAKPOINTS } from "../variables";
 
 const SecondaryHero = ({

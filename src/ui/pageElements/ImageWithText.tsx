@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import { ReactNode } from "react";
 import ResponsiveImage from "../images/ResponsiveImage";
 import TextSectionForImageComponent from "./TextSectionForImageComponent";

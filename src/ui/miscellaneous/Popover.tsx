@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import React from "react";
 import { SHADES, BRAND } from "../variables";
 import QuestionIcon from "../icons/QuestionIcon";

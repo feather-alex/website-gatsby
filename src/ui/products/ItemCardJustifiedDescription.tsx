@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Fragment } from "react";
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import Title1 from "../titles/Title1";
 import { ItemType } from "./ItemCard";
 import { BRAND } from "../variables";

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import DropdownIcon from "../../assets/icons/ui-elements/dropdown_arrow.svg";
 import CaratIcon, { Direction } from "../icons/small/CaratIcon";
 import { BRAND, SHADES } from "../variables";

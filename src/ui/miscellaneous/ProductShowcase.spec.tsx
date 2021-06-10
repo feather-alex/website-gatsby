@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 
 import renderWithRedux from "../../utils/test-utils";
 import ProductShowcase from "./ProductShowcase";

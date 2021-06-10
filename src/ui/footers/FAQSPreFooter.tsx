@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import React from "react";
 import { BREAKPOINTS, BRAND } from "../variables";
 import Header4 from "../headers/Header4";

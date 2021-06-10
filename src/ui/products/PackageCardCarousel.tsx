@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import { useSelector } from "react-redux";
 import { Link } from "gatsby";
 import Carousel from "nuka-carousel";

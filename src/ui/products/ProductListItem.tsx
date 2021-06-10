@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import Title2 from "../titles/Title2";
 import FixedSizeImage from "../images/FixedSizeImage";
 import { SHADES, BREAKPOINTS } from "../variables";

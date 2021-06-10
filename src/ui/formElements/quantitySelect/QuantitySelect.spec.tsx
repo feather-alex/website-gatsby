@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 import { render, fireEvent } from "@testing-library/react";
 import selectEvent from "react-select-event";
 import QuantitySelect from "./QuantitySelect";

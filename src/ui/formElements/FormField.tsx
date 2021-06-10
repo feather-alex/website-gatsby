@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import { BRAND } from "../variables";
 import EndLine from "../miscellaneous/EndLine";
 import { WrappedFieldProps } from "redux-form";

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useRef, useState, useEffect } from "react";
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 
 import Button, { ButtonStyle } from "../buttons/Button";
 import ItemCardPLPDescription from "./ItemCardPLPDescription";

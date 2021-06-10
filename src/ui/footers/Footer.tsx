@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 import { BRAND, COLORS } from "../variables";
 // import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';

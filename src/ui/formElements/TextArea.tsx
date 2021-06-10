@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import { BRAND } from "../variables";
 import { WrappedFieldProps } from "redux-form";
 import QuestionIcon from "../icons/QuestionIcon";

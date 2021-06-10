@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
-
+import { jsx } from "@emotion/core";
+// import Img from "gatsby-image";
 import Button from "../../ui/buttons/Button";
 import Paragraph1 from "../../ui/paragraphs/Paragraph1";
 import {
@@ -15,7 +15,7 @@ import {
 import { HomepageHero } from "../../contentful/contentful.types";
 import SecondaryHero from "../../ui/headers/SecondaryHero";
 import ResponsiveImage from "../../ui/images/ResponsiveImage";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 // import { getIsMobileView } from '../../app/store/dimensions/dimensions.selectors';
 
 interface Props {
@@ -57,6 +57,7 @@ const HomepageHeader = ({ isMobileBreakpoint, heroContent }: Props) => {
             height={isMobileView ? 224 : 550}
             width={isMobileView ? 300 : 1200}
           /> */}
+          {/* <Img /> */}
         </ImageContainer>
       </HeaderDisplay>
     </Header>

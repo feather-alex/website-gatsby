@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import { BREAKPOINTS, BRAND } from "../../ui/variables";
 import BaseImage from "../images/BaseImage";

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css, Global } from "@emotion/react";
+import { jsx, css, Global } from "@emotion/core";
 import { createPortal } from "react-dom";
 import { BRAND } from "../variables";
 import { useCallback, useRef } from "react";

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import React from "react";
 import { BRAND, SHADES, MARGINS, BREAKPOINTS } from "../variables";
 import Modal from "react-bootstrap/lib/Modal";

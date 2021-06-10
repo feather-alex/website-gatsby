@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/react";
+import { jsx, css } from "@emotion/core";
 import { useState, KeyboardEvent as ReactKeyboardEvent, useRef } from "react";
 import Button from "../../buttons/Button";
 import { SHADES } from "../../variables";

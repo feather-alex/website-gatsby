@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Fragment, useRef } from "react";
-import { jsx, css } from "@emotion/react";
+import { jsx, css } from "@emotion/core";
 import * as qs from "query-string";
 import { useState, useCallback } from "react";
 import useIntersect from "../../utils/use-intersection-observer";

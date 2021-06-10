@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 import { render, fireEvent } from "@testing-library/react";
 import MobileAccordionMenu from "./MobileAccordionMenu";
 import { Provider } from "react-redux";

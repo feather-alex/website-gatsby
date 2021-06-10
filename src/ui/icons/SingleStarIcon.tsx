@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 import { COLORS } from "../variables";
 
 export default function Star({ color = COLORS.POPPY }: { color: string }) {

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 import { BRAND, SHADES } from "../../../ui/variables";
 
 const ABCNewsLogo = () => (

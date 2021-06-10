@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 import { render, act, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";

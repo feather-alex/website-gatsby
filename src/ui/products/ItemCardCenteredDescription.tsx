@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import Paragraph1 from "../paragraphs/Paragraph1";
 import { BRAND } from "../variables";
 

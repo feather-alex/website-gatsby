@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import {

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/react";
+import { jsx, css } from "@emotion/core";
 import Select, { Styles, components, ValueType } from "react-select";
 import { BRAND, SHADES } from "../../variables";
 import { CSSProperties, useState, useEffect } from "react";

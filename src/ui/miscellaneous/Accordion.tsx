@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import { BRAND, COLORS } from "../../ui/variables";
 import Title2 from "../../ui/titles/Title1";
 import Panel from "react-bootstrap/lib/Panel";

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import CloseSignIcon from "../icons/CloseSignIcon";
 import { BREAKPOINTS } from "../variables";
 import { Z_INDICIES } from "../zIndicies";

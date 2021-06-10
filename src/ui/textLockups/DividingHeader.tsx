@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import Header3 from "../headers/Header3";
 import EndLine from "../miscellaneous/EndLine";
 import { BRAND } from "../variables";

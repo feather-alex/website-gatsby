@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import { BRAND, SHADES } from "../variables";
 import getOnClickProps from "../../utils/on-click-props";
 

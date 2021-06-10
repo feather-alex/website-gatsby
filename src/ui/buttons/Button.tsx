@@ -1,6 +1,6 @@
 /** @jsx jsx */
 /* eslint react/button-has-type: 0 */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import { Link } from "gatsby";
 import { COLORS, BRAND, SHADES, FONTS, BREAKPOINTS } from "../variables";
 

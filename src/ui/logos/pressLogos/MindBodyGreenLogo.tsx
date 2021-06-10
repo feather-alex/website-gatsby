@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 
 const MindBodyGreenLogo = () => (
   <svg id="mbg-logo" width="177" height="30" viewBox="0 0 177 30">

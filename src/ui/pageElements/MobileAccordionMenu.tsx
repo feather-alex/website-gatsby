@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/core";
 import Panel from "react-bootstrap/lib/Panel";
 import CaratIcon from "../icons/small/CaratIcon";
 import { BRAND, MARGINS, BREAKPOINTS, SHADES } from "../variables";

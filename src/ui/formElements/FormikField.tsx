@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import styled from "@emotion/styled";
 import React from "react";
-import { jsx } from "@emotion/react";
+import { jsx } from "@emotion/core";
 import { BRAND, SHADES } from "../variables";
 import EndLine from "../miscellaneous/EndLine";
 
