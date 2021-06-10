@@ -1,4 +1,4 @@
-import { CheckoutErrors } from '../pages/checkout/store/checkout.types';
+import { CheckoutErrors } from "../oldPages/checkout/store/checkout.types";
 
 export class APIError extends Error {
   error: string;
@@ -7,8 +7,8 @@ export class APIError extends Error {
   detail?: string;
 
   constructor(
-    message = 'Oops! Please check back in a moment.',
-    error = 'Unknown Error',
+    message = "Oops! Please check back in a moment.",
+    error = "Unknown Error",
     status: string | number = 0,
     body?: object | string
   ) {
@@ -20,7 +20,13 @@ export class APIError extends Error {
 }
 
 export function isAPIError(data: unknown): data is APIError {
-  return typeof data === 'object' && data && data['status'] && data['message'] && data['error'];
+  return (
+    typeof data === "object" &&
+    data &&
+    data["status"] &&
+    data["message"] &&
+    data["error"]
+  );
 }
 
 export class StripeError extends Error {
@@ -36,9 +42,18 @@ export class StripeError extends Error {
 }
 
 export function isStripeError(data: unknown): data is StripeError {
-  return typeof data === 'object' && data && data['type'] && data['type'] === CheckoutErrors.StripeCardError;
+  return (
+    typeof data === "object" &&
+    data &&
+    data["type"] &&
+    data["type"] === CheckoutErrors.StripeCardError
+  );
 }
 
 export function isTooManyAttemptsError(data: object): boolean {
-  return data && data['error'] && JSON.parse(data['error']).error === 'too_many_attempts';
+  return (
+    data &&
+    data["error"] &&
+    JSON.parse(data["error"]).error === "too_many_attempts"
+  );
 }

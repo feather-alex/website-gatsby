@@ -1,6 +1,9 @@
-import { CartItem } from '../pages/cart/store/cart.types';
+import { CartItem } from "../oldPages/cart/store/cart.types";
 
-export const calcSubTotal = (items: CartItem[], rentalLength: number): number => {
+export const calcSubTotal = (
+  items: CartItem[],
+  rentalLength: number
+): number => {
   let total = 0;
 
   for (let i = 0; i < items.length; i++) {

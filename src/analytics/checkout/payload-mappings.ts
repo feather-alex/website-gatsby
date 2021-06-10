@@ -1,8 +1,15 @@
-import { CheckoutStep, CheckoutStateStep } from '../../pages/checkout/store/checkout.types';
-import { CartItem, PromoType, PromoInfo as Promo } from '../../pages/cart/store/cart.types';
-import { Numbers } from '../../utils/numbers';
-import { DeliveryAreaIdentifier } from '../../app/store/plan/plan.types';
-import { AnalyticsProductFormatted } from '../types';
+import {
+  CheckoutStep,
+  CheckoutStateStep,
+} from "../../oldPages/checkout/store/checkout.types";
+import {
+  CartItem,
+  PromoType,
+  PromoInfo as Promo,
+} from "../../oldPages/cart/store/cart.types";
+import { Numbers } from "../../utils/numbers";
+import { DeliveryAreaIdentifier } from "../../app/store/plan/plan.types";
+import { AnalyticsProductFormatted } from "../types";
 
 interface ImpactOnlineSaleProduct {
   sku: string;
@@ -27,7 +34,7 @@ export const customerInfoPayloadMapping = ({
   email,
   firstName,
   lastName,
-  cartUuid
+  cartUuid,
 }: {
   company: string;
   email: string;
@@ -39,7 +46,7 @@ export const customerInfoPayloadMapping = ({
   customer_email: email,
   customer_first_name: firstName,
   customer_last_name: lastName,
-  cart_id: cartUuid
+  cart_id: cartUuid,
 });
 
 export const deliveryInfoPayloadMapping = ({
@@ -51,7 +58,7 @@ export const deliveryInfoPayloadMapping = ({
   phone,
   deliveryAreaIdentifier,
   cartUuid,
-  googleScriptFailed
+  googleScriptFailed,
 }: {
   streetAddress: string;
   apartment: string;
@@ -71,59 +78,81 @@ export const deliveryInfoPayloadMapping = ({
   customer_delivery_zip_code: zipcode,
   customer_delivery_area_identifier: deliveryAreaIdentifier,
   cart_id: cartUuid,
-  google_places_error: googleScriptFailed
+  google_places_error: googleScriptFailed,
 });
 
-export const enterPromoCodePayloadMapping = ({ promoCode, cartUuid }: { promoCode: string; cartUuid: string }) => ({
+export const enterPromoCodePayloadMapping = ({
+  promoCode,
+  cartUuid,
+}: {
+  promoCode: string;
+  cartUuid: string;
+}) => ({
   cart_id: cartUuid,
-  coupon_id: promoCode
+  coupon_id: promoCode,
 });
 
 const CheckoutStepsOrder = [
   CheckoutStep.CustomerInfo,
   CheckoutStep.DeliveryInfo,
   CheckoutStep.BillingAddress,
-  CheckoutStep.BillingInfo
+  CheckoutStep.BillingInfo,
 ];
 
-export const stepViewedPayloadMapping = ({ step, cartUuid }: { step: CheckoutStep; cartUuid: string }) => ({
+export const stepViewedPayloadMapping = ({
+  step,
+  cartUuid,
+}: {
+  step: CheckoutStep;
+  cartUuid: string;
+}) => ({
   checkout_id: cartUuid,
   step_viewed: step,
-  step: CheckoutStepsOrder.indexOf(step) + 1 // Segment expects a number
+  step: CheckoutStepsOrder.indexOf(step) + 1, // Segment expects a number
 });
 
 const stepCompleted = {
   customerInfo: CheckoutStep.CustomerInfo,
   deliveryInfo: CheckoutStep.DeliveryInfo,
   billingAddressInfo: CheckoutStep.BillingAddress,
-  billingInfo: CheckoutStep.BillingInfo
+  billingInfo: CheckoutStep.BillingInfo,
 };
 
-export const stepCompletedPayloadMapping = ({ step, cartUuid }: { step: CheckoutStateStep; cartUuid: string }) => ({
+export const stepCompletedPayloadMapping = ({
+  step,
+  cartUuid,
+}: {
+  step: CheckoutStateStep;
+  cartUuid: string;
+}) => ({
   checkout_id: cartUuid,
   step_completed: stepCompleted[step], // step here is coming from the action payload and needs to be formatted to match Data expectations
-  step: CheckoutStepsOrder.indexOf(stepCompleted[step]) + 1 // Segment expects a number
+  step: CheckoutStepsOrder.indexOf(stepCompleted[step]) + 1, // Segment expects a number
 });
 
 export const maxTCVExceededPayloadMapping = ({
   cartUuid,
-  eligibleForDeposit
+  eligibleForDeposit,
 }: {
   cartUuid: string;
   eligibleForDeposit: boolean;
 }) => ({
   cart_id: cartUuid,
-  eligible_for_deposit: eligibleForDeposit
+  eligible_for_deposit: eligibleForDeposit,
 });
 
-export const checkoutActionsCartUuidPayloadMapping = ({ cartUuid }: { cartUuid: string }) => ({
-  cart_id: cartUuid
+export const checkoutActionsCartUuidPayloadMapping = ({
+  cartUuid,
+}: {
+  cartUuid: string;
+}) => ({
+  cart_id: cartUuid,
 });
 
 export const calculateTotalContractValue = ({
   dueNow,
   dueMonthly,
-  rentalLength
+  rentalLength,
 }: {
   dueNow: number;
   dueMonthly: number;
@@ -194,7 +223,7 @@ export const successfulCheckoutPayloadMapping = ({
   rentalLength,
   subtotal,
   promo,
-  cartUuid
+  cartUuid,
 }: SuccessfulCheckoutPayloadInput): SuccessfulCheckoutPayloadOutput => {
   const successfulCheckoutProducts: AnalyticsProductFormatted[] = [];
   const cartIds: string[] = [];
@@ -210,7 +239,11 @@ export const successfulCheckoutPayloadMapping = ({
       successfulCheckoutProducts.push({
         product_id: item.identifier,
         sku: item.identifier,
-        category: (item.categories && item.categories[0] && item.categories[0].identifier) || '',
+        category:
+          (item.categories &&
+            item.categories[0] &&
+            item.categories[0].identifier) ||
+          "",
         name: item.title,
         brand: item.brand,
         variant: item.variantIdentifier,
@@ -218,7 +251,9 @@ export const successfulCheckoutPayloadMapping = ({
         quantity: 1,
         position: 1,
         url: `${window.location.origin}/products/${item.identifier}`,
-        image_url: `${item.image.desktop || item.image.mobile}?auto=compress,format`
+        image_url: `${
+          item.image.desktop || item.image.mobile
+        }?auto=compress,format`,
       });
 
       cartQuantity += item.quantity;
@@ -227,18 +262,22 @@ export const successfulCheckoutPayloadMapping = ({
     });
   }
 
-  const tcv = calculateTotalContractValue({ dueNow: transactionTotal, dueMonthly: monthlyTotal, rentalLength });
+  const tcv = calculateTotalContractValue({
+    dueNow: transactionTotal,
+    dueMonthly: monthlyTotal,
+    rentalLength,
+  });
 
   return {
     // Segment expected properties
     checkout_id: cartUuid,
     order_id: transactionId.toString(),
-    affiliation: utmData || '',
+    affiliation: utmData || "",
     subtotal,
     total: tcv, // we pass tcv as total because this is the property that many 3rd parties pull and our marketing team wants to be looking at tcv
     tax: transactionTax,
     discount: promo ? promo.amount : 0,
-    coupon: (promo && promo.code) || '',
+    coupon: (promo && promo.code) || "",
     products: successfulCheckoutProducts,
 
     // Feather properties
@@ -254,7 +293,7 @@ export const successfulCheckoutPayloadMapping = ({
     coupon_type_used: promo && promo.type,
     tcv,
     rental_length: rentalLength,
-    shipping: deliveryFee
+    shipping: deliveryFee,
   };
 };
 
@@ -262,7 +301,7 @@ export const trackCheckoutUserPayloadMapping = ({
   firstName,
   lastName,
   email,
-  company
+  company,
 }: {
   firstName: string;
   lastName: string;
@@ -271,7 +310,7 @@ export const trackCheckoutUserPayloadMapping = ({
 }) => ({
   name: `${firstName} ${lastName}`,
   email,
-  company
+  company,
 });
 
 // Order Completed Event Mappings
@@ -279,7 +318,7 @@ export const trackCheckoutUserPayloadMapping = ({
 const determineDiscountAmount = ({
   promo,
   subtotal,
-  rentalLength
+  rentalLength,
 }: {
   promo?: Promo | null;
   subtotal: number; // subtotal is solely the furniture cost
@@ -289,7 +328,9 @@ const determineDiscountAmount = ({
 
   if (promo && promo.type) {
     if (promo.type === PromoType.Percentage) {
-      discount = Numbers.toDecimal(promo.amount * 0.01 * (rentalLength * subtotal));
+      discount = Numbers.toDecimal(
+        promo.amount * 0.01 * (rentalLength * subtotal)
+      );
     } else if (promo.amount > subtotal) {
       discount = subtotal;
     } else {
@@ -301,7 +342,7 @@ const determineDiscountAmount = ({
 };
 
 const determineDiscountCode = (promo?: Promo | null) => {
-  let promoCode = '';
+  let promoCode = "";
   if (promo && promo.code) {
     promoCode = promo.code;
   }
@@ -317,23 +358,25 @@ type ImpactRadiusClickIDContext = {
   };
 };
 
-export const impactClickIdContextMapping = (impactClickId?: string): ImpactRadiusClickIDContext | undefined => {
+export const impactClickIdContextMapping = (
+  impactClickId?: string
+): ImpactRadiusClickIDContext | undefined => {
   if (!impactClickId) {
     return undefined;
   }
   return {
     context: {
       referrer: {
-        type: 'impactRadius',
-        id: impactClickId
-      }
-    }
+        type: "impactRadius",
+        id: impactClickId,
+      },
+    },
   };
 };
 
 export const formatCartItemsForImpactOnlineSale = ({
   cartItems,
-  rentalLength
+  rentalLength,
 }: {
   cartItems: CartItem[];
   rentalLength: number;
@@ -342,21 +385,23 @@ export const formatCartItemsForImpactOnlineSale = ({
     sku: cartItem.identifier,
     category:
       cartItem.categories && cartItem.categories.length > 0
-        ? cartItem.categories.map((category: { identifier: string }) => category.identifier).join(',')
-        : 'unknown',
+        ? cartItem.categories
+            .map((category: { identifier: string }) => category.identifier)
+            .join(",")
+        : "unknown",
     quantity: 1,
     price: cartItem.rentalPrices[cartItem.rentalLength] * cartItem.rentalLength,
-    name: cartItem.title
+    name: cartItem.title,
   }));
 
   // if a membership, add membership fee as a product
   if (rentalLength === 12) {
     products.push({
-      sku: 'membership-fee',
-      category: 'non-products',
+      sku: "membership-fee",
+      category: "non-products",
       quantity: 1,
       price: 19 * rentalLength,
-      name: 'Membership Fee'
+      name: "Membership Fee",
     });
   }
 
@@ -370,7 +415,7 @@ export const impactOnlineSalePayloadMapping = ({
   cartItems,
   subtotal,
   rentalLength,
-  deliveryFee
+  deliveryFee,
 }: {
   impactClickId?: string;
   promo: Promo | null;
@@ -380,14 +425,18 @@ export const impactOnlineSalePayloadMapping = ({
   rentalLength: number;
   deliveryFee: number;
 }): ImpactOnlineSalePayload => {
-  const discountAmount = determineDiscountAmount({ promo, subtotal, rentalLength });
+  const discountAmount = determineDiscountAmount({
+    promo,
+    subtotal,
+    rentalLength,
+  });
   return {
     orderId,
     coupon: determineDiscountCode(promo),
     shipping: deliveryFee,
     products: formatCartItemsForImpactOnlineSale({ cartItems, rentalLength }),
     ClickId: impactClickId,
-    currency: 'USD',
-    discount: discountAmount
+    currency: "USD",
+    discount: discountAmount,
   };
 };

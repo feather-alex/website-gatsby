@@ -1,4 +1,4 @@
-import { PromoInfo } from '../pages/cart/store/cart.types';
+import { PromoInfo } from "../oldPages/cart/store/cart.types";
 
 export interface CheckoutAmountsResource {
   discountInfo: PromoInfo;

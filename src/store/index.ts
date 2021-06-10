@@ -29,8 +29,8 @@ import sagas from "./sagas";
 //   PreviousQuizState,
 // } from "../types/ReduxState";
 import { FluxStandardAction } from "../types/FluxStandardActions";
-// import { ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, RESET_CART } from '../pages/cart/store/cart.actions';
-// import { LOGIN_SUCCESS, LOGOUT_REQUEST } from '../pages/auth/login/store/login.actions';
+// import { ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, RESET_CART } from '../oldPages/cart/store/cart.actions';
+// import { LOGIN_SUCCESS, LOGOUT_REQUEST } from '../oldPages/auth/login/store/login.actions';
 import {
   CHANGE_MEMBERSHIP_SELECTION,
   ZIPCODE_SUBMIT_REQUEST,
