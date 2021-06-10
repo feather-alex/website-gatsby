@@ -2,8 +2,8 @@
 import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
 import { BRAND, COLORS } from "../variables";
-// import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-// import { State as GlobalState } from '../../types/ReduxState';
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import { State as GlobalState } from "../../types/ReduxState";
 import DesktopFooter from "./footerComponents/DesktopFooter";
 import MobileFooter from "./footerComponents/MobileFooter";
 import FeatherArchLogo from "../logos/FeatherArchLogo";
@@ -45,8 +45,8 @@ const Footer = ({ isMobileBreakpoint }: Props) => {
   );
 };
 
-// const mapStateToProps = (state: GlobalState) => ({
-//   isMobileBreakpoint: getIsMobileBreakpoint(state)
-// });
+const mapStateToProps = (state: GlobalState) => ({
+  isMobileBreakpoint: getIsMobileBreakpoint(state),
+});
 
-export default Footer;
+export default connect(mapStateToProps)(Footer);

@@ -2,7 +2,7 @@
 import { Component, Fragment } from "react";
 import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { Link } from "gatsby";
 import HowItWorksDropdown from "./components/HowItWorksDropdown";
 import FurnitureDropdown from "./components/FurnitureDropdown";
 import AccountDropdown from "./components/AccountDropdown";
@@ -12,7 +12,7 @@ import NavListItemMenu from "./components/NavListItemMenu";
 import FeatherLogo from "../../ui/logos/FeatherWordMarkLogo";
 import { BRAND } from "../../ui/variables";
 import Title2 from "../../ui/titles/Title2";
-import { NAVBAR_DESKTOP_HEIGHT } from "../store/dimensions/dimensions.selectors";
+// import { NAVBAR_DESKTOP_HEIGHT } from "../store/dimensions/dimensions.selectors";
 // import Analytics from '../../analytics/analytics';
 // import { NAVBAR } from '../../analytics/navbar/events';
 import { Z_INDICIES } from "../../ui/zIndicies";
@@ -112,13 +112,13 @@ class DesktopNavbar extends Component<Props, State> {
       this.state.isDropdownMouseOverEnabled &&
       this.state[navMenu] === false
     ) {
-      this.setState({ [`${navMenu}`]: true });
+      this.setState((prevState) => ({ ...prevState, [`${navMenu}`]: true }));
     }
   };
 
   handleMouseOut = (navMenu: DropdownMenus) => () => {
     if (this.state[navMenu] === true) {
-      this.setState({ [`${[navMenu]}`]: false });
+      this.setState((prevState) => ({ ...prevState, [`${[navMenu]}`]: false }));
     }
   };
 

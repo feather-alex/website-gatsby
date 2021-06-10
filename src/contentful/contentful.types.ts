@@ -1,16 +1,17 @@
-import { Document } from '@contentful/rich-text-types';
-import { Asset, Entry, EntryCollection, RichTextDataTarget } from 'contentful';
-import { ButtonStyle } from '../ui/buttons/Button';
+import { Document } from "@contentful/rich-text-types";
+import { Asset, Entry, EntryCollection, RichTextDataTarget } from "contentful";
+import { ButtonStyle } from "../ui/buttons/Button";
 
 export enum CONTENTFUL_IDS {
-  FAQ = '19cSV4WCOoeAjMuK1l6VXz',
-  ENTERPRISE = '5QY5my2EsNfJLm4cw143Xm',
-  HOMEPAGE = '3FyP8FtyLseV2muxDc09y3',
-  HOW_IT_WORKS = '9ohjtovljXEnuHLISmG6j',
-  ACCOUNTS_FAQ_MEMBER = '04wSWz9EFZFwsUtsbXNxg',
-  ACCOUNTS_FAQ_NON_MEMBER = '3OKHd2w2atsmxfRkLKL0F8',
-  ACCOUNTS_FAQ_LEGACY = '4QFHbBqxqAhPSlCVfKdN2p',
-  FEATHER_PERKS = '1rmRh5ZKjkCaD6E6duckQn'
+  FAQ = "19cSV4WCOoeAjMuK1l6VXz",
+  ENTERPRISE = "5QY5my2EsNfJLm4cw143Xm",
+  HOMEPAGE = "3FyP8FtyLseV2muxDc09y3",
+  HOW_IT_WORKS = "9ohjtovljXEnuHLISmG6j",
+  ACCOUNTS_FAQ_MEMBER = "04wSWz9EFZFwsUtsbXNxg",
+  ACCOUNTS_FAQ_NON_MEMBER = "3OKHd2w2atsmxfRkLKL0F8",
+  ACCOUNTS_FAQ_LEGACY = "4QFHbBqxqAhPSlCVfKdN2p",
+  FEATHER_PERKS = "1rmRh5ZKjkCaD6E6duckQn",
+  MOBILE_NAV = "5ar575rgJ5UJBAls6Purf8",
 }
 
 export interface FAQ {
@@ -43,9 +44,9 @@ export interface Meta {
 export type MetaContentful = Entry<Meta>;
 
 export enum UrlType {
-  INTERNAL = 'internal',
-  EXTERNAL = 'external',
-  EMAIL = 'email'
+  INTERNAL = "internal",
+  EXTERNAL = "external",
+  EMAIL = "email",
 }
 
 export interface Button {
@@ -60,7 +61,7 @@ export type ButtonContentful = Entry<Button>;
 export interface ImageAndTextBase {
   header: string;
   imageUrl: string;
-  imagePosition?: 'left' | 'right' | 'above' | 'below';
+  imagePosition?: "left" | "right" | "above" | "below";
   isVertical: boolean;
 }
 
@@ -69,7 +70,9 @@ export interface ImageAndText extends ImageAndTextBase {
   cta?: Button;
 }
 
-export type ImageAndTextContentful = Entry<ImageAndTextBase & { cta: ButtonContentful; paragraph: Document }>;
+export type ImageAndTextContentful = Entry<
+  ImageAndTextBase & { cta: ButtonContentful; paragraph: Document }
+>;
 
 export interface TextLockup {
   title: string;
@@ -95,7 +98,9 @@ export interface ReviewsFeature extends ReviewsFeatureBase {
   reviews: Review[];
 }
 
-export type ReviewsFeatureContentful = Entry<ReviewsFeatureBase & { reviews: ReviewContentful[] }>;
+export type ReviewsFeatureContentful = Entry<
+  ReviewsFeatureBase & { reviews: ReviewContentful[] }
+>;
 export interface FurnitureFeature {
   title: string;
   furnitureIdentifiers: string[];
@@ -109,13 +114,16 @@ export interface HeaderAndButtonSection {
   ctaButton: Button;
 }
 
-export type HeaderAndButtonSectionContentful = Entry<HeaderAndButtonSection & { ctaButton: ButtonContentful }>;
+export type HeaderAndButtonSectionContentful = Entry<
+  HeaderAndButtonSection & { ctaButton: ButtonContentful }
+>;
 
 export interface TitledTripleVerticalLockupBase {
   title: string;
 }
 
-export interface TitledTripleVerticalLockup extends TitledTripleVerticalLockupBase {
+export interface TitledTripleVerticalLockup
+  extends TitledTripleVerticalLockupBase {
   imageLockups: ImageAndText[];
 }
 
@@ -149,7 +157,11 @@ export interface HomepageHero extends HomepageHeroBase {
 }
 
 export type HomepageHeroContentful = Entry<
-  HomepageHeroBase & { cta: ButtonContentful[]; desktopImage: Asset; mobileImage: Asset }
+  HomepageHeroBase & {
+    cta: ButtonContentful[];
+    desktopImage: Asset;
+    mobileImage: Asset;
+  }
 >;
 
 export interface RoomBase {
@@ -170,7 +182,9 @@ export interface ShopByRoom extends ShopByRoomBase {
   rooms: Room[];
 }
 
-export type ShopByRoomContentful = Entry<ShopByRoomBase & { rooms: RoomContentful[] }>;
+export type ShopByRoomContentful = Entry<
+  ShopByRoomBase & { rooms: RoomContentful[] }
+>;
 
 export interface HowItWorksStep {
   step: string;
@@ -218,7 +232,10 @@ export interface PointsBreakdown {
 }
 
 export type PointsBreakdownContentful = Entry<
-  PointsBreakdown & { bulletPoints: BulletPointContentful[]; button: ButtonContentful }
+  PointsBreakdown & {
+    bulletPoints: BulletPointContentful[];
+    button: ButtonContentful;
+  }
 >;
 
 export interface HeaderParagraphButtonSection {
@@ -228,13 +245,68 @@ export interface HeaderParagraphButtonSection {
 }
 
 export type HeaderParagraphButtonSectionContentful = Entry<
-  HeaderParagraphButtonSection & { paragraph?: Document; button?: ButtonContentful }
+  HeaderParagraphButtonSection & {
+    paragraph?: Document;
+    button?: ButtonContentful;
+  }
 >;
 export interface PagesBase {
   title: string;
   slug: string;
   template: string;
 }
+
+export interface NavSecondaryCategory {
+  name: string;
+  image: ContentfulImage;
+  link: string;
+  isFullscreen: boolean;
+}
+
+export type NavSecondaryCategoryContentful = Entry<
+  NavSecondaryCategory & { image: Asset }
+>;
+
+export interface SecondaryGroup {
+  title?: string;
+  categories: NavSecondaryCategory[];
+}
+
+export type SecondaryGroupContentful = Entry<
+  SecondaryGroup & { categories: NavSecondaryCategoryContentful[] }
+>;
+
+export interface NavCategoryWithSubmenu {
+  name: string;
+  image: ContentfulImage;
+  secondaryMenuTitle: string;
+  secondaryGroups: SecondaryGroup[];
+  designWithArrow: boolean;
+}
+
+export type NavCategoryWithSubmenuContentful = Entry<
+  NavCategoryWithSubmenu & {
+    image: Asset;
+    secondaryGroups: SecondaryGroupContentful[];
+  }
+>;
+
+export interface NavCategoryDirectLink {
+  name: string;
+  image: ContentfulImage;
+  link: string;
+  designWithArrow: boolean;
+}
+
+export type NavCategoryDirectLinkContentful = Entry<
+  NavCategoryDirectLink & { image: Asset }
+>;
+
+export interface MobileNav {
+  categories: (NavCategoryWithSubmenu | NavCategoryDirectLink)[];
+}
+
+export type MobileNavContentful = Entry<MobileNav>;
 
 export interface Pages extends PagesBase {
   pageId: string;
