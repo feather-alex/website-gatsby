@@ -49,5 +49,15 @@ module.exports = {
       resolve: "gatsby-source-contentful",
       options: contentfulConfig,
     },
+    {
+      resolve: "gatsby-plugin-react-redux-persist",
+      options: {
+        pathToCreateStoreModule: "./src/store",
+        // optional configs
+        // serialize: {},
+        // cleanupOnClient: true
+        // windowKey: "_root" <-- may need this to be aligned with client-side config
+      },
+    },
   ],
 };
