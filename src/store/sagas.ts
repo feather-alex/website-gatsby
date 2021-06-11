@@ -29,7 +29,7 @@ import homepageWatcher from "../oldPages/homepage/store/homepage.sagas";
 import howItWorksWatcher from "../oldPages/howItWorks/store/howItWorks.sagas";
 import contentfulEnterpriseWatcher from "../oldPages/enterprise/store/enterprise.sagas";
 import featherPerksWatcher from "../oldPages/account/featherPerks/store/featherPerks.sagas";
-import contentfulLocationWatcher from "../templates/location/store/location.sagas";
+// import contentfulLocationWatcher from "../templates/location/store/location.sagas";
 import contentfulPagesWatcher from "../app/store/contentfulPages/pages.sagas";
 
 export default function* root() {
@@ -64,7 +64,7 @@ export default function* root() {
     howItWorksWatcher(),
     contentfulEnterpriseWatcher(),
     featherPerksWatcher(),
-    contentfulLocationWatcher(),
+    // contentfulLocationWatcher(),
     contentfulPagesWatcher(),
   ]);
 }

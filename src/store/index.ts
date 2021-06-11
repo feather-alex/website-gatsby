@@ -1,10 +1,11 @@
-import { routerMiddleware as createRouterMiddleware } from "connected-react-router";
+// import { routerMiddleware as createRouterMiddleware } from "connected-react-router";
 import { createStore, applyMiddleware, Store, Middleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   persistReducer,
-  createMigrate,
-  MigrationManifest,
+  persistStore,
+  //createMigrate,
+  // MigrationManifest,
   // PersistedState,
 } from "redux-persist";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
@@ -17,7 +18,7 @@ import {
 import thunk from "redux-thunk";
 // import { v1 } from "uuid";
 
-import { history } from "./history";
+// import { history } from "./history";
 import callAPI from "./middleware/callAPI";
 import createRootReducer from "./reducer";
 import sagas from "./sagas";
@@ -29,8 +30,15 @@ import sagas from "./sagas";
 //   PreviousQuizState,
 // } from "../types/ReduxState";
 import { FluxStandardAction } from "../types/FluxStandardActions";
-// import { ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, RESET_CART } from '../oldPages/cart/store/cart.actions';
-// import { LOGIN_SUCCESS, LOGOUT_REQUEST } from '../oldPages/auth/login/store/login.actions';
+import {
+  ADD_ITEM_TO_CART,
+  REMOVE_ITEM_FROM_CART,
+  RESET_CART,
+} from "../oldPages/cart/store/cart.actions";
+import {
+  LOGIN_SUCCESS,
+  LOGOUT_REQUEST,
+} from "../oldPages/auth/login/store/login.actions";
 import {
   CHANGE_MEMBERSHIP_SELECTION,
   ZIPCODE_SUBMIT_REQUEST,
@@ -38,23 +46,18 @@ import {
 } from "../app/store/plan/plan.actions";
 // import Report from '../errorReporter';
 
-// reset state migration list as this won't be needed after transition to gatsby
-const migrations: MigrationManifest = {};
-
 const syncedActions = [
-  // ADD_ITEM_TO_CART,
-  // REMOVE_ITEM_FROM_CART,
-  // RESET_CART,
-  // LOGIN_SUCCESS,
-  // LOGOUT_REQUEST,
+  ADD_ITEM_TO_CART,
+  REMOVE_ITEM_FROM_CART,
+  RESET_CART,
+  LOGIN_SUCCESS,
+  LOGOUT_REQUEST,
   CHANGE_MEMBERSHIP_SELECTION,
   ZIPCODE_SUBMIT_REQUEST, // zipcode is set in store when the request fires
   ZIPCODE_SUBMIT_SUCCESS,
 ];
 
-// TODO: Fix this the next time the file is edited.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const configureStore = (): Store<any> => {
+const configureStore = () => {
   const persistConfig = {
     key: "_root",
     version: 4,
@@ -70,7 +73,6 @@ const configureStore = (): Store<any> => {
       "auth",
     ],
     stateReconciler: autoMergeLevel2,
-    migrate: createMigrate(migrations),
   };
   const stateSyncConfig = {
     // only trigger sync in all tabs for selected syncedActions:
@@ -81,7 +83,7 @@ const configureStore = (): Store<any> => {
 
   const persistedReducer = persistReducer(
     persistConfig,
-    createRootReducer(history)
+    createRootReducer() as any
   );
 
   const sagaMiddleware = createSagaMiddleware({
@@ -92,17 +94,17 @@ const configureStore = (): Store<any> => {
       //   context: {
       //     sagaStack
       //   }
-      // });
+      // })
     },
   });
-  const routerMiddleware = createRouterMiddleware(history);
+  // const routerMiddleware = createRouterMiddleware(history);
   const stateSyncMiddleware = createStateSyncMiddleware(stateSyncConfig);
 
   const middleware: Middleware[] = [
     thunk,
     callAPI,
     sagaMiddleware,
-    routerMiddleware,
+    // routerMiddleware,
     stateSyncMiddleware,
   ];
 
@@ -111,12 +113,14 @@ const configureStore = (): Store<any> => {
     composeWithDevTools(applyMiddleware(...middleware))
   );
 
+  const persistor = persistStore(store);
+
   // this is used by redux-state-sync to pass store.dispatch to the message listener
   initMessageListener(store);
 
   sagaMiddleware.run(sagas);
 
-  return store;
+  return { store, persistor };
 };
 
-export default configureStore();
+export default configureStore;

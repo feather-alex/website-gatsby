@@ -1,30 +1,30 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import styled from '@emotion/styled';
-import React, { Fragment, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import ProductFilterButtons from './ProductFilterButtons';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import ArrowIcon, { Direction } from '../../ui/icons/ArrowIcon';
-import { BRAND as BRAND_COLORS, COLORS, BREAKPOINTS } from '../../ui/variables';
-import ProductMobileFilters from './ProductMobileFilters';
-import { Meta } from '../../types/ReduxState';
-import { getIsMobileProductFiltersOpen } from '../../app/store/overlay/overlay.selectors';
-import { toggleOverlay } from '../../app/store/overlay/overlay.actions';
-import { Overlays } from '../../app/store/overlay/overlay.types';
-import { getSelectPlanButtonText } from '../../app/store/plan/plan.selectors';
-import CloseSignIcon from '../../ui/icons/CloseSignIcon';
-import Analytics from '../../analytics/analytics';
-import { PRODUCT_CATEGORY } from '../../analytics/product-category/events';
-import Title1 from '../../ui/titles/Title1';
-import { getBodyMarginTop } from '../../app/store/dimensions/dimensions.selectors';
-import { useHistory } from 'react-router';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
-import { Z_INDICIES } from '../../ui/zIndicies';
-import useMount from '../../utils/useMount';
-import { productHeaderHeight } from './ProductHeader';
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
+import React, { Fragment, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import ProductFilterButtons from "./ProductFilterButtons";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import ArrowIcon, { Direction } from "../../ui/icons/ArrowIcon";
+import { BRAND as BRAND_COLORS, COLORS, BREAKPOINTS } from "../../ui/variables";
+import ProductMobileFilters from "./ProductMobileFilters";
+import { Meta } from "../../types/ReduxState";
+import { getIsMobileProductFiltersOpen } from "../../app/store/overlay/overlay.selectors";
+import { toggleOverlay } from "../../app/store/overlay/overlay.actions";
+import { Overlays } from "../../app/store/overlay/overlay.types";
+import { getSelectPlanButtonText } from "../../app/store/plan/plan.selectors";
+import CloseSignIcon from "../../ui/icons/CloseSignIcon";
+import Analytics from "../../analytics/analytics";
+import { PRODUCT_CATEGORY } from "../../analytics/product-category/events";
+import Title1 from "../../ui/titles/Title1";
+import { getBodyMarginTop } from "../../app/store/dimensions/dimensions.selectors";
+import { useHistory } from "react-router";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
+import { Z_INDICIES } from "../../ui/zIndicies";
+import useMount from "../../utils/useMount";
+import { productHeaderHeight } from "./ProductHeader";
 
-const RefineFurnitureButton = styled('button')`
+const RefineFurnitureButton = styled("button")`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +37,7 @@ const RefineFurnitureButton = styled('button')`
   font-weight: 500;
   transition: box-shadow 200ms linear;
   box-shadow: ${({ isBoxShadowActive }: { isBoxShadowActive: boolean }) =>
-    isBoxShadowActive ? `0px 4px 8px rgba(0, 0, 0, 0.08)` : 'none'};
+    isBoxShadowActive ? `0px 4px 8px rgba(0, 0, 0, 0.08)` : "none"};
 
   @media ${BREAKPOINTS.MOBILE} {
     font-size: 16px;
@@ -82,12 +82,15 @@ const ProductRefineMobile = ({ filterNameMap, productMeta }: Props) => {
     handleClose();
   }, [history, handleClose]);
 
-  const handleScroll = () => setIsShadowVisible(window.scrollY > productHeaderHeight);
+  const handleScroll = () =>
+    setIsShadowVisible(window.scrollY > productHeaderHeight);
 
   useMount(() => {
-    document.addEventListener('scroll', handleScroll);
+    if (document) {
+      document.addEventListener("scroll", handleScroll);
+    }
     return () => {
-      document.removeEventListener('scroll', handleScroll);
+      document.removeEventListener("scroll", handleScroll);
     };
   });
 
@@ -102,7 +105,11 @@ const ProductRefineMobile = ({ filterNameMap, productMeta }: Props) => {
           transition: top 400ms linear;
         `}
       >
-        <RefineFurnitureButton type="button" onClick={handleRefineClick} isBoxShadowActive={isShadowVisible}>
+        <RefineFurnitureButton
+          type="button"
+          onClick={handleRefineClick}
+          isBoxShadowActive={isShadowVisible}
+        >
           <Paragraph1
             css={css`
               margin-right: 8px;
@@ -120,7 +127,11 @@ const ProductRefineMobile = ({ filterNameMap, productMeta }: Props) => {
         `}
       >
         <ProductFilterButtons filterNameMap={filterNameMap} />
-        <Button style={ButtonStyle.TERTIARY} onClick={handleSelectPlanClick} isFullWidth={true}>
+        <Button
+          style={ButtonStyle.TERTIARY}
+          onClick={handleSelectPlanClick}
+          isFullWidth={true}
+        >
           {selectPlanButtonText}
         </Button>
       </div>
@@ -147,7 +158,11 @@ const ProductRefineMobile = ({ filterNameMap, productMeta }: Props) => {
               display: flex;
               justify-content: center;
               align-items: center;
-              background: linear-gradient(0deg, hsla(0, 0%, 100%, 0) 0, ${BRAND_COLORS.BACKGROUND} 40%);
+              background: linear-gradient(
+                0deg,
+                hsla(0, 0%, 100%, 0) 0,
+                ${BRAND_COLORS.BACKGROUND} 40%
+              );
             `}
           >
             <div
@@ -167,7 +182,11 @@ const ProductRefineMobile = ({ filterNameMap, productMeta }: Props) => {
             css={css`
               position: fixed;
               bottom: 114px;
-              background: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 0, ${BRAND_COLORS.BACKGROUND} 70%);
+              background: linear-gradient(
+                180deg,
+                hsla(0, 0%, 100%, 0) 0,
+                ${BRAND_COLORS.BACKGROUND} 70%
+              );
               height: 63px;
               width: 100%;
             `}

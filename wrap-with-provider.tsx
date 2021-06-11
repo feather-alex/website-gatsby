@@ -1,8 +1,19 @@
 import React from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
-import stateStore from "./src/store";
+import createStore from "./src/store";
+import Loading from "./src/components/Loading";
 
-export default ({ element }) => (
-  <Provider store={stateStore}>{element}</Provider>
-);
+export default ({ element }) => {
+  const { store, persistor } = createStore();
+  console.log("store: ", store);
+  console.log("persistor: ", persistor);
+  return (
+    <Provider store={store}>
+      <PersistGate loading={<Loading />} persistor={persistor}>
+        {element}
+      </PersistGate>
+    </Provider>
+  );
+};

@@ -52,7 +52,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-react-redux-persist",
       options: {
-        pathToCreateStoreModule: "./src/store",
+        pathToCreateStoreModule: "./src/store/index",
         // optional configs
         // serialize: {},
         // cleanupOnClient: true

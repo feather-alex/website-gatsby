@@ -1,4 +1,4 @@
-import { RouterState } from "connected-react-router";
+// import { RouterState } from "connected-react-router";
 import { ProductEntitiesState } from "../app/store/entities/entities.types";
 import { DimensionsState } from "../app/store/dimensions/dimensions.types";
 import { NewsletterState } from "../app/store/newsletter-signup/newsletter.signup.types";
@@ -50,7 +50,7 @@ export interface State {
   trackingParameters: TrackingParameters;
   search: Search;
   navigation: Navigation;
-  router: RouterState;
+  // router: RouterState;
   contact: ContactState;
   faq: FaqContentState;
   enterprise: EnterpriseContentState;

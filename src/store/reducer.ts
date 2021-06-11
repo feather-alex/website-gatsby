@@ -1,7 +1,7 @@
 import { reducer as formReducer } from "redux-form";
-import { connectRouter } from "connected-react-router";
+// import { connectRouter } from "connected-react-router";
 import { combineReducers } from "redux";
-import { History } from "history";
+// import { History } from "history";
 import trackingParameters, {
   initialState as trackingParametersInitialState,
 } from "../reducers/tracking-parameters";
@@ -138,22 +138,22 @@ export const initialState: GlobalState = {
     billingInformation: billingInformationInitialState,
     personalInformation: personalInformationInitialState,
   },
-  router: {
-    location: {
-      pathname: "/",
-      search: "",
-      hash: "",
-      state: "",
-      query: {},
-    },
-    action: "POP",
-  },
+  // router: {
+  //   location: {
+  //     pathname: "/",
+  //     search: "",
+  //     hash: "",
+  //     state: "",
+  //     query: {},
+  //   },
+  //   action: "POP",
+  // },
   // locationContent: locationInitialState,
   homepage: homepageInitialState,
   featherPerks: featherPerksInitialState,
 };
 
-const createRootReducer = (history: History) =>
+const createRootReducer = () =>
   combineReducers({
     app: combineReducers({
       productEntities,
@@ -181,7 +181,7 @@ const createRootReducer = (history: History) =>
     productPairings,
     form: formReducer,
     trackingParameters,
-    router: connectRouter(history),
+    // router: connectRouter(history),
     auth,
     entities: combineReducers({
       pkg,
