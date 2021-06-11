@@ -1,0 +1,161 @@
+.checkout-page__order-summary {
+  width: 100%;
+  order: 1;
+  background-color: $brand-background-cream;
+  @include accordion($checkout-background-color);
+
+  .panel.panel-default {
+    margin-bottom: 0;
+  }
+
+  .order-summary__header-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5%;
+    background: white;
+    border-top: 1px solid $checkout-summary-footer-line;
+    border-bottom: 1px solid $checkout-summary-footer-line;
+
+    span {
+      font-weight: 500;
+    }
+
+    p {
+      color: $brand-font-grey;
+    }
+
+    .rotated-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .order-summary__header-desktop {
+    display: none;
+    background-color: white;
+
+    .desktop-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 100px 50px 0;
+      border-left: 1px solid $checkout-summary-footer-line;
+
+      span {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      p {
+        color: $brand-font-grey;
+      }
+    }
+  }
+
+  .order-summary__banner {
+    height: 46px;
+    background: $brand-red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+  }
+
+  .order-summary__footer {
+    background-color: $brand-background-cream;
+    height: 284px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .order-summary-total {
+      padding: 0 $mobile-margin;
+
+      .total-detail {
+        padding: 5px 0;
+        display: flex;
+        align-items: center;
+
+        .grey-right {
+          color: $text-color;
+        }
+
+        .below-minimum-amount {
+          color: $brand-red;
+        }
+
+        .line {
+          flex: 1;
+          margin: 0 20px;
+          border-bottom: 1px solid $checkout-summary-footer-line;
+        }
+      }
+
+      .delivery-fee-detail {
+        color: $brand-red;
+        display: flex;
+        align-items: center;
+
+        .delivery-fee-amount {
+          margin-left: auto;
+        }
+      }
+    }
+
+    .order-summary-due-now {
+      padding: 0 $mobile-margin $mobile-margin;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+
+      .grey-right {
+        color: $text-color;
+      }
+
+      .line {
+        flex: 1;
+        margin: 0 20px;
+        border-bottom: 1px solid $checkout-summary-footer-line;
+      }
+
+      .amount {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .checkout-page__order-summary {
+    width: 45%;
+    margin-top: -50px;
+    order: 2;
+    position: relative;
+    background-color: $brand-background-cream;
+
+    .order-summary__header-desktop {
+      display: block;
+    }
+
+    .order-summary__header-mobile {
+      display: none;
+    }
+
+    .order-summary__banner {
+      position: absolute;
+      bottom: 284px;
+      width: 100%;
+    }
+
+    .order-summary__footer {
+      .order-summary-total {
+        padding: 0 50px;
+      }
+
+      .order-summary-due-now {
+        padding: 0 50px 30px;
+      }
+    }
+  }
+}

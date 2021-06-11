@@ -1,0 +1,16 @@
+.plan-billing-page {
+  .updated-message {
+    margin-top: 30px;
+    border: 1px solid #e2ddd7;
+    box-sizing: border-box;
+    color: $brand-teal;
+    height: 124px;
+    width: 382px;
+    padding: 20px;
+
+    @media screen and (max-width: 768px) {
+      width: unset;
+      height: 145px;
+    }
+  }
+}

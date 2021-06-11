@@ -1,0 +1,39 @@
+.fee-breakdown {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  table {
+    margin-top: 10px;
+    width: 600px;
+    height: 205px;
+
+    tr {
+      border: 1px solid #e2ddd7;
+      box-sizing: border-box;
+
+      td {
+        padding-left: 10px;
+        line-height: 19px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .fee-breakdown {
+    table {
+      width: 100%;
+      height: 256px;
+
+      .fee-type {
+        width: 227px;
+      }
+
+      td {
+        width: 51.78px;
+        height: 30px;
+        word-wrap: break-word;
+      }
+    }
+  }
+}

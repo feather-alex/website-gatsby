@@ -1,0 +1,26 @@
+.error-page {
+  position: relative;
+  height: 100vh;
+  height: calc(100vh - 75px);
+  padding: 0 20px;
+  text-align: center;
+  @include flex(column);
+  justify-content: center;
+
+  .text {
+    p {
+      margin: 20px 0 50px;
+
+      &.refresh {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .error-page {
+    height: 100vh;
+    height: calc(100vh - 90px);
+  }
+}

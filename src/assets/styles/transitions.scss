@@ -1,0 +1,119 @@
+// HEADER FADE IN UP
+.fade-in-up-appear {
+  opacity: 0;
+  transform: translate(0, -250px);
+  transform: translate3d(0, 50px, 0);
+}
+
+.fade-in-up-appear.fade-in-up-appear-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-duration: 2500ms;
+  transition-timing-function: cubic-bezier(0, 0.76, 0, 1);
+}
+
+.fade-in-up-enter {
+  opacity: 0;
+  transform: translate(0, -250px);
+  transform: translate3d(0, 50px, 0);
+}
+
+.fade-in-up-enter.fade-in-up-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-duration: 2500ms;
+  transition-timing-function: cubic-bezier(0, 0.76, 0, 1);
+}
+.fade-in-up-enter {
+  opacity: 0;
+  transform: translate(0, -250px);
+  transform: translate3d(0, 50px, 0);
+}
+
+.fade-in-up-enter.fade-in-up-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0, 0.76, 0, 1);
+}
+
+// HEADER CTA DELAYED FADE IN UP
+.fade-in-up-cta-appear {
+  opacity: 0;
+  transform: translate(0, -250px);
+  transform: translate3d(0, 80px, 0);
+}
+
+.fade-in-up-cta-appear.fade-in-up-cta-appear-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-duration: 3000ms;
+  transition-timing-function: cubic-bezier(0, 0.76, 0, 1);
+}
+
+.fade-in-up-cta-enter {
+  opacity: 0;
+  transform: translate(0, -250px);
+  transform: translate3d(0, 80px, 0);
+}
+
+.fade-in-up-cta-enter.fade-in-up-cta-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-duration: 3000ms;
+  transition-timing-function: cubic-bezier(0, 0.76, 0, 1);
+}
+
+// MODAL CONTENT FADE IN UP
+.fade-in-up-appear {
+  opacity: 0;
+  transform: translate(0, -250px);
+  transform: translate3d(0, 50px, 0);
+}
+
+.fade-in-up-appear.fade-in-up-appear-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-duration: 750ms;
+  transition-timing-function: cubic-bezier(0, 0.76, 0, 1);
+}
+
+.fade-in-up-enter {
+  opacity: 0;
+  transform: translate(0, -250px);
+  transform: translate3d(0, 50px, 0);
+}
+
+.fade-in-up-enter.fade-in-up-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-duration: 750ms;
+  transition-timing-function: cubic-bezier(0, 0.76, 0, 1);
+}
+
+.fade-in-up-enter {
+  opacity: 0;
+  transform: translate(0, -250px);
+  transform: translate3d(0, 50px, 0);
+}
+
+.fade-in-up-enter.fade-in-up-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0, 0.76, 0, 1);
+}

@@ -1,0 +1,60 @@
+.masonry-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 10px 0 100px;
+  overflow-x: hidden;
+}
+
+.masonry {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: stretch;
+  margin: 18px; // 24 - 6
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: stretch;
+  flex-grow: 1;
+}
+
+.tile {
+  margin: 6px;
+  background: #fafafa;
+  min-height: 15vh;
+  min-width: 15vh;
+  .round-checkbox-container {
+    position: relative;
+    top: 10px;
+    left: 80%;
+    left: calc(100% - 3vh - 10px);
+  }
+  img {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .tile {
+    margin: 12px;
+
+    .round-checkbox-container {
+      top: 20px;
+      left: 85%;
+      left: calc(100% - 25px - 20px);
+
+      .checkmark {
+        background: white;
+        border: 1px solid transparent;
+
+        &.checked {
+          background-color: $text-color;
+          border: 1px solid transparent;
+        }
+      }
+    }
+  }
+}

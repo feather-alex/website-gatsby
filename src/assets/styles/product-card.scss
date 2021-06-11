@@ -1,0 +1,226 @@
+.product-card {
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: 0;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    position: relative;
+    top: -9px;
+  }
+
+  .controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    @media screen and (max-width: 768px) {
+      padding: 8px;
+    }
+    .close-icon {
+      order: 2;
+      padding: 0;
+
+      .icon {
+        height: 15px;
+        width: 15px;
+        cursor: pointer;
+      }
+    }
+    .change-item-btn {
+      order: 1;
+      background: white;
+      border-radius: 100px;
+      font-family: $text-futura;
+      font-size: 12px;
+      font-weight: 500;
+      color: #adb5c1;
+      letter-spacing: 0.1px;
+      border: none;
+      padding: 5px 13px;
+      cursor: pointer;
+      margin-left: 15px;
+    }
+  }
+  .img {
+    height: 0;
+    padding-bottom: getPaddingBottom(360, 305);
+    background-size: contain;
+    background-color: $brand-light-grey;
+    text-align: center;
+    .img-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 300px;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  .info {
+    margin: 13px 0 25px;
+
+    .product-card__name {
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      a {
+        line-height: 1.2;
+      }
+    }
+
+    .product-card__feather-price {
+      text-align: right;
+      line-height: 1.2;
+      span {
+        font-size: 14px;
+      }
+    }
+
+    .product-card__sub-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      span {
+        font-size: 12px;
+        color: $brand-font-grey;
+        margin-bottom: -1px;
+        text-align: right;
+      }
+      .small-mobile {
+        display: none;
+      }
+    }
+
+    .product-card__options {
+      width: 55px;
+      margin-left: 5px;
+      font-size: 10px;
+      color: $brand-font-grey;
+      white-space: nowrap;
+      float: right;
+      display: flex;
+
+      justify-content: flex-end;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-card {
+    &:hover {
+      position: relative;
+      top: 0;
+    }
+    .controls {
+      .change-item-btn {
+        font-size: 10px;
+      }
+    }
+  }
+  .product-card__price {
+    display: flex;
+    flex-direction: column;
+  }
+  .img {
+    .img-loading {
+      height: 300px;
+    }
+  }
+  .product-card {
+    .info {
+      margin: 15px 0;
+      .product-card__name {
+        font-size: 14px;
+        flex-direction: column;
+        a {
+          font-weight: 500;
+        }
+        .product-card__feather-price {
+          text-align: left;
+          margin-top: 4px;
+        }
+      }
+      .product-card__sub-info {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 496px) {
+  .img {
+    .img-loading {
+      height: 225px !important;
+    }
+  }
+}
+@media screen and (max-width: 396px) {
+  .img {
+    .img-loading {
+      height: 200px !important;
+    }
+  }
+}
+@media screen and (max-width: 321px) {
+  .img {
+    .img-loading {
+      height: 155px !important;
+    }
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .product-card {
+    .product-card__name {
+      a {
+        max-width: 60%;
+      }
+    }
+    .product-card__price {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+
+      .product-card__feather-price {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.product-list-enter {
+  opacity: 0;
+  transform: translate(0, -250px);
+  transform: translate3d(0, 50px, 0);
+}
+.product-list-enter.product-list-enter-active {
+  opacity: 1;
+  transition: opacity 0.75s ease;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0.175, 0.665, 0.32, 1), ease-in-out;
+}
+.product-list-leave {
+  opacity: 1;
+  transform: translate(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  transition-property: transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.175, 0.665, 0.32, 1), linear;
+}
+.product-list-leave.product-list-leave-active {
+  opacity: 0;
+  transform: translate(250px, 0);
+  transform: translate3d(250px, 0, 0);
+}

@@ -1,0 +1,147 @@
+.product-info-modal-container {
+  .modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .modal-dialog {
+    position: fixed;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background-color: white;
+
+    .modal-content {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      border-radius: 0;
+      border: 1px solid $brand-background-cream;
+      box-shadow: none;
+      padding: 50px;
+      overflow: auto;
+      background-color: $brand-background-cream;
+    }
+  }
+
+  .product-info-modal {
+    @include flex;
+    align-items: center;
+    padding: 0;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+
+    .close-modal {
+      position: absolute;
+      top: -5px;
+      left: -10px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .product-specs-modal {
+      flex: 0 0 50%;
+      order: 1;
+      @include flex(column);
+      align-items: left;
+      justify-content: center;
+      padding: 5% 7%;
+
+      .name {
+        margin: 10px 0 15px;
+      }
+
+      .product-specs-details {
+        margin-top: 20px;
+        padding-right: 8%;
+        @include flex(column);
+        width: 100%;
+
+        p {
+          width: 100%;
+          font-size: 15px;
+          padding: 12px 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid rgba(6, 31, 83, 0.3);
+        }
+      }
+    }
+
+    .product-images {
+      height: 100%;
+      flex: 0 0 50%;
+      order: 2;
+      padding-right: 20px;
+
+      .product-images-carousel {
+        height: 100%;
+        width: 100%;
+        background-color: $brand-background-cream;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-info-modal-container {
+    .modal-dialog {
+      .modal-content {
+        padding: 24px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    .product-info-modal {
+      flex: none;
+      display: block;
+      margin-top: 35px;
+
+      .close-modal {
+        top: -45px;
+        left: -30px;
+      }
+
+      .product-specs-modal {
+        width: 100%;
+        padding: $mobile-margin 0;
+
+        .product-specs-details {
+          padding-right: 0;
+        }
+      }
+
+      .product-images {
+        width: 100%;
+        height: 55%;
+        padding-right: 0;
+        padding-top: 20px;
+      }
+    }
+  }
+}
+
+.product-info-modal-container.fade .modal-dialog {
+  transform: translate(0, 0);
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.product-info-modal-container.in .modal-dialog {
+  transform: translate(0, 0);
+  opacity: 1;
+}

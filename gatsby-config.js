@@ -59,5 +59,6 @@ module.exports = {
         // windowKey: "_root" <-- may need this to be aligned with client-side config
       },
     },
+    "gatsby-plugin-anchor-links",
   ],
 };

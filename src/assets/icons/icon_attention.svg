@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Cart/Checkout" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Feather_Site_Redesign_Checkout_Delivery_Info" transform="translate(-991.000000, -958.000000)" fill="#FF8888" fill-rule="nonzero">
+      <g id="Group-9" transform="translate(746.000000, -1.000000)">
+        <g id="Group-6" transform="translate(93.000000, 0.000000)">
+          <g id="Group-5">
+            <g id="Group" transform="translate(63.000000, 146.000000)">
+              <g id="Group-7" transform="translate(89.000000, 813.000000)">
+                <g id="Attention-Icon" transform="translate(0.625000, 0.500000)">
+                  <ellipse id="Oval" cx="7.875" cy="10.7211538" rx="1" ry="1"></ellipse>
+                  <g id="Group">
+                    <path d="M15.6692308,7.5 C15.6692308,3.40384615 12.1759615,0.0769230769 7.875,0.0769230769 C3.57403846,0.0769230769 0.0807692308,3.40384615 0.0807692308,7.5 C0.0807692308,11.5961538 3.57403846,14.9230769 7.875,14.9230769 C12.1759615,14.9230769 15.6692308,11.5961538 15.6692308,7.5 Z M0.928846154,7.5 C0.928846154,3.86538462 4.03846154,0.884615385 7.875,0.884615385 C11.7115385,0.884615385 14.8211538,3.86538462 14.8211538,7.5 C14.8211538,11.1346154 11.6913462,14.1153846 7.875,14.1153846 C4.05865385,14.1153846 0.928846154,11.1346154 0.928846154,7.5 Z"></path>
+                    <polygon id="Rectangle-path" points="7.45096154 3.85576923 8.29903846 3.85576923 8.29903846 8.94230769 7.45096154 8.94230769"></polygon>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

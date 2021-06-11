@@ -1,15 +1,24 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import styled from '@emotion/styled';
-import { HashLink } from 'react-router-hash-link';
-import Title1 from '../../../ui/titles/Title1';
-import NavImageLink from './NavImageLink';
-import NavDropdown from './NavDropdown';
-import { NavVerticalDivider, NavLinkGroup, NavImageLinkGroup } from '../DesktopNavbar';
-import Header4 from '../../../ui/headers/Header4';
-import ArrowRightBold from '../../../ui/icons/ArrowRightBold';
-import { PRODUCT_CATEGORIES, ITEM_TYPE, PACKAGES, NavLinkData } from './navbar.link.data';
-import NavLink, { NavLinkWrapper } from './NavLink';
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
+import { AnchorLink } from "gatsby-plugin-anchor-links";
+import Title1 from "../../../ui/titles/Title1";
+import NavImageLink from "./NavImageLink";
+import NavDropdown from "./NavDropdown";
+import {
+  NavVerticalDivider,
+  NavLinkGroup,
+  NavImageLinkGroup,
+} from "../DesktopNavbar";
+import Header4 from "../../../ui/headers/Header4";
+import ArrowRightBold from "../../../ui/icons/ArrowRightBold";
+import {
+  PRODUCT_CATEGORIES,
+  ITEM_TYPE,
+  PACKAGES,
+  NavLinkData,
+} from "./navbar.link.data";
+import NavLink, { NavLinkWrapper } from "./NavLink";
 
 interface Props {
   bodyMarginTop: number;
@@ -28,7 +37,7 @@ const FurnitureDropdown = ({
   bodyMarginTop,
   handleMouseOver,
   handleMouseOut,
-  handleNavLinkClick
+  handleNavLinkClick,
 }: Props) => {
   const renderCategory = (category: NavLinkData) => (
     <NavLink
@@ -75,13 +84,17 @@ const FurnitureDropdown = ({
         </NavTitleMargin>
         {PACKAGES.map((category) => (
           <NavLinkWrapper key={category.to}>
-            <HashLink to={category.to} smooth={true}>
-              <div role="button" tabIndex={0} onClick={handleNavLinkClick(category.analyticsKey)}>
+            <AnchorLink to={category.to}>
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={handleNavLinkClick(category.analyticsKey)}
+              >
                 <Title1 isBold={category.withArrow} isAnimated={true}>
                   {category.label} {category.withArrow && <ArrowRightBold />}
                 </Title1>
               </div>
-            </HashLink>
+            </AnchorLink>
           </NavLinkWrapper>
         ))}
       </NavLinkGroup>
@@ -95,7 +108,7 @@ const FurnitureDropdown = ({
           imageAlt="Floyd platform bed in condo"
           linkText="Shop Floyd"
           to="/products?brands=floyd"
-          onClick={handleNavLinkClick('floyd dropdown')}
+          onClick={handleNavLinkClick("floyd dropdown")}
         />
       </NavImageLinkGroup>
     </NavDropdown>

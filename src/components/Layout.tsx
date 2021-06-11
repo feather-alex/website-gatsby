@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/core";
 import React from "react";
 // import FreshChatIcon from "../components/FreshChatIcon";
-// import Navbar from "./navbar/Navbar";
+import Navbar from "../app/navbar/Navbar";
 // import Footer from "../ui/footers/Footer";
 import { BRAND } from "../ui/variables";
 
@@ -20,7 +20,7 @@ class Layout extends React.Component {
           background-color: ${BRAND.BACKGROUND};
         `}
       >
-        {/* <Navbar /> */}
+        <Navbar />
         <div>{children}</div>
         {/* <Footer isMobileBreakpoint={false} /> */}
         {/* <FreshChatIcon /> */}

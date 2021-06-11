@@ -1,0 +1,98 @@
+$brand-blue: #274d58;
+
+$text-color: #000000;
+$footer-color: #062020;
+$input-label-gray: #8f95a2;
+
+$brand-grey: #d8d8d8;
+$brand-other-grey: #9e9e9e;
+$brand-light-grey: #f7f5f4;
+$brand-red: #d97968;
+
+$brand-background-cream: #fbf8f5;
+$brand-background-grey: #f7f5f4;
+$brand-font-grey: #9e9e9e;
+$brand-border-grey: #f1f1f1;
+
+$brand-blue-grey: #7684a0;
+$brand-other-blue-grey: #465168;
+$brand-dark-blue: #1e3c3c;
+$brand-very-dark-blue: #071635;
+$brand-nav-menu: #f3f3f2;
+$brand-grey-background: #f1f4f2;
+
+$brand-new-grey: #828282;
+
+$primary-button-color: $brand-blue;
+$primary-hover-color: #335e69;
+$secondary-button-color: $brand-dark-blue;
+$white-hover-color: rgba(255, 255, 255, 0.6);
+
+$text-futura: 'Centra No2';
+$text-value: 'Centra No2';
+$text-medium: 'Centra No2';
+
+$checkout-background-color: #e2ddd7;
+$checkout-border-color: #c7cbd2;
+$checkout-summary-footer-line: rgba(39, 77, 88, 0.1);
+
+$bd-grey: #bdbdbd;
+$brand-teal: #80bcbd;
+
+$mobile-margin: 24px;
+$desktop-margin: 16px;
+
+@function getPaddingBottom($height, $width) {
+  @return ($height / $width * 100%);
+}
+
+%squareImage {
+  height: 0;
+  padding-bottom: 100%;
+}
+
+%dropdown {
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $brand-border-grey;
+  border-radius: 3px;
+}
+
+@mixin accordion($background: none) {
+  .panel {
+    border: none;
+    box-shadow: none;
+
+    .panel-heading {
+      color: $text-color;
+      background: $background;
+      border: none;
+      padding: 0;
+
+      .panel-title {
+        padding: 0;
+
+        a {
+          text-decoration: none;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          @content;
+        }
+      }
+    }
+
+    .panel-body {
+      padding: 0;
+      background: $background;
+    }
+  }
+}
+
+@mixin flex($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+}

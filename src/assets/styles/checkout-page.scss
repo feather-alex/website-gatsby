@@ -1,0 +1,716 @@
+.checkout-page {
+  overflow-x: hidden;
+
+  .checkout-page__navbar {
+    position: relative;
+    height: 46px;
+    width: 100vw;
+
+    .logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .checkout-page__body {
+    @include flex(column);
+    margin-bottom: 75px;
+    min-height: calc(100vh - 46px);
+
+    .checkout-page__form {
+      @include flex(column);
+      align-items: center;
+      width: 100%;
+      order: 2;
+      padding: 0 20px;
+
+      button.disabled {
+        background-color: #e4e4e4;
+        cursor: default;
+      }
+
+      h2 {
+        align-self: flex-start;
+        margin-top: 25px;
+        margin-bottom: 15px;
+      }
+
+      .minimum-alert {
+        color: $brand-red;
+        text-align: center;
+        margin-bottom: -20px;
+      }
+
+      .multiple-inputs-line {
+        width: 100%;
+        @include flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .state-dropdown {
+          width: 48%;
+          align-self: flex-start;
+
+          .dropdown-menu {
+            max-height: 200px;
+            overflow: scroll;
+          }
+
+          .half-width-dropdown {
+            width: 100%;
+
+            .billing-states {
+              color: #9e9e9e;
+              font-weight: normal;
+
+              &.selected {
+                color: $text-color;
+              }
+            }
+
+            button {
+              margin-top: 5px;
+              width: 100%;
+              height: 46px;
+            }
+          }
+
+          .checkout-state {
+            display: flex;
+            align-items: center;
+            height: 46px;
+            width: 100%;
+            margin: 5px 0 20px;
+            padding-left: 20px;
+            border-radius: 3px;
+            border: 1px solid #c7cbd2;
+            color: $text-color;
+          }
+
+          .label-placeholder {
+            font-size: 12px;
+            font-family: $text-futura;
+            color: $input-label-gray;
+          }
+        }
+
+        .checkout-input-half-width,
+        .checkout-state {
+          width: 48%;
+        }
+      }
+
+      .checkout-input-full-width,
+      .google-checkout-full-width {
+        width: 100%;
+      }
+
+      .checkout-input-full-width,
+      .checkout-input-half-width,
+      .google-checkout-full-width {
+        .input-labels {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: -5px;
+        }
+
+        .label-placeholder {
+          font-size: 12px;
+          font-family: $text-futura;
+          color: $input-label-gray;
+        }
+      }
+
+      .checkout-input-full-width,
+      .checkout-input-half-width {
+        input {
+          width: 100%;
+          height: 46px;
+          margin: 10px 0 20px;
+          padding-left: 20px;
+          border-radius: 3px;
+          border: 1px solid $checkout-border-color;
+          color: $text-color;
+        }
+
+        input.disabled {
+          cursor: default;
+        }
+
+        &.disabled-input {
+          input {
+            color: $input-label-gray;
+          }
+        }
+      }
+
+      .dropdown.full-width-dropdown,
+      .calendar-toggle {
+        width: 100%;
+      }
+
+      .dropdown {
+        .dropdown-toggle {
+          @include flex;
+          align-items: center;
+          background-color: transparent;
+          justify-content: space-between;
+          height: 50px;
+          width: 100%;
+          margin: 10px 0;
+          padding: 0 20px;
+          border-radius: 3px;
+          border: 1px solid $brand-border-grey;
+          color: $text-color;
+          font-size: 16px;
+          color: $brand-font-grey;
+        }
+
+        .dropdown-menu {
+          width: 100%;
+          margin-top: -10px;
+
+          li > a {
+            color: $text-color;
+
+            &:hover {
+              background-color: #f0f1f4;
+            }
+
+            &:focus {
+              outline: 0;
+              background-color: #dadee4;
+            }
+          }
+        }
+      }
+
+      .error-message {
+        font-size: 13px;
+        color: $brand-red;
+        font-weight: 500;
+        margin-top: -15px;
+        text-align: right;
+        height: 15px;
+        line-height: 14px;
+
+        &.opac {
+          opacity: 0;
+        }
+      }
+
+      .not-displayed {
+        display: none;
+      }
+
+      .error {
+        border-color: $brand-red !important;
+      }
+
+      .button {
+        margin: 40px 0 25px;
+      }
+
+      .previous-steps-info {
+        border-top: 1px solid $brand-border-grey;
+        margin-top: 30px;
+        @include flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .info {
+          width: 175px;
+          margin-top: 30px;
+          margin-right: 5px;
+
+          .step {
+            font-family: $text-futura;
+            font-size: 20px;
+            font-weight: 500;
+          }
+
+          p {
+            font-size: 14px;
+            color: $brand-font-grey;
+            line-height: 20px;
+            font-weight: normal;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 5px;
+          }
+        }
+      }
+
+      .checkout-page__credit-cards-icons {
+        align-self: flex-start;
+        margin: 10px 0 15px;
+
+        .icon {
+          margin-right: 10px;
+        }
+      }
+
+      .checkout-page__stripe-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .error-message {
+          margin-top: -15px;
+          height: 15px;
+        }
+      }
+
+      .checkout-credit-check {
+        border-top: 1px solid #d3d8df;
+        border-bottom: 1px solid #d3d8df;
+        width: 60%;
+        padding: 15px 0 0;
+        margin-top: 10px;
+
+        .cc-sub-header {
+          font-size: 14px;
+          color: $brand-new-grey;
+          margin: 15px 0;
+
+          svg > g > g > g > g > circle {
+            fill: $text-color;
+          }
+        }
+
+        .cc-sub-text {
+          color: $brand-new-grey;
+          font-size: 11px;
+          line-height: 1;
+        }
+
+        .billing-address-checkbox {
+          width: 100%;
+          line-height: 1;
+
+          .checkbox-container {
+            width: 100%;
+          }
+        }
+
+        .billing-address-checkbox {
+          .checkbox-container {
+            .checkmark {
+              border: 1px solid $brand-new-grey;
+              top: 5px;
+
+              &.checked {
+                border: 1px solid #f1f1f1;
+              }
+            }
+          }
+        }
+
+        &.error {
+          border-top: 1px solid #d3d8df !important;
+          border-bottom: 1px solid #d3d8df !important;
+
+          .billing-address-checkbox {
+            width: 100%;
+
+            .checkbox-container {
+              .checkmark {
+                border: 1px solid $brand-red;
+              }
+            }
+          }
+        }
+      }
+
+      .cc-error-message {
+        color: $brand-red;
+        display: flex;
+        align-items: flex-start;
+        line-height: 1.3;
+        font-size: 14px;
+        margin-top: 10px;
+        width: 60%;
+        justify-content: center;
+        font-weight: 500;
+
+        & > svg {
+          margin: 2px 5px 0 0;
+        }
+      }
+
+      .confirm-date {
+        font-size: 14px;
+        color: $brand-font-grey;
+      }
+    }
+  }
+
+  .error-message-big {
+    font-size: 16px;
+    color: $brand-red;
+    text-align: center;
+    width: 90%;
+    font-weight: 500;
+    max-width: 380px;
+  }
+}
+
+.credit-check-denied-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: $brand-background-cream;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $text-color;
+
+  h1 {
+    font-size: 36px;
+    font-family: $text-value;
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+    margin-top: 30px;
+    max-width: 585px;
+    font-size: 18px;
+
+    a {
+      text-decoration: underline;
+      margin-left: 4px;
+    }
+  }
+
+  span {
+    color: $brand-new-grey;
+    text-align: center;
+    margin-top: 55px;
+    font-size: 16px;
+  }
+}
+
+.options-popover {
+  .arrow {
+    left: 200px !important;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .checkout-page {
+    .checkout-page__form {
+      .previous-steps-info {
+        min-width: 550px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .checkout-page {
+    .checkout-page__form {
+      .previous-steps-info {
+        min-width: auto;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .checkout-page {
+    .checkout-page__body {
+      flex-direction: row;
+      margin-bottom: 0;
+      padding: 0;
+      width: 100%;
+
+      .checkout-page__form {
+        width: 60%;
+        margin: 50px 0;
+        order: 1;
+
+        h2 {
+          padding-left: 10%;
+          margin-top: 0;
+        }
+
+        .checkbox-container,
+        .confirm-date,
+        .google-checkout-full-width,
+        .checkout-input-full-width,
+        .dropdown.full-width-dropdown,
+        .multiple-inputs-line,
+        .button,
+        .calendar-toggle,
+        .delivery-date-calendar-container {
+          width: 80%;
+        }
+      }
+    }
+
+    .checkout-page__credit-cards-icons {
+      padding-left: 10%;
+    }
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .checkout-page {
+    .checkout-page__body {
+      .checkout-page__form {
+        .checkout-credit-check {
+          width: 80%;
+        }
+
+        .cc-error-message {
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1050px) {
+  .checkout-page {
+    .checkout-page__body {
+      .checkout-page__form {
+        h2 {
+          padding-left: 20%;
+        }
+
+        .checkbox-container,
+        .confirm-date,
+        .google-checkout-full-width,
+        .checkout-input-full-width,
+        .dropdown.full-width-dropdown,
+        .multiple-inputs-line,
+        .button,
+        .previous-steps-info,
+        .calendar-toggle,
+        .delivery-date-calendar-container {
+          width: 60%;
+        }
+      }
+    }
+
+    .checkout-page__credit-cards-icons {
+      padding-left: 20%;
+    }
+  }
+}
+
+// DAY PICKER CALENDAR:
+.DayPicker {
+  display: inline-block;
+}
+
+.DayPicker-wrapper {
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding-bottom: 1rem;
+  flex-direction: row;
+}
+
+.DayPicker-Months {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.DayPicker-Month {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 1rem;
+  margin-top: 1rem;
+  color: #061f53;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.DayPicker-NavButton {
+  position: absolute;
+  cursor: pointer;
+  top: 1rem;
+  right: 1.5rem;
+  margin-top: 12px;
+  color: #c9cecf;
+  width: 1.25rem;
+  height: 1.5rem;
+  display: inline-block;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.DayPicker-NavButton:hover {
+  opacity: 0.2;
+}
+
+.DayPicker-NavButton--prev {
+  opacity: 0.4;
+  margin-right: 3.5rem;
+  background-size: 110%;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAwCAYAAAB5R9gVAAAABGdBTUEAALGPC/xhBQAAAVVJREFUWAnN2G0KgjAYwPHpGfRkaZeqvgQaK+hY3SUHrk1YzNLay/OiEFp92I+/Mp2F2Mh2lLISWnflFjzH263RQjzMZ19wgs73ez0o1WmtW+dgA01VxrE3p6l2GLsnBy1VYQOtVSEH/atCCgqpQgKKqYIOiq2CBkqtggLKqQIKgqgCBjpJ2Y5CdJ+zrT9A7HHSTA1dxUdHgzCqJIEwq0SDsKsEg6iqBIEoq/wEcVRZBXFV+QJxV5mBtlDFB5VjYTaGZ2sf4R9PM7U9ZU+lLuaetPP/5Die3ToO1+u+MKtHs06qODB2zBnI/jBd4MPQm1VkY79Tb18gB+C62FdBFsZR6yeIo1YQiLJWMIiqVjQIu1YSCLNWFgijVjYIuhYYCKoWKAiiFgoopxYaKLUWOii2FgkophYp6F3r42W5A9s9OcgNvva8xQaysKXlFytoqdYmQH6tF3toSUo0INq9AAAAAElFTkSuQmCC');
+}
+
+.DayPicker-NavButton--next {
+  opacity: 0.4;
+  background-size: 110%;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAwCAYAAAB5R9gVAAAABGdBTUEAALGPC/xhBQAAAXRJREFUWAnN119ugjAcwPHWzJ1gnmxzB/BBE0n24m4xfNkTaOL7wOtsl3AXMMb+Vjaa1BG00N8fSEibPpAP3xAKKs2yjzTPH9RAjhEo9WzPr/Vm8zgE0+gXATAxxuxtqeJ9t5tIwv5AtQAApsfT6TPdbp+kUBcgVwvO51KqVhMkXKsVJFXrOkigVhCIs1Y4iKlWZxB1rX4gwlpRIIpa8SDkWmggrFq4IIRaJKCYWnSgnrXIQV1r8YD+1Vrn+bReagysIFfLABRt31v8oBu1xEBttfRbltmfjgEcWh9snUS2kNdBK6WN1vrOWxObWsz+fjxevsxmB1GQDfINWiev83nhaoiB/CoOU438oPrhXS0WpQ9xc1ZQWxWHqUYe0I0qrKCQKjygDlXIQV2r0IF6ViEBxVTBBSFUQQNhVYkHIVeJAtkNsbQ7c1LtzP6FsObhb2rCKv7NBIGoq4SDmKoEgTirXAcJVGkFSVVpgoSrXICGUMUH/QBZNSUy5XWUhwAAAABJRU5ErkJggg==');
+}
+
+.DayPicker-NavButton--interactionDisabled {
+  display: none;
+}
+
+.DayPicker-Caption {
+  padding: 0 5px;
+  display: table-caption;
+  text-align: center;
+  margin: 10px 15px;
+}
+
+.DayPicker-Caption > div {
+  font-size: 16px;
+}
+
+.DayPicker-Weekdays {
+  margin-top: 1rem;
+  display: table-header-group;
+}
+
+.DayPicker-WeekdaysRow {
+  display: table-row;
+}
+
+.DayPicker-Weekday {
+  display: table-cell;
+  padding: 0.5rem;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #9298a6;
+}
+
+.DayPicker-Weekday abbr[title] {
+  border-bottom: none;
+  text-decoration: none;
+}
+
+.DayPicker-Body {
+  display: table-row-group;
+}
+
+.DayPicker-Week {
+  display: table-row;
+}
+
+.DayPicker-Day {
+  display: table-cell;
+  padding: 3%;
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+  color: $text-color;
+  font-size: 14px;
+  border-right: 1px solid #f4fafb;
+  outline: none;
+}
+
+.DayPicker--interactionDisabled .DayPicker-Day {
+  cursor: default;
+}
+
+.DayPicker-Day--outside {
+  cursor: default;
+  color: #f7f5f4;
+  background-color: #f7f5f4;
+  border-radius: 3px;
+  border-right: none;
+}
+
+.DayPicker-Day--disabled {
+  color: #f7f5f4;
+}
+
+.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+  color: #dce0e0;
+  cursor: default;
+  background-color: none;
+}
+
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  position: relative;
+  color: white;
+  background-color: $text-color;
+  border-radius: 3px;
+  box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.checkout-page__stripe-form {
+  .StripeElement {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px 0 20px 0;
+    padding: 10px 14px;
+    background: white;
+    height: 50px;
+    border-radius: 3px;
+    border: 1px solid $checkout-border-color;
+    color: $text-color;
+  }
+
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .checkout-page {
+    .checkout-page__body {
+      .checkout-page__form {
+        .checkout-credit-check {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.half-width-dropdown > button {
+  border: 1px solid $checkout-border-color !important;
+}
+
+// Credit consent tool tip popover
+.options-popover {
+  .arrow {
+    left: 50% !important;
+  }
+
+  h6 {
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+}

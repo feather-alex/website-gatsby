@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { NavLink as RouterNavLink, match } from 'react-router-dom';
-import { BRAND } from '../../../ui/variables';
-import { Location } from 'history';
-import NavLink from './NavLink';
+import { css, jsx } from "@emotion/core";
+import { Link } from "gatsby";
+import { BRAND } from "../../../ui/variables";
+import NavLink from "./NavLink";
 
 interface Props {
   imageUrl: string;
@@ -11,8 +10,8 @@ interface Props {
   linkText: string;
   to: string;
   onClick: () => void;
-  isActive?: (match: match, location: Location) => boolean;
-  exact?: boolean;
+  // isActive?: (match: match, location: Location) => boolean;
+  // exact?: boolean;
   isFullWidth?: boolean;
 }
 
@@ -22,18 +21,18 @@ const NavImageLink = ({
   linkText,
   to,
   onClick,
-  isActive,
-  exact = false,
-  isFullWidth = false
+  // isActive,
+  // exact = false,
+  isFullWidth = false,
 }: Props) => (
   <div
     css={css`
-      ${isFullWidth ? 'width: 100%;' : ''}
+      ${isFullWidth ? "width: 100%;" : ""}
       a.active {
         h6 {
           &:before,
           &:after {
-            content: '';
+            content: "";
             position: absolute;
             bottom: -1px;
             height: 1px;
@@ -45,7 +44,7 @@ const NavImageLink = ({
       }
     `}
   >
-    <RouterNavLink to={to} onClick={onClick} exact={exact} isActive={isActive} activeClassName="active">
+    <Link to={to} onClick={onClick} activeClassName="active">
       <div
         css={css`
           display: flex;
@@ -68,7 +67,7 @@ const NavImageLink = ({
             position: relative;
             &:before,
             &:after {
-              content: '';
+              content: "";
               position: absolute;
               bottom: -1px;
               width: 0px;
@@ -90,8 +89,8 @@ const NavImageLink = ({
       >
         <div
           css={css`
-            width: ${isFullWidth ? '100%' : '214px'};
-            ${isFullWidth ? '' : 'height: 141px;'}
+            width: ${isFullWidth ? "100%" : "214px"};
+            ${isFullWidth ? "" : "height: 141px;"}
             margin-bottom: 16px;
           `}
         >
@@ -111,7 +110,7 @@ const NavImageLink = ({
         </div>
         <NavLink label={linkText} withArrow={true} to={to} onClick={onClick} />
       </div>
-    </RouterNavLink>
+    </Link>
   </div>
 );
 

@@ -1,0 +1,60 @@
+.utility-page {
+  .utility-page-body {
+    margin: 0 13%;
+
+    .section-container {
+      margin: 50px 0 70px;
+
+      h2,
+      h5 {
+        margin-top: 50px;
+      }
+
+      h3,
+      h6 {
+        margin-top: 35px;
+      }
+
+      p {
+        margin-top: 20px;
+
+        a {
+          text-decoration: underline;
+        }
+      }
+
+      ul {
+        list-style-type: disc;
+        margin-left: 20px;
+
+        li {
+          margin-top: 10px;
+        }
+      }
+
+      strong {
+        font-weight: 500;
+      }
+
+      p.with-left-margin {
+        margin-left: 30px;
+      }
+    }
+  }
+
+  .take-the-quiz {
+    background-color: $brand-light-grey;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .utility-page {
+    .utility-page-body {
+      margin: 0 20px;
+    }
+
+    .take-the-quiz {
+      margin-top: -10px;
+    }
+  }
+}

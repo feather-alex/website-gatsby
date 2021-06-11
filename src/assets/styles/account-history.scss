@@ -1,0 +1,105 @@
+.account-history-container {
+  display: flex;
+  flex-direction: column;
+  font-family: $text-futura;
+
+  .title {
+    margin-bottom: 50px;
+    .subtitle {
+      font-size: 19px;
+      line-height: 22px;
+      color: $brand-blue;
+      margin-top: 10px;
+    }
+  }
+
+  .payments-list-container {
+    width: 85%;
+    margin-bottom: 20px;
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 18px;
+      width: 100%;
+    }
+
+    .header {
+      font-size: 16px;
+      line-height: 25px;
+      color: $brand-new-grey;
+      border-bottom: 1px solid $bd-grey;
+    }
+
+    .left-column {
+      width: calc(100% - 100px);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+
+      .inner-left-column {
+        width: 300px;
+      }
+
+      .inner-right-column {
+        width: 100%;
+      }
+    }
+
+    .right-column {
+      width: 100px;
+    }
+
+    .payment-record {
+      font-size: 16px;
+      line-height: 19px;
+      color: #333333;
+    }
+
+    .payment-record:nth-child(odd) {
+      background-color: #f7f5f4;
+    }
+  }
+
+  .payments-pagination-container {
+    width: 85%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .payments-list-container {
+      width: 100%;
+
+      .header {
+        display: none;
+      }
+
+      .left-column {
+        width: calc(100% - 100px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+
+        .inner-left-column {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+
+      .right-column {
+        width: 100px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-end;
+        height: inherit;
+      }
+    }
+
+    .payments-pagination-container {
+      width: 100%;
+    }
+  }
+}

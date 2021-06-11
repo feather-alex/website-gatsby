@@ -1,0 +1,64 @@
+.account-page {
+  display: flex;
+  min-height: 800px;
+  margin: 43px $desktop-margin 0;
+  background-color: $brand-background-cream;
+  padding-top: 66px;
+
+  .account-page-navigation {
+    width: 382px;
+    padding-left: 64px;
+  }
+
+  .account-page-body {
+    width: calc(100% - 382px);
+
+    .account-content {
+      width: 700px;
+      height: 100%;
+      margin-bottom: 175px;
+    }
+  }
+
+  @media screen and (max-width: 1090px) {
+    .account-page-navigation {
+      width: 282px;
+    }
+  }
+
+  @media screen and (max-width: 970px) {
+    .account-page-navigation {
+      width: 210px;
+      padding-left: 40px;
+    }
+  }
+
+  @media screen and (max-width: 865px) {
+    .account-page-navigation {
+      width: 165px;
+      padding-left: 20px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    margin: 43px 0 0;
+    padding-top: 0;
+    flex-direction: column;
+
+    .account-page-navigation,
+    .account-page-body {
+      width: 100%;
+    }
+
+    .account-page-navigation {
+      padding: 0;
+    }
+
+    .account-page-body {
+      .account-content {
+        width: 100%;
+        padding: $mobile-margin;
+      }
+    }
+  }
+}

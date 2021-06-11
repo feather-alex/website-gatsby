@@ -1,21 +1,21 @@
 /** @jsx jsx **/
-import { Component, Fragment } from 'react';
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-import HowItWorksDropdown from './components/HowItWorksDropdown';
-import FurnitureDropdown from './components/FurnitureDropdown';
-import AccountDropdown from './components/AccountDropdown';
-import CartNavListItem from './components/CartNavListItem';
-import PlanNavListItem, { UILocations } from './components/PlanNavListItem';
-import NavListItemMenu from './components/NavListItemMenu';
-import FeatherLogo from '../../ui/logos/FeatherWordMarkLogo';
-import { BRAND } from '../../ui/variables';
-import Title2 from '../../ui/titles/Title2';
-import { NAVBAR_DESKTOP_HEIGHT } from '../store/dimensions/dimensions.selectors';
-import Analytics from '../../analytics/analytics';
-import { NAVBAR } from '../../analytics/navbar/events';
-import { Z_INDICIES } from '../../ui/zIndicies';
+import { Component, Fragment } from "react";
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { Link } from "gatsby";
+import HowItWorksDropdown from "./components/HowItWorksDropdown";
+import FurnitureDropdown from "./components/FurnitureDropdown";
+import AccountDropdown from "./components/AccountDropdown";
+import CartNavListItem from "./components/CartNavListItem";
+import PlanNavListItem, { UILocations } from "./components/PlanNavListItem";
+import NavListItemMenu from "./components/NavListItemMenu";
+import FeatherLogo from "../../ui/logos/FeatherWordMarkLogo";
+import { BRAND } from "../../ui/variables";
+import Title2 from "../../ui/titles/Title2";
+import { NAVBAR_DESKTOP_HEIGHT } from "../store/dimensions/dimensions.selectors";
+import Analytics from "../../analytics/analytics";
+import { NAVBAR } from "../../analytics/navbar/events";
+import { Z_INDICIES } from "../../ui/zIndicies";
 
 export const NavVerticalDivider = styled.div`
   min-width: 1px;
@@ -29,15 +29,18 @@ export const NavLinkGroup = styled.div`
   width: fit-content;
   min-width: 152px;
   margin-top: 25px;
-  ${({ columns }: { columns?: number }) => `grid-column-start: span ${columns || 3};`}
+  ${({ columns }: { columns?: number }) =>
+    `grid-column-start: span ${columns || 3};`}
   margin-left: 32px;
 `;
 
 export const NavImageLinkGroup = styled.div`
   display: flex;
-  ${({ isFullWidth }: { isFullWidth?: boolean; columns?: number }) => (isFullWidth ? 'width: 100%;' : '')}
+  ${({ isFullWidth }: { isFullWidth?: boolean; columns?: number }) =>
+    isFullWidth ? "width: 100%;" : ""}
   margin: 32px 0 80px 32px;
-  ${({ columns }: { isFullWidth?: boolean; columns?: number }) => `grid-column-start: span ${columns || 3};`}
+  ${({ columns }: { isFullWidth?: boolean; columns?: number }) =>
+    `grid-column-start: span ${columns || 3};`}
 `;
 
 const NavListItem = styled.li`
@@ -50,9 +53,9 @@ const NavListItem = styled.li`
 `;
 
 enum DropdownMenus {
-  howItWorks = 'isHowItWorksVisible',
-  furniture = 'isFurnitureVisible',
-  account = 'isAccountVisible'
+  howItWorks = "isHowItWorksVisible",
+  furniture = "isFurnitureVisible",
+  account = "isAccountVisible",
 }
 
 interface Props {
@@ -81,31 +84,34 @@ class DesktopNavbar extends Component<Props, State> {
     isFurnitureVisible: false,
     isAccountVisible: false,
     isNavbarDropShadowVisible: false,
-    isDropdownMouseOverEnabled: true
+    isDropdownMouseOverEnabled: true,
   };
 
   componentDidMount() {
-    document.addEventListener('scroll', this.handleScroll, false);
+    document.addEventListener("scroll", this.handleScroll, false);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll, false);
+    document.removeEventListener("scroll", this.handleScroll, false);
   }
 
   handleScroll = () => {
     if (!this.state.isNavbarDropShadowVisible && window.scrollY > 0) {
       this.setState({
-        isNavbarDropShadowVisible: true
+        isNavbarDropShadowVisible: true,
       });
     } else if (this.state.isNavbarDropShadowVisible && window.scrollY === 0) {
       this.setState({
-        isNavbarDropShadowVisible: false
+        isNavbarDropShadowVisible: false,
       });
     }
   };
 
   handleMouseOver = (navMenu: DropdownMenus) => () => {
-    if (this.state.isDropdownMouseOverEnabled && this.state[navMenu] === false) {
+    if (
+      this.state.isDropdownMouseOverEnabled &&
+      this.state[navMenu] === false
+    ) {
       this.setState({ [`${navMenu}`]: true });
     }
   };
@@ -123,9 +129,13 @@ class DesktopNavbar extends Component<Props, State> {
         isAccountVisible: false,
         isFurnitureVisible: false,
         isHowItWorksVisible: false,
-        isDropdownMouseOverEnabled: false
+        isDropdownMouseOverEnabled: false,
       },
-      () => setTimeout(() => this.setState({ isDropdownMouseOverEnabled: true }), 450)
+      () =>
+        setTimeout(
+          () => this.setState({ isDropdownMouseOverEnabled: true }),
+          450
+        )
     );
   };
 
@@ -136,9 +146,14 @@ class DesktopNavbar extends Component<Props, State> {
       isBannerVisible,
       toggleMiniCartOverlay,
       bodyMarginTop,
-      bannerHeight
+      bannerHeight,
     } = this.props;
-    const { isHowItWorksVisible, isFurnitureVisible, isAccountVisible, isNavbarDropShadowVisible } = this.state;
+    const {
+      isHowItWorksVisible,
+      isFurnitureVisible,
+      isAccountVisible,
+      isNavbarDropShadowVisible,
+    } = this.state;
 
     return (
       <Fragment>
@@ -147,14 +162,17 @@ class DesktopNavbar extends Component<Props, State> {
             position: fixed;
             display: flex;
             height: ${NAVBAR_DESKTOP_HEIGHT}px;
-            top: ${isBannerVisible ? `${bannerHeight}px` : '0'};
+            top: ${isBannerVisible ? `${bannerHeight}px` : "0"};
             width: 100%;
             background-color: ${BRAND.BACKGROUND};
             transition: top 400ms linear, box-shadow 200ms linear;
             z-index: ${Z_INDICIES.NAVBAR};
-            ${isNavbarDropShadowVisible && !isHowItWorksVisible && !isFurnitureVisible && !isAccountVisible
-              ? 'box-shadow: 0px 4px 8px rgba(0,0,0, 0.08);'
-              : ''}
+            ${isNavbarDropShadowVisible &&
+            !isHowItWorksVisible &&
+            !isFurnitureVisible &&
+            !isAccountVisible
+              ? "box-shadow: 0px 4px 8px rgba(0,0,0, 0.08);"
+              : ""}
           `}
         >
           {/* Navigation Links */}
@@ -182,7 +200,10 @@ class DesktopNavbar extends Component<Props, State> {
             />
 
             <NavListItem data-cy="nav-quiz">
-              <Link to="/style-quiz" onClick={() => Analytics.trackEvent(NAVBAR.STYLE_QUIZ)}>
+              <Link
+                to="/style-quiz"
+                onClick={() => Analytics.trackEvent(NAVBAR.STYLE_QUIZ)}
+              >
                 <Title2 isAnimated={true}>Take our Style Quiz</Title2>
               </Link>
             </NavListItem>
@@ -229,7 +250,10 @@ class DesktopNavbar extends Component<Props, State> {
             />
 
             <NavListItem data-cy="nav-cart">
-              <CartNavListItem totalItems={totalItems} toggleMiniCart={toggleMiniCartOverlay} />
+              <CartNavListItem
+                totalItems={totalItems}
+                toggleMiniCart={toggleMiniCartOverlay}
+              />
             </NavListItem>
           </ul>
         </div>

@@ -1,31 +1,33 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { toggleOverlay } from '../../../app/store/overlay/overlay.actions';
-import { Overlays } from '../../../app/store/overlay/overlay.types';
-import { MembershipState, MembershipStateDisplayName } from '../../../app/store/plan/plan.types';
-import Title1 from '../../../ui/titles/Title1';
-import Title2 from '../../../ui/titles/Title2';
-import { SHADES, BRAND } from '../../../ui/variables';
-import MiniCartBanner from './MiniCartBanner';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { navigate } from "gatsby";
+import { toggleOverlay } from "../../../app/store/overlay/overlay.actions";
+import { Overlays } from "../../../app/store/overlay/overlay.types";
+import {
+  MembershipState,
+  MembershipStateDisplayName,
+} from "../../../app/store/plan/plan.types";
+import Title1 from "../../../ui/titles/Title1";
+import Title2 from "../../../ui/titles/Title2";
+import { SHADES, BRAND } from "../../../ui/variables";
+import MiniCartBanner from "./MiniCartBanner";
 import {
   getMonthlyMembershipFee,
   getDeliveryFee,
   getDeliveryZipCode,
   getIsInDeliveryZone,
   getMembershipState,
-  getCartMinimum
-} from '../../../app/store/plan/plan.selectors';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import { getCartTotals } from '../store/cart.selectors';
-import { getIsAuthenticated } from '../../auth/login/store/login.selectors';
-import { useHistory } from 'react-router';
-import { changeMembershipSelection } from '../../../app/store/plan/plan.actions';
-import Button from '../../../ui/buttons/Button';
-import { Z_INDICIES } from '../../../ui/zIndicies';
+  getCartMinimum,
+} from "../../../app/store/plan/plan.selectors";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import { getCartTotals } from "../store/cart.selectors";
+import { getIsAuthenticated } from "../../auth/login/store/login.selectors";
+import { changeMembershipSelection } from "../../../app/store/plan/plan.actions";
+import Button from "../../../ui/buttons/Button";
+import { Z_INDICIES } from "../../../ui/zIndicies";
 
 export const Section = styled.div`
   display: flex;
@@ -55,7 +57,7 @@ export const ChangePlanLink = styled.div`
 const MiniCartFooter = () => {
   const [showBelowMinimum, setShowBelowMinimum] = useState(false);
 
-  const history = useHistory();
+  // const history = useHistory();
   const dispatch = useDispatch();
 
   const membershipFee = useSelector(getMonthlyMembershipFee);
@@ -69,12 +71,15 @@ const MiniCartFooter = () => {
 
   const { total, subtotal } = useSelector(getCartTotals);
 
-  const isCartMinimumMet = cartMinimum !== null ? subtotal >= cartMinimum : false;
+  const isCartMinimumMet =
+    cartMinimum !== null ? subtotal >= cartMinimum : false;
 
   const handleSwitchMembership = useCallback(() => {
     dispatch(
       changeMembershipSelection(
-        membershipState === MembershipState.MEMBER ? MembershipState.NON_MEMBER : MembershipState.MEMBER
+        membershipState === MembershipState.MEMBER
+          ? MembershipState.NON_MEMBER
+          : MembershipState.MEMBER
       )
     );
 
@@ -91,7 +96,7 @@ const MiniCartFooter = () => {
       setShowBelowMinimum(true);
     } else if (isCartMinimumMet) {
       dispatch(toggleOverlay(Overlays.MiniCartOverlay, false));
-      history.push({ pathname: '/cart' });
+      navigate("/cart");
     }
   }, [isAuthenticated, dispatch, isCartMinimumMet, showBelowMinimum, history]);
 
@@ -119,10 +124,10 @@ const MiniCartFooter = () => {
       <div
         css={css`
           width: ${isMobileBreakpoint ? 100 : 50}vw;
-          padding: ${isMobileBreakpoint ? '20px' : '20px 50px'};
+          padding: ${isMobileBreakpoint ? "20px" : "20px 50px"};
           display: flex;
           flex-direction: column;
-          justify-content: ${isMobileBreakpoint ? 'flex-start' : 'center'};
+          justify-content: ${isMobileBreakpoint ? "flex-start" : "center"};
           align-content: center;
           text-align: center;
           background: ${BRAND.BACKGROUND};
@@ -132,38 +137,54 @@ const MiniCartFooter = () => {
         {membershipState === MembershipState.MEMBER ? (
           <Section>
             <Title2>Membership (annual)</Title2>
-            <ChangePlanLink onClick={handleSwitchMembership}>Remove</ChangePlanLink>
+            <ChangePlanLink onClick={handleSwitchMembership}>
+              Remove
+            </ChangePlanLink>
             <Line />
             <Title2>${`${membershipFee}`}/mo</Title2>
           </Section>
         ) : (
           <Section>
-            <Title2>{MembershipStateDisplayName[MembershipState.NON_MEMBER]} (3 month)</Title2>
+            <Title2>
+              {MembershipStateDisplayName[MembershipState.NON_MEMBER]} (3 month)
+            </Title2>
             <Line />
-            <ChangePlanLink onClick={handleSwitchMembership}>Switch to member</ChangePlanLink>
+            <ChangePlanLink onClick={handleSwitchMembership}>
+              Switch to member
+            </ChangePlanLink>
           </Section>
         )}
 
         <Section>
-          <Title2 color={isCartMinimumMet ? BRAND.PRIMARY_TEXT : BRAND.ERROR}>Monthly furniture total</Title2>
+          <Title2 color={isCartMinimumMet ? BRAND.PRIMARY_TEXT : BRAND.ERROR}>
+            Monthly furniture total
+          </Title2>
           <Line />
-          <Title2 color={isCartMinimumMet ? BRAND.PRIMARY_TEXT : BRAND.ERROR}>${subtotal.toLocaleString()}/mo</Title2>
+          <Title2 color={isCartMinimumMet ? BRAND.PRIMARY_TEXT : BRAND.ERROR}>
+            ${subtotal.toLocaleString()}/mo
+          </Title2>
         </Section>
 
         <Section>
           <Title2>White-glove delivery &#38; assembly</Title2>
           <Line />
-          <Title2>{membershipState === MembershipState.MEMBER ? 'FREE' : `$${deliveryFee}`}</Title2>
+          <Title2>
+            {membershipState === MembershipState.MEMBER
+              ? "FREE"
+              : `$${deliveryFee}`}
+          </Title2>
         </Section>
 
         <TotalSection>
           <Title2 isBold={true}>
-            {membershipState === MembershipState.MEMBER ? 'Monthly total' : 'Amount due now:'}
+            {membershipState === MembershipState.MEMBER
+              ? "Monthly total"
+              : "Amount due now:"}
           </Title2>
           <Line />
           <Title1 isBold={true}>
             ${total.toLocaleString()}
-            {membershipState === MembershipState.MEMBER && '/mo'}
+            {membershipState === MembershipState.MEMBER && "/mo"}
           </Title1>
         </TotalSection>
 

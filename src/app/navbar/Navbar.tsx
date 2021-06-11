@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { withRouter } from "react-router-dom";
-import { compose } from "redux";
 import { connect } from "react-redux";
 import NavbarBanner from "./NavbarBanner";
 import MobileNavbar from "./MobileNavbar";
@@ -155,7 +153,4 @@ const mapDispatchToProps: DispatchProps = {
   toggleOverlay: toggleOverlayAction,
 };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

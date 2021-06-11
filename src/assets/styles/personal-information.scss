@@ -1,0 +1,111 @@
+.personal-info-container {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    margin-bottom: 30px;
+  }
+
+  .personal-info-row {
+    width: 75%;
+    display: flex;
+    align-items: flex-start;
+
+    .info-label {
+      min-width: 160px;
+      font-size: 14px;
+      line-height: 23px;
+      height: 47px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .info-value {
+      font-size: 18px;
+      line-height: 26px;
+      width: 60%;
+      min-width: 150px;
+    }
+
+    .input-group {
+      width: 60%;
+      min-width: 150px;
+
+      input {
+        padding: 12px;
+        font-size: 14px;
+        color: $text-color;
+        background: $brand-light-grey;
+        border-radius: 3px;
+        margin-top: -5px;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+    }
+
+    span {
+      margin: 0 10px 0 20px;
+      text-decoration: underline;
+      font-size: 16px;
+      line-height: 26px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .span-container {
+      display: flex;
+      flex-direction: row;
+
+      span.cancel {
+        margin: 0 10px 0 20px;
+      }
+    }
+
+    .values-info-row {
+      width: 75%;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    .input-error {
+      color: $brand-red;
+      margin-bottom: 10px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .personal-info-row {
+      width: 95%;
+      flex-direction: column;
+      margin-bottom: 25px;
+
+      .info-label {
+        width: 100px;
+        font-size: 14px;
+        line-height: 23px;
+        height: 40px;
+        font-weight: 500;
+      }
+
+      .info-value {
+        width: 70%;
+      }
+
+      .values-info-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+      }
+
+      input {
+        width: 85%;
+      }
+      span {
+        margin-left: unset;
+      }
+    }
+  }
+}

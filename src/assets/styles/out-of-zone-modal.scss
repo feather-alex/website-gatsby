@@ -1,0 +1,139 @@
+.out-of-zone-modal {
+  .modal-dialog {
+    margin: 0;
+    background-color: rgba(130, 130, 130, 0.35);
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .modal-content {
+    position: absolute;
+    width: 523px;
+    top: 20vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 0;
+    border: 1px solid $brand-grey-background;
+    box-shadow: none;
+    overflow: auto;
+    background-color: $brand-grey-background;
+    height: unset;
+
+    .modal-body {
+      padding: 80px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      border: 1px solid $brand-grey-background;
+
+      .close-modal {
+        position: absolute;
+        top: 16px;
+        left: -6px;
+        padding: 10px;
+        writing-mode: vertical-rl;
+        text-orientation: sideways-right;
+        letter-spacing: 2px;
+        transform: rotate(180deg);
+      }
+
+      .custom-content {
+        max-width: 360px;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+
+        h5 {
+          max-width: 315px;
+          margin: auto;
+        }
+
+        p {
+          width: 100%;
+          color: $text-color;
+          margin-top: 25px;
+          margin-bottom: 25px;
+        }
+
+        .email-submit {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: auto;
+          width: 100%;
+
+          input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 13px;
+            color: $text-color;
+            border-radius: 5px;
+            &::placeholder {
+              color: $text-color;
+            }
+
+            &.email-input-error {
+              border: 1px solid $brand-red;
+            }
+          }
+
+          .email-error {
+            font-size: 13px;
+            margin-top: -10px;
+            margin-left: auto;
+            color: $brand-red;
+          }
+
+          button {
+            width: 155px;
+            margin-top: 80px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .out-of-zone-modal {
+    .modal-dialog {
+      position: fixed;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+
+      .modal-content {
+        padding: $mobile-margin;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: unset;
+        height: unset;
+
+        .modal-body {
+          padding: 0;
+          .close-modal {
+            top: -10px;
+            left: -30px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.out-of-zone-modal.fade .modal-dialog {
+  transform: translate(0, 0);
+  transform: scale(0.95);
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.out-of-zone-modal.in .modal-dialog {
+  transform: translate(0, 0);
+  transform: scale(1);
+  opacity: 1;
+}

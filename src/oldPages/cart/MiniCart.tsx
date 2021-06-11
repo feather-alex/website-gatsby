@@ -2,7 +2,6 @@
 import { Component, Fragment } from "react";
 import { css, jsx } from "@emotion/core";
 import { normalizeCartPrices, NormalizeCartPrices } from "./store/cart.actions";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 import { State as GlobalState } from "../../types/ReduxState";
 import MiniCartProductsList from "./components/MiniCartProductsList";
 import {
@@ -68,7 +67,7 @@ interface DispatchProps {
   toggleOverlay: ToggleOverlay;
 }
 
-type Props = StateProps & DispatchProps & RouteComponentProps;
+type Props = StateProps & DispatchProps;
 
 interface State {
   showBelowMinimum: boolean;
@@ -291,6 +290,4 @@ const mapDispatchToProps: DispatchProps = {
   normalizeCartPrices,
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(MiniCartOverlay)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(MiniCartOverlay);

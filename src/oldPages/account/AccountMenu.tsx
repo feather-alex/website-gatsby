@@ -1,31 +1,38 @@
 /** @jsx jsx */
-import { State as GlobalState } from '../../types/ReduxState';
-import { connect } from 'react-redux';
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
-import Title2 from '../../ui/titles/Title2';
-import Title3 from '../../ui/titles/Title3';
-import * as selectors from './accountOverview/store/account.overview.selectors';
-import { logOut as logOutAction, LogOut } from '../auth/login/store/login.actions';
-import { toggleOverlay as toggleOverlayAction, ToggleOverlay } from '../../app/store/overlay/overlay.actions';
-import { BRAND, BREAKPOINTS } from '../../ui/variables';
-import { withRouter, RouteComponentProps } from 'react-router';
-import { ACCOUNTS } from '../../analytics/accounts/events';
-import Analytics from '../../analytics/analytics';
-import { Overlays } from '../../app/store/overlay/overlay.types';
-import { getFAQCategoryNames } from '../FAQ/store/faqs.selectors';
-import { getEmail } from './personalInformation/store/personal.information.selectors';
-import { constructTypeformLinkData } from '../../app/navbar/components/navbar.link.data';
+import { State as GlobalState } from "../../types/ReduxState";
+import { connect } from "react-redux";
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import { navigate, Link } from "gatsby";
+import { AnchorLink } from "gatsby-plugin-anchor-links";
+import { Location } from "@reach/router";
+import Title2 from "../../ui/titles/Title2";
+import Title3 from "../../ui/titles/Title3";
+import * as selectors from "./accountOverview/store/account.overview.selectors";
+import {
+  logOut as logOutAction,
+  LogOut,
+} from "../auth/login/store/login.actions";
+import {
+  toggleOverlay as toggleOverlayAction,
+  ToggleOverlay,
+} from "../../app/store/overlay/overlay.actions";
+import { BRAND, BREAKPOINTS } from "../../ui/variables";
+// import { withRouter, RouteComponentProps } from 'react-router';
+import { ACCOUNTS } from "../../analytics/accounts/events";
+import Analytics from "../../analytics/analytics";
+import { Overlays } from "../../app/store/overlay/overlay.types";
+import { getFAQCategoryNames } from "../FAQ/store/faqs.selectors";
+import { getEmail } from "./personalInformation/store/personal.information.selectors";
+import { constructTypeformLinkData } from "../../app/navbar/components/navbar.link.data";
 
 export enum DisplayMode {
-  Navbar = 'navbar',
-  Sidebar = 'sidebar',
-  MobileOverlay = 'mobile-overlay'
+  Navbar = "navbar",
+  Sidebar = "sidebar",
+  MobileOverlay = "mobile-overlay",
 }
 
-interface Props extends RouteComponentProps {
+interface Props {
   displayMode: DisplayMode;
   logOut: LogOut;
   toggleMobileMenu?: () => void;
@@ -34,6 +41,7 @@ interface Props extends RouteComponentProps {
   FAQCategoryNames: string[];
   orderNumber: number;
   email: string;
+  location: Location;
 }
 
 interface State {
@@ -45,7 +53,7 @@ class AccountMenu extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      isMembershipMenuOpen: false
+      isMembershipMenuOpen: false,
     };
   }
 
@@ -60,9 +68,11 @@ class AccountMenu extends React.Component<Props, State> {
     this.handleMobileOnClick();
 
     if (this.props.displayMode === DisplayMode.Sidebar) {
-      this.setState((prevState) => ({ isMembershipMenuOpen: !prevState.isMembershipMenuOpen }));
+      this.setState((prevState) => ({
+        isMembershipMenuOpen: !prevState.isMembershipMenuOpen,
+      }));
     } else {
-      this.props.history.push('/account/membership');
+      navigate("/account/membership");
       this.props.toggleOverlay(Overlays.MobileNavOverlay, false);
     }
   };
@@ -72,9 +82,11 @@ class AccountMenu extends React.Component<Props, State> {
     this.setState({ isMembershipMenuOpen: false });
   };
 
-  isSubLinkActive = (link: string) => (this.props.location.hash.includes(link) ? 'active' : '');
+  // isSubLinkActive = (link: string) =>
+  //   this.props.location.hash.includes(link) ? "active" : "";
 
-  faqCategoryClick = (eventName: string) => () => Analytics.trackEvent(eventName);
+  faqCategoryClick = (eventName: string) => () =>
+    Analytics.trackEvent(eventName);
 
   handleLogOut = () => {
     Analytics.trackEvent(ACCOUNTS.LOGOUT);
@@ -85,7 +97,10 @@ class AccountMenu extends React.Component<Props, State> {
     const { isMembershipMenuOpen } = this.state;
     const { hasUpcomingDelivery, displayMode, email, orderNumber } = this.props;
     const isBold = displayMode !== DisplayMode.Navbar;
-    const shareFeedbackTypeformData = constructTypeformLinkData({ email, orderNumber }).shareFeedback;
+    const shareFeedbackTypeformData = constructTypeformLinkData({
+      email,
+      orderNumber,
+    }).shareFeedback;
 
     return (
       <ul
@@ -104,14 +119,15 @@ class AccountMenu extends React.Component<Props, State> {
           div {
             > a,
             span {
-              ${displayMode === DisplayMode.Navbar && `justify-content: flex-end;`}
+              ${displayMode === DisplayMode.Navbar &&
+              `justify-content: flex-end;`}
 
               &.active {
                 > span {
                   > p {
                     position: relative;
                     &:after {
-                      content: '';
+                      content: "";
                       position: absolute;
                       bottom: -1px;
                       width: 100%;
@@ -125,7 +141,7 @@ class AccountMenu extends React.Component<Props, State> {
                 > p {
                   position: relative;
                   &:after {
-                    content: '';
+                    content: "";
                     position: absolute;
                     bottom: -1px;
                     width: 100%;
@@ -141,23 +157,27 @@ class AccountMenu extends React.Component<Props, State> {
       >
         {hasUpcomingDelivery && (
           <li>
-            <NavLink
+            <Link
               onClick={this.handleMenuLinksClick}
               to="/account/delivery"
-              className="navlink"
+              className="Link"
               activeClassName="active"
               css={css`
                 display: flex;
               `}
             >
-              <Title2 dataCy="delivery-details" isBold={isBold} isAnimated={true}>
+              <Title2
+                dataCy="delivery-details"
+                isBold={isBold}
+                isAnimated={true}
+              >
                 Your Upcoming Delivery
               </Title2>
-            </NavLink>
+            </Link>
           </li>
         )}
         <li>
-          <NavLink
+          <Link
             onClick={this.handleMenuLinksClick}
             to="/account/furniture"
             activeClassName="active"
@@ -165,17 +185,21 @@ class AccountMenu extends React.Component<Props, State> {
               display: flex;
             `}
           >
-            <Title2 dataCy="current-furniture" isBold={isBold} isAnimated={true}>
+            <Title2
+              dataCy="current-furniture"
+              isBold={isBold}
+              isAnimated={true}
+            >
               Current Furniture
             </Title2>
-          </NavLink>
+          </Link>
         </li>
 
         <li>
-          <NavLink
+          <Link
             onClick={this.handleMenuLinksClick}
             to="/account/perks"
-            className="navlink"
+            className="Link"
             activeClassName="active"
             css={css`
               display: flex;
@@ -184,11 +208,11 @@ class AccountMenu extends React.Component<Props, State> {
             <Title2 dataCy="feather-perks" isBold={isBold} isAnimated={true}>
               Feather Perks
             </Title2>
-          </NavLink>
+          </Link>
         </li>
 
         <li>
-          <NavLink
+          <Link
             onClick={this.handleMenuLinksClick}
             to="/account/billing"
             activeClassName="active"
@@ -199,11 +223,11 @@ class AccountMenu extends React.Component<Props, State> {
             <Title2 dataCy="plan-billing" isBold={isBold} isAnimated={true}>
               Plan and Billing
             </Title2>
-          </NavLink>
+          </Link>
         </li>
 
         <li>
-          <NavLink
+          <Link
             onClick={this.toggleMembershipMenu}
             to="/account/membership"
             activeClassName="active"
@@ -214,7 +238,7 @@ class AccountMenu extends React.Component<Props, State> {
             <Title2 dataCy="plan-faq" isBold={isBold} isAnimated={true}>
               Customer FAQ
             </Title2>
-          </NavLink>
+          </Link>
         </li>
         <div
           css={css`
@@ -229,19 +253,20 @@ class AccountMenu extends React.Component<Props, State> {
           `}
         >
           {this.props.FAQCategoryNames.map((category) => (
-            <HashLink
+            <AnchorLink
               key={category}
               to={`/account/membership#${category}`}
-              scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}
               css={css`
                 display: flex;
               `}
-              className={this.isSubLinkActive(category)}
+              className=""
             >
               <span
                 role="button"
                 tabIndex={0}
-                onClick={this.faqCategoryClick(`Accounts ${category} FAQ Clicked`)}
+                onClick={this.faqCategoryClick(
+                  `Accounts ${category} FAQ Clicked`
+                )}
                 css={css`
                   &:focus {
                     outline: none;
@@ -252,12 +277,12 @@ class AccountMenu extends React.Component<Props, State> {
                   {category}
                 </Title3>
               </span>
-            </HashLink>
+            </AnchorLink>
           ))}
         </div>
 
         <li>
-          <NavLink
+          <Link
             onClick={this.handleMenuLinksClick}
             to="/account/change-password"
             activeClassName="active"
@@ -268,11 +293,11 @@ class AccountMenu extends React.Component<Props, State> {
             <Title2 isBold={isBold} isAnimated={true}>
               Change Password
             </Title2>
-          </NavLink>
+          </Link>
         </li>
         <li
           css={css`
-            ${displayMode === DisplayMode.Sidebar && 'margin-top: 28px;'}
+            ${displayMode === DisplayMode.Sidebar && "margin-top: 28px;"}
           `}
         >
           <span
@@ -311,12 +336,12 @@ const mapStateToProps = (state: GlobalState) => ({
   hasUpcomingDelivery: selectors.hasUpcomingDelivery(state),
   FAQCategoryNames: getFAQCategoryNames(state),
   orderNumber: selectors.getOrderNumber(state),
-  email: getEmail(state)
+  email: getEmail(state),
 });
 
 const mapDispatchToProps = {
   logOut: logOutAction,
-  toggleOverlay: toggleOverlayAction
+  toggleOverlay: toggleOverlayAction,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AccountMenu));
+export default connect(mapStateToProps, mapDispatchToProps)(AccountMenu);

@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { Link } from 'react-router-dom';
-import FixedSizeImage from '../../../ui/images/FixedSizeImage';
-import Title3 from '../../../ui/titles/Title3';
-import { BRAND } from '../../../ui/variables';
-import { OutOfStock } from './OutOfStock';
+import { css, jsx } from "@emotion/core";
+import { Link } from "gatsby";
+import FixedSizeImage from "../../../ui/images/FixedSizeImage";
+import Title3 from "../../../ui/titles/Title3";
+import { BRAND } from "../../../ui/variables";
+import { OutOfStock } from "./OutOfStock";
 
 interface Props {
   to: string;
@@ -16,7 +16,15 @@ interface Props {
   showError: string;
 }
 
-const MiniCartProductInfo = ({ to, onClick, title, imageUrl, variant, isItemUnavailable, showError }: Props) => (
+const MiniCartProductInfo = ({
+  to,
+  onClick,
+  title,
+  imageUrl,
+  variant,
+  isItemUnavailable,
+  showError,
+}: Props) => (
   <Link
     to={to}
     onClick={onClick}
