@@ -3,8 +3,8 @@ import { FluxStandardAction } from "../../../types/FluxStandardActions";
 import { DimensionsState } from "./dimensions.types";
 
 export const initialState: DimensionsState = {
-  height: 0, //document.documentElement.clientHeight,
-  width: 0, //document.documentElement.clientWidth
+  height: 800, //document.documentElement.clientHeight,
+  width: 1600, //document.documentElement.clientWidth
 };
 
 const windowDimensions = (

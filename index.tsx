@@ -12,6 +12,7 @@ import "./errorReporter";
 
 import createStore from "./src/store";
 import Loading from "./src/components/Loading";
+import App from "./src/App";
 
 import Session from "./src/utils/session";
 
@@ -24,8 +25,7 @@ Session.init();
 
 export default ({ element }) => {
   const { store, persistor } = createStore();
-  console.log("store: ", store);
-  console.log("persistor: ", persistor);
+
   return (
     <Provider store={store}>
       <PersistGate loading={<Loading />} persistor={persistor}>
@@ -42,7 +42,7 @@ export default ({ element }) => {
             ],
           }}
         >
-          {element}
+          <App>{element}</App>
         </Elements>
       </PersistGate>
     </Provider>

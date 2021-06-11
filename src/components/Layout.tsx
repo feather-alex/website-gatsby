@@ -3,9 +3,8 @@ import { css, jsx } from "@emotion/core";
 import React from "react";
 // import FreshChatIcon from "../components/FreshChatIcon";
 import Navbar from "../app/navbar/Navbar";
-// import Footer from "../ui/footers/Footer";
+import Footer from "../ui/footers/Footer";
 import { BRAND } from "../ui/variables";
-
 class Layout extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -22,7 +21,7 @@ class Layout extends React.Component {
       >
         <Navbar />
         <div>{children}</div>
-        {/* <Footer isMobileBreakpoint={false} /> */}
+        <Footer />
         {/* <FreshChatIcon /> */}
       </div>
     );

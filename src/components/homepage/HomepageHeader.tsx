@@ -15,8 +15,8 @@ import {
 import { HomepageHero } from "../../contentful/contentful.types";
 import SecondaryHero from "../../ui/headers/SecondaryHero";
 import ResponsiveImage from "../../ui/images/ResponsiveImage";
-// import { useSelector } from "react-redux";
-// import { getIsMobileView } from '../../app/store/dimensions/dimensions.selectors';
+import { useSelector } from "react-redux";
+import { getIsMobileView } from "../../app/store/dimensions/dimensions.selectors";
 
 interface Props {
   isMobileBreakpoint: boolean;
@@ -24,15 +24,15 @@ interface Props {
 }
 
 const HomepageHeader = ({ isMobileBreakpoint, heroContent }: Props) => {
-  // const isMobileView = useSelector(getIsMobileView);
+  const isMobileView = useSelector(getIsMobileView);
 
   if (!heroContent) {
     return null;
   }
 
   const mobileImage = heroContent.mobileImage
-    ? heroContent.mobileImage.url
-    : heroContent.desktopImage.url;
+    ? heroContent.mobileImage.file.url
+    : heroContent.desktopImage.file.url;
 
   return (
     <Header>
@@ -50,13 +50,13 @@ const HomepageHeader = ({ isMobileBreakpoint, heroContent }: Props) => {
           </CTAContainer>
         </TextSection>
         <ImageContainer>
-          {/* <ResponsiveImage
-            src={isMobileView ? mobileImage : heroContent.desktopImage.url}
+          <ResponsiveImage
+            src={isMobileView ? mobileImage : heroContent.desktopImage.file.url}
             objectFit="cover"
-            objectPosition={isMobileView ? 'top' : 'right'}
+            objectPosition={isMobileView ? "top" : "right"}
             height={isMobileView ? 224 : 550}
             width={isMobileView ? 300 : 1200}
-          /> */}
+          />
           {/* <Img /> */}
         </ImageContainer>
       </HeaderDisplay>

@@ -132,16 +132,11 @@ export type TitledTripleVerticalLockupContentful = Entry<
 >;
 
 export interface ContentfulImage {
-  url: string;
-  details: {
-    size: number;
-    image?: {
-      width: number;
-      height: number;
-    };
+  title: string;
+  description: string;
+  file: {
+    url: string;
   };
-  fileName: string;
-  contentType: string;
 }
 
 export interface HomepageHeroBase {
