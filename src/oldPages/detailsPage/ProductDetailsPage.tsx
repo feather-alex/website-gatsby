@@ -1,55 +1,80 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import * as qs from 'query-string';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import React from "react";
+// import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { Location } from "@reach/router";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import * as qs from "query-string";
 
-import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import { getProductDetailsRequest, GetProductDetailsRequest } from './store/productDetails/product.actions';
-import { State as GlobalState, APIError } from '../../types/ReduxState';
-import Analytics from '../../analytics/analytics';
-import { DETAILS_PAGE } from '../../analytics/details-page/events';
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import {
+  getProductDetailsRequest,
+  GetProductDetailsRequest,
+} from "./store/productDetails/product.actions";
+import { State as GlobalState, APIError } from "../../types/ReduxState";
+import Analytics from "../../analytics/analytics";
+import { DETAILS_PAGE } from "../../analytics/details-page/events";
 import {
   productDetailPageViewedPayloadMapping,
-  threekitPlayerViewedMapping
-} from '../../analytics/details-page/payload-mappings';
-import PAGES from '../../analytics/pages';
-import Layout from '../../app/Layout';
-import { DeliveryAreaIdentifier, MembershipState } from '../../app/store/plan/plan.types';
+  threekitPlayerViewedMapping,
+} from "../../analytics/details-page/payload-mappings";
+import PAGES from "../../analytics/pages";
+import Layout from "../../components/Layout";
+import {
+  DeliveryAreaIdentifier,
+  MembershipState,
+} from "../../app/store/plan/plan.types";
 import {
   getMembershipState,
   getDeliveryAreaIdentifier,
   getDeliveryZipCode,
-  getDeliveryTimelineText
-} from '../../app/store/plan/plan.selectors';
-import { getProductDetails, getIsFetching, getError } from './store/productDetails/product.selectors';
-import ErrorPage from '../../components/ErrorPage';
-import Helmet from '../../components/Helmet';
-import Loading from '../../components/Loading';
-import { FullProductDetails, ProductVariant, OptionType } from '../../types/Product';
-import { SelectedOptions, SelectedOption } from './store/productDetails/product.types';
-import { BRAND, SHADES } from '../../ui/variables';
-import { getInitialSelections, getImageSrcArray, determineSelectedVariant } from './detailsPage.service';
-import DesktopProductImages from './components/DesktopProductImages';
-import DetailsPageInfo from './DetailsPageInfo';
-import Breadcrumb, { CurrentType } from './components/Breadcrumb';
-import TakeTheQuizPreFooter from '../../ui/footers/TakeTheQuizPreFooter';
-import MobileImageCarousel from './components/MobileImageCarousel';
-import ProductDetailsInfo from './components/ProductDetailsInfo';
-import ProductPairings from './components/ProductPairings';
-import { queryToList } from '../productListing/filter.service';
-import VariableImageFeature from '../../ui/pageElements/VariableImageFeature';
-import FeatherFloydLogo from '../../ui/logos/FeatherFloydLogo';
-import Header2 from '../../ui/headers/Header2';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import ProductOrPackageNotFound from './ProductOrPackageNotFoundPage';
-import { ToggleOverlay, toggleOverlay as toggleOverlayAction } from '../../app/store/overlay/overlay.actions';
-import { Overlays } from '../../app/store/overlay/overlay.types';
-import ThreekitPlayerOverlay from '../../threekit/ThreekitPlayerOverlay';
-import { getIs3DOverlayOpen } from '../../app/store/overlay/overlay.selectors';
+  getDeliveryTimelineText,
+} from "../../app/store/plan/plan.selectors";
+import {
+  getProductDetails,
+  getIsFetching,
+  getError,
+} from "./store/productDetails/product.selectors";
+import ErrorPage from "../../components/ErrorPage";
+import Helmet from "../../components/Helmet";
+import Loading from "../../components/Loading";
+import {
+  FullProductDetails,
+  ProductVariant,
+  OptionType,
+} from "../../types/Product";
+import {
+  SelectedOptions,
+  SelectedOption,
+} from "./store/productDetails/product.types";
+import { BRAND, SHADES } from "../../ui/variables";
+import {
+  getInitialSelections,
+  getImageSrcArray,
+  determineSelectedVariant,
+} from "./detailsPage.service";
+import DesktopProductImages from "./components/DesktopProductImages";
+import DetailsPageInfo from "./DetailsPageInfo";
+import Breadcrumb, { CurrentType } from "./components/Breadcrumb";
+import TakeTheQuizPreFooter from "../../ui/footers/TakeTheQuizPreFooter";
+import MobileImageCarousel from "./components/MobileImageCarousel";
+import ProductDetailsInfo from "./components/ProductDetailsInfo";
+import ProductPairings from "./components/ProductPairings";
+import { queryToList } from "../productListing/filter.service";
+import VariableImageFeature from "../../ui/pageElements/VariableImageFeature";
+import FeatherFloydLogo from "../../ui/logos/FeatherFloydLogo";
+import Header2 from "../../ui/headers/Header2";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import ProductOrPackageNotFound from "./ProductOrPackageNotFoundPage";
+import {
+  ToggleOverlay,
+  toggleOverlay as toggleOverlayAction,
+} from "../../app/store/overlay/overlay.actions";
+import { Overlays } from "../../app/store/overlay/overlay.types";
+// import ThreekitPlayerOverlay from '../../threekit/ThreekitPlayerOverlay';
+import { getIs3DOverlayOpen } from "../../app/store/overlay/overlay.selectors";
 
 const FeatherFloydHeader = styled(Header2)`
   max-width: 472px;
@@ -76,7 +101,7 @@ interface DispatchProps {
   toggleOverlay: ToggleOverlay;
 }
 
-type Props = StateProps & DispatchProps & RouteComponentProps<MatchParams>;
+type Props = StateProps & DispatchProps & Location;
 
 interface State {
   selectedOptions: SelectedOptions;
@@ -91,9 +116,9 @@ class ProductDetailsPage extends React.Component<Props, State> {
     selectedOptions: {
       [OptionType.Color]: null,
       [OptionType.Material]: null,
-      [OptionType.Structure]: null
+      [OptionType.Structure]: null,
     },
-    selectedVariant: null
+    selectedVariant: null,
   };
 
   componentDidMount() {
@@ -103,20 +128,34 @@ class ProductDetailsPage extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
-    const { productData, membershipState, postalCode, deliveryAreaIdentifier, location } = this.props;
+    const {
+      productData,
+      membershipState,
+      postalCode,
+      deliveryAreaIdentifier,
+      location,
+    } = this.props;
 
     // Product details request from componentDidMount has successfully completed
     if (
-      this.props.productData.identifier !== '' &&
+      this.props.productData.identifier !== "" &&
       (this.props.productData.identifier !== prevProps.productData.identifier ||
         // If the data was refreshed without the identifier changing
-        (prevProps.isFetching && this.props.isFetching !== prevProps.isFetching))
+        (prevProps.isFetching &&
+          this.props.isFetching !== prevProps.isFetching))
     ) {
-      const initialVariantIdentifier = queryToList(qs.parse(location.search)['variant'])[0];
-      const { selectedOptions, selectedVariant } = getInitialSelections(productData, initialVariantIdentifier);
+      const initialVariantIdentifier = queryToList(
+        qs.parse(location.search)["variant"]
+      )[0];
+      const { selectedOptions, selectedVariant } = getInitialSelections(
+        productData,
+        initialVariantIdentifier
+      );
 
       if (this.props.productData.variants.length === 1) {
-        this.props.history.replace(`/products/${this.props.productData.identifier}`);
+        this.props.history.replace(
+          `/products/${this.props.productData.identifier}`
+        );
       }
 
       this.setState({ selectedOptions, selectedVariant });
@@ -128,21 +167,26 @@ class ProductDetailsPage extends React.Component<Props, State> {
             productData,
             selectedVariant,
             membershipState,
-            postal: postalCode ? postalCode : '',
-            deliveryAreaIdentifier: deliveryAreaIdentifier || DeliveryAreaIdentifier.All
+            postal: postalCode ? postalCode : "",
+            deliveryAreaIdentifier:
+              deliveryAreaIdentifier || DeliveryAreaIdentifier.All,
           })
         );
       }
     }
 
     // We clicked on a product from the YouMayAlsoLike section
-    if (this.props.match.params.productIdentifier !== prevProps.match.params.productIdentifier) {
+    if (
+      this.props.match.params.productIdentifier !==
+      prevProps.match.params.productIdentifier
+    ) {
       window.scrollTo(0, 0);
       this.loadProductDetails();
     } else if (
       // if we changed our selected variant, re-write the URL and track the event
       this.state.selectedVariant &&
-      this.state.selectedVariant.identifier !== prevState.selectedVariant?.identifier &&
+      this.state.selectedVariant.identifier !==
+        prevState.selectedVariant?.identifier &&
       this.props.productData.variants.length > 1
     ) {
       this.props.history.replace(
@@ -157,8 +201,9 @@ class ProductDetailsPage extends React.Component<Props, State> {
             productData,
             selectedVariant: this.state.selectedVariant,
             membershipState,
-            postal: postalCode ? postalCode : '',
-            deliveryAreaIdentifier: deliveryAreaIdentifier || DeliveryAreaIdentifier.All
+            postal: postalCode ? postalCode : "",
+            deliveryAreaIdentifier:
+              deliveryAreaIdentifier || DeliveryAreaIdentifier.All,
           })
         );
       }
@@ -170,27 +215,41 @@ class ProductDetailsPage extends React.Component<Props, State> {
     this.props.getProductDetailsRequest({ productIdentifier });
   };
 
-  handleOptionSelect = (optionType: OptionType) => (selection: SelectedOption) => {
+  handleOptionSelect = (optionType: OptionType) => (
+    selection: SelectedOption
+  ) => {
     this.setState((prevState, prevProps) => {
       const newSelectedOptions = {
         ...prevState.selectedOptions,
-        [optionType]: { identifier: selection.identifier, name: selection.name }
+        [optionType]: {
+          identifier: selection.identifier,
+          name: selection.name,
+        },
       };
 
-      let newSelectedVariant = determineSelectedVariant(newSelectedOptions, prevProps.productData.variants);
+      let newSelectedVariant = determineSelectedVariant(
+        newSelectedOptions,
+        prevProps.productData.variants
+      );
 
       // if we don't find a match with these options, don't fret we just need to find
       // the first variant which contains the latest option selection
       if (!newSelectedVariant) {
-        const firstVariantWithSelection = prevProps.productData.variants.find((variant) =>
-          variant.options.some(
-            (option) => option.type === optionType && option.valueIdentifier === selection.identifier
-          )
+        const firstVariantWithSelection = prevProps.productData.variants.find(
+          (variant) =>
+            variant.options.some(
+              (option) =>
+                option.type === optionType &&
+                option.valueIdentifier === selection.identifier
+            )
         );
         if (firstVariantWithSelection) {
           // set the selected options to the options of the selected variant
           firstVariantWithSelection.options.map((option) => {
-            newSelectedOptions[option.type] = { identifier: option.valueIdentifier, name: option.valueName };
+            newSelectedOptions[option.type] = {
+              identifier: option.valueIdentifier,
+              name: option.valueName,
+            };
           });
           newSelectedVariant = firstVariantWithSelection;
         }
@@ -198,7 +257,7 @@ class ProductDetailsPage extends React.Component<Props, State> {
 
       return {
         selectedOptions: newSelectedOptions,
-        selectedVariant: newSelectedVariant
+        selectedVariant: newSelectedVariant,
       };
     });
   };
@@ -213,7 +272,7 @@ class ProductDetailsPage extends React.Component<Props, State> {
       DETAILS_PAGE.THREEKIT_VIEWED,
       threekitPlayerViewedMapping({
         productIdentifier: productData.identifier,
-        variant: selectedVariant
+        variant: selectedVariant,
       })
     );
   };
@@ -226,7 +285,7 @@ class ProductDetailsPage extends React.Component<Props, State> {
       isFetching,
       apiError,
       deliveryAreaIdentifier,
-      deliveryTimelineText
+      deliveryTimelineText,
     } = this.props;
 
     const { selectedOptions, selectedVariant } = this.state;
@@ -236,7 +295,12 @@ class ProductDetailsPage extends React.Component<Props, State> {
       if (apiError.status === 404) {
         return <ProductOrPackageNotFound />;
       } else {
-        return <ErrorPage title={`${apiError.status} ${apiError.error}`} content={apiError.message} />;
+        return (
+          <ErrorPage
+            title={`${apiError.status} ${apiError.error}`}
+            content={apiError.message}
+          />
+        );
       }
     }
 
@@ -270,20 +334,25 @@ class ProductDetailsPage extends React.Component<Props, State> {
           brand={productData.brand.name}
           description={productData.description}
           identifier={productData.identifier}
-          imageUrl={`${selectedVariant.mainImage.desktop}?auto=format&bg=f8f8f8&q=80` || undefined}
+          imageUrl={
+            `${selectedVariant.mainImage.desktop}?auto=format&bg=f8f8f8&q=80` ||
+            undefined
+          }
           pageUrl={`https://www.livefeather.com/products/${productData.identifier}`}
           price={selectedVariant.rentalPrices[12].toString() || undefined}
           product={true}
           availability={
             (selectedVariant &&
-            selectedVariant.availability.find((stock) => stock.deliveryArea === deliveryAreaIdentifier)
-              ? 'in stock'
-              : 'out of stock') || undefined
+            selectedVariant.availability.find(
+              (stock) => stock.deliveryArea === deliveryAreaIdentifier
+            )
+              ? "in stock"
+              : "out of stock") || undefined
           }
         />
-        {productData['3dAssetId'] && (
+        {productData["3dAssetId"] && (
           <ThreekitPlayerOverlay
-            assetId={productData['3dAssetId']}
+            assetId={productData["3dAssetId"]}
             selectedVariantIdentifier={selectedVariant.identifier}
           />
         )}
@@ -312,7 +381,7 @@ class ProductDetailsPage extends React.Component<Props, State> {
               >
                 <MobileImageCarousel
                   carouselImages={carouselImages}
-                  threekitAssetId={productData['3dAssetId']}
+                  threekitAssetId={productData["3dAssetId"]}
                   open3DModal={this.handleOpen3DModal}
                 />
               </div>
@@ -322,7 +391,7 @@ class ProductDetailsPage extends React.Component<Props, State> {
                 imagesUrls={carouselImages}
                 currentProductIdentifier={productData.identifier}
                 selectedVariant={selectedVariant}
-                threekitAssetId={productData['3dAssetId']}
+                threekitAssetId={productData["3dAssetId"]}
               />
             )}
 
@@ -387,18 +456,20 @@ class ProductDetailsPage extends React.Component<Props, State> {
             productIdentifiers={[productData.identifier]}
             categoryIdentifier={productData.categories[0].identifier}
           />
-          {productData.brand.identifier === 'floyd' ? (
+          {productData.brand.identifier === "floyd" ? (
             <VariableImageFeature
               image={{
                 src: isMobileBreakpoint
-                  ? 'https://img.livefeather.com/pages-new/Floyd/floyd-plp-mobile.png'
-                  : 'https://img.livefeather.com/pages-new/Floyd/floyd-plp-desktop.png',
-                alt: 'Floyd bed in condo'
+                  ? "https://img.livefeather.com/pages-new/Floyd/floyd-plp-mobile.png"
+                  : "https://img.livefeather.com/pages-new/Floyd/floyd-plp-desktop.png",
+                alt: "Floyd bed in condo",
               }}
               imageWidthPercentage={65}
             >
               <FeatherFloydLogo width={144} color={SHADES.WHITE} />
-              <FeatherFloydHeader color={SHADES.WHITE}>Floyd Furniture Meets Feather Flexibility</FeatherFloydHeader>
+              <FeatherFloydHeader color={SHADES.WHITE}>
+                Floyd Furniture Meets Feather Flexibility
+              </FeatherFloydHeader>
               <Button style={ButtonStyle.PRIMARY_INVERTED} to="/floyd">
                 Learn More
               </Button>
@@ -421,12 +492,15 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   deliveryAreaIdentifier: getDeliveryAreaIdentifier(state),
   postalCode: getDeliveryZipCode(state),
   deliveryTimelineText: getDeliveryTimelineText(state),
-  is3DOverlayOpen: getIs3DOverlayOpen(state)
+  is3DOverlayOpen: getIs3DOverlayOpen(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
   getProductDetailsRequest,
-  toggleOverlay: toggleOverlayAction
+  toggleOverlay: toggleOverlayAction,
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(ProductDetailsPage);
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(ProductDetailsPage);

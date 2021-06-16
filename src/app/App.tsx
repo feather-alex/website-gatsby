@@ -1,8 +1,7 @@
 import React from "react";
 import { polyfill } from "smoothscroll-polyfill";
 import { connect } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
-import { Route, Switch, RouteComponentProps, Redirect } from "react-router-dom";
+import { Router, Route } from "@reach/router";
 import {
   handleWindowResize,
   HandleWindowResize,
@@ -69,7 +68,7 @@ const FourOhFour = React.lazy(() => import("../oldPages/404"));
 const ContactPage = React.lazy(() => import("../oldPages/contact/Contact"));
 const ReviewsPage = React.lazy(() => import("../oldPages/reviews/Reviews"));
 const AboutPage = React.lazy(() => import("../oldPages/about/About"));
-const CheckoutPage = React.lazy(() => import("../oldPages/checkout/Checkout"));
+// const CheckoutPage = React.lazy(() => import("../oldPages/checkout/Checkout"));
 const CreditCheck = React.lazy(() =>
   import("../oldPages/checkout/components/CreditCheckDenied")
 );
@@ -262,7 +261,7 @@ class App extends React.Component<Props> {
         <Loading />
       </LoadingContainer>
     ) : (
-      <ConnectedRouter history={history}>
+      <Router>
         <ErrorBoundary>
           <React.Suspense fallback={<LazyLoading />}>
             <Switch>
@@ -285,10 +284,10 @@ class App extends React.Component<Props> {
                 path="/lease-signed-success"
                 component={LeaseSignedConfirmation}
               />
-              <Route
+              {/* <Route
                 path="/checkout"
                 render={this.waitForProductEntities(<CheckoutPage />)}
-              />
+              /> */}
               <Route path="/credit-check" component={CreditCheck} />
               <Route path="/ofac-check" component={OFACCheckFailed} />
               <Route
@@ -344,7 +343,7 @@ class App extends React.Component<Props> {
           </React.Suspense>
         </ErrorBoundary>
         <OverlayContainer />
-      </ConnectedRouter>
+      </Router>
     );
   }
 }

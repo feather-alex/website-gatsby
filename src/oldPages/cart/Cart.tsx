@@ -4,8 +4,8 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-
+// import { withRouter, RouteComponentProps } from "react-router-dom";
+import { navigate } from "gatsby";
 import {
   normalizeCartPrices,
   NormalizeCartPrices,
@@ -69,7 +69,7 @@ import {
 } from "../../app/store/plan/plan.types";
 import Header2 from "../../ui/headers/Header2";
 import Button, { ButtonStyle } from "../../ui/buttons/Button";
-import Layout from "../../app/Layout";
+import Layout from "../../components/Layout";
 import CartOrderSummary from "./components/CartOrderSummary";
 import Subheader1 from "../../ui/subheaders/Subheader1";
 import CartRecommendations from "./components/Recommendations";
@@ -190,7 +190,7 @@ interface DispatchProps {
   getRecommendationsRequest: GetRecommendationsRequest;
 }
 
-type Props = RouteComponentProps & StateProps & DispatchProps;
+type Props = StateProps & DispatchProps;
 
 interface State {
   isTncChecked: boolean;
@@ -286,7 +286,7 @@ class Cart extends React.Component<Props, State> {
         startCheckoutPayloadMapping({ cartItems, cartUuid, rentalLength })
       );
 
-      this.props.history.push({ pathname: "/checkout" });
+      navigate("/checkout");
     }
   };
 
@@ -424,7 +424,4 @@ const mapDispatchToProps: DispatchProps = {
   getRecommendationsRequest,
 };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

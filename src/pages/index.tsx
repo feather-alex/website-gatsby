@@ -19,6 +19,7 @@ import {
   UrlType,
 } from "../contentful/contentful.types";
 import { HOMEPAGE, AnalyticsEventKey } from "../analytics/homepage/events";
+import App from "../app/App";
 // import { useSelector } from "react-redux";
 // import { getIsMobileBreakpoint } from "../app/store/dimensions/dimensions.selectors";
 
@@ -148,9 +149,11 @@ class RootIndex extends React.Component {
     const homepageData = get(this, "props.data.contentfulHomepage");
     console.log("homepage data: ", homepageData);
     const sections = homepageData.homepageSections;
+    console.log("sections: ", sections);
     // const isMobileBreakpoint = useSelector(getIsMobileBreakpoint);
 
-    return (
+    return [
+      <App />,
       <Layout>
         <Helmet
           title={homepageData.meta.title}
@@ -175,15 +178,15 @@ class RootIndex extends React.Component {
               <Subheader2>{homepageData.textLockup.body}</Subheader2>
             </div>
           </TextLockupSection>
-          {/* <ImageFeaturesSection isMobileBreakpoint={false}>
+          <ImageFeaturesSection isMobileBreakpoint={false}>
             {renderHorizontalImageWithText(sections[0], 0)}
             {renderVerticalImageWithText(sections[1], 1)}
             {renderHorizontalImageWithText(sections[2], 2)}
             {renderVerticalImageWithText(sections[3], 3)}
-          </ImageFeaturesSection> */}
+          </ImageFeaturesSection>
         </HomepageSection>
-      </Layout>
-    );
+      </Layout>,
+    ];
   }
 }
 

@@ -2,7 +2,7 @@
 import { jsx, css } from "@emotion/core";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { State as GlobalState, APIError } from "../../types/ReduxState";
-import { Route, Switch, Redirect, Link } from "react-router-dom";
+// import { Route, Switch, Redirect, Link } from "react-router-dom";
 import CheckoutBillingAddress from "./components/CheckoutBillingAddress";
 import OutOfDeliveryZoneModal from "../../oldPages/checkout/components/OutOfDeliveryZoneModal";
 import { TrackingParameters } from "../../types/TrackingParameters";
@@ -12,7 +12,7 @@ import CheckoutOrderSummary from "../../oldPages/checkout/components/CheckoutOrd
 import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
 import CheckoutBillingInfo from "../../oldPages/checkout/components/CheckoutBillingInfo";
 import { ProductEntities } from "../../app/store/entities/entities.types";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+// import { withRouter, RouteComponentProps } from "react-router-dom";
 import React from "react";
 import {
   CartItem,
@@ -117,6 +117,7 @@ import {
 } from "./store/checkoutForms.types";
 import { Token } from "@stripe/stripe-js";
 import { initialState } from "./store/checkout.reducer";
+import { navigate, Link } from "gatsby";
 
 interface StateProps {
   cartItems: CartItem[];
@@ -175,7 +176,7 @@ interface DispatchProps {
   changeCheckoutStep: ActionCreatorWithPayload<ChangeStepPayload>;
 }
 
-type Props = StateProps & DispatchProps & RouteComponentProps;
+type Props = StateProps & DispatchProps;
 
 interface State {
   hasTaxError: boolean;
@@ -236,7 +237,7 @@ class Checkout extends React.Component<Props, State> {
         },
       });
     } else {
-      this.props.history.replace({ pathname: "/cart" });
+      navigate("/cart");
     }
 
     window.scrollTo(0, 0);
@@ -249,8 +250,8 @@ class Checkout extends React.Component<Props, State> {
       promo,
       deliveryAreaIdentifier,
       processCheckoutAmountsRequest,
-      getUnavailableProductsRequest,
-      location,
+      // getUnavailableProductsRequest,
+      // location,
       deliveryInfo,
     } = this.props;
     const { streetAddress, city, state, zipcode } = deliveryInfo;
@@ -275,9 +276,9 @@ class Checkout extends React.Component<Props, State> {
       processCheckoutAmountsRequest(amountsRequestData);
     }
 
-    if (location.pathname !== prevProps.location.pathname && subtotal > 0) {
-      getUnavailableProductsRequest();
-    }
+    // if (location.pathname !== prevProps.location.pathname && subtotal > 0) {
+    //   getUnavailableProductsRequest();
+    // }
   }
 
   handleNextStepDeliveryInfo() {
@@ -308,23 +309,23 @@ class Checkout extends React.Component<Props, State> {
   backToCustomerInfo() {
     this.props.changeCheckoutStep({ step: CheckoutStep.CustomerInfo });
     this.props.updateSSNInfo(initialState.ssnInfo);
-    this.props.history.push("/checkout");
+    navigate("/checkout");
   }
 
   backToDeliveryInfo() {
     this.props.changeCheckoutStep({ step: CheckoutStep.DeliveryInfo });
     this.props.updateSSNInfo(initialState.ssnInfo);
-    this.props.history.push(`/checkout/${CheckoutStep.DeliveryInfo}`);
+    navigate(`/checkout/${CheckoutStep.DeliveryInfo}`);
   }
 
   backToBillingAddress() {
     this.props.changeCheckoutStep({ step: CheckoutStep.BillingAddress });
     this.props.updateSSNInfo(initialState.ssnInfo);
-    this.props.history.push(`/checkout/${CheckoutStep.BillingAddress}`);
+    navigate(`/checkout/${CheckoutStep.BillingAddress}`);
   }
 
   backToCart() {
-    this.props.history.push("/cart");
+    navigate("/cart");
     this.props.resetCheckoutForms();
   }
 
@@ -509,7 +510,6 @@ class Checkout extends React.Component<Props, State> {
   render() {
     const { googleScriptFailed, statedIncome } = this.state;
     const {
-      location,
       cartUuid,
       toggleOverlay,
       productEntities,
