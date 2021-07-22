@@ -1,33 +1,39 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import { connect } from 'react-redux';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import { connect } from "react-redux";
 
-import Analytics from '../../../../../analytics/analytics';
-import { DETAILS_PAGE } from '../../../../../analytics/details-page/events';
-import { quizResultDetailPageViewedPayloadMapping } from '../../../../../analytics/details-page/payload-mappings';
-import { PACKAGE } from '../../../../../analytics/package/events';
+import Analytics from "../../../../../analytics/analytics";
+import { DETAILS_PAGE } from "../../../../../analytics/details-page/events";
+import { quizResultDetailPageViewedPayloadMapping } from "../../../../../analytics/details-page/payload-mappings";
+import { PACKAGE } from "../../../../../analytics/package/events";
 import {
   updateActionsPackagePayloadMapping,
   swapPackageItemPayloadMapping,
-  removePackageItemPayloadMapping
-} from '../../../../../analytics/package/payload-mappings';
-import { DeliveryAreaIdentifier, MembershipState } from '../../../../../app/store/plan/plan.types';
-import { PkgItem } from '../../../../../types/Package';
-import { getPackagePrices, getUniqueItemsData } from '../../../detailsPage.service';
-import DetailsPageInfo from '../../../DetailsPageInfo';
-import { Availability, OptionType } from '../../../../../types/Product';
-import QuizResultsIncludes from './QuizResultsIncludes';
-import { QuizRoom, QuizPkgs } from './store/quizResults.types';
+  removePackageItemPayloadMapping,
+} from "../../../../../analytics/package/payload-mappings";
+import {
+  DeliveryAreaIdentifier,
+  MembershipState,
+} from "../../../../../app/store/plan/plan.types";
+import { PkgItem } from "../../../../../types/Package";
+import {
+  getPackagePrices,
+  getUniqueItemsData,
+} from "../../../detailsPage.service";
+import DetailsPageInfo from "../../../DetailsPageInfo";
+import { Availability, OptionType } from "../../../../../types/Product";
+import QuizResultsIncludes from "./QuizResultsIncludes";
+import { QuizRoom, QuizPkgs } from "./store/quizResults.types";
 import {
   getMembershipState,
   getDeliveryZipCode,
   getDeliveryAreaIdentifier,
-  getDeliveryTimelineText
-} from '../../../../../app/store/plan/plan.selectors';
-import { getIsMobileBreakpoint } from '../../../../../app/store/dimensions/dimensions.selectors';
-import { getQuizResults } from './store/quizResults.selectors';
-import { State as GlobalState } from '../../../../../types/ReduxState';
+  getDeliveryTimelineText,
+} from "../../../../../app/store/plan/plan.selectors";
+import { getIsMobileBreakpoint } from "../../../../../app/store/dimensions/dimensions.selectors";
+import { getQuizResults } from "./store/quizResults.selectors";
+import { State as GlobalState } from "../../../../../types/ReduxState";
 
 export interface QuizPackageInfo {
   title: string;
@@ -61,7 +67,7 @@ interface State {
 class QuizResultsDetailsContainer extends React.Component<Props, State> {
   public readonly state: Readonly<State> = {
     packageHasChanged: false,
-    ...getUniqueItemsData(this.props.selectedItems)
+    ...getUniqueItemsData(this.props.selectedItems),
   };
 
   componentDidMount() {
@@ -72,7 +78,7 @@ class QuizResultsDetailsContainer extends React.Component<Props, State> {
       postalCode,
       room,
       quizResults,
-      selectedItems
+      selectedItems,
     } = this.props;
 
     if (quizResults && quizResults.uuid) {
@@ -85,7 +91,7 @@ class QuizResultsDetailsContainer extends React.Component<Props, State> {
           room,
           membershipState,
           postalCode,
-          deliveryAreaIdentifier
+          deliveryAreaIdentifier,
         })
       );
     }
@@ -100,16 +106,24 @@ class QuizResultsDetailsContainer extends React.Component<Props, State> {
     return false;
   };
 
-  handleSwapItem = (roomItemsGroupIndex: number, productToSwapIdentifier: string) => {
+  handleSwapItem = (
+    roomItemsGroupIndex: number,
+    productToSwapIdentifier: string
+  ) => {
     if (this.props.quizResults) {
       // figure out with furniture grouping for the room we are working with
       const roomItemGroups = this.props.quizResults[this.props.room];
       // get a reference to the full array
       const roomItemGroup = roomItemGroups[roomItemsGroupIndex];
       // figure out the index of the option
-      const selectedOptionIndex = roomItemGroup.findIndex((item) => item.identifier === productToSwapIdentifier);
+      const selectedOptionIndex = roomItemGroup.findIndex(
+        (item) => item.identifier === productToSwapIdentifier
+      );
       // figure out the index of the new option
-      const newSelectedOptionIndex = selectedOptionIndex + 1 <= roomItemGroup.length - 1 ? selectedOptionIndex + 1 : 0;
+      const newSelectedOptionIndex =
+        selectedOptionIndex + 1 <= roomItemGroup.length - 1
+          ? selectedOptionIndex + 1
+          : 0;
       // get a reference to the full product details
       const newSelectedOption = roomItemGroup[newSelectedOptionIndex];
 
@@ -123,7 +137,8 @@ class QuizResultsDetailsContainer extends React.Component<Props, State> {
         // as key and assign it the quantity of the item that was swapped
         const newUniqueItemsQuantity = {
           ...prevState.uniqueItemsQuantity,
-          [newSelectedOption.identifier]: prevState.uniqueItemsQuantity[productToSwapIdentifier]
+          [newSelectedOption.identifier]:
+            prevState.uniqueItemsQuantity[productToSwapIdentifier],
         };
         // delete the swapped item quantity key
         delete newUniqueItemsQuantity[productToSwapIdentifier];
@@ -131,15 +146,15 @@ class QuizResultsDetailsContainer extends React.Component<Props, State> {
         return {
           uniqueItems: newUniqueItems,
           uniqueItemsQuantity: newUniqueItemsQuantity,
-          packageHasChanged: true
+          packageHasChanged: true,
         };
       });
 
       Analytics.trackEvent(
         PACKAGE.SWAP,
         swapPackageItemPayloadMapping({
-          packageIdentifier: 'make-your-own-package',
-          swappedItem: productToSwapIdentifier
+          packageIdentifier: "make-your-own-package",
+          swappedItem: productToSwapIdentifier,
         })
       );
     }
@@ -148,33 +163,41 @@ class QuizResultsDetailsContainer extends React.Component<Props, State> {
   handleResetPackage = () => {
     const { selectedItems } = this.props;
 
-    const { uniqueItems, uniqueItemsQuantity } = getUniqueItemsData(selectedItems);
+    const { uniqueItems, uniqueItemsQuantity } =
+      getUniqueItemsData(selectedItems);
 
     this.setState({
       uniqueItems,
       uniqueItemsQuantity,
-      packageHasChanged: false
+      packageHasChanged: false,
     });
 
-    Analytics.trackEvent(PACKAGE.UNDO, updateActionsPackagePayloadMapping({ packageIdentifier: 'quiz-results' }));
+    Analytics.trackEvent(
+      PACKAGE.UNDO,
+      updateActionsPackagePayloadMapping({ packageIdentifier: "quiz-results" })
+    );
   };
 
-  handleSelectedItemsQuantity = (identifier: string) => (itemsQuantity: number) => {
-    this.setState((prevState) => ({
-      uniqueItemsQuantity: { ...prevState.uniqueItemsQuantity, [identifier]: itemsQuantity },
-      packageHasChanged: true
-    }));
-    // fire the removed analytics event if quantity is 0
-    if (itemsQuantity === 0) {
-      Analytics.trackEvent(
-        PACKAGE.REMOVE,
-        removePackageItemPayloadMapping({
-          packageIdentifier: 'make-your-own-package',
-          removedItem: identifier
-        })
-      );
-    }
-  };
+  handleSelectedItemsQuantity =
+    (identifier: string) => (itemsQuantity: number) => {
+      this.setState((prevState) => ({
+        uniqueItemsQuantity: {
+          ...prevState.uniqueItemsQuantity,
+          [identifier]: itemsQuantity,
+        },
+        packageHasChanged: true,
+      }));
+      // fire the removed analytics event if quantity is 0
+      if (itemsQuantity === 0) {
+        Analytics.trackEvent(
+          PACKAGE.REMOVE,
+          removePackageItemPayloadMapping({
+            packageIdentifier: "make-your-own-package",
+            removedItem: identifier,
+          })
+        );
+      }
+    };
 
   render() {
     const {
@@ -182,11 +205,12 @@ class QuizResultsDetailsContainer extends React.Component<Props, State> {
       packageInfo,
       membershipState,
       isMobileBreakpoint,
-      deliveryTimelineText
+      deliveryTimelineText,
     } = this.props;
     const { uniqueItems, uniqueItemsQuantity, packageHasChanged } = this.state;
 
-    const { memberRentalPrice, nonMemberRentalPrice, retailPrice } = getPackagePrices(uniqueItems, uniqueItemsQuantity);
+    const { memberRentalPrice, nonMemberRentalPrice, retailPrice } =
+      getPackagePrices(uniqueItems, uniqueItemsQuantity);
 
     // Since the DetailsPageInfo component requires an array of Availability,
     // and since the API endpoint responsible for retrieving quiz results
@@ -196,7 +220,7 @@ class QuizResultsDetailsContainer extends React.Component<Props, State> {
       deliveryArea: deliveryAreaIdentifier || DeliveryAreaIdentifier.All,
       isInStock: true,
       isEnabled: true,
-      stockExpectedDate: null
+      stockExpectedDate: null,
     };
 
     return (
@@ -235,7 +259,11 @@ class QuizResultsDetailsContainer extends React.Component<Props, State> {
             identifier="make-your-own-package"
             categories={[]}
             availability={[spoofedAvailability]}
-            selectedOptions={{ [OptionType.Color]: null, [OptionType.Material]: null, [OptionType.Structure]: null }}
+            selectedOptions={{
+              [OptionType.Color]: null,
+              [OptionType.Material]: null,
+              [OptionType.Structure]: null,
+            }}
             selectedVariant={null}
             selectedItems={uniqueItems}
             selectedItemsQuantity={uniqueItemsQuantity}
@@ -265,7 +293,7 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   postalCode: getDeliveryZipCode(state),
   membershipState: getMembershipState(state),
   quizResults: getQuizResults(state),
-  deliveryTimelineText: getDeliveryTimelineText(state)
+  deliveryTimelineText: getDeliveryTimelineText(state),
 });
 
 export default connect(mapStateToProps)(QuizResultsDetailsContainer);

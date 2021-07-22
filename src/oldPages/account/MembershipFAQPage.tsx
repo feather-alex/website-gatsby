@@ -1,28 +1,28 @@
 /** @jsx jsx */
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { css, jsx } from '@emotion/core';
-import { connect } from 'react-redux';
-import React from 'react';
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { css, jsx } from "@emotion/core";
+import { connect } from "react-redux";
+import React from "react";
 
-import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import * as accountSelectors from './accountOverview/store/account.overview.selectors';
-import { FaqContentRequestPayload } from '../FAQ/store/faqs.types';
-import { PlanType } from './accountOverview/store/account.overview.types';
-import { State as GlobalState, APIError } from '../../types/ReduxState';
-import * as faqsSelectors from '../FAQ/store/faqs.selectors';
-import { getFaqContent } from '../FAQ/store/faqs.actions';
-import DividingHeader from '../../ui/textLockups/DividingHeader';
-import { FAQCategory } from '../../contentful/contentful.types';
-import ResponsiveImage from '../../ui/images/ResponsiveImage';
-import FixedSizeImage from '../../ui/images/FixedSizeImage';
-import { BREAKPOINTS } from '../../ui/variables';
-import MembershipPageFAQs from './AccountPagesFAQs';
-import ErrorPage from '../../components/ErrorPage';
-import Analytics from '../../analytics/analytics';
-import Header1 from '../../ui/headers/Header1';
-import AllCaps from '../../ui/headers/AllCaps';
-import Loading from '../../components/Loading';
-import PAGES from '../../analytics/pages';
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import * as accountSelectors from "./accountOverview/store/account.overview.selectors";
+import { FaqContentRequestPayload } from "../FAQ/store/faqs.types";
+import { PlanType } from "./accountOverview/store/account.overview.types";
+import { State as GlobalState, APIError } from "../../types/ReduxState";
+import * as faqsSelectors from "../FAQ/store/faqs.selectors";
+import { getFaqContent } from "../FAQ/store/faqs.actions";
+import DividingHeader from "../../ui/textLockups/DividingHeader";
+import { FAQCategory } from "../../contentful/contentful.types";
+import ResponsiveImage from "../../ui/images/ResponsiveImage";
+import FixedSizeImage from "../../ui/images/FixedSizeImage";
+import { BREAKPOINTS } from "../../ui/variables";
+import MembershipPageFAQs from "./AccountPagesFAQs";
+import ErrorPage from "../../components/ErrorPage";
+import Analytics from "../../analytics/analytics";
+import Header1 from "../../ui/headers/Header1";
+import AllCaps from "../../ui/headers/AllCaps";
+import Loading from "../../components/Loading";
+import PAGES from "../../analytics/pages";
 
 interface StateProps {
   isMobileBreakpoint: boolean;
@@ -47,7 +47,13 @@ class MembershipInfo extends React.Component<Props> {
   }
 
   render() {
-    const { isMobileBreakpoint, planName, faqCategories, isFetching, apiError } = this.props;
+    const {
+      isMobileBreakpoint,
+      planName,
+      faqCategories,
+      isFetching,
+      apiError,
+    } = this.props;
 
     if (apiError) {
       return (
@@ -71,10 +77,12 @@ class MembershipInfo extends React.Component<Props> {
         <div
           data-cy="plan-details"
           css={css`
-            ${isMobileBreakpoint ? `margin-bottom: 54px;` : `margin-bottom: 70px;`}
+            ${isMobileBreakpoint
+              ? `margin-bottom: 54px;`
+              : `margin-bottom: 70px;`}
           `}
         >
-          {!isMobileBreakpoint && <Header1>{planName + ' Details'}</Header1>}
+          {!isMobileBreakpoint && <Header1>{planName + " Details"}</Header1>}
         </div>
         <div
           css={css`
@@ -91,7 +99,7 @@ class MembershipInfo extends React.Component<Props> {
         >
           <div
             css={css`
-              ${isMobileBreakpoint ? `margin-bottom: 20px;` : ''}
+              ${isMobileBreakpoint ? `margin-bottom: 20px;` : ""}
             `}
           >
             <Image
@@ -99,7 +107,7 @@ class MembershipInfo extends React.Component<Props> {
               to="https://www.instagram.com/livefeather"
               width={isMobileBreakpoint ? 654 : 600}
               height={290}
-              objectPosition={isMobileBreakpoint ? 'bottom' : 'center'}
+              objectPosition={isMobileBreakpoint ? "bottom" : "center"}
               target="_blank"
             >
               <div
@@ -124,7 +132,11 @@ class MembershipInfo extends React.Component<Props> {
               />
               <DividingHeader>{category.name}</DividingHeader>
               {category.faqs.map((faq) => (
-                <MembershipPageFAQs key={faq.question} titleText={faq.question} paragraphText={faq.answer} />
+                <MembershipPageFAQs
+                  key={faq.question}
+                  titleText={faq.question}
+                  paragraphText={faq.answer}
+                />
               ))}
             </div>
           ))}
@@ -141,11 +153,11 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   faqCategories: faqsSelectors.getFAQCategories(state),
   isFetching: faqsSelectors.getIsFetching(state),
   apiError: faqsSelectors.getError(state),
-  contentfulID: accountSelectors.getMembershipPageFAQsID(state)
+  contentfulID: accountSelectors.getMembershipPageFAQsID(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
-  getFaqRequest: getFaqContent.request
+  getFaqRequest: getFaqContent.request,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MembershipInfo);

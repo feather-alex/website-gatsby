@@ -1,23 +1,23 @@
-import { ContactFormData } from './contact.types';
-import { validateForm } from './contact.validator';
+import { ContactFormData } from "./contact.types";
+import { validateForm } from "./contact.validator";
 
-describe('Contact Form Validator', () => {
+describe("Contact Form Validator", () => {
   let formValues: ContactFormData;
 
   beforeEach(() => {
     formValues = {
-      fullName: '',
-      companyName: '',
-      messageBody: '',
-      emailAddress: '',
+      fullName: "",
+      companyName: "",
+      messageBody: "",
+      emailAddress: "",
       // TODO: Fix this the next time the file is edited.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      reasonForInquiry: '' as any
+      reasonForInquiry: "" as any,
     };
   });
 
-  it('Should require all fields aside from companyName', () => {
-    const required = '*required';
+  it("Should require all fields aside from companyName", () => {
+    const required = "*required";
 
     const validated = validateForm(formValues);
 
@@ -27,24 +27,24 @@ describe('Contact Form Validator', () => {
     expect(validated.reasonForInquiry).toEqual(required);
   });
 
-  it('Should provide an error message for invalid email addresses', () => {
-    formValues.emailAddress = 'abc123';
+  it("Should provide an error message for invalid email addresses", () => {
+    formValues.emailAddress = "abc123";
 
     const validated = validateForm(formValues);
 
-    expect(validated.emailAddress).toEqual('*invalid email');
+    expect(validated.emailAddress).toEqual("*invalid email");
   });
 
-  it('Should provide an error message for a message body fewer than 10 characters', () => {
-    formValues.messageBody = 'abc123';
+  it("Should provide an error message for a message body fewer than 10 characters", () => {
+    formValues.messageBody = "abc123";
 
     const validated = validateForm(formValues);
 
-    expect(validated.messageBody).toEqual('*must be more than 10 characters');
+    expect(validated.messageBody).toEqual("*must be more than 10 characters");
   });
 
-  it('Should provide an error message for a message body greater than 2,000 characters', () => {
-    let twoK = '1234567890';
+  it("Should provide an error message for a message body greater than 2,000 characters", () => {
+    let twoK = "1234567890";
     for (let i = 0; i < 201; i++) {
       twoK = `${twoK}1234567890`;
     }
@@ -52,6 +52,8 @@ describe('Contact Form Validator', () => {
 
     const validated = validateForm(formValues);
 
-    expect(validated.messageBody).toEqual('*must be fewer than 2,000 characters');
+    expect(validated.messageBody).toEqual(
+      "*must be fewer than 2,000 characters"
+    );
   });
 });

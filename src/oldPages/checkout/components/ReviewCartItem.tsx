@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import Title3 from '../../../ui/titles/Title3';
-import { Line } from '../../cart/components/MiniCartFooter';
-import FixedSizeImage from '../../../ui/images/FixedSizeImage';
-import Paragraph1 from '../../../ui/paragraphs/Paragraph1';
-import { BRAND, BREAKPOINTS } from '../../../ui/variables';
-import { Fragment } from 'react';
+import Title3 from "../../../ui/titles/Title3";
+import { Line } from "../../cart/components/MiniCartFooter";
+import FixedSizeImage from "../../../ui/images/FixedSizeImage";
+import Paragraph1 from "../../../ui/paragraphs/Paragraph1";
+import { BRAND, BREAKPOINTS } from "../../../ui/variables";
+import { Fragment } from "react";
 
 export const LineBreak = styled(Line)`
   margin: 16px 0;
@@ -42,7 +42,13 @@ interface Props {
   isMobileBreakpoint: boolean;
 }
 
-const ReviewCartItem = ({ backgroundImage, title, variantName, price, isMobileBreakpoint }: Props) => (
+const ReviewCartItem = ({
+  backgroundImage,
+  title,
+  variantName,
+  price,
+  isMobileBreakpoint,
+}: Props) => (
   <Fragment>
     <ProductContainer>
       <ProductImageAndDetails>

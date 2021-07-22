@@ -1,21 +1,27 @@
 /** @jsx jsx */
-import { useState, useEffect, Fragment, useRef } from 'react';
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { BRAND } from '../../../ui/variables';
-import MobileNavMenu from './mobile/MobileNavMenu';
-import MobileNavSubMenu from './mobile/MobileNavSubMenu';
-import { Z_INDICIES } from '../../../ui/zIndicies';
-import { useSelector } from 'react-redux';
-import { getNavbarIsContentLoading, getNavbarContent } from '../../store/navbar/navbar.selectors';
-import Loading from '../../../components/Loading';
-import { NavCategoryWithSubmenu, NavCategoryDirectLink } from '../../../contentful/contentful.types';
+import { useState, useEffect, Fragment, useRef } from "react";
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { BRAND } from "../../../ui/variables";
+import MobileNavMenu from "./mobile/MobileNavMenu";
+import MobileNavSubMenu from "./mobile/MobileNavSubMenu";
+import { Z_INDICIES } from "../../../ui/zIndicies";
+import { useSelector } from "react-redux";
+import {
+  getNavbarIsContentLoading,
+  getNavbarContent,
+} from "../../store/navbar/navbar.selectors";
+import Loading from "../../../components/Loading";
+import {
+  NavCategoryWithSubmenu,
+  NavCategoryDirectLink,
+} from "../../../contentful/contentful.types";
 
 export enum SubMenuState {
-  howItWorks = 'isHowItWorksOpen',
-  furniture = 'isFurnitureOpen',
-  account = 'isAccountOpen',
-  none = 'none'
+  howItWorks = "isHowItWorksOpen",
+  furniture = "isFurnitureOpen",
+  account = "isAccountOpen",
+  none = "none",
 }
 
 const OffClick = styled.div`
@@ -24,15 +30,25 @@ const OffClick = styled.div`
   top: 0;
   bottom: 0;
   left: 0;
-  ${({ isMobileNavOpen }: { isMobileNavOpen: boolean }) => (isMobileNavOpen ? 'right: 0;' : '')}
+  ${({ isMobileNavOpen }: { isMobileNavOpen: boolean }) =>
+    isMobileNavOpen ? "right: 0;" : ""}
 `;
 
 const Overlay = styled.div`
   position: fixed;
-  top: ${({ bodyMarginTop }: { isMobileNavOpen: boolean; bodyMarginTop: number }) => bodyMarginTop}px;
+  top: ${({
+    bodyMarginTop,
+  }: {
+    isMobileNavOpen: boolean;
+    bodyMarginTop: number;
+  }) => bodyMarginTop}px;
   /* this is over 100 to go past the shadow */
-  left: ${({ isMobileNavOpen }: { isMobileNavOpen: boolean; bodyMarginTop: number }) =>
-    isMobileNavOpen ? '0' : '-110vw'};
+  left: ${({
+    isMobileNavOpen,
+  }: {
+    isMobileNavOpen: boolean;
+    bodyMarginTop: number;
+  }) => (isMobileNavOpen ? "0" : "-110vw")};
   height: 100%;
   width: 100%;
   background: transparent;
@@ -46,7 +62,9 @@ const OverlayContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100% - ${({ bodyMarginTop }: { bodyMarginTop: number }) => bodyMarginTop}px);
+  height: calc(
+    100% - ${({ bodyMarginTop }: { bodyMarginTop: number }) => bodyMarginTop}px
+  );
   width: 100vw;
   background: ${BRAND.BACKGROUND};
   overflow-y: scroll;
@@ -62,10 +80,17 @@ interface Props {
   bodyMarginTop: number;
 }
 
-const MobileNavOverlay = ({ isMobileNavOpen, bodyMarginTop, toggleMobileNavOverlay, handleNavLinkClick }: Props) => {
+const MobileNavOverlay = ({
+  isMobileNavOpen,
+  bodyMarginTop,
+  toggleMobileNavOverlay,
+  handleNavLinkClick,
+}: Props) => {
   const mobileNavOverlayRef = useRef<HTMLDivElement>(null);
   const [subMenuState, setSubMenuState] = useState<number | null>(null);
-  const [currentSubMenu, setCurrentSubMenu] = useState<null | NavCategoryWithSubmenu | NavCategoryDirectLink>(null);
+  const [currentSubMenu, setCurrentSubMenu] = useState<
+    null | NavCategoryWithSubmenu | NavCategoryDirectLink
+  >(null);
   const isContentLoading = useSelector(getNavbarIsContentLoading);
   const content = useSelector(getNavbarContent);
 
@@ -110,7 +135,10 @@ const MobileNavOverlay = ({ isMobileNavOpen, bodyMarginTop, toggleMobileNavOverl
       <OffClick onClick={handleOffClick} isMobileNavOpen={isMobileNavOpen} />
       <Overlay isMobileNavOpen={isMobileNavOpen} bodyMarginTop={bodyMarginTop}>
         {content && (
-          <OverlayContent bodyMarginTop={bodyMarginTop} ref={mobileNavOverlayRef}>
+          <OverlayContent
+            bodyMarginTop={bodyMarginTop}
+            ref={mobileNavOverlayRef}
+          >
             {subMenuState === null && (
               <MobileNavMenu
                 handleNavLinkClick={handleNavLinkClick}
@@ -119,15 +147,17 @@ const MobileNavOverlay = ({ isMobileNavOpen, bodyMarginTop, toggleMobileNavOverl
               />
             )}
 
-            {subMenuState !== null && currentSubMenu && 'secondaryGroups' in currentSubMenu && (
-              <MobileNavSubMenu
-                handleGoBack={goBackFromSubmenu}
-                toggleMobileNavOverlay={toggleMobileNavOverlay}
-                secondaryMenuTitle={currentSubMenu.secondaryMenuTitle}
-                secondaryGroups={currentSubMenu.secondaryGroups}
-                handleNavLinkClick={handleNavLinkClick}
-              />
-            )}
+            {subMenuState !== null &&
+              currentSubMenu &&
+              "secondaryGroups" in currentSubMenu && (
+                <MobileNavSubMenu
+                  handleGoBack={goBackFromSubmenu}
+                  toggleMobileNavOverlay={toggleMobileNavOverlay}
+                  secondaryMenuTitle={currentSubMenu.secondaryMenuTitle}
+                  secondaryGroups={currentSubMenu.secondaryGroups}
+                  handleNavLinkClick={handleNavLinkClick}
+                />
+              )}
           </OverlayContent>
         )}
       </Overlay>

@@ -1,7 +1,7 @@
-import { MobileRow, DesktopRow } from './Row';
-import { PaymentDetails } from '../../accountHistory/store/account.history.types';
-import { Headers } from './Headers';
-import React from 'react';
+import { MobileRow, DesktopRow } from "./Row";
+import { PaymentDetails } from "../../accountHistory/store/account.history.types";
+import { Headers } from "./Headers";
+import React from "react";
 
 interface Props {
   payments: PaymentDetails[];
@@ -10,7 +10,12 @@ interface Props {
   formatDate: (date: number, isMobile?: boolean) => string;
 }
 
-export const AccountHistoryTable = ({ payments, formatDate, formatCharge, isMobileBreakpoint }: Props) => {
+export const AccountHistoryTable = ({
+  payments,
+  formatDate,
+  formatCharge,
+  isMobileBreakpoint,
+}: Props) => {
   return (
     <React.Fragment>
       {!isMobileBreakpoint && <Headers />}

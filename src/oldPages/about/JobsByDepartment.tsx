@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { Department } from './store/about.types';
-import Title1 from '../../ui/titles/Title1';
-import ArrowIcon, { Direction } from '../../ui/icons/ArrowIcon';
-import Paragraph2 from '../../ui/paragraphs/Paragraph2';
-import { Fragment } from 'react';
-import Caption from '../../ui/captions/Caption';
-import { SHADES } from '../../ui/variables';
+import { css, jsx } from "@emotion/core";
+import { Department } from "./store/about.types";
+import Title1 from "../../ui/titles/Title1";
+import ArrowIcon, { Direction } from "../../ui/icons/ArrowIcon";
+import Paragraph2 from "../../ui/paragraphs/Paragraph2";
+import { Fragment } from "react";
+import Caption from "../../ui/captions/Caption";
+import { SHADES } from "../../ui/variables";
 
 interface Props {
   isMobileBreakpoint: boolean;
@@ -26,8 +26,9 @@ const JobsByDepartment = ({ isMobileBreakpoint, jobsByDepartment }: Props) => {
         `}
       >
         <Paragraph2>
-          We are a creative, innovative team driven by Feather’s mission and dedicated to making a positive impact on
-          our customers and the planet, and we’d love to have you be a part of our journey.
+          We are a creative, innovative team driven by Feather’s mission and
+          dedicated to making a positive impact on our customers and the planet,
+          and we’d love to have you be a part of our journey.
         </Paragraph2>
       </div>
       {jobsByDepartment.map((dept) => (

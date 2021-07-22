@@ -1,8 +1,11 @@
-import { isAfter, isBefore, isSameDay, parseISO } from 'date-fns';
+import { isAfter, isBefore, isSameDay, parseISO } from "date-fns";
 
-import { DeliveryArea } from '../../../../app/store/entities/entities.types';
-import { DeliveryAreaIdentifier } from '../../../../app/store/plan/plan.types';
-import { SubscriptionItemResource, SubscriptionPlan } from './account.overview.types';
+import { DeliveryArea } from "../../../../app/store/entities/entities.types";
+import { DeliveryAreaIdentifier } from "../../../../app/store/plan/plan.types";
+import {
+  SubscriptionItemResource,
+  SubscriptionPlan,
+} from "./account.overview.types";
 
 export const getDisabledDeliveryDates = (
   deliveryAreas: DeliveryArea[],
@@ -15,7 +18,7 @@ export const getDisabledDeliveryDates = (
     Wednesday = 3,
     Thursday = 4,
     Friday = 5,
-    Saturday = 6
+    Saturday = 6,
   }
 
   const today = new Date();
@@ -32,15 +35,19 @@ export const getDisabledDeliveryDates = (
     new Date(`July 4, ${year}`),
     new Date(`December 24, ${year}`),
     new Date(`December 25, ${year}`),
-    new Date(`December 31, ${year}`)
+    new Date(`December 31, ${year}`),
   ];
 
-  const currentDeliveryArea = deliveryAreas && deliveryAreas.find((area) => area.identifier === deliveryAreaIdentifier);
+  const currentDeliveryArea =
+    deliveryAreas &&
+    deliveryAreas.find((area) => area.identifier === deliveryAreaIdentifier);
 
-  const blockedDeliveryDates = currentDeliveryArea ? currentDeliveryArea.blockedDeliveryDates : [];
+  const blockedDeliveryDates = currentDeliveryArea
+    ? currentDeliveryArea.blockedDeliveryDates
+    : [];
 
   blockedDeliveryDates.forEach((dateString: string) => {
-    const dateStringNum = dateString.split('-');
+    const dateStringNum = dateString.split("-");
     const dateToBlock = new Date(
       parseInt(dateStringNum[0], 10),
       parseInt(dateStringNum[1], 10) - 1,
@@ -64,7 +71,9 @@ export const getCurrentPlan = (subscriptionPlans: SubscriptionPlan[]) => {
     subscriptionPlans.forEach((plan, index) => {
       const startDate = parseISO(plan.startDate);
       const today = new Date();
-      const currentPlanStartDate = parseISO(subscriptionPlans[currentPlanIndex].startDate);
+      const currentPlanStartDate = parseISO(
+        subscriptionPlans[currentPlanIndex].startDate
+      );
       // reassign current plan index if this plan's start date is closer to today, but not past "today"
       if (
         // the same day or sometime before that day
@@ -81,4 +90,6 @@ export const getCurrentPlan = (subscriptionPlans: SubscriptionPlan[]) => {
 };
 
 export const sortItemsAlphabetically = (items: SubscriptionItemResource[]) =>
-  items.sort((a, b) => (a.productVariant.product.title > b.productVariant.product.title ? 1 : -1));
+  items.sort((a, b) =>
+    a.productVariant.product.title > b.productVariant.product.title ? 1 : -1
+  );

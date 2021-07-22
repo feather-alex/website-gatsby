@@ -1,25 +1,30 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import { connect } from 'react-redux';
-import { State as GlobalState } from '../../../types/ReduxState';
-import { APIError } from '../../../types/ReduxState';
-import { ActionCreator } from '../../../types/FluxStandardActions';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import { connect } from "react-redux";
+import { State as GlobalState } from "../../../types/ReduxState";
+import { APIError } from "../../../types/ReduxState";
+import { ActionCreator } from "../../../types/FluxStandardActions";
 import {
   resetPasswordRequest as resetPasswordRequestAction,
   ResetPasswordRequest,
-  resetResetPasswordSent
-} from './store/forgot.password.actions';
-import { getEmail, getError, getIsFetching, getHasSentResetPasswordLink } from './store/forgot.password.selectors';
-import ForgotPasswordForm from './ForgotPasswordForm';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import AuthPageHeader from '../AuthPageHeader';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import AuthPageEmailSentMessage from '../AuthPageEmailSentMessage';
-import AlternateLayout from '../../../app/AlternateLayout';
-import Analytics from '../../../analytics/analytics';
-import PAGES from '../../../analytics/pages';
-import { ForgotPasswordFormData } from './store/forgot.password.types';
+  resetResetPasswordSent,
+} from "./store/forgot.password.actions";
+import {
+  getEmail,
+  getError,
+  getIsFetching,
+  getHasSentResetPasswordLink,
+} from "./store/forgot.password.selectors";
+import ForgotPasswordForm from "./ForgotPasswordForm";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import AuthPageHeader from "../AuthPageHeader";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import AuthPageEmailSentMessage from "../AuthPageEmailSentMessage";
+import AlternateLayout from "../../../app/AlternateLayout";
+import Analytics from "../../../analytics/analytics";
+import PAGES from "../../../analytics/pages";
+import { ForgotPasswordFormData } from "./store/forgot.password.types";
 
 interface Props {
   error: APIError | null;
@@ -45,11 +50,15 @@ class ForgotPassword extends React.Component<Props> {
   };
 
   render() {
-    const { isMobileBreakpoint, isFetching, hasSentResetPasswordLink, email } = this.props;
+    const { isMobileBreakpoint, isFetching, hasSentResetPasswordLink, email } =
+      this.props;
 
     return (
       <AlternateLayout>
-        <AuthPageHeader headerText="Help signing in" isMobileBreakpoint={isMobileBreakpoint} />
+        <AuthPageHeader
+          headerText="Help signing in"
+          isMobileBreakpoint={isMobileBreakpoint}
+        />
         <div
           css={css`
             display: flex;
@@ -69,9 +78,10 @@ class ForgotPassword extends React.Component<Props> {
             ) : (
               <React.Fragment>
                 <Paragraph2>
-                  Enter the email address associated with your account. Remember your Feather account can only be linked
-                  to the email you checked out with. We will send you an email with a link to verify your account and
-                  reset your password.
+                  Enter the email address associated with your account. Remember
+                  your Feather account can only be linked to the email you
+                  checked out with. We will send you an email with a link to
+                  verify your account and reset your password.
                 </Paragraph2>
                 <ForgotPasswordForm
                   onSubmit={this.resetPasswordRequest}
@@ -92,12 +102,12 @@ const mapStateToProps = (state: GlobalState) => ({
   error: getError(state),
   isFetching: getIsFetching(state),
   hasSentResetPasswordLink: getHasSentResetPasswordLink(state),
-  email: getEmail(state)
+  email: getEmail(state),
 });
 
 const mapDispatchToProps = {
   resetPasswordRequest: resetPasswordRequestAction,
-  resetResetPasswordSent
+  resetResetPasswordSent,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

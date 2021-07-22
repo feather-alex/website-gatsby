@@ -1,4 +1,4 @@
-import { FluxStandardAction } from '../../../../types/FluxStandardActions';
+import { FluxStandardAction } from "../../../../types/FluxStandardActions";
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -6,18 +6,18 @@ import {
   LOGOUT_REQUEST,
   LOGIN_RESET,
   DISMISS_WELCOME_MODAL,
-  RESET_AUTHENTICATION
-} from './login.actions';
-import { Login } from './login.types';
+  RESET_AUTHENTICATION,
+} from "./login.actions";
+import { Login } from "./login.types";
 
 export const initialState: Login = {
-  email: '',
-  name: '',
+  email: "",
+  name: "",
   isFirstLogin: false,
   hasViewedWelcomeModal: false,
   authenticated: false,
   isFetching: false,
-  error: null
+  error: null,
 };
 
 const login = (state = initialState, action: FluxStandardAction) => {
@@ -27,7 +27,7 @@ const login = (state = initialState, action: FluxStandardAction) => {
         ...state,
         email: action.payload.credentials.email,
         isFetching: true,
-        error: null
+        error: null,
       };
 
     case LOGIN_SUCCESS:
@@ -37,33 +37,33 @@ const login = (state = initialState, action: FluxStandardAction) => {
         error: null,
         isFirstLogin: action.payload.auth.isFirstLogin,
         name: action.payload.auth.firstName,
-        authenticated: true
+        authenticated: true,
       };
 
     case LOGIN_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: action.payload.error
+        error: action.payload.error,
       };
 
     case LOGIN_RESET:
       return {
         ...state,
-        email: '',
-        error: null
+        email: "",
+        error: null,
       };
 
     case LOGOUT_REQUEST:
     case RESET_AUTHENTICATION:
       return {
-        ...initialState
+        ...initialState,
       };
 
     case DISMISS_WELCOME_MODAL:
       return {
         ...state,
-        hasViewedWelcomeModal: true
+        hasViewedWelcomeModal: true,
       };
 
     default:

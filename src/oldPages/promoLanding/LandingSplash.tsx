@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import Header1 from '../../ui/headers/Header1';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import { BRAND, BREAKPOINTS, SHADES } from '../../ui/variables';
-import FeatherLogo from '../../ui/logos/FeatherWordMarkLogo';
-import CoverImage from '../../ui/images/CoverImage';
-import Title2 from '../../ui/titles/Title2';
-import Title3 from '../../ui/titles/Title3';
-import LandingMarquee from './LandingMarquee';
-import { Z_INDICIES } from '../../ui/zIndicies';
+import { css, jsx } from "@emotion/core";
+import Header1 from "../../ui/headers/Header1";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import { BRAND, BREAKPOINTS, SHADES } from "../../ui/variables";
+import FeatherLogo from "../../ui/logos/FeatherWordMarkLogo";
+import CoverImage from "../../ui/images/CoverImage";
+import Title2 from "../../ui/titles/Title2";
+import Title3 from "../../ui/titles/Title3";
+import LandingMarquee from "./LandingMarquee";
+import { Z_INDICIES } from "../../ui/zIndicies";
 
 interface Props {
   isMobile: boolean;
@@ -133,18 +133,23 @@ const LandingSplash = (props: Props) => {
             <Header1 color={SHADES.WHITE}>$50 off your first month</Header1>
           ) : (
             <Header1 color={SHADES.WHITE}>
-              Get $50 off your first month with code <span style={{ textDecoration: 'underline' }}>NYC</span>
+              Get $50 off your first month with code{" "}
+              <span style={{ textDecoration: "underline" }}>NYC</span>
             </Header1>
           )}
 
           {props.isMobile ? (
             <Paragraph1 color={SHADES.WHITE}>
-              Use code <span style={{ textDecoration: 'underline' }}>NYC</span> at checkout
+              Use code <span style={{ textDecoration: "underline" }}>NYC</span>{" "}
+              at checkout
             </Paragraph1>
           ) : (
             <Paragraph1 color={SHADES.WHITE}>
-              <span style={{ fontWeight: 500 }}>Furniture now, decisions later:</span> stylish furniture with none of
-              the upfront cost, delivered &amp; assembled by our team
+              <span style={{ fontWeight: 500 }}>
+                Furniture now, decisions later:
+              </span>{" "}
+              stylish furniture with none of the upfront cost, delivered &amp;
+              assembled by our team
             </Paragraph1>
           )}
         </div>
@@ -167,7 +172,11 @@ const LandingSplash = (props: Props) => {
 
           {!props.isMobile && (
             // TODO Consult design here
-            <Button style={ButtonStyle.TEXT} to="/style-quiz" color={SHADES.WHITE}>
+            <Button
+              style={ButtonStyle.TEXT}
+              to="/style-quiz"
+              color={SHADES.WHITE}
+            >
               Take our style quiz
             </Button>
           )}

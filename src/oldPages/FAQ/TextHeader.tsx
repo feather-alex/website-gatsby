@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import React from 'react';
-import { css, jsx } from '@emotion/core';
-import { BREAKPOINTS } from '../../ui/variables';
+import React from "react";
+import { css, jsx } from "@emotion/core";
+import { BREAKPOINTS } from "../../ui/variables";
 
 interface Props {
   children?: React.ReactNode;

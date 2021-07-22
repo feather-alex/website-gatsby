@@ -1,22 +1,23 @@
 export enum MembershipState {
-  NONE = 'NONE',
-  MEMBER = 'MEMBER',
-  NON_MEMBER = 'NON_MEMBER'
+  NONE = "NONE",
+  MEMBER = "MEMBER",
+  NON_MEMBER = "NON_MEMBER",
 }
 
 export enum DeliveryAreaIdentifier {
-  All = 'all',
-  NY = 'new-york',
-  SF = 'san-francisco',
-  LA = 'los-angeles',
-  DC = 'washington'
+  All = "all",
+  NY = "new-york",
+  SF = "san-francisco",
+  LA = "los-angeles",
+  DC = "washington",
 }
 
-export const MembershipStateDisplayName: { [key in MembershipState]: string } = {
-  [MembershipState.MEMBER]: 'Annual Member',
-  [MembershipState.NON_MEMBER]: 'Short-Term Plan',
-  [MembershipState.NONE]: 'None'
-};
+export const MembershipStateDisplayName: { [key in MembershipState]: string } =
+  {
+    [MembershipState.MEMBER]: "Annual Member",
+    [MembershipState.NON_MEMBER]: "Short-Term Plan",
+    [MembershipState.NONE]: "None",
+  };
 
 export interface Plan {
   membershipState: MembershipState;

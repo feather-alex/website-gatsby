@@ -1,36 +1,39 @@
 /** @jsx jsx */
-import { connect } from 'react-redux';
-import { css, jsx } from '@emotion/core';
-import { State as GlobalState } from '../../types/ReduxState';
-import CloseSignIcon from '../../ui/icons/CloseSignIcon';
+import { connect } from "react-redux";
+import { css, jsx } from "@emotion/core";
+import { State as GlobalState } from "../../types/ReduxState";
+import CloseSignIcon from "../../ui/icons/CloseSignIcon";
 import {
   dismissNavbarBanner as dismissNavbarBannerAction,
-  showNavbarBanner as showNavbarBannerAction
-} from '../store/navbar/navbar.actions';
+  showNavbarBanner as showNavbarBannerAction,
+} from "../store/navbar/navbar.actions";
 import {
   getIsNavbarBannerVisible,
   getNavbarBannerType,
   getNavbarBannerMessage,
-  getNavbarBannerColor
-} from '../store/navbar/navbar.selectors';
-import { BannerType, ShowNavbarBannerPayload } from '../store/navbar/navbar.types';
-import { ActionCreator } from '../../types/FluxStandardActions';
-import Banner from './banner/Banner';
-import ZipcodeBanner from './banner/ZipcodeBanner';
-import ZipcodeSuccessBanner from './banner/ZipcodeSuccessBanner';
-import ZipcodeFailureBanner from './banner/ZipcodeFailureBanner';
-import { COLORS, BRAND } from '../../ui/variables';
-import Paragraph2 from '../../ui/paragraphs/Paragraph2';
+  getNavbarBannerColor,
+} from "../store/navbar/navbar.selectors";
+import {
+  BannerType,
+  ShowNavbarBannerPayload,
+} from "../store/navbar/navbar.types";
+import { ActionCreator } from "../../types/FluxStandardActions";
+import Banner from "./banner/Banner";
+import ZipcodeBanner from "./banner/ZipcodeBanner";
+import ZipcodeSuccessBanner from "./banner/ZipcodeSuccessBanner";
+import ZipcodeFailureBanner from "./banner/ZipcodeFailureBanner";
+import { COLORS, BRAND } from "../../ui/variables";
+import Paragraph2 from "../../ui/paragraphs/Paragraph2";
 import {
   getIsBannerBreakpoint,
   BANNER_DESKTOP_HEIGHT,
   BANNER_MOBILE_HEIGHT,
-  getIsNavbarBreakpoint
-} from '../store/dimensions/dimensions.selectors';
-import { ReactNode } from 'react';
-import { Z_INDICIES } from '../../ui/zIndicies';
-import { getDeliveryZipCode } from '../store/plan/plan.selectors';
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+  getIsNavbarBreakpoint,
+} from "../store/dimensions/dimensions.selectors";
+import { ReactNode } from "react";
+import { Z_INDICIES } from "../../ui/zIndicies";
+import { getDeliveryZipCode } from "../store/plan/plan.selectors";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 interface StateProps {
   isBannerBreakpoint: boolean;
@@ -52,7 +55,11 @@ interface OwnProps {
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-const renderBanner = (bannerType: BannerType, message: ReactNode, bannerColor?: string): JSX.Element | null => {
+const renderBanner = (
+  bannerType: BannerType,
+  message: ReactNode,
+  bannerColor?: string
+): JSX.Element | null => {
   switch (bannerType) {
     case BannerType.Announcement:
       return (
@@ -90,11 +97,14 @@ const NavbarBanner = ({
   isBannerBreakpoint,
   isNavbarBreakpoint,
   zipcode,
-  bannerColor
+  bannerColor,
 }: Props) => {
   const dismissThenShowZip = () => {
     dismissNavbarBanner();
-    setTimeout(() => showNavbarBanner({ bannerType: BannerType.ZipCode }), 1000);
+    setTimeout(
+      () => showNavbarBanner({ bannerType: BannerType.ZipCode }),
+      1000
+    );
   };
   return (
     <div
@@ -107,8 +117,12 @@ const NavbarBanner = ({
         z-index: ${Z_INDICIES.BANNER};
 
         ${isBannerBreakpoint
-          ? `height: ${BANNER_MOBILE_HEIGHT}px; top: ${isVisible ? '0' : `-${BANNER_MOBILE_HEIGHT}px`};`
-          : `height: ${BANNER_DESKTOP_HEIGHT}px; top: ${isVisible ? '0' : `-${BANNER_DESKTOP_HEIGHT}px`};`}
+          ? `height: ${BANNER_MOBILE_HEIGHT}px; top: ${
+              isVisible ? "0" : `-${BANNER_MOBILE_HEIGHT}px`
+            };`
+          : `height: ${BANNER_DESKTOP_HEIGHT}px; top: ${
+              isVisible ? "0" : `-${BANNER_DESKTOP_HEIGHT}px`
+            };`}
       `}
     >
       <div
@@ -120,10 +134,16 @@ const NavbarBanner = ({
         `}
       >
         <CloseSignIcon
-          onClick={bannerType === BannerType.Announcement && !zipcode ? dismissThenShowZip : dismissNavbarBanner}
+          onClick={
+            bannerType === BannerType.Announcement && !zipcode
+              ? dismissThenShowZip
+              : dismissNavbarBanner
+          }
           isInverted={
             bannerType === BannerType.ZipCodeFailure ||
-            (!!message && bannerType !== BannerType.Announcement && bannerType !== BannerType.Success)
+            (!!message &&
+              bannerType !== BannerType.Announcement &&
+              bannerType !== BannerType.Success)
           }
         />
       </div>
@@ -139,12 +159,12 @@ const mapStateToProps = (state: GlobalState) => ({
   isBannerBreakpoint: getIsBannerBreakpoint(state),
   isNavbarBreakpoint: getIsNavbarBreakpoint(state),
   zipcode: getDeliveryZipCode(state),
-  bannerColor: getNavbarBannerColor(state)
+  bannerColor: getNavbarBannerColor(state),
 });
 
 const mapDispatchToProps = {
   dismissNavbarBanner: dismissNavbarBannerAction,
-  showNavbarBanner: showNavbarBannerAction
+  showNavbarBanner: showNavbarBannerAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavbarBanner);

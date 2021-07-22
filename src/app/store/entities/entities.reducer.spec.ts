@@ -1,15 +1,15 @@
-import { ProductEntitiesState, ProductEntities } from './entities.types';
-import entitiesReducer, { initialState } from './entities.reducer';
-import * as actions from './entities.actions';
+import { ProductEntitiesState, ProductEntities } from "./entities.types";
+import entitiesReducer, { initialState } from "./entities.reducer";
+import * as actions from "./entities.actions";
 
-describe('Product Entities - Reducer', () => {
+describe("Product Entities - Reducer", () => {
   let state: ProductEntitiesState;
 
   beforeEach(() => (state = { ...initialState }));
 
-  it('Should handle action: GET_ENTITIES_REQUEST', () => {
+  it("Should handle action: GET_ENTITIES_REQUEST", () => {
     const action: actions.EntityActions = {
-      type: actions.GET_ENTITIES_REQUEST
+      type: actions.GET_ENTITIES_REQUEST,
     };
 
     const reduced = entitiesReducer(state, action);
@@ -19,18 +19,18 @@ describe('Product Entities - Reducer', () => {
     expect(reduced.data).toBeNull();
   });
 
-  it('Should handle action: GET_ENTITIES_SUCCESS', () => {
+  it("Should handle action: GET_ENTITIES_SUCCESS", () => {
     const payload: ProductEntities = {
       categories: {
         products: [],
-        bundles: []
+        bundles: [],
       },
-      deliveryAreas: []
+      deliveryAreas: [],
     };
 
     const action: actions.EntityActions = {
       type: actions.GET_ENTITIES_SUCCESS,
-      payload
+      payload,
     };
 
     const reduced = entitiesReducer(state, action);
@@ -40,18 +40,18 @@ describe('Product Entities - Reducer', () => {
     expect(reduced.error).toBeNull();
   });
 
-  it('Should handle action: GET_UPDATED_DELIVERY_DATES', () => {
+  it("Should handle action: GET_UPDATED_DELIVERY_DATES", () => {
     const payload: ProductEntities = {
       categories: {
         products: [],
-        bundles: []
+        bundles: [],
       },
-      deliveryAreas: []
+      deliveryAreas: [],
     };
 
     const action: actions.EntityActions = {
       type: actions.GET_DELIVERY_DATES_SUCCESS,
-      payload
+      payload,
     };
 
     const reduced = entitiesReducer(state, action);
@@ -61,19 +61,19 @@ describe('Product Entities - Reducer', () => {
     expect(reduced.error).toBeNull();
   });
 
-  it('Should handle action: GET_ENTITIES_FAILURE', () => {
+  it("Should handle action: GET_ENTITIES_FAILURE", () => {
     const payload = {
       error: {
-        error: 'Some error here.',
-        message: 'And a corresponding error message here.',
-        status: 500
-      }
+        error: "Some error here.",
+        message: "And a corresponding error message here.",
+        status: 500,
+      },
     };
 
     const action: actions.EntityActions = {
       type: actions.GET_ENTITIES_FAILURE,
       payload,
-      error: true
+      error: true,
     };
 
     const reduced = entitiesReducer(state, action);

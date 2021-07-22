@@ -1,5 +1,5 @@
-import { ProductForListing, ProductListRequest } from '../../../types/Product';
-import { APIError, Meta } from '../../../types/ReduxState';
+import { ProductForListing, ProductListRequest } from "../../../types/Product";
+import { APIError, Meta } from "../../../types/ReduxState";
 
 export interface ProductListState {
   isFetching: boolean;

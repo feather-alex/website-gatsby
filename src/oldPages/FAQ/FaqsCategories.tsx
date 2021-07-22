@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { HashLink } from 'react-router-hash-link';
-import Title2 from '../../ui/titles/Title2';
-import { FAQCategory } from '../../contentful/contentful.types';
+import { css, jsx } from "@emotion/core";
+import { HashLink } from "react-router-hash-link";
+import Title2 from "../../ui/titles/Title2";
+import { FAQCategory } from "../../contentful/contentful.types";
 
 interface Props {
   toggleMobileMenu?: () => void;

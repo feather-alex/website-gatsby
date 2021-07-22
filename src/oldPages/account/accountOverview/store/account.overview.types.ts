@@ -1,10 +1,10 @@
-import { APIError } from '../../../../types/ReduxState';
-import { DeliveryAreaIdentifier } from '../../../../app/store/plan/plan.types';
+import { APIError } from "../../../../types/ReduxState";
+import { DeliveryAreaIdentifier } from "../../../../app/store/plan/plan.types";
 
 export enum PlanType {
-  Legacy = 'Legacy',
-  Member = 'Member',
-  NonMember = 'Non-Member'
+  Legacy = "Legacy",
+  Member = "Member",
+  NonMember = "Non-Member",
 }
 
 export interface SubscriptionPlan {

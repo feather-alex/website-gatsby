@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import AllCaps from '../../../../ui/headers/AllCaps';
+import { css, jsx } from "@emotion/core";
+import AllCaps from "../../../../ui/headers/AllCaps";
 
 export const Headers = () => {
   const columnHeaders: { title: string; width: string }[] = [
-    { title: 'Date', width: '20%' },
-    { title: 'Type', width: '55%' },
-    { title: 'Charge', width: '25%' }
+    { title: "Date", width: "20%" },
+    { title: "Type", width: "55%" },
+    { title: "Charge", width: "25%" },
   ];
 
   return (

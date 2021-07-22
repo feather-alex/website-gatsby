@@ -1,25 +1,25 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { useSelector } from 'react-redux';
-import ErrorPage from '../../components/ErrorPage';
-import DividingHeader from '../../ui/textLockups/DividingHeader';
-import * as selectors from './accountOverview/store/account.overview.selectors';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import ProductListItem from '../../ui/products/ProductListItem';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
-import LazyLoading from '../../components/LazyLoading';
-import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import Header1 from '../../ui/headers/Header1';
-import Paragraph2 from '../../ui/paragraphs/Paragraph2';
-import Analytics from '../../analytics/analytics';
-import PAGES from '../../analytics/pages';
-import { ACCOUNTS } from '../../analytics/accounts/events';
-import useMount from '../../utils/useMount';
-import { SubscriptionItemResource } from './accountOverview/store/account.overview.types';
-import { BREAKPOINTS } from '../../ui/variables';
-import { Fragment } from 'react';
-import { getEmail } from './personalInformation/store/personal.information.selectors';
-import { constructTypeformLinkData } from '../../app/navbar/components/navbar.link.data';
+import { css, jsx } from "@emotion/core";
+import { useSelector } from "react-redux";
+import ErrorPage from "../../components/ErrorPage";
+import DividingHeader from "../../ui/textLockups/DividingHeader";
+import * as selectors from "./accountOverview/store/account.overview.selectors";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import ProductListItem from "../../ui/products/ProductListItem";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
+import LazyLoading from "../../components/LazyLoading";
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import Header1 from "../../ui/headers/Header1";
+import Paragraph2 from "../../ui/paragraphs/Paragraph2";
+import Analytics from "../../analytics/analytics";
+import PAGES from "../../analytics/pages";
+import { ACCOUNTS } from "../../analytics/accounts/events";
+import useMount from "../../utils/useMount";
+import { SubscriptionItemResource } from "./accountOverview/store/account.overview.types";
+import { BREAKPOINTS } from "../../ui/variables";
+import { Fragment } from "react";
+import { getEmail } from "./personalInformation/store/personal.information.selectors";
+import { constructTypeformLinkData } from "../../app/navbar/components/navbar.link.data";
 
 const handleEmailClick = () => Analytics.trackEvent(ACCOUNTS.EMAIL_AM);
 
@@ -47,7 +47,9 @@ const createItem = (item: SubscriptionItemResource, index: number) => (
         item.productVariant.product.images[0].desktop
       }
       productName={item.productVariant.product.title}
-      variantName={item.productVariant.optionValues.map((option) => option.name).join(', ')}
+      variantName={item.productVariant.optionValues
+        .map((option) => option.name)
+        .join(", ")}
     />
   </div>
 );
@@ -59,7 +61,10 @@ const CurrentFurniture = () => {
   const isMobileBreakpoint = useSelector(getIsMobileBreakpoint);
   const email = useSelector(getEmail);
   const orderNumber = useSelector(selectors.getOrderNumber);
-  const contactUsTypeformData = constructTypeformLinkData({ email, orderNumber }).contactUs;
+  const contactUsTypeformData = constructTypeformLinkData({
+    email,
+    orderNumber,
+  }).contactUs;
 
   useMount(() => {
     Analytics.trackPage(PAGES.ACCOUNT_FURNITURE);
@@ -79,7 +84,12 @@ const CurrentFurniture = () => {
   );
 
   if (error) {
-    return <ErrorPage title={`${error.status} ${error.error}`} content={error.message} />;
+    return (
+      <ErrorPage
+        title={`${error.status} ${error.error}`}
+        content={error.message}
+      />
+    );
   }
 
   return isFetching ? (
@@ -93,22 +103,24 @@ const CurrentFurniture = () => {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
-          margin-bottom: ${isMobileBreakpoint ? '24px' : '48px'};
-          ${isMobileBreakpoint && 'flex-direction: column;'}
+          margin-bottom: ${isMobileBreakpoint ? "24px" : "48px"};
+          ${isMobileBreakpoint && "flex-direction: column;"}
         `}
       >
         {currentItems}
       </div>
       {Boolean(purchasedItems.length) && (
         <Fragment>
-          <DividingHeader dataCy="furniture-purchased">Purchased</DividingHeader>
+          <DividingHeader dataCy="furniture-purchased">
+            Purchased
+          </DividingHeader>
           <div
             css={css`
               display: flex;
               flex-direction: row;
               flex-wrap: wrap;
-              margin-bottom: ${isMobileBreakpoint ? '24px' : '48px'};
-              ${isMobileBreakpoint && 'flex-direction: column;'}
+              margin-bottom: ${isMobileBreakpoint ? "24px" : "48px"};
+              ${isMobileBreakpoint && "flex-direction: column;"}
             `}
           >
             {purchasedItems}
@@ -117,7 +129,7 @@ const CurrentFurniture = () => {
       )}
       <div
         css={css`
-          ${isMobileBreakpoint && 'text-align: center;'}
+          ${isMobileBreakpoint && "text-align: center;"}
         `}
       >
         <div
@@ -126,18 +138,24 @@ const CurrentFurniture = () => {
           `}
         >
           <Paragraph>
-            Questions? Reach out to your account manager. They can help facilitate a furniture change
-            (swap/return/addition), provide more detail about the monthly price of each item, and correct any issues
+            Questions? Reach out to your account manager. They can help
+            facilitate a furniture change (swap/return/addition), provide more
+            detail about the monthly price of each item, and correct any issues
             with your cart summary.
           </Paragraph>
         </div>
         <div
           css={css`
             width: 300px;
-            ${isMobileBreakpoint ? 'margin: 0 auto 20px;' : 'margin-bottom: 20px;'}
+            ${isMobileBreakpoint
+              ? "margin: 0 auto 20px;"
+              : "margin-bottom: 20px;"}
           `}
         >
-          <Button style={ButtonStyle.TERTIARY} external={contactUsTypeformData.href}>
+          <Button
+            style={ButtonStyle.TERTIARY}
+            external={contactUsTypeformData.href}
+          >
             <span role="button" tabIndex={0} onClick={handleEmailClick}>
               {contactUsTypeformData.label}
             </span>

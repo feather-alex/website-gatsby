@@ -1,7 +1,7 @@
-import isEmail from 'validator/lib/isEmail';
-import React from 'react';
-import Header3 from '../../../ui/headers/Header3';
-import Button from '../../../ui/buttons/Button';
+import isEmail from "validator/lib/isEmail";
+import React from "react";
+import Header3 from "../../../ui/headers/Header3";
+import Button from "../../../ui/buttons/Button";
 
 export interface Props {
   handleQuizClose: () => void;
@@ -18,16 +18,19 @@ class FinalStep extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      name: '',
-      email: ''
+      name: "",
+      email: "",
     };
   }
 
   handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const changedType = event.currentTarget.dataset.type;
 
-    if (changedType && typeof changedType === 'string') {
-      this.setState({ [changedType]: event.target.value } as Pick<State, keyof State>);
+    if (changedType && typeof changedType === "string") {
+      this.setState({ [changedType]: event.target.value } as Pick<
+        State,
+        keyof State
+      >);
     }
   };
 
@@ -42,7 +45,7 @@ class FinalStep extends React.Component<Props, State> {
 
     const { name, email } = this.state;
 
-    if (event.key === 'Enter' && name.length && isEmail(email)) {
+    if (event.key === "Enter" && name.length && isEmail(email)) {
       // enter key is presssed
       this.handleFinalStep();
     }
@@ -86,10 +89,19 @@ class FinalStep extends React.Component<Props, State> {
         </div>
 
         <div className="quiz-actions">
-          <Button dataCy="quiz-submit-button" isDisabled={!buttonDisabled} onClick={this.handleFinalStep}>
+          <Button
+            dataCy="quiz-submit-button"
+            isDisabled={!buttonDisabled}
+            onClick={this.handleFinalStep}
+          >
             See results
           </Button>
-          <span role="button" tabIndex={0} className="clickable" onClick={this.props.handleQuizClose}>
+          <span
+            role="button"
+            tabIndex={0}
+            className="clickable"
+            onClick={this.props.handleQuizClose}
+          >
             Close
           </span>
         </div>

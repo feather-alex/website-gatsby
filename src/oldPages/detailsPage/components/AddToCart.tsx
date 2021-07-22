@@ -1,22 +1,25 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
 
-import { CartItem } from '../../cart/store/cart.types';
-import { addToCart, AddToCart as AddToCartActionType } from '../../cart/store/cart.actions';
-import Analytics from '../../../analytics/analytics';
-import { CART } from '../../../analytics/cart/events';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import { resetPlan } from '../../../app/store/plan/plan.actions';
+import { CartItem } from "../../cart/store/cart.types";
+import {
+  addToCart,
+  AddToCart as AddToCartActionType,
+} from "../../cart/store/cart.actions";
+import Analytics from "../../../analytics/analytics";
+import { CART } from "../../../analytics/cart/events";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import { resetPlan } from "../../../app/store/plan/plan.actions";
 import {
   getMembershipState,
   getDeliveryAreaIdentifier,
   getDeliveryZipCode,
-  getIsInDeliveryZone
-} from '../../../app/store/plan/plan.selectors';
-import { ActionCreator } from '../../../types/FluxStandardActions';
+  getIsInDeliveryZone,
+} from "../../../app/store/plan/plan.selectors";
+import { ActionCreator } from "../../../types/FluxStandardActions";
 import {
   ProductOption,
   ProductBrand,
@@ -24,30 +27,41 @@ import {
   ProductVariant,
   Image,
   Availability,
-  OptionType
-} from '../../../types/Product';
-import { PackageVariant, PkgItem } from '../../../types/Package';
-import { State as GlobalState } from '../../../types/ReduxState';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import Subheader1 from '../../../ui/subheaders/Subheader1';
-import Popover from '../../../ui/miscellaneous/Popover';
-import Title1 from '../../../ui/titles/Title1';
-import Title3 from '../../../ui/titles/Title3';
-import { BRAND, SHADES } from '../../../ui/variables';
-import * as utils from '../../../utils';
+  OptionType,
+} from "../../../types/Product";
+import { PackageVariant, PkgItem } from "../../../types/Package";
+import { State as GlobalState } from "../../../types/ReduxState";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import Subheader1 from "../../../ui/subheaders/Subheader1";
+import Popover from "../../../ui/miscellaneous/Popover";
+import Title1 from "../../../ui/titles/Title1";
+import Title3 from "../../../ui/titles/Title3";
+import { BRAND, SHADES } from "../../../ui/variables";
+import * as utils from "../../../utils";
 
-import HandleQuantity from './HandleQuantity';
-import StructureOptionsDropdown from './StructureOptionsDropdown';
-import MembershipSelectedOverlay from './MembershipSelectedOverlay';
-import { DeliveryAreaIdentifier, MembershipState } from '../../../app/store/plan/plan.types';
-import { formatPkgCartItem, formatAddedPkgData, getPackageStatus, sortOptions } from '../detailsPage.service';
-import PackageItemsList from './packages/PackageItemsList';
-import { getCartUuid } from '../../cart/store/cart.selectors';
-import { addPackagePayloadMapping } from '../../../analytics/cart/payload-mappings';
-import { SelectedOptions, SelectedOption } from '../store/productDetails/product.types';
-import ColorOptionsSelection from './ColorOptionsSelection';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import BackInStockInfo from './BackInStockInfo';
+import HandleQuantity from "./HandleQuantity";
+import StructureOptionsDropdown from "./StructureOptionsDropdown";
+import MembershipSelectedOverlay from "./MembershipSelectedOverlay";
+import {
+  DeliveryAreaIdentifier,
+  MembershipState,
+} from "../../../app/store/plan/plan.types";
+import {
+  formatPkgCartItem,
+  formatAddedPkgData,
+  getPackageStatus,
+  sortOptions,
+} from "../detailsPage.service";
+import PackageItemsList from "./packages/PackageItemsList";
+import { getCartUuid } from "../../cart/store/cart.selectors";
+import { addPackagePayloadMapping } from "../../../analytics/cart/payload-mappings";
+import {
+  SelectedOptions,
+  SelectedOption,
+} from "../store/productDetails/product.types";
+import ColorOptionsSelection from "./ColorOptionsSelection";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import BackInStockInfo from "./BackInStockInfo";
 
 export const FlexLine = styled.div`
   display: flex;
@@ -88,8 +102,12 @@ interface OwnProps {
   selectedItemsQuantity?: { [id: string]: number };
   selectedOptions: SelectedOptions;
   selectedVariant: ProductVariant | PackageVariant | null;
-  handleOptionSelect?: (optionType: OptionType) => (selection: SelectedOption) => void;
-  handleSelectedItemsQuantity?: (identifier: string) => (itemsQuantity: number) => void;
+  handleOptionSelect?: (
+    optionType: OptionType
+  ) => (selection: SelectedOption) => void;
+  handleSelectedItemsQuantity?: (
+    identifier: string
+  ) => (itemsQuantity: number) => void;
   handleResetPackage?: () => void;
   packageHasChanged?: boolean;
 }
@@ -104,7 +122,7 @@ interface State {
 class AddToCart extends React.Component<Props, State> {
   public readonly state = {
     quantity: 1,
-    successfullyAddedToCart: false
+    successfullyAddedToCart: false,
   };
 
   handleAddQuantity = () => {
@@ -112,7 +130,9 @@ class AddToCart extends React.Component<Props, State> {
   };
 
   handleRemoveQuantity = () => {
-    this.setState((prevState) => ({ quantity: prevState.quantity > 1 ? prevState.quantity - 1 : 1 }));
+    this.setState((prevState) => ({
+      quantity: prevState.quantity > 1 ? prevState.quantity - 1 : 1,
+    }));
   };
 
   handleAddToCart = () => {
@@ -129,7 +149,7 @@ class AddToCart extends React.Component<Props, State> {
       membershipState,
       deliveryAreaIdentifier,
       isQuizResults,
-      cartUuid
+      cartUuid,
     } = this.props;
 
     const { quantity } = this.state;
@@ -197,9 +217,9 @@ class AddToCart extends React.Component<Props, State> {
           }
 
           const cartItem: CartItem = {
-            type: 'product',
+            type: "product",
             title,
-            brand: brand ? brand.name : '',
+            brand: brand ? brand.name : "",
             categories,
             identifier,
             quantity,
@@ -208,12 +228,12 @@ class AddToCart extends React.Component<Props, State> {
               .filter((option) => option.type !== OptionType.Material)
               .sort(sortOptions)
               .map((option) => option.valueName)
-              .join(', '),
+              .join(", "),
             rentalPrices: selectedVariant.rentalPrices,
             image: cartImage,
             rentalLength: membershipState === MembershipState.MEMBER ? 12 : 3,
             location: deliveryAreaIdentifier,
-            availability: selectedVariant.availability
+            availability: selectedVariant.availability,
           };
 
           this.props.addToCart(cartItem);
@@ -235,7 +255,7 @@ class AddToCart extends React.Component<Props, State> {
       isInDeliveryZone,
       selectedItems,
       isQuizResults,
-      isPackage
+      isPackage,
     } = this.props;
 
     // This component is being used for individual items but also package details
@@ -243,11 +263,13 @@ class AddToCart extends React.Component<Props, State> {
     // depending on what kind of product we are on
     // Quiz results always return in stock items (and items do not have availability info)
     const isEnabled = isPackage
-      ? isQuizResults || getPackageStatus(deliveryAreaIdentifier, selectedItems, 'isEnabled')
+      ? isQuizResults ||
+        getPackageStatus(deliveryAreaIdentifier, selectedItems, "isEnabled")
       : utils.isEnabled(deliveryAreaIdentifier, availability);
 
     const isInStock = isPackage
-      ? isQuizResults || getPackageStatus(deliveryAreaIdentifier, selectedItems, 'isInStock')
+      ? isQuizResults ||
+        getPackageStatus(deliveryAreaIdentifier, selectedItems, "isInStock")
       : utils.isInStock(deliveryAreaIdentifier, availability);
 
     if (successfullyAddedToCart) {
@@ -291,14 +313,20 @@ class AddToCart extends React.Component<Props, State> {
       selectedItemsQuantity,
       isQuizResults,
       isPackage,
-      availability
+      availability,
     } = this.props;
 
     const { quantity } = this.state;
 
-    const structureOption = options && options.find((option) => option.type === OptionType.Structure);
+    const structureOption =
+      options && options.find((option) => option.type === OptionType.Structure);
     const otherOptions =
-      options && options.filter((option) => option.type === OptionType.Material || option.type === OptionType.Color);
+      options &&
+      options.filter(
+        (option) =>
+          option.type === OptionType.Material ||
+          option.type === OptionType.Color
+      );
 
     return (
       <Fragment>
@@ -315,8 +343,12 @@ class AddToCart extends React.Component<Props, State> {
         >
           <Title1 dataCy="product-details-plan-title">
             {`
-              ${membershipState === MembershipState.MEMBER ? 'Annual Member' : 'Short-Term Plan'}
-              ${zipcode ? `: ${zipcode}` : ''}
+              ${
+                membershipState === MembershipState.MEMBER
+                  ? "Annual Member"
+                  : "Short-Term Plan"
+              }
+              ${zipcode ? `: ${zipcode}` : ""}
             `}
           </Title1>
           <Button style={ButtonStyle.COMPACT_TEXT} onClick={resetPlanAction}>
@@ -336,7 +368,9 @@ class AddToCart extends React.Component<Props, State> {
             structureOption={structureOption}
             selectedVariant={selectedVariant}
             selectedOptions={selectedOptions}
-            handleOptionSelect={handleOptionSelect && handleOptionSelect(OptionType.Structure)}
+            handleOptionSelect={
+              handleOptionSelect && handleOptionSelect(OptionType.Structure)
+            }
             deliveryAreaIdentifier={deliveryAreaIdentifier}
           />
           {!isPackage && (
@@ -351,20 +385,26 @@ class AddToCart extends React.Component<Props, State> {
           selectedOptions={selectedOptions}
           variants={variants as ProductVariant[]} // currently packages do not support color option selection so we can safely assume variant type here
           options={otherOptions}
-          handleOptionSelect={handleOptionSelect && handleOptionSelect(OptionType.Color)}
+          handleOptionSelect={
+            handleOptionSelect && handleOptionSelect(OptionType.Color)
+          }
         />
         {selectedItems && selectedItemsQuantity && handleSelectedItemsQuantity && (
           <section>
             <div
               css={css`
                 display: flex;
-                ${packageHasChanged ? 'justify-content: space-between;' : ''}
+                ${packageHasChanged ? "justify-content: space-between;" : ""}
                 margin: 32px 0 0;
               `}
             >
               <Title1 isBold={true}>This package includes:</Title1>
               {packageHasChanged && (
-                <Button dataCy="reset-package-button" style={ButtonStyle.COMPACT_TEXT} onClick={handleResetPackage}>
+                <Button
+                  dataCy="reset-package-button"
+                  style={ButtonStyle.COMPACT_TEXT}
+                  onClick={handleResetPackage}
+                >
                   Reset package
                 </Button>
               )}
@@ -388,29 +428,44 @@ class AddToCart extends React.Component<Props, State> {
         )}
         <FlexLine>
           <Subheader1 dataCy="price-per-month">{`$${
-            membershipState === MembershipState.MEMBER ? memberRentalPrice : nonMemberRentalPrice
+            membershipState === MembershipState.MEMBER
+              ? memberRentalPrice
+              : nonMemberRentalPrice
           }/mo`}</Subheader1>
           {this.renderButton()}
         </FlexLine>
 
-        {!isPackage && <BackInStockInfo deliveryAreaIdentifier={deliveryAreaIdentifier} availability={availability} />}
+        {!isPackage && (
+          <BackInStockInfo
+            deliveryAreaIdentifier={deliveryAreaIdentifier}
+            availability={availability}
+          />
+        )}
 
         <FlexLine
           css={css`
-            ${isMobileBreakpoint ? '& p { font-size: 14px; }' : ''}
+            ${isMobileBreakpoint ? "& p { font-size: 14px; }" : ""}
           `}
         >
-          <Paragraph2 color={BRAND.SECONDARY_TEXT}>{`Retail: $${retailPrice.toLocaleString()}`}</Paragraph2>
+          <Paragraph2
+            color={BRAND.SECONDARY_TEXT}
+          >{`Retail: $${retailPrice.toLocaleString()}`}</Paragraph2>
           <div
             css={css`
               display: flex;
               align-items: center;
             `}
           >
-            <Paragraph2 color={BRAND.SECONDARY_TEXT}>Payments go toward ownership</Paragraph2>
-            <Popover isMobileBreakpoint={isMobileBreakpoint} isIconInverted={true}>
+            <Paragraph2 color={BRAND.SECONDARY_TEXT}>
+              Payments go toward ownership
+            </Paragraph2>
+            <Popover
+              isMobileBreakpoint={isMobileBreakpoint}
+              isIconInverted={true}
+            >
               <Title3 color={BRAND.SECONDARY_TEXT}>
-                We’ll apply your monthly payments towards the retail price if you choose to own.
+                We’ll apply your monthly payments towards the retail price if
+                you choose to own.
               </Title3>
             </Popover>
           </div>
@@ -426,12 +481,12 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   deliveryAreaIdentifier: getDeliveryAreaIdentifier(state),
   zipcode: getDeliveryZipCode(state),
   isInDeliveryZone: getIsInDeliveryZone(state),
-  cartUuid: getCartUuid(state)
+  cartUuid: getCartUuid(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
   resetPlanAction: resetPlan,
-  addToCart
+  addToCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddToCart);

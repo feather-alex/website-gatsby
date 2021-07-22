@@ -1,30 +1,30 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import { PastDue } from './PastDue';
-import { connect } from 'react-redux';
-import PaymentSources from './PaymentSources';
-import AccountHistory from '../accountHistory/AccountHistory';
-import { BillingResource } from './store/billing.information.types';
-import { State as GlobalState } from '../../../types/ReduxState';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import * as billingSelectors from './store/billing.information.selectors';
-import { Discount } from '../accountOverview/store/account.overview.types';
-import * as accountHistorySelectors from '../accountHistory/store/account.history.selectors';
-import * as accountOverviewSelectors from '../accountOverview/store/account.overview.selectors';
-import Analytics from '../../../analytics/analytics';
-import PAGES from '../../../analytics/pages';
-import { ACCOUNTS } from '../../../analytics/accounts/events';
-import PersonalInfo from '../personalInformation/PersonalInfo';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import { PastDue } from "./PastDue";
+import { connect } from "react-redux";
+import PaymentSources from "./PaymentSources";
+import AccountHistory from "../accountHistory/AccountHistory";
+import { BillingResource } from "./store/billing.information.types";
+import { State as GlobalState } from "../../../types/ReduxState";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import * as billingSelectors from "./store/billing.information.selectors";
+import { Discount } from "../accountOverview/store/account.overview.types";
+import * as accountHistorySelectors from "../accountHistory/store/account.history.selectors";
+import * as accountOverviewSelectors from "../accountOverview/store/account.overview.selectors";
+import Analytics from "../../../analytics/analytics";
+import PAGES from "../../../analytics/pages";
+import { ACCOUNTS } from "../../../analytics/accounts/events";
+import PersonalInfo from "../personalInformation/PersonalInfo";
 
 // components
-import Title2 from '../../../ui/titles/Title2';
-import Header1 from '../../../ui/headers/Header1';
-import { PlanPageTitle } from './PlanPageTitle';
-import CurrentPlanInformation from '../accountOverview/CurrentPlanInfo';
-import DividingHeader from '../../../ui/textLockups/DividingHeader';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { BREAKPOINTS } from '../../../ui/variables';
+import Title2 from "../../../ui/titles/Title2";
+import Header1 from "../../../ui/headers/Header1";
+import { PlanPageTitle } from "./PlanPageTitle";
+import CurrentPlanInformation from "../accountOverview/CurrentPlanInfo";
+import DividingHeader from "../../../ui/textLockups/DividingHeader";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { BREAKPOINTS } from "../../../ui/variables";
 
 export interface Props {
   taxAmount: string;
@@ -51,7 +51,7 @@ class PlanAndBilling extends React.Component<Props, State> {
     this.state = {
       showBillingActions: false,
       showNewCardForm: false,
-      shouldDisplayThankYou: false
+      shouldDisplayThankYou: false,
     };
   }
 
@@ -60,12 +60,14 @@ class PlanAndBilling extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const wasPastDue = prevProps.isPastDue === true && this.props.isPastDue === false;
-    const hasDefaultSourceChanged = this.props.defaultPaymentSource.id !== prevProps.defaultPaymentSource.id;
+    const wasPastDue =
+      prevProps.isPastDue === true && this.props.isPastDue === false;
+    const hasDefaultSourceChanged =
+      this.props.defaultPaymentSource.id !== prevProps.defaultPaymentSource.id;
 
     if (wasPastDue && hasDefaultSourceChanged) {
       this.setState({
-        shouldDisplayThankYou: true
+        shouldDisplayThankYou: true,
       });
     }
   }
@@ -77,13 +79,13 @@ class PlanAndBilling extends React.Component<Props, State> {
     }
     this.setState((prevState) => ({
       showBillingActions: !prevState.showBillingActions,
-      showNewCardForm: false
+      showNewCardForm: false,
     }));
   };
 
   toggleNewForm = () => {
     this.setState((prevState) => ({
-      showNewCardForm: !prevState.showNewCardForm
+      showNewCardForm: !prevState.showNewCardForm,
     }));
   };
 
@@ -97,7 +99,7 @@ class PlanAndBilling extends React.Component<Props, State> {
       grandTotal,
       isPastDue,
       discounts,
-      isFetchingBillingInfo
+      isFetchingBillingInfo,
     } = this.props;
 
     return (
@@ -127,16 +129,21 @@ class PlanAndBilling extends React.Component<Props, State> {
         >
           <PlanPageTitle spaceBetween={true}>
             <Title2 isBold={true}>Current furniture:</Title2>
-            <Title2 dataCy="monthly-subtotal">{`$${monthlySubTotal.toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2
-            })}/mo`}</Title2>
+            <Title2 dataCy="monthly-subtotal">{`$${monthlySubTotal.toLocaleString(
+              undefined,
+              {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }
+            )}/mo`}</Title2>
           </PlanPageTitle>
 
           {membershipFee !== 0 && (
             <PlanPageTitle spaceBetween={true}>
               <Title2 isBold={true}>Membership:</Title2>
-              <Title2 dataCy="membership-fee">{`$${membershipFee.toFixed(2)}/mo`}</Title2>
+              <Title2 dataCy="membership-fee">{`$${membershipFee.toFixed(
+                2
+              )}/mo`}</Title2>
             </PlanPageTitle>
           )}
 
@@ -153,7 +160,10 @@ class PlanAndBilling extends React.Component<Props, State> {
 
           <PlanPageTitle spaceBetween={true}>
             <Title2 isBold={true}>Current total rent:</Title2>
-            <Title2 dataCy="grand-total" isBold={true}>{`$${grandTotal}/mo`}</Title2>
+            <Title2
+              dataCy="grand-total"
+              isBold={true}
+            >{`$${grandTotal}/mo`}</Title2>
           </PlanPageTitle>
         </div>
         {/* DISCOUNTS */}
@@ -197,10 +207,16 @@ class PlanAndBilling extends React.Component<Props, State> {
               }
             `}
           >
-            <Button style={ButtonStyle.TEXT} isUnderline={false} onClick={this.toggleEditBilling}>
+            <Button
+              style={ButtonStyle.TEXT}
+              isUnderline={false}
+              onClick={this.toggleEditBilling}
+            >
               {this.state.showBillingActions
                 ? `Close`
-                : `Edit${isMobileBreakpoint ? '/' : ' or '}add${isMobileBreakpoint ? '' : ' new card'}`}
+                : `Edit${isMobileBreakpoint ? "/" : " or "}add${
+                    isMobileBreakpoint ? "" : " new card"
+                  }`}
             </Button>
           </div>
         </div>
@@ -244,7 +260,7 @@ const mapStateToProps = (state: GlobalState) => ({
   defaultPaymentSource: billingSelectors.getDefaultSource(state),
   membershipFee: accountOverviewSelectors.getMembershipFee(state),
   isMobileBreakpoint: getIsMobileBreakpoint(state),
-  monthlySubTotal: accountOverviewSelectors.getMonthlySubtotal(state)
+  monthlySubTotal: accountOverviewSelectors.getMonthlySubtotal(state),
 });
 
 export default connect(mapStateToProps)(PlanAndBilling);

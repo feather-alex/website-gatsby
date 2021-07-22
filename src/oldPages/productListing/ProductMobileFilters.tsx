@@ -1,32 +1,32 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from "@emotion/core";
 
-import ProductFilterOption from './ProductFilterOption';
-import { FilterType, getFilters, createQuery } from './filter.service';
-import { Meta } from '../../types/ReduxState';
-import React, { useState } from 'react';
-import ProductCategoryOption from './ProductCategoryOption';
-import ProductSortOptions from './ProductSortOptions';
-import { useHistory } from 'react-router';
-import ProductFilterAccordion from './MobileProductFilterAccordion';
-import { BRAND } from '../../ui/variables';
-import { PanelGroup } from 'react-bootstrap';
-import { ProductCategories } from '../../utils/productCategories';
-import { IdName } from '../../types/Product';
+import ProductFilterOption from "./ProductFilterOption";
+import { FilterType, getFilters, createQuery } from "./filter.service";
+import { Meta } from "../../types/ReduxState";
+import React, { useState } from "react";
+import ProductCategoryOption from "./ProductCategoryOption";
+import ProductSortOptions from "./ProductSortOptions";
+import { useHistory } from "react-router";
+import ProductFilterAccordion from "./MobileProductFilterAccordion";
+import { BRAND } from "../../ui/variables";
+import { PanelGroup } from "react-bootstrap";
+import { ProductCategories } from "../../utils/productCategories";
+import { IdName } from "../../types/Product";
 
 interface Props {
   productMeta: Meta;
 }
 
 const productCategories: IdName[] = [
-  { identifier: '', name: 'All Furniture' },
-  { name: ProductCategories.LivingRoom, identifier: 'living-room' },
-  { name: ProductCategories.Bedroom, identifier: 'bedroom' },
-  { name: ProductCategories.Dining, identifier: 'dining-room' },
-  { name: ProductCategories.HomeOffice, identifier: 'home-office' },
-  { name: ProductCategories.Decor, identifier: 'decor' },
-  { name: ProductCategories.Lighting, identifier: 'lighting' },
-  { name: ProductCategories.Outdoor, identifier: 'outdoor' }
+  { identifier: "", name: "All Furniture" },
+  { name: ProductCategories.LivingRoom, identifier: "living-room" },
+  { name: ProductCategories.Bedroom, identifier: "bedroom" },
+  { name: ProductCategories.Dining, identifier: "dining-room" },
+  { name: ProductCategories.HomeOffice, identifier: "home-office" },
+  { name: ProductCategories.Decor, identifier: "decor" },
+  { name: ProductCategories.Lighting, identifier: "lighting" },
+  { name: ProductCategories.Outdoor, identifier: "outdoor" },
 ];
 
 const ProductMobileFilters = ({ productMeta }: Props): JSX.Element | null => {
@@ -34,37 +34,39 @@ const ProductMobileFilters = ({ productMeta }: Props): JSX.Element | null => {
   const { location } = history;
   const activeFilters = getFilters(history.location);
 
-  const [openFilters, setOpenFilters] = useState<React.MouseEvent<string> | null>(null);
+  const [openFilters, setOpenFilters] =
+    useState<React.MouseEvent<string> | null>(null);
   const [sortOption, setSortOptions] = useState<string | null>();
 
   const handleSortOptionClick = React.useCallback(
     (sortIdentifier: string, sortDirection: string) => () => {
       let sortOpt = null;
 
-      if (sortIdentifier === 'price') {
-        sortOpt = sortDirection === 'd' ? 'High to low price' : 'Low to high price';
-      } else if (sortIdentifier === 'title') {
-        sortOpt = 'A to Z';
-      } else if (sortIdentifier === 'default') {
+      if (sortIdentifier === "price") {
+        sortOpt =
+          sortDirection === "d" ? "High to low price" : "Low to high price";
+      } else if (sortIdentifier === "title") {
+        sortOpt = "A to Z";
+      } else if (sortIdentifier === "default") {
         sortOpt = null;
       }
 
       setSortOptions(sortOpt);
 
-      if (sortIdentifier === 'default') {
+      if (sortIdentifier === "default") {
         history.replace(location.pathname);
       } else {
         const partialQuery = createQuery({
           identifier: sortIdentifier,
           filterType: FilterType.SORT_BY,
           locationSearch: location.search,
-          replace: true
+          replace: true,
         });
         const newQuery = createQuery({
           identifier: sortDirection,
           filterType: FilterType.ORDER,
           locationSearch: partialQuery,
-          replace: true
+          replace: true,
         });
 
         history.replace(`${location.pathname}?${newQuery}`);
@@ -73,9 +75,12 @@ const ProductMobileFilters = ({ productMeta }: Props): JSX.Element | null => {
     [history, location]
   );
 
-  const handleOpenFilters = React.useCallback((activeKey: React.MouseEvent<string>) => {
-    setOpenFilters(activeKey);
-  }, []);
+  const handleOpenFilters = React.useCallback(
+    (activeKey: React.MouseEvent<string>) => {
+      setOpenFilters(activeKey);
+    },
+    []
+  );
 
   return (
     <PanelGroup
@@ -100,7 +105,11 @@ const ProductMobileFilters = ({ productMeta }: Props): JSX.Element | null => {
         activeKey={openFilters}
       >
         {productMeta.availableFilters.subclasses.map((option) => (
-          <ProductFilterOption key={option.identifier} option={option} filterType={FilterType.SUBCLASS} />
+          <ProductFilterOption
+            key={option.identifier}
+            option={option}
+            filterType={FilterType.SUBCLASS}
+          />
         ))}
       </ProductFilterAccordion>
       <ProductFilterAccordion
@@ -109,10 +118,18 @@ const ProductMobileFilters = ({ productMeta }: Props): JSX.Element | null => {
         activeKey={openFilters}
       >
         {productMeta.availableFilters.brands.map((option) => (
-          <ProductFilterOption key={option.identifier} option={option} filterType={FilterType.BRAND_FILTER} />
+          <ProductFilterOption
+            key={option.identifier}
+            option={option}
+            filterType={FilterType.BRAND_FILTER}
+          />
         ))}
       </ProductFilterAccordion>
-      <ProductFilterAccordion header="Sorting" sortOption={sortOption} activeKey={openFilters}>
+      <ProductFilterAccordion
+        header="Sorting"
+        sortOption={sortOption}
+        activeKey={openFilters}
+      >
         <ProductSortOptions
           handleSortOptionClick={handleSortOptionClick}
           activeFilters={activeFilters}

@@ -1,13 +1,17 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { useSelector } from 'react-redux';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import Caption from '../../../ui/captions/Caption';
-import Bold from '../../../ui/paragraphs/Bold';
-import Paragraph1 from '../../../ui/paragraphs/Paragraph1';
-import { SHADES, BRAND } from '../../../ui/variables';
-import { getBillingAddressInfo, getCustomerInfo, getDeliveryInfo } from '../store/checkout.selectors';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { useSelector } from "react-redux";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import Caption from "../../../ui/captions/Caption";
+import Bold from "../../../ui/paragraphs/Bold";
+import Paragraph1 from "../../../ui/paragraphs/Paragraph1";
+import { SHADES, BRAND } from "../../../ui/variables";
+import {
+  getBillingAddressInfo,
+  getCustomerInfo,
+  getDeliveryInfo,
+} from "../store/checkout.selectors";
 
 const PreviousStepsContainer = styled.div`
   border-top: 1px solid ${SHADES.SHADE_LIGHTER};
@@ -45,7 +49,7 @@ const PreviousStepsInfo = ({
   currentStep,
   backToCustomerInfo,
   backToDeliveryInfo,
-  backToBillingAddressInfo
+  backToBillingAddressInfo,
 }: Props) => {
   const customerInfo = useSelector(getCustomerInfo);
   const deliveryInfo = useSelector(getDeliveryInfo);
@@ -53,11 +57,18 @@ const PreviousStepsInfo = ({
 
   const { firstName, lastName, email, company } = customerInfo;
   const { streetAddress, apt, city, state, zipcode, phone } = deliveryInfo;
-  const { billingStreetAddress, billingApt, billingCity, billingState, billingPostalCode } = billingAddressInfo;
+  const {
+    billingStreetAddress,
+    billingApt,
+    billingCity,
+    billingState,
+    billingPostalCode,
+  } = billingAddressInfo;
 
   const isCustomerInfoAvailable = firstName && lastName && email;
   const isDeliveryInfoAvailable = streetAddress && phone;
-  const isBillingAddressInfoAvailable = billingStreetAddress && billingCity && billingState && billingPostalCode;
+  const isBillingAddressInfoAvailable =
+    billingStreetAddress && billingCity && billingState && billingPostalCode;
 
   return (
     <PreviousStepsContainer data-cy={`${currentStep}-previous-steps-info`}>
@@ -65,7 +76,10 @@ const PreviousStepsInfo = ({
         <Step>
           <Paragraph1>
             <Bold>Customer Info &nbsp;&nbsp;</Bold>
-            <Button style={ButtonStyle.COMPACT_TEXT} onClick={backToCustomerInfo}>
+            <Button
+              style={ButtonStyle.COMPACT_TEXT}
+              onClick={backToCustomerInfo}
+            >
               Edit
             </Button>
           </Paragraph1>
@@ -76,45 +90,51 @@ const PreviousStepsInfo = ({
           <Info>{email}</Info>
         </Step>
       ) : (
-        ''
+        ""
       )}
 
       {isDeliveryInfoAvailable && backToDeliveryInfo ? (
         <Step>
           <Paragraph1>
             <Bold>Delivery Info &nbsp;&nbsp;</Bold>
-            <Button style={ButtonStyle.COMPACT_TEXT} onClick={backToDeliveryInfo}>
+            <Button
+              style={ButtonStyle.COMPACT_TEXT}
+              onClick={backToDeliveryInfo}
+            >
               Edit
             </Button>
           </Paragraph1>
           <Info>
-            {streetAddress} {apt ? apt : ''}
+            {streetAddress} {apt ? apt : ""}
           </Info>
           <Info>
             {city}, {state} {zipcode}
           </Info>
         </Step>
       ) : (
-        ''
+        ""
       )}
 
       {isBillingAddressInfoAvailable && backToBillingAddressInfo ? (
         <Step>
           <Paragraph1>
             <Bold>Billing Info &nbsp;&nbsp;</Bold>
-            <Button style={ButtonStyle.COMPACT_TEXT} onClick={backToBillingAddressInfo}>
+            <Button
+              style={ButtonStyle.COMPACT_TEXT}
+              onClick={backToBillingAddressInfo}
+            >
               Edit
             </Button>
           </Paragraph1>
           <Info>
-            {billingStreetAddress} {billingApt ? billingApt : ''}
+            {billingStreetAddress} {billingApt ? billingApt : ""}
           </Info>
           <Info>
             {billingCity}, {billingState} {billingPostalCode}
           </Info>
         </Step>
       ) : (
-        ''
+        ""
       )}
     </PreviousStepsContainer>
   );

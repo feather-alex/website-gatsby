@@ -1,24 +1,30 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { AddBillingCardRequest } from './store/billing.information.actions';
-import { useState, Fragment } from 'react';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { AddBillingCardRequest } from "./store/billing.information.actions";
+import { useState, Fragment } from "react";
 import {
   StripeError,
   StripeElementChangeEvent,
   CreateTokenCardData,
-  StripeCardElementOptions
-} from '@stripe/stripe-js';
-import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js';
-import { BRAND, FONTS, SHADES } from '../../../ui/variables';
-import SelectInput, { InputType } from '../../../ui/formElements/SelectInput';
-import Title2 from '../../../ui/titles/Title2';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { StripeCardZipErrors } from '../../checkout/store/checkout.types';
-import { useFormik } from 'formik';
-import { validateZipcode } from '../../checkout/components/CheckoutBillingStripeForm';
-import FormikField from '../../../ui/formElements/FormikField';
-import { noop } from '../../../utils/ui-helpers';
+  StripeCardElementOptions,
+} from "@stripe/stripe-js";
+import {
+  useStripe,
+  useElements,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
+import { BRAND, FONTS, SHADES } from "../../../ui/variables";
+import SelectInput, { InputType } from "../../../ui/formElements/SelectInput";
+import Title2 from "../../../ui/titles/Title2";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { StripeCardZipErrors } from "../../checkout/store/checkout.types";
+import { useFormik } from "formik";
+import { validateZipcode } from "../../checkout/components/CheckoutBillingStripeForm";
+import FormikField from "../../../ui/formElements/FormikField";
+import { noop } from "../../../utils/ui-helpers";
 
 const ErrorMessage = styled.div`
   text-transform: uppercase;
@@ -29,7 +35,8 @@ const ErrorMessage = styled.div`
   margin-top: -34px;
   text-align: left;
   min-height: 14px;
-  ${({ isVisible }: { isVisible: boolean }) => (isVisible ? 'opacity: 1;' : 'opacity: 0;')}
+  ${({ isVisible }: { isVisible: boolean }) =>
+    isVisible ? "opacity: 1;" : "opacity: 0;"}
 `;
 
 interface Props {
@@ -45,16 +52,16 @@ const inputOptions: StripeCardElementOptions = {
   style: {
     base: {
       fontFamily: `${FONTS.PRIMARY}, Helvetica, sans-serif`,
-      fontSize: '16px',
+      fontSize: "16px",
       color: BRAND.PRIMARY_TEXT,
-      '::placeholder': {
-        color: SHADES.SHADE_LIGHT
-      }
+      "::placeholder": {
+        color: SHADES.SHADE_LIGHT,
+      },
     },
     invalid: {
-      color: `${BRAND.ERROR}`
-    }
-  }
+      color: `${BRAND.ERROR}`,
+    },
+  },
 };
 
 const inputCSS = css`
@@ -70,10 +77,16 @@ const inputCSS = css`
   }
 `;
 
-const validateForm = ({ zip, billingName }: { zip: string; billingName: string }) => {
+const validateForm = ({
+  zip,
+  billingName,
+}: {
+  zip: string;
+  billingName: string;
+}) => {
   return {
     zip: validateZipcode({ zip })?.zip,
-    billingName: billingName ? undefined : '*required'
+    billingName: billingName ? undefined : "*required",
   };
 };
 
@@ -83,7 +96,7 @@ const BillingAddCardForm = ({
   defaultToggle,
   toggleNewForm,
   isFetching,
-  addBillingCard
+  addBillingCard,
 }: Props) => {
   const [stripeErrors, setStripeErrors] = useState<{
     cardNumber: StripeError | null;
@@ -92,41 +105,42 @@ const BillingAddCardForm = ({
   }>({
     cardNumber: null,
     cardExpiry: null,
-    cardCvc: null
+    cardCvc: null,
   });
   const [isLoading, setIsLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
 
-  const { handleChange, handleBlur, values, errors, touched, resetForm } = useFormik<{
-    zip: string;
-    billingName: string;
-  }>({
-    enableReinitialize: true,
-    isInitialValid: false,
-    initialValues: {
-      zip: '',
-      billingName: billingName || ''
-    },
-    validate: validateForm,
-    validateOnBlur: true,
-    onSubmit: noop
-  });
+  const { handleChange, handleBlur, values, errors, touched, resetForm } =
+    useFormik<{
+      zip: string;
+      billingName: string;
+    }>({
+      enableReinitialize: true,
+      isInitialValid: false,
+      initialValues: {
+        zip: "",
+        billingName: billingName || "",
+      },
+      validate: validateForm,
+      validateOnBlur: true,
+      onSubmit: noop,
+    });
 
   if (!stripe || !elements) {
     return null;
   }
 
   const clearForm = () => {
-    const cardNumber = elements.getElement('cardNumber');
+    const cardNumber = elements.getElement("cardNumber");
     if (cardNumber) {
       cardNumber.clear();
     }
-    const cardExpiry = elements.getElement('cardExpiry');
+    const cardExpiry = elements.getElement("cardExpiry");
     if (cardExpiry) {
       cardExpiry.clear();
     }
-    const cardCvc = elements.getElement('cardCvc');
+    const cardCvc = elements.getElement("cardCvc");
     if (cardCvc) {
       cardCvc.clear();
     }
@@ -138,10 +152,10 @@ const BillingAddCardForm = ({
 
     const options: CreateTokenCardData = {
       name: values.billingName,
-      address_zip: values.zip
+      address_zip: values.zip,
     };
 
-    const cardNumber = elements.getElement('cardNumber');
+    const cardNumber = elements.getElement("cardNumber");
 
     if (cardNumber) {
       const { token, error } = await stripe.createToken(cardNumber, options);
@@ -181,8 +195,14 @@ const BillingAddCardForm = ({
           error={errors.billingName}
           touched={touched.billingName}
         />
-        <CardNumberElement css={inputCSS} options={inputOptions} onChange={onInputChange} />
-        <ErrorMessage isVisible={Boolean(stripeErrors.cardNumber)}>{stripeErrors.cardNumber?.message}</ErrorMessage>
+        <CardNumberElement
+          css={inputCSS}
+          options={inputOptions}
+          onChange={onInputChange}
+        />
+        <ErrorMessage isVisible={Boolean(stripeErrors.cardNumber)}>
+          {stripeErrors.cardNumber?.message}
+        </ErrorMessage>
         <div
           css={css`
             display: flex;
@@ -201,7 +221,9 @@ const BillingAddCardForm = ({
               options={inputOptions}
               onChange={onInputChange}
             />
-            <ErrorMessage isVisible={Boolean(stripeErrors.cardExpiry)}>{stripeErrors.cardExpiry?.message}</ErrorMessage>
+            <ErrorMessage isVisible={Boolean(stripeErrors.cardExpiry)}>
+              {stripeErrors.cardExpiry?.message}
+            </ErrorMessage>
           </div>
           <div
             css={css`
@@ -209,8 +231,14 @@ const BillingAddCardForm = ({
               flex: 1;
             `}
           >
-            <CardCvcElement css={inputCSS} options={inputOptions} onChange={onInputChange} />
-            <ErrorMessage isVisible={Boolean(stripeErrors.cardCvc)}>{stripeErrors.cardCvc?.message}</ErrorMessage>
+            <CardCvcElement
+              css={inputCSS}
+              options={inputOptions}
+              onChange={onInputChange}
+            />
+            <ErrorMessage isVisible={Boolean(stripeErrors.cardCvc)}>
+              {stripeErrors.cardCvc?.message}
+            </ErrorMessage>
           </div>
         </div>
         <FormikField
@@ -227,10 +255,12 @@ const BillingAddCardForm = ({
         <ErrorMessage
           isVisible={Boolean(
             touched.zip &&
-              (errors.zip || (stripeErrors['cardNumber']?.code && StripeCardZipErrors[stripeErrors['cardNumber'].code]))
+              (errors.zip ||
+                (stripeErrors["cardNumber"]?.code &&
+                  StripeCardZipErrors[stripeErrors["cardNumber"].code]))
           )}
         >
-          {stripeErrors['cardNumber']?.message || errors.zip}
+          {stripeErrors["cardNumber"]?.message || errors.zip}
         </ErrorMessage>
       </form>
 
@@ -241,8 +271,14 @@ const BillingAddCardForm = ({
           margin: 20px 0;
         `}
       >
-        <SelectInput inputType={InputType.Checkbox} isChecked={makeDefault} onChange={defaultToggle}>
-          <Title2 color={makeDefault ? BRAND.PRIMARY : BRAND.PRIMARY_TEXT}>Make primary card</Title2>
+        <SelectInput
+          inputType={InputType.Checkbox}
+          isChecked={makeDefault}
+          onChange={defaultToggle}
+        >
+          <Title2 color={makeDefault ? BRAND.PRIMARY : BRAND.PRIMARY_TEXT}>
+            Make primary card
+          </Title2>
         </SelectInput>
       </div>
 
@@ -256,7 +292,11 @@ const BillingAddCardForm = ({
           dataCy="save-card-button"
           isDisabled={
             isLoading ||
-            Boolean(stripeErrors['cardNumber'] || stripeErrors['cardExpiry'] || stripeErrors['cardCvc']) ||
+            Boolean(
+              stripeErrors["cardNumber"] ||
+                stripeErrors["cardExpiry"] ||
+                stripeErrors["cardCvc"]
+            ) ||
             Boolean(errors.billingName || errors.zip) ||
             Boolean(!values.billingName || !values.zip)
           }

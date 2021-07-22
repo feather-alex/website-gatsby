@@ -1,7 +1,7 @@
-import { FluxStandardAction } from '../../../types/FluxStandardActions';
-import { put, takeLeading } from 'redux-saga/effects';
-import { SagaIterator } from 'redux-saga';
-import * as actions from './dimensions.actions';
+import { FluxStandardAction } from "../../../types/FluxStandardActions";
+import { put, takeLeading } from "redux-saga/effects";
+import { SagaIterator } from "redux-saga";
+import * as actions from "./dimensions.actions";
 
 export function* handleWindowResize(action: FluxStandardAction): SagaIterator {
   // Destructure height and width from payload.

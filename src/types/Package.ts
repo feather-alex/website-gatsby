@@ -6,8 +6,8 @@ import {
   RentalPrices,
   ProductDimension,
   Availability,
-  ProductVariantOption
-} from './Product';
+  ProductVariantOption,
+} from "./Product";
 
 export default interface Package {
   products: FullProductDetails[];
@@ -26,7 +26,7 @@ export interface PkgItem {
   rentalPrices: RentalPrices;
   options: ProductVariantOption[];
   selected?: boolean;
-  type?: 'package';
+  type?: "package";
   description: string;
   dimensions: ProductDimension;
   availability: Availability[];

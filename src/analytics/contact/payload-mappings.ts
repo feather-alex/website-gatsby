@@ -2,7 +2,7 @@ export const sendContactFormMessagePayloadMapping = ({
   email,
   name,
   company,
-  reasonForInquiry
+  reasonForInquiry,
 }: {
   email: string;
   name: string;
@@ -12,13 +12,13 @@ export const sendContactFormMessagePayloadMapping = ({
   customer_email: email,
   customer_name: name,
   customer_company: company,
-  reason_for_inquiry: reasonForInquiry
+  reason_for_inquiry: reasonForInquiry,
 });
 
 export const sendContactFormIdentifyPayloadMapping = ({
   email,
   name,
-  company
+  company,
 }: {
   email: string;
   name: string;
@@ -26,5 +26,5 @@ export const sendContactFormIdentifyPayloadMapping = ({
 }) => ({
   email,
   name,
-  company
+  company,
 });

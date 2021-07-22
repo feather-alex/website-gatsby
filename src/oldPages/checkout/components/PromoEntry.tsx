@@ -1,34 +1,43 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import styled from '@emotion/styled';
-import { compose } from 'redux';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState, ChangeEvent, Fragment } from 'react';
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
+import { compose } from "redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, ChangeEvent, Fragment } from "react";
 import {
   getPromo,
   getPromoError,
   getPromoState,
   getCartTotals,
-  getPromoDescription
-} from '../../cart/store/cart.selectors';
+  getPromoDescription,
+} from "../../cart/store/cart.selectors";
 
-import { reduxForm } from 'redux-form';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { PromoState } from '../../cart/store/cart.types';
-import PlusSignIcon from '../../../ui/icons/PlusSignIcon';
-import { getPromoRequest, resetPromo } from '../../cart/store/cart.actions';
-import { getDeliveryAreaIdentifier, getMembershipState } from '../../../app/store/plan/plan.selectors';
-import { BRAND, SHADES } from '../../../ui/variables';
-import Title2 from '../../../ui/titles/Title2';
-import { ChangePlanLink as CancelEntryLink, Line } from '../../cart/components/MiniCartFooter';
-import { APIError } from '../../../types/ReduxState';
-import Analytics from '../../../analytics/analytics';
-import { CHECKOUT } from '../../../analytics/checkout/events';
+import { reduxForm } from "redux-form";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { PromoState } from "../../cart/store/cart.types";
+import PlusSignIcon from "../../../ui/icons/PlusSignIcon";
+import { getPromoRequest, resetPromo } from "../../cart/store/cart.actions";
+import {
+  getDeliveryAreaIdentifier,
+  getMembershipState,
+} from "../../../app/store/plan/plan.selectors";
+import { BRAND, SHADES } from "../../../ui/variables";
+import Title2 from "../../../ui/titles/Title2";
+import {
+  ChangePlanLink as CancelEntryLink,
+  Line,
+} from "../../cart/components/MiniCartFooter";
+import { APIError } from "../../../types/ReduxState";
+import Analytics from "../../../analytics/analytics";
+import { CHECKOUT } from "../../../analytics/checkout/events";
 import {
   enterPromoCodePayloadMapping,
-  checkoutActionsCartUuidPayloadMapping
-} from '../../../analytics/checkout/payload-mappings';
-import { MembershipState, MembershipStateDisplayName } from '../../../app/store/plan/plan.types';
+  checkoutActionsCartUuidPayloadMapping,
+} from "../../../analytics/checkout/payload-mappings";
+import {
+  MembershipState,
+  MembershipStateDisplayName,
+} from "../../../app/store/plan/plan.types";
 
 const PromoButton = styled(Button)`
   color: ${BRAND.PRIMARY};
@@ -39,12 +48,12 @@ const PromoButton = styled(Button)`
 
 const getErrorMessageFromError = (error: APIError | null): string => {
   if (error && error.body && error.body.error) {
-    return error.body.error.includes('Expired')
-      ? 'Uh oh! Sorry, but it looks like that promotion’s no longer available.'
-      : 'Uh oh! It looks like we don’t offer that promotion. Please enter a valid promo code.';
+    return error.body.error.includes("Expired")
+      ? "Uh oh! Sorry, but it looks like that promotion’s no longer available."
+      : "Uh oh! It looks like we don’t offer that promotion. Please enter a valid promo code.";
   }
 
-  return 'Please enter a valid promo code';
+  return "Please enter a valid promo code";
 };
 
 interface Props {
@@ -56,7 +65,7 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
   const membershipState = useSelector(getMembershipState);
   const isPromosAvailable = membershipState !== MembershipState.NON_MEMBER;
   const [isPromoOpen, setIsPromoOpen] = useState(isAlwaysOpen);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const promo = useSelector(getPromo);
   const promoState = useSelector(getPromoState);
@@ -69,13 +78,16 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
 
   const handleSubmit = () => {
     if (deliveryAreaIdentifier) {
-      Analytics.trackEvent(CHECKOUT.PROMO_CODE, enterPromoCodePayloadMapping({ promoCode: inputValue, cartUuid }));
+      Analytics.trackEvent(
+        CHECKOUT.PROMO_CODE,
+        enterPromoCodePayloadMapping({ promoCode: inputValue, cartUuid })
+      );
       dispatch(
         getPromoRequest({
           promo: inputValue,
           rentalLength: 12,
           subTotal,
-          deliveryAreaIdentifier
+          deliveryAreaIdentifier,
         })
       );
     }
@@ -86,7 +98,7 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && promoState !== PromoState.FETCHING) {
+    if (e.key === "Enter" && promoState !== PromoState.FETCHING) {
       handleSubmit();
     }
   };
@@ -95,7 +107,7 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
     if (!isAlwaysOpen) {
       setIsPromoOpen(false);
     }
-    setInputValue('');
+    setInputValue("");
     dispatch(resetPromo());
   };
 
@@ -122,7 +134,7 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
         <PlusSignIcon
           color={isPromosAvailable ? BRAND.PRIMARY : SHADES.SHADE_LIGHTER}
           css={css`
-            ${isPromosAvailable ? '' : 'transform: rotate(45deg);'}
+            ${isPromosAvailable ? "" : "transform: rotate(45deg);"}
           `}
         />
         <PromoButton
@@ -130,11 +142,16 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
           style={ButtonStyle.COMPACT_TEXT}
           isDisabled={!isPromosAvailable}
           onClick={() => {
-            Analytics.trackEvent(CHECKOUT.PROMO_CLICK, checkoutActionsCartUuidPayloadMapping({ cartUuid }));
+            Analytics.trackEvent(
+              CHECKOUT.PROMO_CLICK,
+              checkoutActionsCartUuidPayloadMapping({ cartUuid })
+            );
             setIsPromoOpen(true);
           }}
         >
-          {isPromosAvailable ? 'Add Promo Code' : `Promos unavailable for ${MembershipStateDisplayName.NON_MEMBER}`}
+          {isPromosAvailable
+            ? "Add Promo Code"
+            : `Promos unavailable for ${MembershipStateDisplayName.NON_MEMBER}`}
         </PromoButton>
       </div>
     );
@@ -172,7 +189,10 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
             border-radius: 3px;
             color: ${SHADES.SHADE_DARKER};
             background-color: transparent;
-            border: 1px solid ${promoState === PromoState.INVALID ? BRAND.ERROR : SHADES.SHADE_LIGHT};
+            border: 1px solid
+              ${promoState === PromoState.INVALID
+                ? BRAND.ERROR
+                : SHADES.SHADE_LIGHT};
             ::placeholder {
               color: ${SHADES.SHADE_LIGHT};
             }
@@ -188,7 +208,8 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
           Apply
         </Button>
       </div>
-      {((promoState === PromoState.INVALID && promoError) || !isPromosAvailable) && (
+      {((promoState === PromoState.INVALID && promoError) ||
+        !isPromosAvailable) && (
         <Fragment>
           <span
             css={css`
@@ -208,7 +229,7 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
               color: ${BRAND.ERROR};
               text-align: left;
               margin-left: 0;
-              ${!isPromosAvailable ? 'display: none;' : ''}
+              ${!isPromosAvailable ? "display: none;" : ""}
             `}
             onClick={handleResetPromo}
           >
@@ -221,5 +242,5 @@ const PromoEntry = ({ cartUuid, isAlwaysOpen = false }: Props) => {
 };
 
 export default compose(
-  reduxForm<{ promoCode: string }, Props>({ form: 'promoForm' })
+  reduxForm<{ promoCode: string }, Props>({ form: "promoForm" })
 )(PromoEntry);

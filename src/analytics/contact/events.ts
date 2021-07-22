@@ -1,3 +1,3 @@
 export const CONTACT = {
-  MESSAGE: 'Contact Form Message Sent'
+  MESSAGE: "Contact Form Message Sent",
 };

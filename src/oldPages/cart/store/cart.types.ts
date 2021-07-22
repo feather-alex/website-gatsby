@@ -1,8 +1,13 @@
-import { RentalPrices, Image, Availability, MembershipLengthToPriceMap } from '../../../types/Product';
-import { APIError } from '../../../types/ReduxState';
+import {
+  RentalPrices,
+  Image,
+  Availability,
+  MembershipLengthToPriceMap,
+} from "../../../types/Product";
+import { APIError } from "../../../types/ReduxState";
 
 export interface CartItem {
-  type: 'product' | 'bundle' | 'custom-bundle' | 'product-of-bundle';
+  type: "product" | "bundle" | "custom-bundle" | "product-of-bundle";
   title: string;
   brand: string;
   categories?: { identifier: string; name: string }[];
@@ -32,15 +37,15 @@ export interface ProductRecommendation {
 }
 
 export enum PromoState {
-  VALID = 'valid',
-  INVALID = 'invalid',
-  FETCHING = 'fetching',
-  EMPTY = 'empty'
+  VALID = "valid",
+  INVALID = "invalid",
+  FETCHING = "fetching",
+  EMPTY = "empty",
 }
 
 export enum PromoType {
-  Fixed = 'Fixed',
-  Percentage = 'Percentage'
+  Fixed = "Fixed",
+  Percentage = "Percentage",
 }
 
 export interface PromoInfo {

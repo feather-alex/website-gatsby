@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import Header1 from '../../ui/headers/Header1';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import { BREAKPOINTS, COLORS } from '../../ui/variables';
-import { LineBreak } from './AdditionalUnderwriting';
-import Layout from '../../app/Layout';
+import Header1 from "../../ui/headers/Header1";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import { BREAKPOINTS, COLORS } from "../../ui/variables";
+import { LineBreak } from "./AdditionalUnderwriting";
+import Layout from "../../app/Layout";
 
 const Container = styled.div`
   background-color: ${COLORS.CREAM};
@@ -65,19 +65,26 @@ const DepositRequestSuccess = () => (
           Please send us some additional information to begin the review process
         </Header1>
         <SubHeader>
-          Now that you've chosen to submit a deposit, we need additional information from you. You will receive an email
-          shortly from customerapplication@livefeather.com. Please reply with:
+          Now that you've chosen to submit a deposit, we need additional
+          information from you. You will receive an email shortly from
+          customerapplication@livefeather.com. Please reply with:
           <List>
-            <ListItem>A copy of a photo ID (Passport, U.S. State ID or U.S. Driver’s License).</ListItem>
             <ListItem>
-              Your most recent pay stub from a US-based employer that clearly identifies your employer, gross income,
-              and date of payment occurring in the last 30 days.
+              A copy of a photo ID (Passport, U.S. State ID or U.S. Driver’s
+              License).
+            </ListItem>
+            <ListItem>
+              Your most recent pay stub from a US-based employer that clearly
+              identifies your employer, gross income, and date of payment
+              occurring in the last 30 days.
             </ListItem>
           </List>
         </SubHeader>
         <LineBreak />
-        <BodyText>In the meantime, learn more about our mission & standards.</BodyText>
-        <Button to={'/about'} style={ButtonStyle.SECONDARY}>
+        <BodyText>
+          In the meantime, learn more about our mission & standards.
+        </BodyText>
+        <Button to={"/about"} style={ButtonStyle.SECONDARY}>
           About Feather
         </Button>
       </Head>

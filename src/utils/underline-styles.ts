@@ -1,4 +1,4 @@
-import { BRAND } from '../ui/variables';
+import { BRAND } from "../ui/variables";
 
 export const underlineStyle = `
 &:after {

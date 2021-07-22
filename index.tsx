@@ -34,8 +34,7 @@ export default ({ element }) => {
           options={{
             fonts: [
               {
-                src:
-                  "https://www.livefeather.com/src/assets/fonts/CentraNo2-Book.woff2",
+                src: "https://www.livefeather.com/src/assets/fonts/CentraNo2-Book.woff2",
                 family: "Centra No2",
                 style: "normal",
               },

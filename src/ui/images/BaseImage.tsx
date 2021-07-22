@@ -71,10 +71,10 @@ const BaseImage = ({
   const handleLoad = useCallback(() => setIsLoaded(true), [setIsLoaded]);
 
   const [isZoomEnabled, setIsZoomEnabled] = useState(false);
-  const handleToggleZoom = useCallback(() => setIsZoomEnabled(!isZoomEnabled), [
-    setIsZoomEnabled,
-    isZoomEnabled,
-  ]);
+  const handleToggleZoom = useCallback(
+    () => setIsZoomEnabled(!isZoomEnabled),
+    [setIsZoomEnabled, isZoomEnabled]
+  );
 
   const [shouldLoad, setShouldLoad] = useState(shouldPreload);
 

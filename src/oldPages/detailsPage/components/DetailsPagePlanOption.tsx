@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { BRAND, SHADES } from '../../../ui/variables';
-import Title1 from '../../../ui/titles/Title1';
-import Title3 from '../../../ui/titles/Title3';
-import PlanForm from './PlanForm';
-import { ZipcodeFormData } from '../../../components/selectPlan/components/EnterZipcode';
-import { MembershipState } from '../../../app/store/plan/plan.types';
-import { Panel } from 'react-bootstrap';
+import { css, jsx } from "@emotion/core";
+import { BRAND, SHADES } from "../../../ui/variables";
+import Title1 from "../../../ui/titles/Title1";
+import Title3 from "../../../ui/titles/Title3";
+import PlanForm from "./PlanForm";
+import { ZipcodeFormData } from "../../../components/selectPlan/components/EnterZipcode";
+import { MembershipState } from "../../../app/store/plan/plan.types";
+import { Panel } from "react-bootstrap";
 
 interface Props {
   children: JSX.Element;
@@ -16,7 +16,11 @@ interface Props {
   isFetchingZipcode: boolean;
   // TODO: Fix this the next time the file is edited.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleSubmit: (values: ZipcodeFormData, dispatch: Function, props: any) => void;
+  handleSubmit: (
+    values: ZipcodeFormData,
+    dispatch: Function,
+    props: any
+  ) => void;
   isInDeliveryZone: boolean | null;
   planType: MembershipState;
   zipcode: string | null;
@@ -35,7 +39,7 @@ const DetailsPagePlanOption = ({
   isInDeliveryZone,
   isFetchingZipcode,
   isMobileBreakpoint,
-  handleFocusZipCode
+  handleFocusZipCode,
 }: Props) => (
   <div
     css={css`
@@ -86,7 +90,9 @@ const DetailsPagePlanOption = ({
           `}
         >
           <Title1 dataCy="plan-type" isBold={true}>
-            {planType === MembershipState.MEMBER ? 'Annual Member' : 'Short-Term Plan'}
+            {planType === MembershipState.MEMBER
+              ? "Annual Member"
+              : "Short-Term Plan"}
           </Title1>
           <div
             css={css`
@@ -94,7 +100,9 @@ const DetailsPagePlanOption = ({
             `}
           >
             <Title1>{`$${rentalPrice}/mo`}</Title1>
-            <Title3 color={BRAND.SECONDARY_TEXT}>{`Retail: $${retailPrice.toLocaleString()}`}</Title3>
+            <Title3
+              color={BRAND.SECONDARY_TEXT}
+            >{`Retail: $${retailPrice.toLocaleString()}`}</Title3>
           </div>
         </Panel.Title>
       </Panel.Heading>

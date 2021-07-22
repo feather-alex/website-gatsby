@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import Carousel from 'nuka-carousel';
-import { useState, useEffect } from 'react';
-import ArrowButton from '../../../../../ui/buttons/ArrowButton';
-import Analytics from '../../../../../analytics/analytics';
-import { PACKAGE } from '../../../../../analytics/package/events';
-import { packageDetailImageViewedMapping } from '../../../../../analytics/package/payload-mappings';
-import BaseImage from '../../../../../ui/images/BaseImage';
-import { ImagesUrls } from '../../../detailsPage.service';
+import { css, jsx } from "@emotion/core";
+import Carousel from "nuka-carousel";
+import { useState, useEffect } from "react";
+import ArrowButton from "../../../../../ui/buttons/ArrowButton";
+import Analytics from "../../../../../analytics/analytics";
+import { PACKAGE } from "../../../../../analytics/package/events";
+import { packageDetailImageViewedMapping } from "../../../../../analytics/package/payload-mappings";
+import BaseImage from "../../../../../ui/images/BaseImage";
+import { ImagesUrls } from "../../../detailsPage.service";
 
 interface Props {
   carouselImages: ImagesUrls[];
@@ -35,20 +35,24 @@ const DesktopImageCarousel = ({ carouselImages, windowWidth }: Props) => {
     <Carousel
       cellSpacing={10}
       enableKeyboardControls={true}
-      height={'512px'}
+      height={"512px"}
       heightMode="current"
       beforeSlide={(currentSlideIndex) =>
         Analytics.trackEvent(
           PACKAGE.IMAGE_VIEWED,
           packageDetailImageViewedMapping({
             imageUrl: carouselImages[currentSlideIndex].url,
-            imageIndex: currentSlideIndex
+            imageIndex: currentSlideIndex,
           })
         )
       }
       renderBottomCenterControls={null}
-      renderCenterLeftControls={({ previousSlide }) => <ArrowButton prev={true} onClick={previousSlide} />}
-      renderCenterRightControls={({ nextSlide }) => <ArrowButton onClick={nextSlide} />}
+      renderCenterLeftControls={({ previousSlide }) => (
+        <ArrowButton prev={true} onClick={previousSlide} />
+      )}
+      renderCenterRightControls={({ nextSlide }) => (
+        <ArrowButton onClick={nextSlide} />
+      )}
       cellAlign="left"
       wrapAround={true}
       speed={600}
@@ -62,9 +66,13 @@ const DesktopImageCarousel = ({ carouselImages, windowWidth }: Props) => {
             css={css`
               height: 512px;
             `}
-            data-attentive={index === 0 ? 'product-image' : undefined}
+            data-attentive={index === 0 ? "product-image" : undefined}
           >
-            <BaseImage imgUrl={image.url} zoomUrl={image.zoomUrl} height={512} />
+            <BaseImage
+              imgUrl={image.url}
+              zoomUrl={image.zoomUrl}
+              height={512}
+            />
           </div>
         );
       })}

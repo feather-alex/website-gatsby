@@ -1,34 +1,50 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import styled from '@emotion/styled';
-import { connect } from 'react-redux';
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
+import { connect } from "react-redux";
 
-import MiniCartProductsList from '../../cart/components/MiniCartProductsList';
-import { CartItem, ProductIdentifiers } from '../../cart/store/cart.types';
-import Panel from 'react-bootstrap/lib/Panel';
-import React from 'react';
-import { MembershipState, MembershipStateDisplayName } from '../../../app/store/plan/plan.types';
-import { State as GlobalState } from '../../../types/ReduxState';
+import MiniCartProductsList from "../../cart/components/MiniCartProductsList";
+import { CartItem, ProductIdentifiers } from "../../cart/store/cart.types";
+import Panel from "react-bootstrap/lib/Panel";
+import React from "react";
+import {
+  MembershipState,
+  MembershipStateDisplayName,
+} from "../../../app/store/plan/plan.types";
+import { State as GlobalState } from "../../../types/ReduxState";
 
-import DownIcon from '../../../assets/icons/ui-elements/dropdown_arrow.svg';
-import PromoEntry from './PromoEntry';
-import { Section, Line, TotalSection } from '../../cart/components/MiniCartFooter';
-import Title2 from '../../../ui/titles/Title2';
-import Title1 from '../../../ui/titles/Title1';
-import { BREAKPOINTS, BRAND, SHADES } from '../../../ui/variables';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { Z_INDICIES } from '../../../ui/zIndicies';
-import { ItemUnavailableError } from '../store/checkout.types';
-import Caption from '../../../ui/captions/Caption';
-import { getDeliveryFee, getTaxDueNow, getDueNow, getMembershipFee, getOrderTCV } from '../store/checkout.selectors';
-import { getCartMinimum, getMembershipState } from '../../../app/store/plan/plan.selectors';
+import DownIcon from "../../../assets/icons/ui-elements/dropdown_arrow.svg";
+import PromoEntry from "./PromoEntry";
+import {
+  Section,
+  Line,
+  TotalSection,
+} from "../../cart/components/MiniCartFooter";
+import Title2 from "../../../ui/titles/Title2";
+import Title1 from "../../../ui/titles/Title1";
+import { BREAKPOINTS, BRAND, SHADES } from "../../../ui/variables";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { Z_INDICIES } from "../../../ui/zIndicies";
+import { ItemUnavailableError } from "../store/checkout.types";
+import Caption from "../../../ui/captions/Caption";
+import {
+  getDeliveryFee,
+  getTaxDueNow,
+  getDueNow,
+  getMembershipFee,
+  getOrderTCV,
+} from "../store/checkout.selectors";
+import {
+  getCartMinimum,
+  getMembershipState,
+} from "../../../app/store/plan/plan.selectors";
 import {
   getCartItems,
   getCartUuid,
   getNumberOfItemsInCart,
-  getUnavailableItems
-} from '../../cart/store/cart.selectors';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
+  getUnavailableItems,
+} from "../../cart/store/cart.selectors";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
 
 const LeaseSection = styled.div`
   text-align: left;
@@ -71,16 +87,18 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
 
     this.state = {
       orderSummaryOpen: !props.isMobileBreakpoint,
-      linkDisplay: 'block',
-      inputDisplay: 'none',
-      resultDisplay: 'none'
+      linkDisplay: "block",
+      inputDisplay: "none",
+      resultDisplay: "none",
     };
 
     this.toggleOrderSummary = this.toggleOrderSummary.bind(this);
   }
 
   toggleOrderSummary() {
-    this.setState((prevState) => ({ orderSummaryOpen: !prevState.orderSummaryOpen }));
+    this.setState((prevState) => ({
+      orderSummaryOpen: !prevState.orderSummaryOpen,
+    }));
   }
 
   renderBelowMinimum() {
@@ -88,8 +106,12 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
 
     return (
       <div className="order-summary__banner">
-        {`You're just ${cartMinimum - monthlyFurnitureTotal} away from the ${cartMinimum}
-        /month minimum as a ${MembershipStateDisplayName[membershipState].toLowerCase()}.`}
+        {`You're just ${
+          cartMinimum - monthlyFurnitureTotal
+        } away from the ${cartMinimum}
+        /month minimum as a ${MembershipStateDisplayName[
+          membershipState
+        ].toLowerCase()}.`}
       </div>
     );
   }
@@ -104,7 +126,7 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
       monthlyFurnitureTotal,
       membershipState,
       monthlyMembershipFee,
-      orderTCV
+      orderTCV,
     } = this.props;
 
     const { orderSummaryOpen } = this.state;
@@ -130,7 +152,7 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
                 <div className="desktop-header">
                   <span className="futura">Order summary</span>
                   <p className="futura reg-14">
-                    {totalItems} item{totalItems > 1 ? 's' : ''}
+                    {totalItems} item{totalItems > 1 ? "s" : ""}
                   </p>
                 </div>
               </div>
@@ -143,10 +165,14 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
                 <div>
                   <span className="futura">Order summary</span>
                   <p className="futura reg-14">
-                    {totalItems} item{totalItems > 1 ? 's' : ''}
+                    {totalItems} item{totalItems > 1 ? "s" : ""}
                   </p>
                 </div>
-                {orderSummaryOpen ? <DownIcon className="rotated-icon" /> : <DownIcon />}
+                {orderSummaryOpen ? (
+                  <DownIcon className="rotated-icon" />
+                ) : (
+                  <DownIcon />
+                )}
               </div>
             </Panel.Title>
           </Panel.Heading>
@@ -210,7 +236,9 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
 
                   <LeaseSection>
                     <Section>
-                      <Title2>{MembershipStateDisplayName[membershipState]} Lease</Title2>
+                      <Title2>
+                        {MembershipStateDisplayName[membershipState]} Lease
+                      </Title2>
                       <Line />
                       <Title2>
                         {membershipState === MembershipState.MEMBER ? (
@@ -220,7 +248,9 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
                         )}
                       </Title2>
                     </Section>
-                    <Caption color={BRAND.SECONDARY_TEXT}>Term begins on furniture delivery date.</Caption>
+                    <Caption color={BRAND.SECONDARY_TEXT}>
+                      Term begins on furniture delivery date.
+                    </Caption>
                   </LeaseSection>
 
                   {membershipState === MembershipState.MEMBER && (
@@ -233,18 +263,28 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
                     </Section>
                   )}
                   <Section>
-                    <Title2 className={`${monthlyFurnitureTotal < cartMinimum ? 'below-minimum-amount' : ''}`}>
+                    <Title2
+                      className={`${
+                        monthlyFurnitureTotal < cartMinimum
+                          ? "below-minimum-amount"
+                          : ""
+                      }`}
+                    >
                       Monthly Furniture Total
                     </Title2>
                     <Line />
                     <Title2
                       dataCy="monthly-subtotal"
-                      className={`${monthlyFurnitureTotal < cartMinimum ? 'below-minimum-amount' : 'grey-right'}`}
+                      className={`${
+                        monthlyFurnitureTotal < cartMinimum
+                          ? "below-minimum-amount"
+                          : "grey-right"
+                      }`}
                     >
                       $
                       {monthlyFurnitureTotal.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
+                        maximumFractionDigits: 2,
                       })}
                       /mo
                     </Title2>
@@ -252,14 +292,20 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
                   <Section>
                     <Title2>White-glove Delivery &amp; Assembly</Title2>
                     <Line />
-                    <Title2 dataCy="delivery-fee">{!deliveryFee ? `FREE` : `$${deliveryFee}`}</Title2>
+                    <Title2 dataCy="delivery-fee">
+                      {!deliveryFee ? `FREE` : `$${deliveryFee}`}
+                    </Title2>
                   </Section>
                   {taxAmount > 0 && (
                     <Section>
                       <Title2>Sales Tax</Title2>
                       <Line />
                       <Title2 dataCy="sales-tax">
-                        ${taxAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        $
+                        {taxAmount.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </Title2>
                     </Section>
                   )}
@@ -267,7 +313,11 @@ class CheckoutOrderSummary extends React.Component<Props, State> {
                     <Title2 isBold={true}>Amount Due Now</Title2>
                     <Line />
                     <Title1 dataCy="amount-due-now" isBold={true}>
-                      ${dueNow.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      $
+                      {dueNow.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </Title1>
                   </TotalSection>
                   {/* hide tcv value from user but allow attentive script to query */}
@@ -301,7 +351,7 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   totalItems: getNumberOfItemsInCart(state),
   membershipState: getMembershipState(state),
   orderTCV: getOrderTCV(state),
-  cartMinimum: getCartMinimum(state)
+  cartMinimum: getCartMinimum(state),
 });
 
 export default connect(mapStateToProps)(CheckoutOrderSummary);

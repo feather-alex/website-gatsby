@@ -1,0 +1,7 @@
+# Ignore artifacts:
+build
+static
+public
+node_modules
+bin
+.cache

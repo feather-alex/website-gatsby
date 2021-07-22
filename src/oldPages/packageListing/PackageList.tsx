@@ -1,16 +1,23 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx, css } from "@emotion/core";
 
-import HashLinkId from '../../components/HashLinkId';
-import { groupByCategoryId } from '../../utils/packages';
-import { PackageForListing } from '../../types/Package';
-import Header2 from '../../ui/headers/Header2';
-import { DeliveryAreaIdentifier, MembershipState } from '../../app/store/plan/plan.types';
-import { isThereAVariantPriceDifference } from '../productListing/productList.service';
-import { getPackageStatusListing, getCheapestVariant, getPackagePrices } from './packageList.service';
-import PackageCard from '../../ui/products/PackageCard';
-import { useSelector } from 'react-redux';
-import { getIsNavbarBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
+import HashLinkId from "../../components/HashLinkId";
+import { groupByCategoryId } from "../../utils/packages";
+import { PackageForListing } from "../../types/Package";
+import Header2 from "../../ui/headers/Header2";
+import {
+  DeliveryAreaIdentifier,
+  MembershipState,
+} from "../../app/store/plan/plan.types";
+import { isThereAVariantPriceDifference } from "../productListing/productList.service";
+import {
+  getPackageStatusListing,
+  getCheapestVariant,
+  getPackagePrices,
+} from "./packageList.service";
+import PackageCard from "../../ui/products/PackageCard";
+import { useSelector } from "react-redux";
+import { getIsNavbarBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
 
 interface Props {
   packagesData: PackageForListing[];
@@ -25,7 +32,7 @@ const PackageList = ({
   isMobileBreakpoint,
   membershipState,
   deliveryAreaIdentifier,
-  isSearchResults = false
+  isSearchResults = false,
 }: Props) => {
   const isNavbarBreakpoint = useSelector(getIsNavbarBreakpoint);
   const packages = groupByCategoryId(packagesData);
@@ -39,7 +46,7 @@ const PackageList = ({
 
         return (
           <HashLinkId
-            id={name.replace(' ', '')}
+            id={name.replace(" ", "")}
             key={key}
             css={css`
               // below css needed for scrollIntoView to work as expected:
@@ -58,7 +65,9 @@ const PackageList = ({
             >
               <div
                 css={css`
-                  padding: ${isMobileBreakpoint ? '40px 24px 24px' : '48px 0 32px'};
+                  padding: ${isMobileBreakpoint
+                    ? "40px 24px 24px"
+                    : "48px 0 32px"};
                 `}
               >
                 <Header2>{name}</Header2>
@@ -66,21 +75,32 @@ const PackageList = ({
               <div
                 css={css`
                   display: grid;
-                  grid-template-columns: ${isNavbarBreakpoint ? '1fr' : '1fr 1fr'};
+                  grid-template-columns: ${isNavbarBreakpoint
+                    ? "1fr"
+                    : "1fr 1fr"};
                   grid-gap: 32px;
                 `}
               >
                 {packs.map((pack) => {
                   // We don't want to show packages that are not enabled  or oos in the current deliveryArea
                   if (
-                    !getPackageStatusListing(deliveryAreaIdentifier, pack.variants, 'isEnabled') ||
-                    !getPackageStatusListing(deliveryAreaIdentifier, pack.variants, 'isInStock')
+                    !getPackageStatusListing(
+                      deliveryAreaIdentifier,
+                      pack.variants,
+                      "isEnabled"
+                    ) ||
+                    !getPackageStatusListing(
+                      deliveryAreaIdentifier,
+                      pack.variants,
+                      "isInStock"
+                    )
                   ) {
                     return null;
                   }
 
                   const cheapestVariant = getCheapestVariant(pack.variants);
-                  const { memberRentalPrice, nonMemberRentalPrice } = getPackagePrices(cheapestVariant.items);
+                  const { memberRentalPrice, nonMemberRentalPrice } =
+                    getPackagePrices(cheapestVariant.items);
 
                   return (
                     <PackageCard
@@ -90,9 +110,13 @@ const PackageList = ({
                       listingImages={pack.variants[0].items
                         .sort((a, b) => b.displayOrder - a.displayOrder)
                         .map((item) => item.image)}
-                      shouldShowFromPrice={isThereAVariantPriceDifference(pack.variants)}
+                      shouldShowFromPrice={isThereAVariantPriceDifference(
+                        pack.variants
+                      )}
                       featherPrice={
-                        membershipState === MembershipState.NON_MEMBER ? nonMemberRentalPrice : memberRentalPrice
+                        membershipState === MembershipState.NON_MEMBER
+                          ? nonMemberRentalPrice
+                          : memberRentalPrice
                       }
                       numberOfItems={pack.variants[0].totalProducts}
                       isMobileBreakpoint={isMobileBreakpoint}

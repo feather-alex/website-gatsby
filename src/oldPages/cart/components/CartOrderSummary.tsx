@@ -1,17 +1,20 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-import { BRAND, BREAKPOINTS, SHADES } from '../../../ui/variables';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
+import { BRAND, BREAKPOINTS, SHADES } from "../../../ui/variables";
 
-import Header3 from '../../../ui/headers/Header3';
-import Title3 from '../../../ui/titles/Title3';
-import Button from '../../../ui/buttons/Button';
-import { ProductIdentifiers } from '../store/cart.types';
-import { MembershipState, MembershipStateDisplayName } from '../../../app/store/plan/plan.types';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import Subheader2 from '../../../ui/subheaders/Subheader2';
-import SelectInput, { InputType } from '../../../ui/formElements/SelectInput';
+import Header3 from "../../../ui/headers/Header3";
+import Title3 from "../../../ui/titles/Title3";
+import Button from "../../../ui/buttons/Button";
+import { ProductIdentifiers } from "../store/cart.types";
+import {
+  MembershipState,
+  MembershipStateDisplayName,
+} from "../../../app/store/plan/plan.types";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import Subheader2 from "../../../ui/subheaders/Subheader2";
+import SelectInput, { InputType } from "../../../ui/formElements/SelectInput";
 
 const Container = styled.div`
   max-width: 400px;
@@ -147,11 +150,16 @@ const CartOrderSummary = (props: Props) => {
     handleTncCheck,
     handleTrackTncClick,
     unavailableCartItems,
-    showTncError
+    showTncError,
   } = props;
 
   const isCheckoutDisabled = () => {
-    return !cartMinimum || subtotal < cartMinimum || !validZipcode || !!unavailableCartItems.length;
+    return (
+      !cartMinimum ||
+      subtotal < cartMinimum ||
+      !validZipcode ||
+      !!unavailableCartItems.length
+    );
   };
 
   return (
@@ -161,7 +169,9 @@ const CartOrderSummary = (props: Props) => {
 
         <OrderSummaryLineItem>
           <Paragraph2>Delivery &#38; Assembly:</Paragraph2>
-          <BoldParagraph2>{membershipState === MembershipState.MEMBER ? `FREE` : `$99`}</BoldParagraph2>
+          <BoldParagraph2>
+            {membershipState === MembershipState.MEMBER ? `FREE` : `$99`}
+          </BoldParagraph2>
         </OrderSummaryLineItem>
 
         {membershipState === MembershipState.MEMBER && (
@@ -177,7 +187,7 @@ const CartOrderSummary = (props: Props) => {
           <Paragraph2>Subtotal:</Paragraph2>
           <Subheader2>
             ${total}
-            {membershipState === MembershipState.MEMBER && '/mo'}
+            {membershipState === MembershipState.MEMBER && "/mo"}
           </Subheader2>
         </OrderSummarySubtotal>
 
@@ -193,7 +203,11 @@ const CartOrderSummary = (props: Props) => {
           >
             <Paragraph2 color={SHADES.SHADE_DARK}>
               I agree to Feather's&nbsp;
-              <TermsAndConditionsLink to="/terms-and-conditions" target="_blank" onClick={handleTrackTncClick}>
+              <TermsAndConditionsLink
+                to="/terms-and-conditions"
+                target="_blank"
+                onClick={handleTrackTncClick}
+              >
                 Terms & Conditions
               </TermsAndConditionsLink>
             </Paragraph2>
@@ -211,15 +225,18 @@ const CartOrderSummary = (props: Props) => {
 
         {cartMinimum && subtotal < cartMinimum && (
           <MinimumErrorMessage color={BRAND.ERROR}>
-            As a {MembershipStateDisplayName[membershipState].toLowerCase()}, you must meet a ${cartMinimum} minimum in
-            order to checkout.
+            As a {MembershipStateDisplayName[membershipState].toLowerCase()},
+            you must meet a ${cartMinimum} minimum in order to checkout.
           </MinimumErrorMessage>
         )}
 
         {!!unavailableCartItems.length && (
-          <OutOfStockErrorMessage color={BRAND.ERROR} dataCy="out-of-stock-cart">
-            Unfortunately some of your items are now unavailable! To proceed with checkout, please remove any out of
-            stock items.
+          <OutOfStockErrorMessage
+            color={BRAND.ERROR}
+            dataCy="out-of-stock-cart"
+          >
+            Unfortunately some of your items are now unavailable! To proceed
+            with checkout, please remove any out of stock items.
           </OutOfStockErrorMessage>
         )}
       </OrderSummary>

@@ -20,7 +20,7 @@ function unregister() {
             // TODO: Fix this the next time the file is edited.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             clients.forEach((client: any) => {
-              if (client.url && 'navigate' in client) {
+              if (client.url && "navigate" in client) {
                 client.navigate(client.url);
               }
             });
@@ -31,6 +31,6 @@ function unregister() {
 }
 
 // Check our browser supports service workers
-if ('serviceWorker' in navigator) {
+if ("serviceWorker" in navigator) {
   unregister();
 }

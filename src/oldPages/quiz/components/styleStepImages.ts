@@ -1,4 +1,4 @@
-import { StyleTagChoice } from '../store/quiz.types';
+import { StyleTagChoice } from "../store/quiz.types";
 
 const constructImageUrl = (pathToImage: string) => {
   const imageBaseUrl = `https://img.livefeather.com/quiz/v3-images-2/`;
@@ -9,183 +9,183 @@ const constructImageUrl = (pathToImage: string) => {
 
 export const images = [
   {
-    choice: '1_feminine',
+    choice: "1_feminine",
     tag: [StyleTagChoice.Feminine],
-    src: constructImageUrl('1_feminine.jpg')
+    src: constructImageUrl("1_feminine.jpg"),
   },
   {
-    choice: '2_feminine',
+    choice: "2_feminine",
     tag: [StyleTagChoice.Feminine],
-    src: constructImageUrl('2_feminine.jpg')
+    src: constructImageUrl("2_feminine.jpg"),
   },
   {
-    choice: '3_feminine',
+    choice: "3_feminine",
     tag: [StyleTagChoice.Feminine],
-    src: constructImageUrl('3_feminine.jpg')
+    src: constructImageUrl("3_feminine.jpg"),
   },
   {
-    choice: '4_feminine',
+    choice: "4_feminine",
     tag: [StyleTagChoice.Feminine],
-    src: constructImageUrl('4_feminine.jpg')
+    src: constructImageUrl("4_feminine.jpg"),
   },
   {
-    choice: '5_feminine',
+    choice: "5_feminine",
     tag: [StyleTagChoice.Feminine],
-    src: constructImageUrl('5_feminine.jpg')
+    src: constructImageUrl("5_feminine.jpg"),
   },
   {
-    choice: '6_masculine',
+    choice: "6_masculine",
     tag: [StyleTagChoice.Masculine],
-    src: constructImageUrl('6_masculine.jpg')
+    src: constructImageUrl("6_masculine.jpg"),
   },
   {
-    choice: '7_masculine',
+    choice: "7_masculine",
     tag: [StyleTagChoice.Masculine],
-    src: constructImageUrl('7_masculine.jpg')
+    src: constructImageUrl("7_masculine.jpg"),
   },
   {
-    choice: '8_masculine',
+    choice: "8_masculine",
     tag: [StyleTagChoice.Masculine],
-    src: constructImageUrl('8_masculine.jpg')
+    src: constructImageUrl("8_masculine.jpg"),
   },
   {
-    choice: '9_masculine',
+    choice: "9_masculine",
     tag: [StyleTagChoice.Masculine],
-    src: constructImageUrl('9_masculine.jpg')
+    src: constructImageUrl("9_masculine.jpg"),
   },
   {
-    choice: '10_masculine',
+    choice: "10_masculine",
     tag: [StyleTagChoice.Masculine],
-    src: constructImageUrl('10_masculine.jpg')
+    src: constructImageUrl("10_masculine.jpg"),
   },
   {
-    choice: '11_scandinavian',
+    choice: "11_scandinavian",
     tag: [StyleTagChoice.Scandinavian],
-    src: constructImageUrl('11_scandinavian.jpg')
+    src: constructImageUrl("11_scandinavian.jpg"),
   },
   {
-    choice: '12_scandinavian',
+    choice: "12_scandinavian",
     tag: [StyleTagChoice.Scandinavian],
-    src: constructImageUrl('12_scandinavian.jpg')
+    src: constructImageUrl("12_scandinavian.jpg"),
   },
   {
-    choice: '13_scandinavian',
+    choice: "13_scandinavian",
     tag: [StyleTagChoice.Scandinavian],
-    src: constructImageUrl('13_scandinavian.jpg')
+    src: constructImageUrl("13_scandinavian.jpg"),
   },
   {
-    choice: '14_scandinavian',
+    choice: "14_scandinavian",
     tag: [StyleTagChoice.Scandinavian],
-    src: constructImageUrl('14_scandinavian.jpg')
+    src: constructImageUrl("14_scandinavian.jpg"),
   },
   {
-    choice: '15_scandinavian',
+    choice: "15_scandinavian",
     tag: [StyleTagChoice.Scandinavian],
-    src: constructImageUrl('15_scandinavian.jpg')
+    src: constructImageUrl("15_scandinavian.jpg"),
   },
   {
-    choice: '16_minimalist',
+    choice: "16_minimalist",
     tag: [StyleTagChoice.Minimalist],
-    src: constructImageUrl('16_minimalist.jpg')
+    src: constructImageUrl("16_minimalist.jpg"),
   },
   {
-    choice: '17_minimalist',
+    choice: "17_minimalist",
     tag: [StyleTagChoice.Minimalist],
-    src: constructImageUrl('17_minimalist.jpg')
+    src: constructImageUrl("17_minimalist.jpg"),
   },
   {
-    choice: '18_minimalist',
+    choice: "18_minimalist",
     tag: [StyleTagChoice.Minimalist],
-    src: constructImageUrl('18_minimalist.jpg')
+    src: constructImageUrl("18_minimalist.jpg"),
   },
   {
-    choice: '19_minimalist',
+    choice: "19_minimalist",
     tag: [StyleTagChoice.Minimalist],
-    src: constructImageUrl('19_minimalist.jpg')
+    src: constructImageUrl("19_minimalist.jpg"),
   },
   {
-    choice: '20_minimalist',
+    choice: "20_minimalist",
     tag: [StyleTagChoice.Minimalist],
-    src: constructImageUrl('20_minimalist.jpg')
+    src: constructImageUrl("20_minimalist.jpg"),
   },
   {
-    choice: '21_warm-natural',
+    choice: "21_warm-natural",
     tag: [StyleTagChoice.WarmNatural],
-    src: constructImageUrl('21_warm_natural.png')
+    src: constructImageUrl("21_warm_natural.png"),
   },
   {
-    choice: '22_warm-natural',
+    choice: "22_warm-natural",
     tag: [StyleTagChoice.WarmNatural],
-    src: constructImageUrl('22_warm_natural.png')
+    src: constructImageUrl("22_warm_natural.png"),
   },
   {
-    choice: '23_warm-natural',
+    choice: "23_warm-natural",
     tag: [StyleTagChoice.WarmNatural],
-    src: constructImageUrl('23_warm_natural.png')
+    src: constructImageUrl("23_warm_natural.png"),
   },
   {
-    choice: '24_warm-natural',
+    choice: "24_warm-natural",
     tag: [StyleTagChoice.WarmNatural],
-    src: constructImageUrl('24_warm_natural.png')
+    src: constructImageUrl("24_warm_natural.png"),
   },
   {
-    choice: '25_warm-natural',
+    choice: "25_warm-natural",
     tag: [StyleTagChoice.WarmNatural],
-    src: constructImageUrl('25_warm_natural.png')
+    src: constructImageUrl("25_warm_natural.png"),
   },
   {
-    choice: '26_warm-natural',
+    choice: "26_warm-natural",
     tag: [StyleTagChoice.WarmNatural],
-    src: constructImageUrl('26_warm_natural.png')
+    src: constructImageUrl("26_warm_natural.png"),
   },
   {
-    choice: '27_statement',
+    choice: "27_statement",
     tag: [StyleTagChoice.Statement],
-    src: constructImageUrl('27_statement.jpg')
+    src: constructImageUrl("27_statement.jpg"),
   },
   {
-    choice: '28_statement',
+    choice: "28_statement",
     tag: [StyleTagChoice.Statement],
-    src: constructImageUrl('28_statement.jpg')
+    src: constructImageUrl("28_statement.jpg"),
   },
   {
-    choice: '29_statement',
+    choice: "29_statement",
     tag: [StyleTagChoice.Statement],
-    src: constructImageUrl('29_statement.jpg')
+    src: constructImageUrl("29_statement.jpg"),
   },
   {
-    choice: '30_statement',
+    choice: "30_statement",
     tag: [StyleTagChoice.Statement],
-    src: constructImageUrl('30_statement.jpg')
+    src: constructImageUrl("30_statement.jpg"),
   },
   {
-    choice: '31_statement',
+    choice: "31_statement",
     tag: [StyleTagChoice.Statement],
-    src: constructImageUrl('31_statement.jpg')
+    src: constructImageUrl("31_statement.jpg"),
   },
   {
-    choice: '32_mid-century',
+    choice: "32_mid-century",
     tag: [StyleTagChoice.MidCentury],
-    src: constructImageUrl('32_mid-century.jpg')
+    src: constructImageUrl("32_mid-century.jpg"),
   },
   {
-    choice: '33_mid-century',
+    choice: "33_mid-century",
     tag: [StyleTagChoice.MidCentury],
-    src: constructImageUrl('33_mid-century.jpg')
+    src: constructImageUrl("33_mid-century.jpg"),
   },
   {
-    choice: '34_mid-century',
+    choice: "34_mid-century",
     tag: [StyleTagChoice.MidCentury],
-    src: constructImageUrl('34_mid-century.jpg')
+    src: constructImageUrl("34_mid-century.jpg"),
   },
   {
-    choice: '35_mid-century',
+    choice: "35_mid-century",
     tag: [StyleTagChoice.MidCentury],
-    src: constructImageUrl('35_mid-century.jpg')
+    src: constructImageUrl("35_mid-century.jpg"),
   },
   {
-    choice: '36_mid-century',
+    choice: "36_mid-century",
     tag: [StyleTagChoice.MidCentury],
-    src: constructImageUrl('36_mid-century.jpg')
-  }
+    src: constructImageUrl("36_mid-century.jpg"),
+  },
 ];

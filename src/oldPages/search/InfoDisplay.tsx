@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import Paragraph2 from '../../ui/paragraphs/Paragraph2';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import { BRAND, BREAKPOINTS } from '../../ui/variables';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import Paragraph2 from "../../ui/paragraphs/Paragraph2";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import { BRAND, BREAKPOINTS } from "../../ui/variables";
 
 const InfoDisplayContainer = styled.div`
   border: 1px solid ${BRAND.ACCENT};
@@ -28,13 +28,13 @@ const ButtonContainer = styled.span`
 const InfoDisplay = () => (
   <InfoDisplayContainer>
     <Paragraph2>
-      If you want to see everything,{' '}
+      If you want to see everything,{" "}
       <ButtonContainer>
         <Button style={ButtonStyle.TEXT} to="/products">
           browse all furniture.
-        </Button>{' '}
+        </Button>{" "}
       </ButtonContainer>
-      Or, shop our{' '}
+      Or, shop our{" "}
       <ButtonContainer>
         <Button style={ButtonStyle.TEXT} to="/packages">
           room packages.

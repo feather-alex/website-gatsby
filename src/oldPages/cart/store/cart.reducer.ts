@@ -1,5 +1,5 @@
-import { Cart, PromoState } from './cart.types';
-import { v1 } from 'uuid';
+import { Cart, PromoState } from "./cart.types";
+import { v1 } from "uuid";
 import {
   RESET_CART,
   UPDATE_CART_ITEMS,
@@ -14,8 +14,8 @@ import {
   RESET_PROMO,
   GET_RECOMMENDATIONS_SUCCESS,
   GET_RECOMMENDATIONS_REQUEST,
-  GET_RECOMMENDATIONS_FAILURE
-} from './cart.actions';
+  GET_RECOMMENDATIONS_FAILURE,
+} from "./cart.actions";
 
 export const initialState: Cart = {
   promo: null,
@@ -28,7 +28,7 @@ export const initialState: Cart = {
   uuid: v1(),
   recommendations: [],
   isRecommendationsFetching: false,
-  recommendationsError: null
+  recommendationsError: null,
 };
 
 const cart = (state: Cart = initialState, action: CartActions): Cart => {
@@ -36,52 +36,52 @@ const cart = (state: Cart = initialState, action: CartActions): Cart => {
     case UPDATE_CART_ITEMS:
       return {
         ...state,
-        items: action.payload.items
+        items: action.payload.items,
       };
 
     case UPDATE_UNAVAILABLE_ITEMS:
       return {
         ...state,
-        unavailableItems: action.payload.updatedUnavailableItems
+        unavailableItems: action.payload.updatedUnavailableItems,
       };
 
     case GET_UNAVAILABLE_PRODUCTS_REQUEST:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
 
     case GET_UNAVAILABLE_PRODUCTS_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        unavailableItems: action.payload.unavailableItems
+        unavailableItems: action.payload.unavailableItems,
       };
 
     case GET_UNAVAILABLE_PRODUCTS_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: action.payload.error
+        error: action.payload.error,
       };
 
     case RESET_CART:
       return {
         ...initialState,
-        uuid: v1()
+        uuid: v1(),
       };
 
     case GET_PROMO_REQUEST:
       return {
         ...state,
-        promoState: PromoState.FETCHING
+        promoState: PromoState.FETCHING,
       };
 
     case GET_PROMO_SUCCESS:
       return {
         ...state,
         promo: action.payload.promoInfo,
-        promoState: PromoState.VALID
+        promoState: PromoState.VALID,
       };
 
     case GET_PROMO_FAILURE:
@@ -89,7 +89,7 @@ const cart = (state: Cart = initialState, action: CartActions): Cart => {
         ...state,
         promo: null,
         promoError: action.payload.error,
-        promoState: PromoState.INVALID
+        promoState: PromoState.INVALID,
       };
 
     case RESET_PROMO:
@@ -97,14 +97,14 @@ const cart = (state: Cart = initialState, action: CartActions): Cart => {
         ...state,
         promo: null,
         promoError: null,
-        promoState: PromoState.EMPTY
+        promoState: PromoState.EMPTY,
       };
 
     case GET_RECOMMENDATIONS_REQUEST:
       return {
         ...state,
         recommendations: [],
-        isRecommendationsFetching: true
+        isRecommendationsFetching: true,
       };
 
     case GET_RECOMMENDATIONS_SUCCESS:
@@ -112,7 +112,7 @@ const cart = (state: Cart = initialState, action: CartActions): Cart => {
         ...state,
         recommendations: action.payload.recommendations,
         isRecommendationsFetching: false,
-        recommendationsError: null
+        recommendationsError: null,
       };
 
     case GET_RECOMMENDATIONS_FAILURE:
@@ -120,7 +120,7 @@ const cart = (state: Cart = initialState, action: CartActions): Cart => {
         ...state,
         recommendations: [],
         isRecommendationsFetching: false,
-        recommendationsError: action.payload.error
+        recommendationsError: action.payload.error,
       };
 
     default:

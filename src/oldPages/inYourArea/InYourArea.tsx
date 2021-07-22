@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
-import Layout from '../../app/Layout';
-import Header1 from '../../ui/headers/Header1';
-import Subheader2 from '../../ui/subheaders/Subheader2';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import { BRAND, BREAKPOINTS, FONTS } from '../../ui/variables';
-import { useSelector } from 'react-redux';
-import { getCityPages } from '../../app/store/contentfulPages/pages.selectors';
+import Layout from "../../app/Layout";
+import Header1 from "../../ui/headers/Header1";
+import Subheader2 from "../../ui/subheaders/Subheader2";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import { BRAND, BREAKPOINTS, FONTS } from "../../ui/variables";
+import { useSelector } from "react-redux";
+import { getCityPages } from "../../app/store/contentfulPages/pages.selectors";
 
 const Section = styled.section`
   display: flex;

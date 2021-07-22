@@ -1,15 +1,15 @@
-import isEmail from 'validator/lib/isEmail';
+import isEmail from "validator/lib/isEmail";
 
 export enum ValidationMessage {
-  requireEmail = 'Email is required',
-  requirePassword = 'Password is required',
-  requireConfirmPassword = 'Confirm password is required',
-  invalidEmail = 'Invalid email',
-  invalidPasswordLowercase = 'Must contain at least one lowercase letter',
-  invalidPasswordUppercase = 'Must contain at least one uppercase letter',
-  invalidPasswordNumber = 'Must contain at least one number (0-9)',
-  invalidPasswordLength = 'Must be at least 8 characters',
-  passwordMismatch = 'Passwords do not match'
+  requireEmail = "Email is required",
+  requirePassword = "Password is required",
+  requireConfirmPassword = "Confirm password is required",
+  invalidEmail = "Invalid email",
+  invalidPasswordLowercase = "Must contain at least one lowercase letter",
+  invalidPasswordUppercase = "Must contain at least one uppercase letter",
+  invalidPasswordNumber = "Must contain at least one number (0-9)",
+  invalidPasswordLength = "Must be at least 8 characters",
+  passwordMismatch = "Passwords do not match",
 }
 
 export const validateEmail = (email: string) => {
@@ -49,7 +49,10 @@ export const validatePassword = (password: string) => {
   return error;
 };
 
-export const validatePasswordConfirm = (password: string, passwordConfirm: string) => {
+export const validatePasswordConfirm = (
+  password: string,
+  passwordConfirm: string
+) => {
   let error = undefined;
 
   if (!passwordConfirm) {

@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { BRAND } from '../../ui/variables';
-import SofaSvg from '../../assets/icons/sofa_icon.svg';
-import Title1 from '../../ui/titles/Title1';
-import Title2 from '../../ui/titles/Title2';
+import { css, jsx } from "@emotion/core";
+import { BRAND } from "../../ui/variables";
+import SofaSvg from "../../assets/icons/sofa_icon.svg";
+import Title1 from "../../ui/titles/Title1";
+import Title2 from "../../ui/titles/Title2";
 
 const MobileDecisions = () => {
   return (
@@ -48,7 +48,8 @@ const MobileDecisions = () => {
       >
         <SofaSvg />
         <Title2 isBold={true}>
-          Stylish furniture with none of the upfront cost, delivered &amp; assembled by our team
+          Stylish furniture with none of the upfront cost, delivered &amp;
+          assembled by our team
         </Title2>
       </div>
     </div>

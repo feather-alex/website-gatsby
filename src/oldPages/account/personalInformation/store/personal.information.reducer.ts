@@ -1,23 +1,23 @@
-import { PersonalInformation, AddressInfo } from './personal.information.types';
-import { FluxStandardAction } from '../../../../types/FluxStandardActions';
+import { PersonalInformation, AddressInfo } from "./personal.information.types";
+import { FluxStandardAction } from "../../../../types/FluxStandardActions";
 import {
   GET_PERSONAL_INFORMATION_REQUEST,
   GET_PERSONAL_INFORMATION_SUCCESS,
   GET_PERSONAL_INFORMATION_FAILURE,
   UPDATE_PERSONAL_INFORMATION_REQUEST,
   UPDATE_PERSONAL_INFORMATION_SUCCESS,
-  UPDATE_PERSONAL_INFORMATION_FAILURE
-} from './personal.information.actions';
+  UPDATE_PERSONAL_INFORMATION_FAILURE,
+} from "./personal.information.actions";
 
 export const initialState: PersonalInformation = {
-  accountLastAccessedAt: '',
+  accountLastAccessedAt: "",
   addressInfo: [],
   isFetching: false,
-  firstName: '',
-  lastName: '',
+  firstName: "",
+  lastName: "",
   error: null,
-  phone: '',
-  email: ''
+  phone: "",
+  email: "",
 };
 
 export const getAddressInfoFromSubscription = (subscription: AddressInfo) => ({
@@ -25,16 +25,19 @@ export const getAddressInfoFromSubscription = (subscription: AddressInfo) => ({
   address2: subscription.address2,
   city: subscription.city,
   region: subscription.region,
-  postal: subscription.postal
+  postal: subscription.postal,
 });
 
-const personalInformation = (state = initialState, action: FluxStandardAction): PersonalInformation => {
+const personalInformation = (
+  state = initialState,
+  action: FluxStandardAction
+): PersonalInformation => {
   switch (action.type) {
     case GET_PERSONAL_INFORMATION_REQUEST:
     case UPDATE_PERSONAL_INFORMATION_REQUEST:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
 
     case GET_PERSONAL_INFORMATION_FAILURE:
@@ -42,7 +45,7 @@ const personalInformation = (state = initialState, action: FluxStandardAction): 
       return {
         ...state,
         isFetching: false,
-        error: action.payload
+        error: action.payload,
       };
 
     case GET_PERSONAL_INFORMATION_SUCCESS:
@@ -52,11 +55,13 @@ const personalInformation = (state = initialState, action: FluxStandardAction): 
         isFetching: false,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
-        addressInfo: action.payload.subscriptions.map(getAddressInfoFromSubscription),
+        addressInfo: action.payload.subscriptions.map(
+          getAddressInfoFromSubscription
+        ),
         phone: action.payload.phone,
         email: action.payload.email,
         accountLastAccessedAt: action.payload.accountLastAccessedAt,
-        error: null
+        error: null,
       };
 
     default:

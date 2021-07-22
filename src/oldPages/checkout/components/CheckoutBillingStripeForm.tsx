@@ -1,21 +1,35 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import styled from '@emotion/styled';
-import { useState, useEffect, useCallback } from 'react';
-import { CardCvcElement, CardNumberElement, CardExpiryElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { StripeError, Token, StripeElementChangeEvent, StripeCardElementOptions } from '@stripe/stripe-js';
-import { useFormik } from 'formik';
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
+import { useState, useEffect, useCallback } from "react";
+import {
+  CardCvcElement,
+  CardNumberElement,
+  CardExpiryElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import {
+  StripeError,
+  Token,
+  StripeElementChangeEvent,
+  StripeCardElementOptions,
+} from "@stripe/stripe-js";
+import { useFormik } from "formik";
 
-import Mastercard from '../../../assets/credit-card/credit_card_mastercard.svg';
-import Discover from '../../../assets/credit-card/credit_card_discover.svg';
-import Amex from '../../../assets/credit-card/credit_card_amex.svg';
-import Visa from '../../../assets/credit-card/credit_card_visa.svg';
-import { BRAND, FONTS, SHADES } from '../../../ui/variables';
-import { StripeCardZipErrors } from '../store/checkout.types';
-import Header2 from '../../../ui/headers/Header2';
-import CheckoutInputFieldFormik, { InputWidth, InputContainer } from './CheckoutInputField';
-import { noop } from '../../../utils/ui-helpers';
-import useMount from '../../../utils/useMount';
+import Mastercard from "../../../assets/credit-card/credit_card_mastercard.svg";
+import Discover from "../../../assets/credit-card/credit_card_discover.svg";
+import Amex from "../../../assets/credit-card/credit_card_amex.svg";
+import Visa from "../../../assets/credit-card/credit_card_visa.svg";
+import { BRAND, FONTS, SHADES } from "../../../ui/variables";
+import { StripeCardZipErrors } from "../store/checkout.types";
+import Header2 from "../../../ui/headers/Header2";
+import CheckoutInputFieldFormik, {
+  InputWidth,
+  InputContainer,
+} from "./CheckoutInputField";
+import { noop } from "../../../utils/ui-helpers";
+import useMount from "../../../utils/useMount";
 
 const Container = styled.div`
   width: 100%;
@@ -71,7 +85,8 @@ const ErrorMessage = styled.div`
   text-align: right;
   height: 30px;
   line-height: 14px;
-  ${({ isVisible }: { isVisible: boolean }) => (isVisible ? 'opacity: 1;' : 'opacity: 0;')}
+  ${({ isVisible }: { isVisible: boolean }) =>
+    isVisible ? "opacity: 1;" : "opacity: 0;"}
 `;
 
 interface Props {
@@ -82,29 +97,32 @@ interface Props {
 const inputOptions: StripeCardElementOptions = {
   style: {
     base: {
-      fontSize: '16px',
+      fontSize: "16px",
       fontFamily: `${FONTS.PRIMARY}, Helvetica, sans-serif`,
       color: BRAND.PRIMARY_TEXT,
-      '::placeholder': {
-        color: SHADES.SHADE_LIGHTER
-      }
+      "::placeholder": {
+        color: SHADES.SHADE_LIGHTER,
+      },
     },
     invalid: {
-      color: BRAND.ERROR
-    }
-  }
+      color: BRAND.ERROR,
+    },
+  },
 };
 
 export const validateZipcode = ({ zip }: { zip: string }) => {
   if (!zip) {
-    return { zip: '*required' };
+    return { zip: "*required" };
   } else if (!zip.match(/^\d{5}$/)) {
-    return { zip: '*invalid zip code' };
+    return { zip: "*invalid zip code" };
   }
   return undefined;
 };
 
-const CheckoutBillingStripeForm = ({ readyToSubmit, createTokenGenerator }: Props) => {
+const CheckoutBillingStripeForm = ({
+  readyToSubmit,
+  createTokenGenerator,
+}: Props) => {
   const [stripeError, setStripeError] = useState<StripeError | null>(null);
   const [isCardNumberTouched, setIsCardNumberTouched] = useState(false);
   const [isCardExpiryTouched, setIsCardExpiryTouched] = useState(false);
@@ -115,14 +133,16 @@ const CheckoutBillingStripeForm = ({ readyToSubmit, createTokenGenerator }: Prop
     cardCvc: StripeError | null;
   }>({ cardNumber: null, cardExpiry: null, cardCvc: null });
 
-  const { handleChange, handleBlur, values, errors, touched } = useFormik<{ zip: string }>({
+  const { handleChange, handleBlur, values, errors, touched } = useFormik<{
+    zip: string;
+  }>({
     enableReinitialize: true,
     initialValues: {
-      zip: ''
+      zip: "",
     },
     validate: validateZipcode,
     validateOnBlur: true,
-    onSubmit: noop
+    onSubmit: noop,
   });
   const stripe = useStripe();
   const elements = useElements();
@@ -133,7 +153,7 @@ const CheckoutBillingStripeForm = ({ readyToSubmit, createTokenGenerator }: Prop
       return null;
     }
 
-    const cardNumber = elements.getElement('cardNumber');
+    const cardNumber = elements.getElement("cardNumber");
 
     if (errors.zip) {
       readyToSubmit(false);
@@ -142,7 +162,7 @@ const CheckoutBillingStripeForm = ({ readyToSubmit, createTokenGenerator }: Prop
 
     if (cardNumber) {
       const { token, error } = await stripe.createToken(cardNumber, {
-        address_zip: values.zip
+        address_zip: values.zip,
       });
       if (error) {
         setStripeError(error);
@@ -185,7 +205,7 @@ const CheckoutBillingStripeForm = ({ readyToSubmit, createTokenGenerator }: Prop
       isCardExpiryTouched,
       isCardNumberTouched,
       readyToSubmit,
-      stripeFieldErrors
+      stripeFieldErrors,
     ]
   );
 
@@ -224,10 +244,17 @@ const CheckoutBillingStripeForm = ({ readyToSubmit, createTokenGenerator }: Prop
           onFocus={() => setIsCardNumberTouched(true)}
           css={css`
             ${cardInputCSS}
-            ${isCardNumberTouched && stripeFieldErrors.cardNumber ? `border-color: ${BRAND.ERROR};` : ''}
+            ${isCardNumberTouched && stripeFieldErrors.cardNumber
+              ? `border-color: ${BRAND.ERROR};`
+              : ""}
           `}
         />
-        <ErrorMessage data-cy="stripe-error" isVisible={isCardNumberTouched && Boolean(stripeFieldErrors.cardNumber)}>
+        <ErrorMessage
+          data-cy="stripe-error"
+          isVisible={
+            isCardNumberTouched && Boolean(stripeFieldErrors.cardNumber)
+          }
+        >
           *{stripeFieldErrors.cardNumber?.message}
         </ErrorMessage>
       </InputContainer>
@@ -245,10 +272,16 @@ const CheckoutBillingStripeForm = ({ readyToSubmit, createTokenGenerator }: Prop
             onFocus={() => setIsCardExpiryTouched(true)}
             css={css`
               ${cardInputCSS}
-              ${isCardExpiryTouched && stripeFieldErrors.cardExpiry ? `border-color: ${BRAND.ERROR};` : ''}
+              ${isCardExpiryTouched && stripeFieldErrors.cardExpiry
+                ? `border-color: ${BRAND.ERROR};`
+                : ""}
             `}
           />
-          <ErrorMessage isVisible={isCardExpiryTouched && Boolean(stripeFieldErrors.cardExpiry)}>
+          <ErrorMessage
+            isVisible={
+              isCardExpiryTouched && Boolean(stripeFieldErrors.cardExpiry)
+            }
+          >
             *{stripeFieldErrors.cardExpiry?.message}
           </ErrorMessage>
         </InputContainer>
@@ -259,10 +292,14 @@ const CheckoutBillingStripeForm = ({ readyToSubmit, createTokenGenerator }: Prop
             onFocus={() => setIsCardCvcTouched(true)}
             css={css`
               ${cardInputCSS}
-              ${isCardCvcTouched && stripeFieldErrors.cardCvc ? `border-color: ${BRAND.ERROR};` : ''}
+              ${isCardCvcTouched && stripeFieldErrors.cardCvc
+                ? `border-color: ${BRAND.ERROR};`
+                : ""}
             `}
           />
-          <ErrorMessage isVisible={isCardCvcTouched && Boolean(stripeFieldErrors.cardCvc)}>
+          <ErrorMessage
+            isVisible={isCardCvcTouched && Boolean(stripeFieldErrors.cardCvc)}
+          >
             *{stripeFieldErrors.cardCvc?.message}
           </ErrorMessage>
         </InputContainer>
@@ -275,7 +312,12 @@ const CheckoutBillingStripeForm = ({ readyToSubmit, createTokenGenerator }: Prop
         placeholder="Zip Code"
         type="text"
         value={values.zip}
-        error={errors.zip || (stripeError?.code && StripeCardZipErrors[stripeError.code] && stripeError?.message)}
+        error={
+          errors.zip ||
+          (stripeError?.code &&
+            StripeCardZipErrors[stripeError.code] &&
+            stripeError?.message)
+        }
         touched={touched.zip}
         handleChange={handleChange}
         handleBlur={handleBlur}

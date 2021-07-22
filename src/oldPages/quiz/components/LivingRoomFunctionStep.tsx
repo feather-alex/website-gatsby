@@ -1,10 +1,10 @@
-import React from 'react';
-import QuizOptionCardRadio from './QuizOptionCardRadio';
-import TVRemoteIcon from '../../../assets/icons/quiz/icon_tv_remote.svg';
-import PillowsIcon from '../../../assets/icons/quiz/icon_pillows.svg';
-import CardsIcon from '../../../assets/icons/quiz/icon_playing_cards.svg';
-import Header3 from '../../../ui/headers/Header3';
-import { LivingRoomFunctionChoice, QuizStepChoices } from '../store/quiz.types';
+import React from "react";
+import QuizOptionCardRadio from "./QuizOptionCardRadio";
+import TVRemoteIcon from "../../../assets/icons/quiz/icon_tv_remote.svg";
+import PillowsIcon from "../../../assets/icons/quiz/icon_pillows.svg";
+import CardsIcon from "../../../assets/icons/quiz/icon_playing_cards.svg";
+import Header3 from "../../../ui/headers/Header3";
+import { LivingRoomFunctionChoice, QuizStepChoices } from "../store/quiz.types";
 
 export interface Props {
   livingRoomFunction: string;
@@ -15,19 +15,19 @@ const LivingRoomFunctionStep = (props: Props) => {
   const options = [
     {
       image: <TVRemoteIcon />,
-      text: 'Relaxing & hanging out',
-      choice: LivingRoomFunctionChoice.Relaxing
+      text: "Relaxing & hanging out",
+      choice: LivingRoomFunctionChoice.Relaxing,
     },
     {
       image: <CardsIcon />,
-      text: 'Getting together with friends',
-      choice: LivingRoomFunctionChoice.Hosting
+      text: "Getting together with friends",
+      choice: LivingRoomFunctionChoice.Hosting,
     },
     {
       image: <PillowsIcon />,
-      text: 'Hosting overnight guests',
-      choice: LivingRoomFunctionChoice.Overnight
-    }
+      text: "Hosting overnight guests",
+      choice: LivingRoomFunctionChoice.Overnight,
+    },
   ];
 
   return (

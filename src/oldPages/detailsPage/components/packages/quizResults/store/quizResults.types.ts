@@ -1,5 +1,5 @@
-import { ObjEntity } from '../../../../../../types/ReduxState';
-import { PkgItem } from '../../../../../../types/Package';
+import { ObjEntity } from "../../../../../../types/ReduxState";
+import { PkgItem } from "../../../../../../types/Package";
 
 export interface QuizPkgs {
   email?: string;
@@ -27,12 +27,12 @@ export interface StyleQuizResult {
 }
 
 export enum QuizRoom {
-  DiningRoom = 'diningRoom',
-  LivingRoom = 'livingRoom',
-  HomeOffice = 'homeOffice',
-  Bedroom1 = 'bedroom1',
-  Bedroom2 = 'bedroom2',
-  Bedroom3 = 'bedroom3'
+  DiningRoom = "diningRoom",
+  LivingRoom = "livingRoom",
+  HomeOffice = "homeOffice",
+  Bedroom1 = "bedroom1",
+  Bedroom2 = "bedroom2",
+  Bedroom3 = "bedroom3",
 }
 
 export interface QuizResultsState extends ObjEntity<QuizPkgs | null> {

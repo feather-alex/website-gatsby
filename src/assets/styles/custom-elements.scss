@@ -19,7 +19,7 @@
     border: 1px solid $text-color;
     border-radius: 2px;
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       display: none;
       left: 3px;
@@ -27,9 +27,10 @@
       background: #ffffff;
       width: 2px;
       height: 2px;
-      box-shadow: 2px 0 0 #ffffff, 3px 0 0 #ffffff, 4px 0 0 #ffffff, 4px -1px 0 #ffffff, 4px -2px 0 #ffffff,
-        4px -3px 0 #ffffff, 4px -4px 0 #ffffff, 4px -5px 0 #ffffff, 4px -6px 0 #ffffff, 4px -7px 0 #ffffff,
-        4px -8px 0 #ffffff;
+      box-shadow: 2px 0 0 #ffffff, 3px 0 0 #ffffff, 4px 0 0 #ffffff,
+        4px -1px 0 #ffffff, 4px -2px 0 #ffffff, 4px -3px 0 #ffffff,
+        4px -4px 0 #ffffff, 4px -5px 0 #ffffff, 4px -6px 0 #ffffff,
+        4px -7px 0 #ffffff, 4px -8px 0 #ffffff;
       transform: rotate(45deg);
     }
   }
@@ -79,7 +80,7 @@
     border: 1px solid $brand-border-grey;
     border-radius: 50%;
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       display: none;
       left: 7px;
@@ -87,8 +88,9 @@
       background: white;
       width: 2px;
       height: 2px;
-      box-shadow: 1px 0 0 white, 2px 0 0 white, 3px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -3px 0 white,
-        4px -4px 0 white, 4px -5px 0 white, 4px -6px 0 white, 4px -7px 0 white, 4px -8px 0 white;
+      box-shadow: 1px 0 0 white, 2px 0 0 white, 3px 0 0 white, 4px 0 0 white,
+        4px -2px 0 white, 4px -3px 0 white, 4px -4px 0 white, 4px -5px 0 white,
+        4px -6px 0 white, 4px -7px 0 white, 4px -8px 0 white;
       transform: rotate(45deg);
     }
   }

@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import MinusSignIcon from '../../../ui/icons/MinusSignIcon';
-import PlusSignIcon from '../../../ui/icons/PlusSignIcon';
-import { SHADES } from '../../../ui/variables';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import MinusSignIcon from "../../../ui/icons/MinusSignIcon";
+import PlusSignIcon from "../../../ui/icons/PlusSignIcon";
+import { SHADES } from "../../../ui/variables";
 
 interface Props {
   quantity: number;
@@ -18,7 +18,11 @@ const UnstyledButton = styled.button`
   margin: 0;
 `;
 
-const HandleQuantity = ({ quantity, handleAddQuantity, handleRemoveQuantity }: Props) => (
+const HandleQuantity = ({
+  quantity,
+  handleAddQuantity,
+  handleRemoveQuantity,
+}: Props) => (
   <div
     css={css`
       flex: 1;

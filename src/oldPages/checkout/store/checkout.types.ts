@@ -1,7 +1,12 @@
-import { CartItem, PromoInfo } from '../../cart/store/cart.types';
-import { APIError } from '../../../api/error';
-import { CustomerInfoFields, DeliveryInfoFields, BillingAddressInfoFields, SSNInfoFields } from './checkoutForms.types';
-import { Token } from '@stripe/stripe-js';
+import { CartItem, PromoInfo } from "../../cart/store/cart.types";
+import { APIError } from "../../../api/error";
+import {
+  CustomerInfoFields,
+  DeliveryInfoFields,
+  BillingAddressInfoFields,
+  SSNInfoFields,
+} from "./checkoutForms.types";
+import { Token } from "@stripe/stripe-js";
 
 export type CheckoutState = {
   isPlacingOrder: boolean;
@@ -34,24 +39,24 @@ export type CheckoutState = {
 };
 
 export enum CheckoutStateStep {
-  CustomerInfo = 'customerInfo',
-  DeliveryInfo = 'deliveryInfo',
-  BillingAddress = 'billingAddressInfo'
+  CustomerInfo = "customerInfo",
+  DeliveryInfo = "deliveryInfo",
+  BillingAddress = "billingAddressInfo",
 }
 
 export enum CheckoutStep {
-  Checkout = 'checkout',
-  CustomerInfo = 'customer-info',
-  DeliveryInfo = 'delivery-info',
-  BillingAddress = 'billing-address',
-  BillingInfo = 'billing-info',
-  Eligibility = 'eligibility'
+  Checkout = "checkout",
+  CustomerInfo = "customer-info",
+  DeliveryInfo = "delivery-info",
+  BillingAddress = "billing-address",
+  BillingInfo = "billing-info",
+  Eligibility = "eligibility",
 }
 
 export enum CheckoutItemType {
-  Product = 'product',
-  Bundle = 'bundle',
-  CustomBundle = 'custom-bundle'
+  Product = "product",
+  Bundle = "bundle",
+  CustomBundle = "custom-bundle",
 }
 
 export interface IdentifierAndVariantIdentifier {
@@ -145,54 +150,54 @@ export interface CheckoutSuccessPayload extends CheckoutSuccessResponse {
 // Checkout Errors
 
 export enum CheckoutErrors {
-  StripeCardError = 'StripeCardError',
-  CustomerNotApproved = 'Customer not approved.',
-  SelfReportedIncomeRequiredError = 'Self reported income required.',
-  MaxTCVError = 'Max cart price threshold exceeded.',
-  OFACCheckFailed = 'OFAC check failed.',
-  AdditionalInformationRequired = 'Additional customer details required.',
-  CreditReportNotFound = 'A matching credit report could not be found.',
-  InvalidSSN = 'Invalid ssn'
+  StripeCardError = "StripeCardError",
+  CustomerNotApproved = "Customer not approved.",
+  SelfReportedIncomeRequiredError = "Self reported income required.",
+  MaxTCVError = "Max cart price threshold exceeded.",
+  OFACCheckFailed = "OFAC check failed.",
+  AdditionalInformationRequired = "Additional customer details required.",
+  CreditReportNotFound = "A matching credit report could not be found.",
+  InvalidSSN = "Invalid ssn",
 }
 
 export enum StripeErrorCodes {
-  CardDeclined = 'card_declined',
-  ExpiredCard = 'expired_card',
-  IncompleteCVC = 'incomplete_cvc',
-  IncompleteExpiry = 'incomplete_expiry',
-  IncompleteNumber = 'incomplete_number',
-  IncorrectCVC = 'incorrect_cvc',
-  IncorrectNumber = 'incorrect_number',
-  IncorrectZip = 'incorrect_zip',
-  InsufficientFunds = 'insufficient_funds',
-  InvalidCVC = 'invalid_cvc',
-  InvalidCardType = 'invalid_card_type',
-  InvalidExpiryMonth = 'invalid_expiry_month',
-  InvalidExpiryYear = 'invalid_expiry_year',
-  InvalidExpiryYearPast = 'invalid_expiry_year_past',
-  InvalidFunding = 'invalid_funding',
-  InvalidNumber = 'invalid_number',
-  NoToken = 'no_token',
-  PostalCodeInvalid = 'postal_code_invalid',
-  ProcessingError = 'processing_error'
+  CardDeclined = "card_declined",
+  ExpiredCard = "expired_card",
+  IncompleteCVC = "incomplete_cvc",
+  IncompleteExpiry = "incomplete_expiry",
+  IncompleteNumber = "incomplete_number",
+  IncorrectCVC = "incorrect_cvc",
+  IncorrectNumber = "incorrect_number",
+  IncorrectZip = "incorrect_zip",
+  InsufficientFunds = "insufficient_funds",
+  InvalidCVC = "invalid_cvc",
+  InvalidCardType = "invalid_card_type",
+  InvalidExpiryMonth = "invalid_expiry_month",
+  InvalidExpiryYear = "invalid_expiry_year",
+  InvalidExpiryYearPast = "invalid_expiry_year_past",
+  InvalidFunding = "invalid_funding",
+  InvalidNumber = "invalid_number",
+  NoToken = "no_token",
+  PostalCodeInvalid = "postal_code_invalid",
+  ProcessingError = "processing_error",
 }
 
 export const StripeCardZipErrors = {
   [StripeErrorCodes.PostalCodeInvalid]: true,
-  [StripeErrorCodes.IncorrectZip]: true
+  [StripeErrorCodes.IncorrectZip]: true,
 };
 
 export enum UIErrorMessages {
-  InvalidExpirationDate = 'Invalid expiration month or year',
-  InvalidCVC = 'Invalid CVC / security code',
-  InvalidCreditCardNumber = 'Invalid credit card number',
-  InvalidBillingZipCode = 'Invalid billing zip code',
-  CardDeclined = 'The card was declined',
-  InsufficientFunds = 'The card has insufficient funds',
+  InvalidExpirationDate = "Invalid expiration month or year",
+  InvalidCVC = "Invalid CVC / security code",
+  InvalidCreditCardNumber = "Invalid credit card number",
+  InvalidBillingZipCode = "Invalid billing zip code",
+  CardDeclined = "The card was declined",
+  InsufficientFunds = "The card has insufficient funds",
   GenericError = "An error occurred while processing your card. Please call us at (347) 352-8599 and we'll make it right.",
-  ExpiredCard = 'Your credit card is expired',
-  InvalidFunding = 'Prepaid cards are not accepted',
-  CardTokenError = 'Card token error. Please reload the checkout page. Your card has not been charged yet.'
+  ExpiredCard = "Your credit card is expired",
+  InvalidFunding = "Prepaid cards are not accepted",
+  CardTokenError = "Card token error. Please reload the checkout page. Your card has not been charged yet.",
 }
 
 export interface ItemUnavailableError {
@@ -206,8 +211,8 @@ export interface MaxTCVError {
   eligibleForDeposit: boolean;
 }
 export enum DepositOrigin {
-  AdditionalUnderwriting = 'Additional Underwriting',
-  NoSSN = 'No SSN'
+  AdditionalUnderwriting = "Additional Underwriting",
+  NoSSN = "No SSN",
 }
 
 export interface DepositRequestPayload {

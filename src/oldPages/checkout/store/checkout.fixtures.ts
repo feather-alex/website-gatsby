@@ -2,53 +2,53 @@ import {
   CheckoutRequestPayload,
   CheckoutItemType,
   AmountsRequestPayload,
-  AmountsSuccessPayload
-} from './checkout.types';
-import { PromoType } from '../../cart/store/cart.types';
+  AmountsSuccessPayload,
+} from "./checkout.types";
+import { PromoType } from "../../cart/store/cart.types";
 
 export const exampleCheckoutRequestPayload: CheckoutRequestPayload = {
   checkoutInfo: {
     items: [
       {
         type: CheckoutItemType.Product,
-        identifier: 'test-product',
-        variantIdentifier: 'default',
-        items: []
+        identifier: "test-product",
+        variantIdentifier: "default",
+        items: [],
       },
       {
         type: CheckoutItemType.Product,
-        identifier: 'test-product-2',
-        variantIdentifier: 'default',
-        items: []
-      }
+        identifier: "test-product-2",
+        variantIdentifier: "default",
+        items: [],
+      },
     ],
     planMonths: 12,
     customer: {
-      email: 'test@test.com',
-      firstName: 'Tester',
-      lastName: 'Testerson',
-      phone: '1234567890',
-      persona: null
+      email: "test@test.com",
+      firstName: "Tester",
+      lastName: "Testerson",
+      phone: "1234567890",
+      persona: null,
     },
     delivery: {
-      area: 'new-york',
-      company: 'Test Co.',
-      address1: '123 Test Street',
-      address2: 'Apt 1',
-      city: 'Test Town',
-      region: 'NY',
-      postal: '10001'
+      area: "new-york",
+      company: "Test Co.",
+      address1: "123 Test Street",
+      address2: "Apt 1",
+      city: "Test Town",
+      region: "NY",
+      postal: "10001",
     },
     billing: {
-      address1: '123 Test Street',
-      address2: 'Apt 1',
-      city: 'Test Town',
-      region: 'NY',
-      postal: '10001'
+      address1: "123 Test Street",
+      address2: "Apt 1",
+      city: "Test Town",
+      region: "NY",
+      postal: "10001",
     },
-    cardToken: '12345',
-    promoCode: 'TESTPROMO',
-    utmData: ''
+    cardToken: "12345",
+    promoCode: "TESTPROMO",
+    utmData: "",
   },
   amounts: {
     dueNow: 1000,
@@ -60,67 +60,67 @@ export const exampleCheckoutRequestPayload: CheckoutRequestPayload = {
     deliveryFee: 0,
     promo: {
       amount: 10,
-      code: 'TESTPROMO',
+      code: "TESTPROMO",
       type: PromoType.Fixed,
-      special: false
-    }
+      special: false,
+    },
   },
   cartInfo: {
     cartItems: [
       {
-        type: 'product',
-        title: 'Test Product',
-        brand: 'Test Brand',
+        type: "product",
+        title: "Test Product",
+        brand: "Test Brand",
         categories: [],
-        identifier: 'test-product',
-        variantIdentifier: 'default',
-        variantName: 'Test Variant',
+        identifier: "test-product",
+        variantIdentifier: "default",
+        variantName: "Test Variant",
         rentalPrices: {
           3: 100,
-          12: 10
+          12: 10,
         },
         image: {
-          desktop: '',
-          mobile: ''
+          desktop: "",
+          mobile: "",
         },
         quantity: 1,
         rentalLength: 12,
-        location: 'new-york',
-        availability: []
+        location: "new-york",
+        availability: [],
       },
       {
-        type: 'product',
-        title: 'Test Product 2',
-        brand: 'Test Brand',
+        type: "product",
+        title: "Test Product 2",
+        brand: "Test Brand",
         categories: [],
-        identifier: 'test-product-2',
-        variantIdentifier: 'default',
-        variantName: 'Test Variant',
+        identifier: "test-product-2",
+        variantIdentifier: "default",
+        variantName: "Test Variant",
         rentalPrices: {
           3: 100,
-          12: 10
+          12: 10,
         },
         image: {
-          desktop: '',
-          mobile: ''
+          desktop: "",
+          mobile: "",
         },
         quantity: 1,
         rentalLength: 12,
-        location: 'new-york',
-        availability: []
-      }
+        location: "new-york",
+        availability: [],
+      },
     ],
-    cartUuid: '12345'
+    cartUuid: "12345",
   },
   stripeToken: {
-    id: 'fake_token',
-    object: 'token',
-    client_ip: '',
-    type: '',
+    id: "fake_token",
+    object: "token",
+    client_ip: "",
+    type: "",
     created: 1,
     livemode: false,
-    used: false
-  }
+    used: false,
+  },
 };
 
 export const exampleAmountsRequestPayload: AmountsRequestPayload = {
@@ -128,12 +128,12 @@ export const exampleAmountsRequestPayload: AmountsRequestPayload = {
   subtotal: 100,
   promoCode: undefined,
   delivery: {
-    area: 'new-york',
-    address1: '5 Front St.',
-    city: 'NYC',
-    region: 'NY',
-    postal: '10012'
-  }
+    area: "new-york",
+    address1: "5 Front St.",
+    city: "NYC",
+    region: "NY",
+    postal: "10012",
+  },
 };
 
 export const exampleAmountsSuccessPayload: AmountsSuccessPayload = {
@@ -147,5 +147,5 @@ export const exampleAmountsSuccessPayload: AmountsSuccessPayload = {
   taxDueNow: 0,
   totalDueMonthly: 185,
   totalDueNow: 185,
-  orderTCV: 555
+  orderTCV: 555,
 };

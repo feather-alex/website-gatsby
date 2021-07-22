@@ -1,11 +1,11 @@
-import QuizOptionCardRadio from './QuizOptionCardRadio';
-import BedQueenIcon from '../../../assets/icons/quiz/icon_bed_queen.svg';
+import QuizOptionCardRadio from "./QuizOptionCardRadio";
+import BedQueenIcon from "../../../assets/icons/quiz/icon_bed_queen.svg";
 // import BedTwinIcon from '../../../assets/icons/quiz/icon_bed_twin.svg';
-import BedFullIcon from '../../../assets/icons/quiz/icon_bed_full.svg';
-import BedKingIcon from '../../../assets/icons/quiz/icon_bed_king.svg';
-import React from 'react';
-import Header3 from '../../../ui/headers/Header3';
-import { BedSizeChoice, QuizStepChoices } from '../store/quiz.types';
+import BedFullIcon from "../../../assets/icons/quiz/icon_bed_full.svg";
+import BedKingIcon from "../../../assets/icons/quiz/icon_bed_king.svg";
+import React from "react";
+import Header3 from "../../../ui/headers/Header3";
+import { BedSizeChoice, QuizStepChoices } from "../store/quiz.types";
 
 export interface Props {
   current: number;
@@ -26,19 +26,19 @@ const BedSizeStep = (props: Props) => {
     // },
     {
       image: <BedFullIcon />,
-      text: 'Full',
-      choice: BedSizeChoice.Full
+      text: "Full",
+      choice: BedSizeChoice.Full,
     },
     {
       image: <BedQueenIcon />,
-      text: 'Queen',
-      choice: BedSizeChoice.Queen
+      text: "Queen",
+      choice: BedSizeChoice.Queen,
     },
     {
       image: <BedKingIcon />,
-      text: 'King',
-      choice: BedSizeChoice.King
-    }
+      text: "King",
+      choice: BedSizeChoice.King,
+    },
   ];
 
   const { current, bedrooms, numberBedrooms, handleNextStep } = props;
@@ -60,7 +60,11 @@ const BedSizeStep = (props: Props) => {
             text={opt.text}
             image={opt.image}
             choice={opt.choice}
-            checked={bedrooms[current] ? bedrooms[current].bedSize === opt.choice : false}
+            checked={
+              bedrooms[current]
+                ? bedrooms[current].bedSize === opt.choice
+                : false
+            }
             handleNextStep={() => handleNextStep(opt.choice)}
             className="no-subtext"
           />

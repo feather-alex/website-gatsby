@@ -1,12 +1,18 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { BRAND } from '../../../ui/variables';
-import { Link } from 'react-router-dom';
-import { CheckoutCTAErrorContent } from './CheckoutCTAErrors.content';
+import { css, jsx } from "@emotion/core";
+import { BRAND } from "../../../ui/variables";
+import { Link } from "react-router-dom";
+import { CheckoutCTAErrorContent } from "./CheckoutCTAErrors.content";
 
 type Props = CheckoutCTAErrorContent & { onClick?: () => void };
 
-export const CheckoutCTAError = ({ dataCy, to, error, ctaMessage, onClick }: Props) => {
+export const CheckoutCTAError = ({
+  dataCy,
+  to,
+  error,
+  ctaMessage,
+  onClick,
+}: Props) => {
   return (
     <div
       css={css`

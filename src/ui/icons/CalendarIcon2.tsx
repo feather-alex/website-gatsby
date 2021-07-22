@@ -1,5 +1,5 @@
-import React from 'react';
-import { SHADES } from '../variables';
+import React from "react";
+import { SHADES } from "../variables";
 
 export const CalendarIcon2 = () => (
   <svg

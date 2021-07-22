@@ -1,6 +1,6 @@
-import { FullProductDetails, OptionType } from '../../../../types/Product';
-import { QueryParam } from '../../../../api/request';
-import { APIError } from '../../../../types/ReduxState';
+import { FullProductDetails, OptionType } from "../../../../types/Product";
+import { QueryParam } from "../../../../api/request";
+import { APIError } from "../../../../types/ReduxState";
 
 export interface ProductDetailsState {
   isFetching: boolean;

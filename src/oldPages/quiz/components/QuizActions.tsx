@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import Button from '../../../ui/buttons/Button';
+import { css, jsx } from "@emotion/core";
+import Button from "../../../ui/buttons/Button";
 
 export interface Props {
   buttonDisabled: boolean;
@@ -17,7 +17,11 @@ const QuizActions = (props: Props) => {
       `}
       className="quiz-actions"
     >
-      <Button dataCy="quiz-next-button" onClick={props.handleNextStep} isDisabled={props.buttonDisabled}>
+      <Button
+        dataCy="quiz-next-button"
+        onClick={props.handleNextStep}
+        isDisabled={props.buttonDisabled}
+      >
         Next
       </Button>
     </div>

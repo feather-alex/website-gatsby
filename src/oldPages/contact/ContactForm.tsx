@@ -1,14 +1,20 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import { Form, Field, reduxForm, ConfigProps, InjectedFormProps } from 'redux-form';
-import { ContactFormData } from './store/contact.types';
-import ReasonForInquiry from './ReasonForInquiry';
-import { validateForm } from './store/contact.validator';
-import Header2 from '../../ui/headers/Header2';
-import FormField from '../../ui/formElements/FormField';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import TextArea from '../../ui/formElements/TextArea';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
+import { jsx, css } from "@emotion/core";
+import {
+  Form,
+  Field,
+  reduxForm,
+  ConfigProps,
+  InjectedFormProps,
+} from "redux-form";
+import { ContactFormData } from "./store/contact.types";
+import ReasonForInquiry from "./ReasonForInquiry";
+import { validateForm } from "./store/contact.validator";
+import Header2 from "../../ui/headers/Header2";
+import FormField from "../../ui/formElements/FormField";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import TextArea from "../../ui/formElements/TextArea";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
 
 interface Props {
   displayErrorMessage: boolean;
@@ -22,7 +28,7 @@ const ContactForm = ({
   isProccessingRequest,
   displaySuccessMessage,
   handleSubmit,
-  onSubmit
+  onSubmit,
 }: Props & InjectedFormProps<ContactFormData, Props>) => (
   <div
     css={css`
@@ -46,11 +52,26 @@ const ContactForm = ({
         justify-content: center;
       `}
     >
-      <Field type="text" name="fullName" label="Full name" component={FormField} />
+      <Field
+        type="text"
+        name="fullName"
+        label="Full name"
+        component={FormField}
+      />
 
-      <Field type="email" name="emailAddress" label="Email" component={FormField} />
+      <Field
+        type="email"
+        name="emailAddress"
+        label="Email"
+        component={FormField}
+      />
 
-      <Field type="text" name="companyName" label="Company name (optional)" component={FormField} />
+      <Field
+        type="text"
+        name="companyName"
+        label="Company name (optional)"
+        component={FormField}
+      />
 
       <Field name="reasonForInquiry" component={ReasonForInquiry} />
 
@@ -89,8 +110,12 @@ const ContactForm = ({
           margin-top: 20px;
         `}
       >
-        <Button style={ButtonStyle.SECONDARY} type="submit" isDisabled={isProccessingRequest}>
-          Send message {isProccessingRequest && '...'}
+        <Button
+          style={ButtonStyle.SECONDARY}
+          type="submit"
+          isDisabled={isProccessingRequest}
+        >
+          Send message {isProccessingRequest && "..."}
         </Button>
       </div>
     </Form>
@@ -98,8 +123,8 @@ const ContactForm = ({
 );
 
 const reduxFormConfigProps: ConfigProps<ContactFormData, Props> = {
-  form: 'contact',
-  validate: validateForm
+  form: "contact",
+  validate: validateForm,
 };
 
 export default reduxForm(reduxFormConfigProps)(ContactForm);

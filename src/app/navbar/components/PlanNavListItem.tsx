@@ -1,23 +1,26 @@
 /** @jsx jsx */
-import { connect } from 'react-redux';
-import { jsx } from '@emotion/core';
-import { State as GlobalState } from '../../../types/ReduxState';
-import { Overlays } from '../../store/overlay/overlay.types';
-import { toggleOverlay as toggleOverlayAction, ToggleOverlay } from '../../store/overlay/overlay.actions';
-import { MembershipState } from '../../store/plan/plan.types';
-import { getSelectPlanButtonText } from '../../store/plan/plan.selectors';
-import Analytics from '../../../analytics/analytics';
-import { NAVBAR } from '../../../analytics/navbar/events';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
+import { connect } from "react-redux";
+import { jsx } from "@emotion/core";
+import { State as GlobalState } from "../../../types/ReduxState";
+import { Overlays } from "../../store/overlay/overlay.types";
+import {
+  toggleOverlay as toggleOverlayAction,
+  ToggleOverlay,
+} from "../../store/overlay/overlay.actions";
+import { MembershipState } from "../../store/plan/plan.types";
+import { getSelectPlanButtonText } from "../../store/plan/plan.selectors";
+import Analytics from "../../../analytics/analytics";
+import { NAVBAR } from "../../../analytics/navbar/events";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
 
 export enum UILocations {
-  MobileNav = 'mobileNavOverlay',
-  Navbar = 'navbar'
+  MobileNav = "mobileNavOverlay",
+  Navbar = "navbar",
 }
 
 const uiLocationEventMap = {
   [UILocations.MobileNav]: NAVBAR.OVERLAY_CHOOSE_PLAN,
-  [UILocations.Navbar]: NAVBAR.CHOOSE_PLAN
+  [UILocations.Navbar]: NAVBAR.CHOOSE_PLAN,
 };
 
 interface OwnProps {
@@ -32,7 +35,11 @@ interface StateProps {
 
 type Props = OwnProps & DispatchProps & StateProps;
 
-const PlanNavListItem = ({ toggleOverlay, selectPlanButtonText, uiLocation }: Props) => (
+const PlanNavListItem = ({
+  toggleOverlay,
+  selectPlanButtonText,
+  uiLocation,
+}: Props) => (
   <Button
     dataCy="nav-bar-plan-selection"
     style={ButtonStyle.COMPACT}
@@ -46,11 +53,11 @@ const PlanNavListItem = ({ toggleOverlay, selectPlanButtonText, uiLocation }: Pr
 );
 
 const mapStateToProps = (state: GlobalState) => ({
-  selectPlanButtonText: getSelectPlanButtonText(state)
+  selectPlanButtonText: getSelectPlanButtonText(state),
 });
 
 const mapDispatchToProps = {
-  toggleOverlay: toggleOverlayAction
+  toggleOverlay: toggleOverlayAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlanNavListItem);

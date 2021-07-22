@@ -1,4 +1,4 @@
-import { ADD_TRACKING_PARAMETERS } from '../constants/actions';
+import { ADD_TRACKING_PARAMETERS } from "../constants/actions";
 
 interface Action {
   response: { [x: string]: string }[];
@@ -36,6 +36,6 @@ export interface AddParameters {
 export const addParameters = (parameters: { [x: string]: string }[]) => {
   return {
     type: ADD_TRACKING_PARAMETERS,
-    response: parameters
+    response: parameters,
   };
 };

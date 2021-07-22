@@ -1,12 +1,15 @@
-import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { APIError } from '../../../api/error';
-import { getContentfulPages } from './pages.actions';
-import { ContentfulPagesState, ContentfulPagesSuccessPayload } from './pages.types';
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { APIError } from "../../../api/error";
+import { getContentfulPages } from "./pages.actions";
+import {
+  ContentfulPagesState,
+  ContentfulPagesSuccessPayload,
+} from "./pages.types";
 
 export const initialState: ContentfulPagesState = {
   isFetching: false,
   error: null,
-  pages: []
+  pages: [],
 };
 
 export default createReducer(initialState, {
@@ -15,14 +18,20 @@ export default createReducer(initialState, {
     state.error = null;
   },
 
-  [getContentfulPages.success.type](state: ContentfulPagesState, action: PayloadAction<ContentfulPagesSuccessPayload>) {
+  [getContentfulPages.success.type](
+    state: ContentfulPagesState,
+    action: PayloadAction<ContentfulPagesSuccessPayload>
+  ) {
     state.isFetching = false;
     state.error = null;
     state.pages = action.payload.pages;
   },
 
-  [getContentfulPages.failure.type](state: ContentfulPagesState, action: PayloadAction<APIError>) {
+  [getContentfulPages.failure.type](
+    state: ContentfulPagesState,
+    action: PayloadAction<APIError>
+  ) {
     state.isFetching = false;
     state.error = action.payload;
-  }
+  },
 });

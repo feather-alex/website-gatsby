@@ -1,27 +1,28 @@
 /** @jsx jsx */
-import { useEffect } from 'react';
-import { jsx, Global, css } from '@emotion/core';
+import { useEffect } from "react";
+import { jsx, Global, css } from "@emotion/core";
 
-import Analytics from '../../analytics/analytics';
-import PAGES from '../../analytics/pages';
-import Helmet from '../../components/Helmet';
-import Layout from '../../app/Layout';
-import globalStyleString from './Reviews.style';
-import Header1 from '../../ui/headers/Header1';
-import HeaderContainer from '../../ui/headers/HeaderContainer';
+import Analytics from "../../analytics/analytics";
+import PAGES from "../../analytics/pages";
+import Helmet from "../../components/Helmet";
+import Layout from "../../app/Layout";
+import globalStyleString from "./Reviews.style";
+import Header1 from "../../ui/headers/Header1";
+import HeaderContainer from "../../ui/headers/HeaderContainer";
 
-const TITLE = 'Reviews of Feather';
+const TITLE = "Reviews of Feather";
 const DESCRIPTION =
-  'Five-star reviews from hundreds of happy customers. Delivery & assembly within 7 days. Personal service. Help from humans.';
+  "Five-star reviews from hundreds of happy customers. Delivery & assembly within 7 days. Personal service. Help from humans.";
 
 type WindowWithYotpo = Window & typeof globalThis & { yotpo?: object };
 
 const Reviews = () => {
   useEffect(() => {
     Analytics.trackPage(PAGES.REVIEWS);
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = '//staticw2.yotpo.com/WKsxnZRCbChz5o0dFtt4s4OmJUKipUadONUvG31e/widget.js';
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src =
+      "//staticw2.yotpo.com/WKsxnZRCbChz5o0dFtt4s4OmJUKipUadONUvG31e/widget.js";
     script.async = true;
 
     document.head.appendChild(script);

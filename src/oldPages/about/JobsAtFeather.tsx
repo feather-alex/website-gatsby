@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { css, jsx } from "@emotion/core";
+import { useDispatch, useSelector } from "react-redux";
 
-import Header2 from '../../ui/headers/Header2';
-import ResponsiveImage from '../../ui/images/ResponsiveImage';
-import { MARGINS, COLORS } from '../../ui/variables';
-import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import { getOpenPositions } from './store/about.selectors';
-import { fetchOpenPositionsRequest } from './store/about.actions';
-import useMount from '../../utils/useMount';
-import JobsByDepartment from './JobsByDepartment';
-import { Z_INDICIES } from '../../ui/zIndicies';
+import Header2 from "../../ui/headers/Header2";
+import ResponsiveImage from "../../ui/images/ResponsiveImage";
+import { MARGINS, COLORS } from "../../ui/variables";
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import { getOpenPositions } from "./store/about.selectors";
+import { fetchOpenPositionsRequest } from "./store/about.actions";
+import useMount from "../../utils/useMount";
+import JobsByDepartment from "./JobsByDepartment";
+import { Z_INDICIES } from "../../ui/zIndicies";
 
 const jobsMobileView = `
   width: 100%;
@@ -43,7 +43,7 @@ const JobsAtFeather = ({ imageUrl }: Props) => {
     <section
       css={css`
         display: flex;
-        flex-direction: ${isMobileBreakpoint ? 'column' : 'row'};
+        flex-direction: ${isMobileBreakpoint ? "column" : "row"};
         align-items: center;
         margin: 60px 0;
       `}
@@ -59,7 +59,7 @@ const JobsAtFeather = ({ imageUrl }: Props) => {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: ${isMobileBreakpoint ? 'center' : 'flex-start'};
+            align-items: ${isMobileBreakpoint ? "center" : "flex-start"};
           `}
         >
           <Header2>Interested in joining us?</Header2>
@@ -70,7 +70,10 @@ const JobsAtFeather = ({ imageUrl }: Props) => {
               max-width: 491px;
             `}
           >
-            <JobsByDepartment isMobileBreakpoint={isMobileBreakpoint} jobsByDepartment={jobsByDepartment} />
+            <JobsByDepartment
+              isMobileBreakpoint={isMobileBreakpoint}
+              jobsByDepartment={jobsByDepartment}
+            />
           </div>
         </div>
       </div>
@@ -81,7 +84,9 @@ const JobsAtFeather = ({ imageUrl }: Props) => {
           justify-content: center;
           height: 100%;
           z-index: ${Z_INDICIES.JOBS_AT_FEATHER};
-          ${isMobileBreakpoint ? `width: 100%; padding: ${MARGINS.MOBILE}; order: 1;` : `width: 50%; padding: 5% 0;`}
+          ${isMobileBreakpoint
+            ? `width: 100%; padding: ${MARGINS.MOBILE}; order: 1;`
+            : `width: 50%; padding: 5% 0;`}
         `}
       >
         <ResponsiveImage
@@ -89,7 +94,7 @@ const JobsAtFeather = ({ imageUrl }: Props) => {
           height={625}
           width={705}
           queryParams={{
-            sat: 38
+            sat: 38,
           }}
         />
       </div>

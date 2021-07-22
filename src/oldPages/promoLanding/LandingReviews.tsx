@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { BRAND, BREAKPOINTS } from '../../ui/variables';
-import Header3 from '../../ui/headers/Header3';
-import ReviewContainer from './ReviewContainer';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
+import { css, jsx } from "@emotion/core";
+import { BRAND, BREAKPOINTS } from "../../ui/variables";
+import Header3 from "../../ui/headers/Header3";
+import ReviewContainer from "./ReviewContainer";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
 
 const LandingReviews = () => {
   return (

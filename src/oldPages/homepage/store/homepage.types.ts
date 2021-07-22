@@ -1,4 +1,4 @@
-import { EntryCollection } from 'contentful';
+import { EntryCollection } from "contentful";
 
 import {
   Meta,
@@ -14,9 +14,9 @@ import {
   ShopByRoom,
   ShopByRoomContentful,
   ReviewsFeature,
-  ReviewsFeatureContentful
-} from '../../../contentful/contentful.types';
-import { APIError } from '../../../types/ReduxState';
+  ReviewsFeatureContentful,
+} from "../../../contentful/contentful.types";
+import { APIError } from "../../../types/ReduxState";
 
 export interface HomepageContentRequestPayload {
   id: string;

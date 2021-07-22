@@ -1,4 +1,4 @@
-import { FilterType, FilterMap } from './filter.service';
+import { FilterType, FilterMap } from "./filter.service";
 
 export interface OptionValue {
   value: string;
@@ -6,25 +6,28 @@ export interface OptionValue {
 }
 
 export enum Order {
-  ASC = 'a',
-  DESC = 'd'
+  ASC = "a",
+  DESC = "d",
 }
 
 export const options = [
-  { value: 'default', label: 'Recommended' },
-  { value: 'price-high', label: 'Price: High to Low' },
-  { value: 'price-low', label: 'Price: Low to High' },
-  { value: 'a-z', label: 'A to Z' }
+  { value: "default", label: "Recommended" },
+  { value: "price-high", label: "Price: High to Low" },
+  { value: "price-low", label: "Price: Low to High" },
+  { value: "a-z", label: "A to Z" },
 ];
 
 export const getCurrentOption = (activeFilters: FilterMap) => {
   const isCheckedDefault = activeFilters[FilterType.SORT_BY].length === 0;
   const isCheckedPriceDesc =
-    activeFilters[FilterType.SORT_BY].includes('price') && activeFilters[FilterType.ORDER].includes(Order.DESC);
+    activeFilters[FilterType.SORT_BY].includes("price") &&
+    activeFilters[FilterType.ORDER].includes(Order.DESC);
   const isCheckedPriceAsc =
-    activeFilters[FilterType.SORT_BY].includes('price') && activeFilters[FilterType.ORDER].includes(Order.ASC);
+    activeFilters[FilterType.SORT_BY].includes("price") &&
+    activeFilters[FilterType.ORDER].includes(Order.ASC);
   const isCheckedTitle =
-    activeFilters[FilterType.SORT_BY].includes('title') && activeFilters[FilterType.ORDER].includes(Order.ASC);
+    activeFilters[FilterType.SORT_BY].includes("title") &&
+    activeFilters[FilterType.ORDER].includes(Order.ASC);
 
   if (isCheckedDefault) {
     return options[0];
@@ -42,22 +45,24 @@ export const getCurrentOption = (activeFilters: FilterMap) => {
 };
 
 export const isValueType = (data: unknown): data is OptionValue => {
-  return Boolean(typeof data === 'object' && data && Object.keys(data).includes('label'));
+  return Boolean(
+    typeof data === "object" && data && Object.keys(data).includes("label")
+  );
 };
 
 export const getClickArgs = (value: string): [string, string] => {
   switch (value) {
-    case 'price-high': {
-      return ['price', Order.DESC];
+    case "price-high": {
+      return ["price", Order.DESC];
     }
-    case 'price-low': {
-      return ['price', Order.ASC];
+    case "price-low": {
+      return ["price", Order.ASC];
     }
-    case 'a-z': {
-      return ['title', Order.ASC];
+    case "a-z": {
+      return ["title", Order.ASC];
     }
     default: {
-      return ['default', 'default'];
+      return ["default", "default"];
     }
   }
 };

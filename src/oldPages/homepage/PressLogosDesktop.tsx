@@ -1,19 +1,19 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import Header4 from '../../ui/headers/Header4';
-import ABCNewsLogo from '../../ui/logos/pressLogos/ABCNewsLogo';
-import ArchDigestLogo from '../../ui/logos/pressLogos/ArchDigestLogo';
-import CBSLogo from '../../ui/logos/pressLogos/CBSLogo';
-import ForbesLogo from '../../ui/logos/pressLogos/ForbesLogo';
-import NYTimesLogo from '../../ui/logos/pressLogos/NYTimesLogo';
-import Refinery29Logo from '../../ui/logos/pressLogos/Refinery29Logo';
-import TechCrunchLogo from '../../ui/logos/pressLogos/TechCrunchLogo';
-import VogueLogo from '../../ui/logos/pressLogos/VogueLogo';
-import WashPostLogo from '../../ui/logos/pressLogos/WashPostLogo';
-import WSJLogo from '../../ui/logos/pressLogos/WSJLogo';
-import { SHADES } from '../../ui/variables';
+import Header4 from "../../ui/headers/Header4";
+import ABCNewsLogo from "../../ui/logos/pressLogos/ABCNewsLogo";
+import ArchDigestLogo from "../../ui/logos/pressLogos/ArchDigestLogo";
+import CBSLogo from "../../ui/logos/pressLogos/CBSLogo";
+import ForbesLogo from "../../ui/logos/pressLogos/ForbesLogo";
+import NYTimesLogo from "../../ui/logos/pressLogos/NYTimesLogo";
+import Refinery29Logo from "../../ui/logos/pressLogos/Refinery29Logo";
+import TechCrunchLogo from "../../ui/logos/pressLogos/TechCrunchLogo";
+import VogueLogo from "../../ui/logos/pressLogos/VogueLogo";
+import WashPostLogo from "../../ui/logos/pressLogos/WashPostLogo";
+import WSJLogo from "../../ui/logos/pressLogos/WSJLogo";
+import { SHADES } from "../../ui/variables";
 
 const LogoRow = styled.div`
   display: flex;

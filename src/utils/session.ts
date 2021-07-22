@@ -1,7 +1,7 @@
-import { v4 } from 'uuid';
+import { v4 } from "uuid";
 
 export default class Session {
-  public static SESSION_KEY = 'sessionId';
+  public static SESSION_KEY = "sessionId";
 
   public static init() {
     if (!this.get()) {

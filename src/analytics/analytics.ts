@@ -1,5 +1,5 @@
-import Logger from '../utils/logger';
-import Session from '../utils/session';
+import Logger from "../utils/logger";
+import Session from "../utils/session";
 
 declare global {
   interface Window {
@@ -13,7 +13,7 @@ declare global {
 
 class Analytics {
   static isTrackerLoaded = (): boolean => {
-    const isLoaded = typeof window.analytics !== 'undefined';
+    const isLoaded = typeof window.analytics !== "undefined";
 
     return isLoaded;
   };
@@ -26,14 +26,18 @@ class Analytics {
     window.analytics.page(pageName, undefined, { session_id: Session.get() });
   };
 
-  static trackEvent = (eventName: string, props?: object, segmentOptions?: object) => {
+  static trackEvent = (
+    eventName: string,
+    props?: object,
+    segmentOptions?: object
+  ) => {
     if (!Analytics.isTrackerLoaded()) {
       return;
     }
 
     const properties: object = {
       ...props,
-      session_id: Session.get()
+      session_id: Session.get(),
     };
 
     window.analytics.track(eventName, properties, segmentOptions);
@@ -46,27 +50,32 @@ class Analytics {
       return;
     }
 
-    if (typeof userId !== 'string' && typeof properties !== 'object') {
-      Logger.log(`Cannot track user information without a user ID or properties/traits`);
+    if (typeof userId !== "string" && typeof properties !== "object") {
+      Logger.log(
+        `Cannot track user information without a user ID or properties/traits`
+      );
     }
 
-    if (typeof userId === 'string') {
-      window.analytics.identify(userId, { ...properties, session_id: Session.get() });
+    if (typeof userId === "string") {
+      window.analytics.identify(userId, {
+        ...properties,
+        session_id: Session.get(),
+      });
     } else {
       window.analytics.identify({ ...properties, session_id: Session.get() });
     }
   };
-  static tatariEvent = (eventType = 'purchase', params: object) => {
+  static tatariEvent = (eventType = "purchase", params: object) => {
     if (window.tatari) {
-      if (process.env.REACT_APP_FEATHER_ENV === 'production') {
+      if (process.env.REACT_APP_FEATHER_ENV === "production") {
         window.tatari.track(eventType, params);
       } else {
-        window.tatari.track('testPurchase', params);
+        window.tatari.track("testPurchase", params);
       }
     }
   };
   static tatariIdentify = (id: number) => {
-    if (window.tatari && process.env.REACT_APP_FEATHER_ENV === 'production') {
+    if (window.tatari && process.env.REACT_APP_FEATHER_ENV === "production") {
       window.tatari.identify(id);
     }
   };

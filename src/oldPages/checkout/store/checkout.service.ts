@@ -1,48 +1,53 @@
-import { CheckoutInfo, IdentifierAndVariantIdentifier, CheckoutItemType, CheckoutItem } from './checkout.types';
-import { CartItem, PromoInfo } from '../../cart/store/cart.types';
-import { getSearchParamsString } from '../../../utils/url-parser';
-import { TrackingParameters } from '../../../types/TrackingParameters';
-import { DeliveryAreaIdentifier } from '../../../app/store/plan/plan.types';
-import { Token } from '@stripe/stripe-js';
+import {
+  CheckoutInfo,
+  IdentifierAndVariantIdentifier,
+  CheckoutItemType,
+  CheckoutItem,
+} from "./checkout.types";
+import { CartItem, PromoInfo } from "../../cart/store/cart.types";
+import { getSearchParamsString } from "../../../utils/url-parser";
+import { TrackingParameters } from "../../../types/TrackingParameters";
+import { DeliveryAreaIdentifier } from "../../../app/store/plan/plan.types";
+import { Token } from "@stripe/stripe-js";
 
 export const getCheckoutItems = (items: CartItem[]): CheckoutItem[] => {
   const finalCart: CheckoutItem[] = [];
 
   const customBundle: CheckoutItem = {
     type: CheckoutItemType.CustomBundle,
-    items: []
+    items: [],
   };
 
   for (let i = 0; i < items.length; i++) {
     switch (items[i].type) {
-      case 'product':
+      case "product":
         finalCart.push({
           type: CheckoutItemType.Product,
           identifier: items[i].identifier,
-          variantIdentifier: items[i].variantIdentifier
+          variantIdentifier: items[i].variantIdentifier,
         });
         break;
 
-      case 'bundle':
+      case "bundle":
         finalCart.push({
           type: CheckoutItemType.Bundle,
           identifier: items[i].identifier,
-          variantIdentifier: items[i].variantIdentifier
+          variantIdentifier: items[i].variantIdentifier,
         });
         break;
 
-      case 'custom-bundle':
+      case "custom-bundle":
         customBundle.items!.push({
           identifier: items[i].identifier,
-          variantIdentifier: items[i].variantIdentifier
+          variantIdentifier: items[i].variantIdentifier,
         });
         break;
 
-      case 'product-of-bundle': {
+      case "product-of-bundle": {
         // Define the bundle item object.
         const bundleItem: IdentifierAndVariantIdentifier = {
           identifier: items[i].identifier,
-          variantIdentifier: items[i].variantIdentifier
+          variantIdentifier: items[i].variantIdentifier,
         };
 
         // Is this bundle already initialized in the final cart?
@@ -68,7 +73,7 @@ export const getCheckoutItems = (items: CartItem[]): CheckoutItem[] => {
             type: CheckoutItemType.Bundle,
             identifier: items[i].bundleIdentifier!,
             variantIdentifier: items[i].bundleVariantIdentifier,
-            items: [bundleItem]
+            items: [bundleItem],
           });
         }
         break;
@@ -94,12 +99,16 @@ export const getValidItems = (cartItems: CheckoutItem[]): CheckoutItem[] => {
     const currentItem: CheckoutItem = cartItems[i];
 
     // Is the current item a bundle, and does that bundle only have 1 item associated with it?
-    if (currentItem.type === 'bundle' && currentItem.items && currentItem.items.length === 1) {
+    if (
+      currentItem.type === "bundle" &&
+      currentItem.items &&
+      currentItem.items.length === 1
+    ) {
       // Destructure the bundle into an individual product, and add it to the result.
       result.push({
         type: CheckoutItemType.Product,
         identifier: currentItem.items[0].identifier,
-        variantIdentifier: currentItem.items[0].variantIdentifier
+        variantIdentifier: currentItem.items[0].variantIdentifier,
       });
 
       // Otherwise, add the item to the result.
@@ -166,7 +175,7 @@ export const normalizeCheckoutData = ({
   ssn,
   legalFirstName,
   legalLastName,
-  statedIncome
+  statedIncome,
 }: RawCheckoutData): CheckoutInfo => {
   const utmStr = getSearchParamsString(trackingParams);
 
@@ -179,54 +188,66 @@ export const normalizeCheckoutData = ({
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       persona,
-      phone: phone.replace(/[^0-9]+/g, '').trim(),
-      statedIncome: statedIncome?.trim()
+      phone: phone.replace(/[^0-9]+/g, "").trim(),
+      statedIncome: statedIncome?.trim(),
     },
     delivery: {
       area: deliveryAreaIdentifier,
-      company: company ? company.trim() : '',
+      company: company ? company.trim() : "",
       address1: streetAddress.trim(),
-      address2: apt ? apt.trim() : '',
+      address2: apt ? apt.trim() : "",
       city: city.trim(),
       region: state.trim(),
-      postal: zipcode.trim()
+      postal: zipcode.trim(),
     },
     billing: {
       address1: billingStreetAddress.trim(),
-      address2: billingApt ? billingApt.trim() : '',
+      address2: billingApt ? billingApt.trim() : "",
       city: billingCity.trim(),
       region: billingState.trim(),
       postal:
-        stripeToken?.card && stripeToken.card.address_zip ? stripeToken.card.address_zip : billingPostalCode.trim()
+        stripeToken?.card && stripeToken.card.address_zip
+          ? stripeToken.card.address_zip
+          : billingPostalCode.trim(),
     },
-    cardToken: stripeToken?.id || '',
-    utmData: utmStr || utmStr !== '' ? utmStr : undefined
+    cardToken: stripeToken?.id || "",
+    utmData: utmStr || utmStr !== "" ? utmStr : undefined,
   };
 
   if (ssn && legalFirstName && legalLastName) {
-    checkoutInfo['ssn'] = ssn;
-    checkoutInfo['legalFirstName'] = legalFirstName;
-    checkoutInfo['legalLastName'] = legalLastName;
+    checkoutInfo["ssn"] = ssn;
+    checkoutInfo["legalFirstName"] = legalFirstName;
+    checkoutInfo["legalLastName"] = legalLastName;
   }
 
   return checkoutInfo;
 };
 
-export const validateLegalName = (name?: string): boolean => !!name && name.length >= 1 && name.length < 250;
+export const validateLegalName = (name?: string): boolean =>
+  !!name && name.length >= 1 && name.length < 250;
 
 export const validateSSN = (ssn?: string): boolean => !!ssn && ssn.length === 9;
 
-export const getMaxTCVMonthlyCartTotal = (maxTCV: number, rentalLength: number): number => {
+export const getMaxTCVMonthlyCartTotal = (
+  maxTCV: number,
+  rentalLength: number
+): number => {
   return maxTCV / rentalLength;
 };
 
-export const getRemovalAmountToMeetMaxTCV = (maxMonthlyCartTotal: number, cartTotal: number): number => {
+export const getRemovalAmountToMeetMaxTCV = (
+  maxMonthlyCartTotal: number,
+  cartTotal: number
+): number => {
   return cartTotal - maxMonthlyCartTotal;
 };
 
 // used in UnderwritingReduceCartDeposit before change is validated so we cannot use the
 // getIsCartTotalMet selector instead
-export const cartItemTotalMinimumMet = (rentalLength: number, cartTotal: number): boolean => {
+export const cartItemTotalMinimumMet = (
+  rentalLength: number,
+  cartTotal: number
+): boolean => {
   if (rentalLength === 12) {
     return cartTotal >= 29;
   }
@@ -236,65 +257,89 @@ export const cartItemTotalMinimumMet = (rentalLength: number, cartTotal: number)
 export const formatCurrency = (amount: number) =>
   amount.toLocaleString(undefined, {
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    maximumFractionDigits: 2,
   });
 
-export const getTaxDeliveryInfo = (address1?: string, city?: string, region?: string, postal?: string) =>
+export const getTaxDeliveryInfo = (
+  address1?: string,
+  city?: string,
+  region?: string,
+  postal?: string
+) =>
   address1 && city && region && postal && postal.length > 4
-    ? { address1: address1.trim(), city: city.trim(), region: region.trim(), postal: postal.trim() }
+    ? {
+        address1: address1.trim(),
+        city: city.trim(),
+        region: region.trim(),
+        postal: postal.trim(),
+      }
     : {};
 
 export const statesUS: string[] = [
-  'AL',
-  'AK',
-  'AZ',
-  'AR',
-  'CA',
-  'CO',
-  'CT',
-  'DE',
-  'FL',
-  'GA',
-  'HI',
-  'ID',
-  'IL',
-  'IN',
-  'IA',
-  'KS',
-  'KY',
-  'LA',
-  'ME',
-  'MD',
-  'MA',
-  'MI',
-  'MN',
-  'MS',
-  'MO',
-  'MT',
-  'NE',
-  'NV',
-  'NH',
-  'NJ',
-  'NM',
-  'NY',
-  'NC',
-  'ND',
-  'OH',
-  'OK',
-  'OR',
-  'PA',
-  'RI',
-  'SC',
-  'SD',
-  'TN',
-  'TX',
-  'UT',
-  'VT',
-  'VA',
-  'WA',
-  'WV',
-  'WI',
-  'WY'
+  "AL",
+  "AK",
+  "AZ",
+  "AR",
+  "CA",
+  "CO",
+  "CT",
+  "DE",
+  "FL",
+  "GA",
+  "HI",
+  "ID",
+  "IL",
+  "IN",
+  "IA",
+  "KS",
+  "KY",
+  "LA",
+  "ME",
+  "MD",
+  "MA",
+  "MI",
+  "MN",
+  "MS",
+  "MO",
+  "MT",
+  "NE",
+  "NV",
+  "NH",
+  "NJ",
+  "NM",
+  "NY",
+  "NC",
+  "ND",
+  "OH",
+  "OK",
+  "OR",
+  "PA",
+  "RI",
+  "SC",
+  "SD",
+  "TN",
+  "TX",
+  "UT",
+  "VT",
+  "VA",
+  "WA",
+  "WV",
+  "WI",
+  "WY",
 ];
 
-export const provincesCA: string[] = ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
+export const provincesCA: string[] = [
+  "AB",
+  "BC",
+  "MB",
+  "NB",
+  "NL",
+  "NT",
+  "NS",
+  "NU",
+  "ON",
+  "PE",
+  "QC",
+  "SK",
+  "YT",
+];

@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import Button from '../ui/buttons/Button';
+import { css, jsx } from "@emotion/core";
+import Button from "../ui/buttons/Button";
 
 export interface Props {
   title: string;
@@ -9,7 +9,12 @@ export interface Props {
   buttonText?: string;
 }
 
-const ErrorPage = ({ title, content, to = '/', buttonText = 'Back to homepage' }: Props) => {
+const ErrorPage = ({
+  title,
+  content,
+  to = "/",
+  buttonText = "Back to homepage",
+}: Props) => {
   return (
     <div className="error-page body">
       <div className="text">

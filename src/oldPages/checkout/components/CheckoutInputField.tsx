@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { BRAND, BREAKPOINTS, SHADES } from '../../../ui/variables';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { BRAND, BREAKPOINTS, SHADES } from "../../../ui/variables";
 
 export enum InputWidth {
-  Full = 'full',
-  Half = 'half',
-  Inherit = 'inherit'
+  Full = "full",
+  Half = "half",
+  Inherit = "inherit",
 }
 
 export const Label = styled.div`
@@ -47,7 +47,7 @@ export const InputContainer = styled.div`
     if (inputWidth === InputWidth.Full) {
       return inputFullStyles;
     }
-    return inputWidth === InputWidth.Half ? 'width: 48%;' : '';
+    return inputWidth === InputWidth.Half ? "width: 48%;" : "";
   }}
 `;
 
@@ -92,7 +92,7 @@ const CheckoutInputField = ({
   inputWidth,
   isReadOnly,
   placeholder,
-  maxLength
+  maxLength,
 }: Props) => (
   <InputContainer inputWidth={inputWidth}>
     <Label>{label}</Label>
@@ -108,14 +108,17 @@ const CheckoutInputField = ({
       data-identifier={identifier}
       data-cy={`checkout-input-field-${identifier}`}
       disabled={isDisabled}
-      className={touched && error ? 'error' : ''}
+      className={touched && error ? "error" : ""}
       readOnly={isReadOnly}
       placeholder={placeholder}
       maxLength={maxLength}
     />
 
     {touched && error && (
-      <Error data-testid={`errors-${identifier}`} data-cy={`checkout-input-field-error-${identifier}`}>
+      <Error
+        data-testid={`errors-${identifier}`}
+        data-cy={`checkout-input-field-error-${identifier}`}
+      >
         {error}
       </Error>
     )}

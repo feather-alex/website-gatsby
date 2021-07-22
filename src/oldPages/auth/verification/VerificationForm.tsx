@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import FormField from '../../../ui/formElements/FormField';
-import React from 'react';
-import { APIError } from '../../../types/ReduxState';
-import { Form, Field, reduxForm, InjectedFormProps } from 'redux-form';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import { VerificationFormData } from './store/verification.types';
-import { validateEmail } from '../auth.validator';
+import { css, jsx } from "@emotion/core";
+import FormField from "../../../ui/formElements/FormField";
+import React from "react";
+import { APIError } from "../../../types/ReduxState";
+import { Form, Field, reduxForm, InjectedFormProps } from "redux-form";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import { VerificationFormData } from "./store/verification.types";
+import { validateEmail } from "../auth.validator";
 
 export interface Props {
   verificationError: APIError | null;
@@ -16,12 +16,15 @@ export interface Props {
 }
 
 const validate = (values: VerificationFormData) => ({
-  email: validateEmail(values.email)
+  email: validateEmail(values.email),
 });
 
-class VerificationForm extends React.Component<Props & InjectedFormProps<VerificationFormData, Props>> {
+class VerificationForm extends React.Component<
+  Props & InjectedFormProps<VerificationFormData, Props>
+> {
   render() {
-    const { handleSubmit, onSubmit, verificationError, invalid, isFetching } = this.props;
+    const { handleSubmit, onSubmit, verificationError, invalid, isFetching } =
+      this.props;
 
     return (
       <Form
@@ -37,7 +40,10 @@ class VerificationForm extends React.Component<Props & InjectedFormProps<Verific
       >
         {verificationError && (
           <div className="login-error">
-            <Paragraph2>Something unexpected happened. This one is on us. Give it one more try</Paragraph2>
+            <Paragraph2>
+              Something unexpected happened. This one is on us. Give it one more
+              try
+            </Paragraph2>
           </div>
         )}
 
@@ -52,7 +58,7 @@ class VerificationForm extends React.Component<Props & InjectedFormProps<Verific
           `}
         >
           <Button type="submit" isDisabled={invalid || isFetching}>
-            {isFetching ? 'Sending...' : 'Resend verification'}
+            {isFetching ? "Sending..." : "Resend verification"}
           </Button>
         </div>
 
@@ -71,6 +77,6 @@ class VerificationForm extends React.Component<Props & InjectedFormProps<Verific
 }
 
 export default reduxForm<VerificationFormData, Props>({
-  form: 'emailVerification',
-  validate
+  form: "emailVerification",
+  validate,
 })(VerificationForm);

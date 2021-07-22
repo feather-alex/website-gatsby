@@ -1,21 +1,25 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { SagaIterator } from 'redux-saga';
+import { call, put, takeLatest } from "redux-saga/effects";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { SagaIterator } from "redux-saga";
 
-import { contentfulClient } from '../../../contentful/contentful';
-import { HomepageContentRequestPayload } from './homepage.types';
-import { getHomepageContent } from './homepage.actions';
-import { formatHomepageContentResponse } from './homepage.service';
+import { contentfulClient } from "../../../contentful/contentful";
+import { HomepageContentRequestPayload } from "./homepage.types";
+import { getHomepageContent } from "./homepage.actions";
+import { formatHomepageContentResponse } from "./homepage.service";
 
-export function* getHomepage(action: PayloadAction<HomepageContentRequestPayload>): SagaIterator {
+export function* getHomepage(
+  action: PayloadAction<HomepageContentRequestPayload>
+): SagaIterator {
   try {
     const response = yield call(contentfulClient.getEntries, {
-      content_type: 'homepageV2',
+      content_type: "homepageV2",
       include: 2,
-      'sys.id': action.payload.id
+      "sys.id": action.payload.id,
     });
 
-    yield put(getHomepageContent.success(formatHomepageContentResponse(response)));
+    yield put(
+      getHomepageContent.success(formatHomepageContentResponse(response))
+    );
   } catch (error) {
     yield put(getHomepageContent.failure(error));
   }

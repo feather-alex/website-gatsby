@@ -1,6 +1,9 @@
-import { DeliveryAreaIdentifier } from '../../../../app/store/plan/plan.types';
-import { FullProductDetails, ProductForListing } from '../../../../types/Product';
-import { APIError } from '../../../../types/ReduxState';
+import { DeliveryAreaIdentifier } from "../../../../app/store/plan/plan.types";
+import {
+  FullProductDetails,
+  ProductForListing,
+} from "../../../../types/Product";
+import { APIError } from "../../../../types/ReduxState";
 
 export interface ProductPairingsState {
   isFetching: boolean;

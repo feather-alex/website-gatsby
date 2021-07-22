@@ -136,12 +136,8 @@ class MiniCartOverlay extends Component<Props, State> {
   };
 
   renderMiniCartProducts = () => {
-    const {
-      cartItems,
-      rentalLength,
-      deliverToPostal,
-      isMobileBreakpoint,
-    } = this.props;
+    const { cartItems, rentalLength, deliverToPostal, isMobileBreakpoint } =
+      this.props;
 
     // We've decided not to make this network request each time
     // the users opens the mini cart. By passing an empty array
@@ -186,12 +182,8 @@ class MiniCartOverlay extends Component<Props, State> {
   };
 
   render() {
-    const {
-      bodyMarginTop,
-      isMobileBreakpoint,
-      isMiniCartOpen,
-      cartItems,
-    } = this.props;
+    const { bodyMarginTop, isMobileBreakpoint, isMiniCartOpen, cartItems } =
+      this.props;
 
     return (
       <Fragment>
@@ -210,8 +202,7 @@ class MiniCartOverlay extends Component<Props, State> {
             ${isMiniCartOpen &&
             !isMobileBreakpoint &&
             "box-shadow: -16px 0px 24px rgba(51, 51, 51, 0.1);"}
-            ${isMobileBreakpoint &&
-            `height: calc(100% - ${bodyMarginTop}px);`}
+            ${isMobileBreakpoint && `height: calc(100% - ${bodyMarginTop}px);`}
             display: flex;
             flex-direction: column;
           `}

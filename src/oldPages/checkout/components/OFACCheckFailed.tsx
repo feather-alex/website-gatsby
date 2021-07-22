@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import Layout from '../../../app/Layout';
-import Header2 from '../../../ui/headers/Header2';
-import Paragraph1 from '../../../ui/paragraphs/Paragraph1';
-import { BRAND, BREAKPOINTS } from '../../../ui/variables';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import Layout from "../../../app/Layout";
+import Header2 from "../../../ui/headers/Header2";
+import Paragraph1 from "../../../ui/paragraphs/Paragraph1";
+import { BRAND, BREAKPOINTS } from "../../../ui/variables";
 
 const Paragraph = styled(Paragraph1)`
   margin-top: 30px;
@@ -38,12 +38,14 @@ const OFACCheckFailed = () => (
         `}
       >
         <Paragraph>
-          We are unable to further process your order as your name has been identified on a U.S Department of Treasury’s
-          Office of Foreign Assets Control sanctions list.
+          We are unable to further process your order as your name has been
+          identified on a U.S Department of Treasury’s Office of Foreign Assets
+          Control sanctions list.
         </Paragraph>
         <Paragraph>
-          If you have any questions, please contact the U.S. Department of Treasury’s Office of Foreign Assets Control
-          directly for further information{' '}
+          If you have any questions, please contact the U.S. Department of
+          Treasury’s Office of Foreign Assets Control directly for further
+          information{" "}
           <a
             href="https://www.treasury.gov/about/organizational-structure/offices/Pages/Office-of-Foreign-Assets-Control.aspx#fragment-7"
             target="_blank"

@@ -1,27 +1,36 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import { FullPackageDetails, PkgItem, PackageVariant } from '../../types/Package';
-import { Option } from './DetailsPageInfo';
+import { jsx } from "@emotion/core";
+import {
+  FullPackageDetails,
+  PkgItem,
+  PackageVariant,
+} from "../../types/Package";
+import { Option } from "./DetailsPageInfo";
 import {
   FullProductDetails,
   ProductVariant,
   Image,
   OptionType,
   ProductVariantOption,
-  IdentifierAndName
-} from '../../types/Product';
-import { SelectedOptions } from './store/productDetails/product.types';
-import { DeliveryAreaIdentifier, MembershipState } from '../../app/store/plan/plan.types';
-import { CartItem, CartPkgItem, CartPkg } from '../cart/store/cart.types';
-import { isInStock } from '../../utils';
-import { Fragment } from 'react';
+  IdentifierAndName,
+} from "../../types/Product";
+import { SelectedOptions } from "./store/productDetails/product.types";
+import {
+  DeliveryAreaIdentifier,
+  MembershipState,
+} from "../../app/store/plan/plan.types";
+import { CartItem, CartPkgItem, CartPkg } from "../cart/store/cart.types";
+import { isInStock } from "../../utils";
+import { Fragment } from "react";
 
 // TODO v4: add compression params? --> `?auto=compress&q=65`
 /**
  * Returns image url that corresponds to user device, or falls-back to other device image url
  */
 export const getImageSrc = (isMobileBreakpoint: boolean, image: Image) => {
-  return isMobileBreakpoint ? image.mobile || image.desktop : image.desktop || image.mobile;
+  return isMobileBreakpoint
+    ? image.mobile || image.desktop
+    : image.desktop || image.mobile;
 };
 
 export interface ImagesUrls {
@@ -46,7 +55,7 @@ export const getImageSrcArray = (
   if (lifestyleImageSrc) {
     imageSrcArray.push({
       url: lifestyleImageSrc,
-      zoomUrl: lifestyleImage.zoom
+      zoomUrl: lifestyleImage.zoom,
     });
   }
 
@@ -55,7 +64,7 @@ export const getImageSrcArray = (
     if (otherImageSrc) {
       imageSrcArray.push({
         url: otherImageSrc,
-        zoomUrl: otherImage.zoom
+        zoomUrl: otherImage.zoom,
       });
     }
   });
@@ -65,7 +74,7 @@ export const getImageSrcArray = (
     if (detailImageSrc) {
       imageSrcArray.push({
         url: detailImageSrc,
-        zoomUrl: detailImage.zoom
+        zoomUrl: detailImage.zoom,
       });
     }
   });
@@ -74,7 +83,7 @@ export const getImageSrcArray = (
     const sceneImageSrc = getImageSrc(isMobileBreakpoint, sceneImage);
     if (sceneImageSrc) {
       imageSrcArray.push({
-        url: sceneImageSrc
+        url: sceneImageSrc,
       });
     }
   });
@@ -113,11 +122,13 @@ export const getPackagePrices = (
   const initialPackagePrices: Prices = {
     memberRentalPrice: 0,
     nonMemberRentalPrice: 0,
-    retailPrice: 0
+    retailPrice: 0,
   };
 
   return selectedItems.reduce((total: Prices, packageItem) => {
-    const quantity = selectedItemsQuantity ? selectedItemsQuantity[packageItem.identifier] : 1;
+    const quantity = selectedItemsQuantity
+      ? selectedItemsQuantity[packageItem.identifier]
+      : 1;
     total.memberRentalPrice += packageItem.rentalPrices[12] * quantity;
     total.nonMemberRentalPrice += packageItem.rentalPrices[3] * quantity;
     total.retailPrice += packageItem.retailPrice * quantity;
@@ -132,16 +143,22 @@ const getVariantIdentifier = (selectedOption: Option) => {
       return `${optionKey}-${optionValue}`;
     }
   }
-  return 'default';
+  return "default";
 };
 
-const findSelectedVariant = <T extends { variants: U[] }, U extends { identifier: string }>(
+const findSelectedVariant = <
+  T extends { variants: U[] },
+  U extends { identifier: string }
+>(
   selectedVariantIdentifier: string,
   data: T
 ): U | null => {
   for (let i = 0; i < data.variants.length; i++) {
     const currentVariant = data.variants[i];
-    if (currentVariant.identifier === selectedVariantIdentifier || currentVariant.identifier === 'default') {
+    if (
+      currentVariant.identifier === selectedVariantIdentifier ||
+      currentVariant.identifier === "default"
+    ) {
       return currentVariant;
     }
   }
@@ -151,12 +168,17 @@ const findSelectedVariant = <T extends { variants: U[] }, U extends { identifier
 /**
  * Take 'selectedOption', return associated package variant object
  */
-export const getSelectedVariant = <T extends { variants: U[] }, U extends { identifier: string }>(
+export const getSelectedVariant = <
+  T extends { variants: U[] },
+  U extends { identifier: string }
+>(
   selectedOption: Option,
   data: T
 ): U | null => {
   const variantIdentifier = getVariantIdentifier(selectedOption);
-  return variantIdentifier.length ? findSelectedVariant(variantIdentifier, data) : null;
+  return variantIdentifier.length
+    ? findSelectedVariant(variantIdentifier, data)
+    : null;
 };
 
 /**
@@ -173,33 +195,45 @@ export const determineSelectedVariant = (
   return variants.find((variant) => {
     // check to see whether the variant options match our initial option selections
     const isSelectedVariant = variant.options.every(
-      (variantOption) => selectedOptions[variantOption.type]?.identifier === variantOption.valueIdentifier
+      (variantOption) =>
+        selectedOptions[variantOption.type]?.identifier ===
+        variantOption.valueIdentifier
     );
     return isSelectedVariant;
   });
 };
 
-export const getInitialSelectedOptions = (data: FullProductDetails | FullPackageDetails): SelectedOptions => {
+export const getInitialSelectedOptions = (
+  data: FullProductDetails | FullPackageDetails
+): SelectedOptions => {
   const initialSelectedOptions: SelectedOptions = {
     [OptionType.Color]: null,
     [OptionType.Material]: null,
-    [OptionType.Structure]: null
+    [OptionType.Structure]: null,
   };
   data.options.forEach((option) => {
-    initialSelectedOptions[option.type] = { identifier: option.values[0].identifier, name: option.values[0].name };
+    initialSelectedOptions[option.type] = {
+      identifier: option.values[0].identifier,
+      name: option.values[0].name,
+    };
   });
   return initialSelectedOptions;
 };
 
-export const getOptionsFromVariant = (data?: ProductVariant): SelectedOptions => {
+export const getOptionsFromVariant = (
+  data?: ProductVariant
+): SelectedOptions => {
   const initialSelectedOptions: SelectedOptions = {
     [OptionType.Color]: null,
     [OptionType.Material]: null,
-    [OptionType.Structure]: null
+    [OptionType.Structure]: null,
   };
   if (data) {
     data.options.forEach((option) => {
-      initialSelectedOptions[option.type] = { identifier: option.valueIdentifier, name: option.valueName };
+      initialSelectedOptions[option.type] = {
+        identifier: option.valueIdentifier,
+        name: option.valueName,
+      };
     });
   }
   return initialSelectedOptions;
@@ -213,18 +247,25 @@ export const getInitialSelections = (
     // if for whatever reason we can't find a variant by the provided identifier
     // then let's fallback to the first enabled variant for the product
     const selectedVariant =
-      data.variants.find((variant) => variant.identifier === initialVariantIdentifier) ||
-      data.variants.find((variant) => variant.availability.some((va) => va.isEnabled));
+      data.variants.find(
+        (variant) => variant.identifier === initialVariantIdentifier
+      ) ||
+      data.variants.find((variant) =>
+        variant.availability.some((va) => va.isEnabled)
+      );
     const selectedOptions = getOptionsFromVariant(selectedVariant);
     return {
       selectedOptions,
-      selectedVariant
+      selectedVariant,
     };
   }
   const initialSelectedOptions = getInitialSelectedOptions(data);
   return {
     selectedOptions: initialSelectedOptions,
-    selectedVariant: determineSelectedVariant(initialSelectedOptions, data.variants)
+    selectedVariant: determineSelectedVariant(
+      initialSelectedOptions,
+      data.variants
+    ),
   };
 };
 
@@ -234,7 +275,9 @@ export const determineSelectedPackageVariant = (
 ): PackageVariant | undefined => {
   return variants.find((variant) =>
     variant.options.every(
-      (variantOption) => selectedOptions[variantOption.type]?.identifier === variantOption.valueIdentifier
+      (variantOption) =>
+        selectedOptions[variantOption.type]?.identifier ===
+        variantOption.valueIdentifier
     )
   );
 };
@@ -242,8 +285,14 @@ export const determineSelectedPackageVariant = (
 /* Use 'selectedOption' to look up associated package variant and
  * return array of all included items (and their properties).
  */
-export const getSelectedItemsArray = (selectedOptions: SelectedOptions, data: FullPackageDetails) => {
-  const selectedVariant = determineSelectedPackageVariant(selectedOptions, data.variants);
+export const getSelectedItemsArray = (
+  selectedOptions: SelectedOptions,
+  data: FullPackageDetails
+) => {
+  const selectedVariant = determineSelectedPackageVariant(
+    selectedOptions,
+    data.variants
+  );
   return (selectedVariant && selectedVariant.items) || [];
 };
 
@@ -263,7 +312,10 @@ export const getInitialPackagePrices = (data: FullPackageDetails) => {
   return getPackagePrices(initialSelectedItems);
 };
 
-export const sortOptions = (a: ProductVariantOption, b: ProductVariantOption) => {
+export const sortOptions = (
+  a: ProductVariantOption,
+  b: ProductVariantOption
+) => {
   // They are the same type
   if (a.type === b.type) {
     return 0;
@@ -291,7 +343,7 @@ export const formatPkgCartItem = (
   quantity: number,
   selectedVariant?: PackageVariant | ProductVariant
 ): CartItem => ({
-  type: 'product-of-bundle',
+  type: "product-of-bundle",
   title: item.title,
   brand: item.brand.name,
   categories: undefined,
@@ -302,14 +354,16 @@ export const formatPkgCartItem = (
     .filter((option) => option.type !== OptionType.Material)
     .sort(sortOptions)
     .map((option) => option.valueName)
-    .join(', '),
+    .join(", "),
   rentalPrices: item.rentalPrices,
   image: item.image,
   rentalLength: membershipState === MembershipState.MEMBER ? 12 : 3,
   location: deliveryAreaIdentifier,
   availability: item.availability,
-  bundleVariantIdentifier: selectedVariant ? selectedVariant.identifier : undefined,
-  bundleIdentifier: identifier
+  bundleVariantIdentifier: selectedVariant
+    ? selectedVariant.identifier
+    : undefined,
+  bundleIdentifier: identifier,
 });
 
 /**
@@ -332,12 +386,15 @@ export const formatAddedPkgData = (
   const itemsRemoved: string[] = [];
 
   selectedItems.forEach((item) => {
-    if (isInStock(deliveryAreaIdentifier, item.availability) && selectedItemsQuantity[item.identifier] > 0) {
+    if (
+      isInStock(deliveryAreaIdentifier, item.availability) &&
+      selectedItemsQuantity[item.identifier] > 0
+    ) {
       const currentItem = {
         identifier: item.identifier,
         variantIdentifier: item.variantIdentifier,
         quantity: selectedItemsQuantity[item.identifier],
-        monthlyPrice: item.rentalPrices[rentalLength]
+        monthlyPrice: item.rentalPrices[rentalLength],
       };
 
       retailPrice += item.retailPrice;
@@ -359,7 +416,7 @@ export const formatAddedPkgData = (
     itemsAdded,
     retailPrice,
     monthlyPrice,
-    cartUuid
+    cartUuid,
   };
 };
 
@@ -371,7 +428,7 @@ export const formatAddedPkgData = (
 export const getPackageStatus = (
   deliveryAreaIdentifier: DeliveryAreaIdentifier | null,
   selectedItems: PkgItem[] | undefined,
-  statusToCheck: 'isInStock' | 'isEnabled'
+  statusToCheck: "isInStock" | "isEnabled"
 ): boolean => {
   if (deliveryAreaIdentifier === null) {
     return true;
@@ -382,7 +439,10 @@ export const getPackageStatus = (
   }
 
   return selectedItems.some((item) =>
-    item.availability.some((detail) => detail.deliveryArea === deliveryAreaIdentifier && detail[statusToCheck])
+    item.availability.some(
+      (detail) =>
+        detail.deliveryArea === deliveryAreaIdentifier && detail[statusToCheck]
+    )
   );
 };
 
@@ -410,30 +470,34 @@ export const getUniqueItemsData = (items: PkgItem[]): UniqueItemsData => {
   );
 };
 
-export const getCustomDetails = (categories: IdentifierAndName[], identifier: string) => {
-  return categories.some(({ name }) => name === 'Eqpt')
+export const getCustomDetails = (
+  categories: IdentifierAndName[],
+  identifier: string
+) => {
+  return categories.some(({ name }) => name === "Eqpt")
     ? [
         {
-          header: 'Access to curated soft goods & accessories',
+          header: "Access to curated soft goods & accessories",
           description: (
             <Fragment>
-              Feather &amp; Eqpt have partnered to bring you the full furnished experience. Go beyond furniture with our
-              curated{' '}
+              Feather &amp; Eqpt have partnered to bring you the full furnished
+              experience. Go beyond furniture with our curated{" "}
               <a
                 href={
-                  identifier.startsWith('marfa-two-bedrooms')
-                    ? 'https://img.livefeather.com/bundles/marfa-two-bedrooms/Marfa+2+Bedroom.pdf'
-                    : 'https://img.livefeather.com/bundles/marfa-one-bedroom/Marfa+1+Bedroom.pdf'
+                  identifier.startsWith("marfa-two-bedrooms")
+                    ? "https://img.livefeather.com/bundles/marfa-two-bedrooms/Marfa+2+Bedroom.pdf"
+                    : "https://img.livefeather.com/bundles/marfa-one-bedroom/Marfa+1+Bedroom.pdf"
                 }
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 soft goods &amp; accessories bundle.
-              </a>{' '}
-              Once you checkout with your furniture package, a member of our team will follow up with more details.
+              </a>{" "}
+              Once you checkout with your furniture package, a member of our
+              team will follow up with more details.
             </Fragment>
-          )
-        }
+          ),
+        },
       ]
     : undefined;
 };

@@ -1,14 +1,17 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import Header1 from '../../ui/headers/Header1';
-import Subheader2 from '../../ui/subheaders/Subheader2';
-import Button from '../../ui/buttons/Button';
-import BaseImage from '../../ui/images/BaseImage';
-import { COLORS, BREAKPOINTS } from '../../ui/variables';
-import Analytics from '../../analytics/analytics';
-import { FLOYD } from '../../analytics/floyd/events';
-import { floydPayloadMapping, floydCTALocation } from '../../analytics/floyd/payload-mappings';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import Header1 from "../../ui/headers/Header1";
+import Subheader2 from "../../ui/subheaders/Subheader2";
+import Button from "../../ui/buttons/Button";
+import BaseImage from "../../ui/images/BaseImage";
+import { COLORS, BREAKPOINTS } from "../../ui/variables";
+import Analytics from "../../analytics/analytics";
+import { FLOYD } from "../../analytics/floyd/events";
+import {
+  floydPayloadMapping,
+  floydCTALocation,
+} from "../../analytics/floyd/payload-mappings";
 
 const HeroContainer = styled.section`
   background-color: ${COLORS.CLOUD};
@@ -78,13 +81,20 @@ const Subheader = styled(Subheader2)`
 `;
 
 const handleAnalytics = () =>
-  Analytics.trackEvent(FLOYD.CLICK_CTA, floydPayloadMapping({ location: floydCTALocation.HERO_CTA }));
+  Analytics.trackEvent(
+    FLOYD.CLICK_CTA,
+    floydPayloadMapping({ location: floydCTALocation.HERO_CTA })
+  );
 
 const Hero = ({ imgUrl }: { imgUrl: string }) => (
   <HeroContainer>
     <HeroMargins>
       <HeroImageContainer>
-        <BaseImage imgUrl={imgUrl} width={512} alt="Floyd bed with plant decor" />
+        <BaseImage
+          imgUrl={imgUrl}
+          width={512}
+          alt="Floyd bed with plant decor"
+        />
       </HeroImageContainer>
       <HeroTextContainer>
         <Header>Floyd Furniture Meets Feather Flexibility</Header>

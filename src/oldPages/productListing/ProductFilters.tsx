@@ -1,22 +1,22 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import styled from '@emotion/styled';
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import { State as GlobalState, Meta } from '../../types/ReduxState';
-import { connect } from 'react-redux';
-import Header3 from '../../ui/headers/Header3';
-import { BRAND, FONTS } from '../../ui/variables';
-import { FilterType, getFilters } from './filter.service';
-import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import { getDeliveryAreaIdentifier } from '../../app/store/plan/plan.selectors';
-import { getProductListMeta } from './store/productList.selectors';
-import ProductFilterOption from './ProductFilterOption';
-import { NavLink, useHistory } from 'react-router-dom';
-import Title from '../../ui/titles/Title';
-import ProductFilterAccordion from './ProductFilterAccordion';
-import Title1 from '../../ui/titles/Title1';
-import { ProductCategories } from '../../utils/productCategories';
-import { DeliveryAreaIdentifier } from '../../app/store/plan/plan.types';
+import { State as GlobalState, Meta } from "../../types/ReduxState";
+import { connect } from "react-redux";
+import Header3 from "../../ui/headers/Header3";
+import { BRAND, FONTS } from "../../ui/variables";
+import { FilterType, getFilters } from "./filter.service";
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import { getDeliveryAreaIdentifier } from "../../app/store/plan/plan.selectors";
+import { getProductListMeta } from "./store/productList.selectors";
+import ProductFilterOption from "./ProductFilterOption";
+import { NavLink, useHistory } from "react-router-dom";
+import Title from "../../ui/titles/Title";
+import ProductFilterAccordion from "./ProductFilterAccordion";
+import Title1 from "../../ui/titles/Title1";
+import { ProductCategories } from "../../utils/productCategories";
+import { DeliveryAreaIdentifier } from "../../app/store/plan/plan.types";
 
 const HorizontalRule = styled.div`
   height: 1px;
@@ -39,13 +39,13 @@ interface ConnectedProps {
 type Props = ConnectedProps;
 
 const shopByCategoryNavLinks: NavLinkData[] = [
-  { text: ProductCategories.LivingRoom, to: '/products/living-room' },
-  { text: ProductCategories.Bedroom, to: '/products/bedroom' },
-  { text: ProductCategories.Dining, to: '/products/dining-room' },
-  { text: ProductCategories.HomeOffice, to: '/products/home-office' },
-  { text: ProductCategories.Decor, to: '/products/decor' },
-  { text: ProductCategories.Lighting, to: '/products/lighting' },
-  { text: ProductCategories.Outdoor, to: '/products/outdoor' }
+  { text: ProductCategories.LivingRoom, to: "/products/living-room" },
+  { text: ProductCategories.Bedroom, to: "/products/bedroom" },
+  { text: ProductCategories.Dining, to: "/products/dining-room" },
+  { text: ProductCategories.HomeOffice, to: "/products/home-office" },
+  { text: ProductCategories.Decor, to: "/products/decor" },
+  { text: ProductCategories.Lighting, to: "/products/lighting" },
+  { text: ProductCategories.Outdoor, to: "/products/outdoor" },
 ];
 
 const ProductFilters = ({ productMeta }: Props): JSX.Element | null => {
@@ -64,16 +64,30 @@ const ProductFilters = ({ productMeta }: Props): JSX.Element | null => {
           margin-top: 5px;
         `}
       />
-      <ProductFilterAccordion header="Item Type" numSelectedFilters={activeFilters[FilterType.SUBCLASS].length}>
+      <ProductFilterAccordion
+        header="Item Type"
+        numSelectedFilters={activeFilters[FilterType.SUBCLASS].length}
+      >
         {productMeta.availableFilters.subclasses.map((option) => (
-          <ProductFilterOption key={option.identifier} option={option} filterType={FilterType.SUBCLASS} />
+          <ProductFilterOption
+            key={option.identifier}
+            option={option}
+            filterType={FilterType.SUBCLASS}
+          />
         ))}
       </ProductFilterAccordion>
 
       <HorizontalRule />
-      <ProductFilterAccordion header="Brand" numSelectedFilters={activeFilters[FilterType.BRAND_FILTER].length}>
+      <ProductFilterAccordion
+        header="Brand"
+        numSelectedFilters={activeFilters[FilterType.BRAND_FILTER].length}
+      >
         {productMeta.availableFilters.brands.map((option) => (
-          <ProductFilterOption key={option.identifier} option={option} filterType={FilterType.BRAND_FILTER} />
+          <ProductFilterOption
+            key={option.identifier}
+            option={option}
+            filterType={FilterType.BRAND_FILTER}
+          />
         ))}
       </ProductFilterAccordion>
 
@@ -107,7 +121,7 @@ const ProductFilters = ({ productMeta }: Props): JSX.Element | null => {
       <NavLink
         exact={true}
         to="/products"
-        activeStyle={{ visibility: 'hidden' }}
+        activeStyle={{ visibility: "hidden" }}
         css={css`
           margin-bottom: 32px; /* space when its close to the footer */
         `}
@@ -131,7 +145,7 @@ const ProductFilters = ({ productMeta }: Props): JSX.Element | null => {
 const mapStateToProps = (state: GlobalState): ConnectedProps => ({
   deliveryAreaIdentifier: getDeliveryAreaIdentifier(state),
   isMobileBreakpoint: getIsMobileBreakpoint(state),
-  productMeta: getProductListMeta(state)
+  productMeta: getProductListMeta(state),
 });
 
 export default connect(mapStateToProps)(ProductFilters);

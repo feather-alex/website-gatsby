@@ -1,4 +1,4 @@
-import { State as GlobalState } from '../../../types/ReduxState';
+import { State as GlobalState } from "../../../types/ReduxState";
 
 /**
  * *--------------------------------------------*
@@ -7,8 +7,11 @@ import { State as GlobalState } from '../../../types/ReduxState';
  */
 export const getError = ({ productList }: GlobalState) => productList.error;
 
-export const getIsFetching = ({ productList }: GlobalState) => productList.isFetching;
+export const getIsFetching = ({ productList }: GlobalState) =>
+  productList.isFetching;
 
-export const getProductListMeta = ({ productList }: GlobalState) => productList.meta;
+export const getProductListMeta = ({ productList }: GlobalState) =>
+  productList.meta;
 
-export const getProducts = ({ productList }: GlobalState) => productList.products;
+export const getProducts = ({ productList }: GlobalState) =>
+  productList.products;

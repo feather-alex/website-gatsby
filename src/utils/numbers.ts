@@ -12,7 +12,7 @@ export class Numbers {
       return numberString;
     }
 
-    numberString = new Array(width - numberString.length + 1).join('0') + value;
+    numberString = new Array(width - numberString.length + 1).join("0") + value;
 
     return numberString;
   }

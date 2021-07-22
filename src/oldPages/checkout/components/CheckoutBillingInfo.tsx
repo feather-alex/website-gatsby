@@ -1,43 +1,43 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { State as GlobalState } from '../../../types/ReduxState';
-import { ItemUnavailableError } from '../store/checkout.types';
-import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
-import Popover from 'react-bootstrap/lib/Popover';
-import { APIError } from '../../../types/ReduxState';
-import StripeForm from './CheckoutBillingStripeForm';
-import Analytics from '../../../analytics/analytics';
-import { CHECKOUT } from '../../../analytics/checkout/events';
+import { css, jsx } from "@emotion/core";
+import { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { State as GlobalState } from "../../../types/ReduxState";
+import { ItemUnavailableError } from "../store/checkout.types";
+import OverlayTrigger from "react-bootstrap/lib/OverlayTrigger";
+import Popover from "react-bootstrap/lib/Popover";
+import { APIError } from "../../../types/ReduxState";
+import StripeForm from "./CheckoutBillingStripeForm";
+import Analytics from "../../../analytics/analytics";
+import { CHECKOUT } from "../../../analytics/checkout/events";
 import {
   stepViewedPayloadMapping,
-  checkoutActionsCartUuidPayloadMapping
-} from '../../../analytics/checkout/payload-mappings';
-import { CheckoutStep } from '../store/checkout.types';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
+  checkoutActionsCartUuidPayloadMapping,
+} from "../../../analytics/checkout/payload-mappings";
+import { CheckoutStep } from "../store/checkout.types";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
 
-import AttentionIcon from '../../../assets/icons/icon_attention.svg';
-import TooltipIcon from '../../../assets/icons/ui-elements/tooltip.svg';
-import PromoEntry from './PromoEntry';
-import Title1 from '../../../ui/titles/Title1';
-import { BREAKPOINTS } from '../../../ui/variables';
-import SSNEntry from './SSNEntry';
-import SSNNotFoundMessage from './SSNNotFoundMessage';
-import Header4 from '../../../ui/headers/Header4';
-import { CheckoutCTAError } from './CheckoutCTAError';
-import { CHECKOUT_CTA_ERRORS } from './CheckoutCTAErrors.content';
-import PreviousStepsInfo from './PreviousStepsInfo';
-import { Token } from '@stripe/stripe-js';
+import AttentionIcon from "../../../assets/icons/icon_attention.svg";
+import TooltipIcon from "../../../assets/icons/ui-elements/tooltip.svg";
+import PromoEntry from "./PromoEntry";
+import Title1 from "../../../ui/titles/Title1";
+import { BREAKPOINTS } from "../../../ui/variables";
+import SSNEntry from "./SSNEntry";
+import SSNNotFoundMessage from "./SSNNotFoundMessage";
+import Header4 from "../../../ui/headers/Header4";
+import { CheckoutCTAError } from "./CheckoutCTAError";
+import { CHECKOUT_CTA_ERRORS } from "./CheckoutCTAErrors.content";
+import PreviousStepsInfo from "./PreviousStepsInfo";
+import { Token } from "@stripe/stripe-js";
 import {
   getIsCreditNotFound,
   getIsDeliverySameAsBilling,
   getIsSSNNotFound,
-  getSSNInfo
-} from '../store/checkout.selectors';
-import { SSNInfoFields } from '../store/checkoutForms.types';
-import { validateLegalName, validateSSN } from '../store/checkout.service';
-import { getIsCartMinimumMet } from '../../cart/store/cart.selectors';
+  getSSNInfo,
+} from "../store/checkout.selectors";
+import { SSNInfoFields } from "../store/checkoutForms.types";
+import { validateLegalName, validateSSN } from "../store/checkout.service";
+import { getIsCartMinimumMet } from "../../cart/store/cart.selectors";
 
 interface StateProps {
   isCreditNotFound: boolean;
@@ -79,7 +79,7 @@ class CheckoutBillingInfo extends Component<Props, State> {
     readyToPlaceOrder: false,
     creditCheckConsent: false,
     checkoutWithoutConsent: false,
-    generateStripeToken: null
+    generateStripeToken: null,
   };
 
   componentDidMount() {
@@ -87,7 +87,10 @@ class CheckoutBillingInfo extends Component<Props, State> {
 
     Analytics.trackEvent(
       CHECKOUT.STEP_VIEWED,
-      stepViewedPayloadMapping({ step: CheckoutStep.BillingInfo, cartUuid: this.props.cartUuid })
+      stepViewedPayloadMapping({
+        step: CheckoutStep.BillingInfo,
+        cartUuid: this.props.cartUuid,
+      })
     );
   }
 
@@ -99,7 +102,7 @@ class CheckoutBillingInfo extends Component<Props, State> {
     this.setState(
       (prevState) => ({
         stripeReady: isReady,
-        readyToPlaceOrder: isReady && prevState.creditCheckConsent
+        readyToPlaceOrder: isReady && prevState.creditCheckConsent,
       }),
       () => {
         if (isReady && stripeToken) {
@@ -117,7 +120,11 @@ class CheckoutBillingInfo extends Component<Props, State> {
     // we only care if the form is valid if the form is relevant
     // which is when credit is not found or ssn is not found
     if (isCreditNotFound || isSSNNotFound) {
-      return validateSSN(ssn) && validateLegalName(legalFirstName) && validateLegalName(legalLastName);
+      return (
+        validateSSN(ssn) &&
+        validateLegalName(legalFirstName) &&
+        validateLegalName(legalLastName)
+      );
     }
 
     return true;
@@ -155,13 +162,15 @@ class CheckoutBillingInfo extends Component<Props, State> {
     if (this.state.stripeReady && !this.state.creditCheckConsent) {
       this.setState(
         {
-          checkoutWithoutConsent: true
+          checkoutWithoutConsent: true,
         },
         () => {
           // User has attempted to place an order without consenting to credit check.
           Analytics.trackEvent(
             CHECKOUT.CREDIT_CHECK,
-            checkoutActionsCartUuidPayloadMapping({ cartUuid: this.props.cartUuid })
+            checkoutActionsCartUuidPayloadMapping({
+              cartUuid: this.props.cartUuid,
+            })
           );
         }
       );
@@ -178,7 +187,7 @@ class CheckoutBillingInfo extends Component<Props, State> {
     this.setState((prevState) => ({
       creditCheckConsent: !prevState.creditCheckConsent,
       checkoutWithoutConsent: prevState.creditCheckConsent,
-      readyToPlaceOrder: prevState.stripeReady && !prevState.creditCheckConsent
+      readyToPlaceOrder: prevState.stripeReady && !prevState.creditCheckConsent,
     }));
   };
 
@@ -196,18 +205,25 @@ class CheckoutBillingInfo extends Component<Props, State> {
       isCreditNotFound,
       isSSNNotFound,
       isPlacingOrder,
-      isDeliverySameAsBilling
+      isDeliverySameAsBilling,
     } = this.props;
 
     const popoverBottom = (
-      <Popover className="options-popover" id="popover-positioned-bottom" style={{ width: '400px' }} placement="auto">
+      <Popover
+        className="options-popover"
+        id="popover-positioned-bottom"
+        style={{ width: "400px" }}
+        placement="auto"
+      >
         <h6 className="futura reg-14">Additional Information on Soft Checks</h6>
         <p className="futura">
-          Soft inquiries (also known as “soft pulls”) typically occur when a person or company checks your credit as
-          part of a verification process. This may occur, for example, when a credit card issuer checks your credit to
-          see if you qualify for certain credit card offers. Your employer might also run a soft inquiry before hiring
-          you. We use a VantageScore (versus a FICO score) to better to take into account students and people without a
-          long credit history.
+          Soft inquiries (also known as “soft pulls”) typically occur when a
+          person or company checks your credit as part of a verification
+          process. This may occur, for example, when a credit card issuer checks
+          your credit to see if you qualify for certain credit card offers. Your
+          employer might also run a soft inquiry before hiring you. We use a
+          VantageScore (versus a FICO score) to better to take into account
+          students and people without a long credit history.
         </p>
       </Popover>
     );
@@ -229,7 +245,9 @@ class CheckoutBillingInfo extends Component<Props, State> {
       <div className="checkout-page__billing-info checkout-page__form">
         <StripeForm
           readyToSubmit={this.handleReadyToSubmit}
-          createTokenGenerator={(generator) => this.setState({ generateStripeToken: generator })}
+          createTokenGenerator={(generator) =>
+            this.setState({ generateStripeToken: generator })
+          }
         />
 
         {errorMessage ? (
@@ -264,7 +282,11 @@ class CheckoutBillingInfo extends Component<Props, State> {
           <PromoEntry isAlwaysOpen={true} cartUuid={cartUuid} />
         </div>
 
-        <div className={`checkout-credit-check ${this.state.checkoutWithoutConsent ? `error` : ``}`}>
+        <div
+          className={`checkout-credit-check ${
+            this.state.checkoutWithoutConsent ? `error` : ``
+          }`}
+        >
           <div
             css={css`
               margin: 16px 0;
@@ -277,12 +299,18 @@ class CheckoutBillingInfo extends Component<Props, State> {
           ) : (
             <Fragment>
               <div className="cc-sub-header">
-                To provide the best experience to our customers, we run a soft credit check that does{' '}
-                <strong>not</strong> affect your credit score.
-                <OverlayTrigger trigger="click" overlay={popoverBottom} placement="bottom" rootClose={true}>
+                To provide the best experience to our customers, we run a soft
+                credit check that does <strong>not</strong> affect your credit
+                score.
+                <OverlayTrigger
+                  trigger="click"
+                  overlay={popoverBottom}
+                  placement="bottom"
+                  rootClose={true}
+                >
                   <TooltipIcon
                     className="icon"
-                    style={{ marginLeft: '5px', marginBottom: '-2px' }}
+                    style={{ marginLeft: "5px", marginBottom: "-2px" }}
                     onClick={this.handleToolTip}
                   />
                 </OverlayTrigger>
@@ -294,12 +322,20 @@ class CheckoutBillingInfo extends Component<Props, State> {
                     checked={this.state.creditCheckConsent}
                     onChange={this.toggleCreditCheckConsent}
                   />
-                  <span data-cy="checkmark" className={`checkmark ${this.state.creditCheckConsent ? `checked` : ``}`} />
+                  <span
+                    data-cy="checkmark"
+                    className={`checkmark ${
+                      this.state.creditCheckConsent ? `checked` : ``
+                    }`}
+                  />
                   <span className="text cc-sub-text">
-                    I agree and understand that by clicking “Place your order” I am providing “written instructions” to
-                    Feather Home, Inc. (“Feather”) under the Fair Credit Reporting Act authorizing Feather to obtain
-                    information from my personal credit profile or other information from Experian. I authorize Feather
-                    to obtain information solely to determine my eligibility for a lease.
+                    I agree and understand that by clicking “Place your order” I
+                    am providing “written instructions” to Feather Home, Inc.
+                    (“Feather”) under the Fair Credit Reporting Act authorizing
+                    Feather to obtain information from my personal credit
+                    profile or other information from Experian. I authorize
+                    Feather to obtain information solely to determine my
+                    eligibility for a lease.
                   </span>
                 </label>
               </div>
@@ -314,7 +350,9 @@ class CheckoutBillingInfo extends Component<Props, State> {
           </p>
         ) : null}
 
-        {cartContainsUnavailableItems && <CheckoutCTAError {...CHECKOUT_CTA_ERRORS.outOfStock} />}
+        {cartContainsUnavailableItems && (
+          <CheckoutCTAError {...CHECKOUT_CTA_ERRORS.outOfStock} />
+        )}
 
         <div
           css={css`
@@ -327,10 +365,12 @@ class CheckoutBillingInfo extends Component<Props, State> {
             dataCy="checkout-button"
             isFullWidth={true}
             isDisabled={cartContainsUnavailableItems || isPlacingOrder}
-            isAppearDisabled={!this.state.readyToPlaceOrder || !this.ssnFormIsValid()}
+            isAppearDisabled={
+              !this.state.readyToPlaceOrder || !this.ssnFormIsValid()
+            }
             onClick={this.handlePlaceOrder}
           >
-            {isPlacingOrder ? 'Placing Your Order...' : 'Place Your Order'}
+            {isPlacingOrder ? "Placing Your Order..." : "Place Your Order"}
           </Button>
         </div>
         {isDeliverySameAsBilling ? (
@@ -338,7 +378,10 @@ class CheckoutBillingInfo extends Component<Props, State> {
             Return to Delivery Info
           </Button>
         ) : (
-          <Button style={ButtonStyle.COMPACT_TEXT} onClick={backToBillingAddress}>
+          <Button
+            style={ButtonStyle.COMPACT_TEXT}
+            onClick={backToBillingAddress}
+          >
             Return to Billing Address
           </Button>
         )}
@@ -359,7 +402,7 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   isSSNNotFound: getIsSSNNotFound(state),
   ssnInfo: getSSNInfo(state),
   isCartMinimumMet: getIsCartMinimumMet(state),
-  isDeliverySameAsBilling: getIsDeliverySameAsBilling(state)
+  isDeliverySameAsBilling: getIsDeliverySameAsBilling(state),
 });
 
 export default connect(mapStateToProps)(CheckoutBillingInfo);

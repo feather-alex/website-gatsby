@@ -1,29 +1,37 @@
-import { GET_PACKAGES_REQUEST, GET_PACKAGES_SUCCESS, GET_PACKAGES_FAILURE, RESET_PACKAGES } from '../constants/actions';
-import { Entity, Action } from '../types/ReduxState';
-import request, { QueryParam, RequestMethod } from '../api/request';
-import { PackageForListing } from '../types/Package';
+import {
+  GET_PACKAGES_REQUEST,
+  GET_PACKAGES_SUCCESS,
+  GET_PACKAGES_FAILURE,
+  RESET_PACKAGES,
+} from "../constants/actions";
+import { Entity, Action } from "../types/ReduxState";
+import request, { QueryParam, RequestMethod } from "../api/request";
+import { PackageForListing } from "../types/Package";
 
 // ===== Reducers =====
 export const initialState: Entity<PackageForListing> = {
   isFetching: true,
   error: null,
-  data: []
+  data: [],
 };
 
-const packages = (state = initialState, action: Action): Entity<PackageForListing> => {
+const packages = (
+  state = initialState,
+  action: Action
+): Entity<PackageForListing> => {
   switch (action.type) {
     case GET_PACKAGES_REQUEST:
       return {
         ...state,
         error: null,
-        isFetching: true
+        isFetching: true,
       };
 
     case GET_PACKAGES_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: action.error
+        error: action.error,
       };
 
     case GET_PACKAGES_SUCCESS:
@@ -31,7 +39,7 @@ const packages = (state = initialState, action: Action): Entity<PackageForListin
         ...state,
         isFetching: false,
         error: null,
-        data: action.response
+        data: action.response,
       };
 
     case RESET_PACKAGES:
@@ -47,16 +55,26 @@ export default packages;
 // ===== Actions =====
 export interface LoadPackages {
   (category: string, queryParams?: QueryParam[]): {
-    types: Array<GET_PACKAGES_REQUEST | GET_PACKAGES_SUCCESS | GET_PACKAGES_FAILURE>;
+    types: Array<
+      GET_PACKAGES_REQUEST | GET_PACKAGES_SUCCESS | GET_PACKAGES_FAILURE
+    >;
     callAPI: () => {};
   };
 }
 
-export const loadPackages: LoadPackages = (category = 'all', queryParams: QueryParam[]) => {
+export const loadPackages: LoadPackages = (
+  category = "all",
+  queryParams: QueryParam[]
+) => {
   return {
     types: [GET_PACKAGES_REQUEST, GET_PACKAGES_SUCCESS, GET_PACKAGES_FAILURE],
-    callAPI: () => request.send(RequestMethod.GET, `/bundles/category/${category}`, queryParams),
-    payload: { queryParams }
+    callAPI: () =>
+      request.send(
+        RequestMethod.GET,
+        `/bundles/category/${category}`,
+        queryParams
+      ),
+    payload: { queryParams },
   };
 };
 
@@ -66,6 +84,6 @@ export interface ResetPackages {
 
 export const resetPackages = () => {
   return {
-    type: RESET_PACKAGES
+    type: RESET_PACKAGES,
   };
 };

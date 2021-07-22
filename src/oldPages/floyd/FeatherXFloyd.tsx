@@ -1,13 +1,16 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import FeatherFloydLogo from '../../ui/logos/FeatherFloydLogo';
-import Subheader2 from '../../ui/subheaders/Subheader2';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import { BRAND, BREAKPOINTS } from '../../ui/variables';
-import Analytics from '../../analytics/analytics';
-import { FLOYD } from '../../analytics/floyd/events';
-import { floydPayloadMapping, floydCTALocation } from '../../analytics/floyd/payload-mappings';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import FeatherFloydLogo from "../../ui/logos/FeatherFloydLogo";
+import Subheader2 from "../../ui/subheaders/Subheader2";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import { BRAND, BREAKPOINTS } from "../../ui/variables";
+import Analytics from "../../analytics/analytics";
+import { FLOYD } from "../../analytics/floyd/events";
+import {
+  floydPayloadMapping,
+  floydCTALocation,
+} from "../../analytics/floyd/payload-mappings";
 
 const FeatherXFloydContainer = styled.section`
   display: flex;
@@ -30,17 +33,33 @@ const Subheader = styled(Subheader2)`
 `;
 
 const handleAnalytics = () =>
-  Analytics.trackEvent(FLOYD.CLICK_CTA, floydPayloadMapping({ location: floydCTALocation.FEATHER_X_FLOYD_CTA }));
+  Analytics.trackEvent(
+    FLOYD.CLICK_CTA,
+    floydPayloadMapping({ location: floydCTALocation.FEATHER_X_FLOYD_CTA })
+  );
 
-const FeatherXFloyd = ({ isMobileBreakpoint }: { isMobileBreakpoint: boolean }) => (
+const FeatherXFloyd = ({
+  isMobileBreakpoint,
+}: {
+  isMobileBreakpoint: boolean;
+}) => (
   <FeatherXFloydContainer>
-    <FeatherFloydLogo width={isMobileBreakpoint ? 168 : 256} color={BRAND.PRIMARY_TEXT} />
+    <FeatherFloydLogo
+      width={isMobileBreakpoint ? 168 : 256}
+      color={BRAND.PRIMARY_TEXT}
+    />
     <Subheader>
-      We’re partnering with Floyd to bring more great designs to our customers. This means you’ll be able to rent a
-      selection of Floyd sofas, shelves, and beds just like you would any other Feather item. Get everything delivered
-      and set up in as little as 7 days, and stay flexible for whatever comes next.
+      We’re partnering with Floyd to bring more great designs to our customers.
+      This means you’ll be able to rent a selection of Floyd sofas, shelves, and
+      beds just like you would any other Feather item. Get everything delivered
+      and set up in as little as 7 days, and stay flexible for whatever comes
+      next.
     </Subheader>
-    <Button onClick={handleAnalytics} to="/products?brands=floyd" style={ButtonStyle.TERTIARY}>
+    <Button
+      onClick={handleAnalytics}
+      to="/products?brands=floyd"
+      style={ButtonStyle.TERTIARY}
+    >
       Shop Floyd
     </Button>
   </FeatherXFloydContainer>

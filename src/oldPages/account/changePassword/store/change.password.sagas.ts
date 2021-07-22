@@ -1,19 +1,23 @@
-import { SagaIterator } from 'redux-saga';
-import Request, { RequestMethod } from '../../../../api/request';
-import { put, call, takeLatest } from 'redux-saga/effects';
-import { changePasswordSuccess, changePasswordFailure, CHANGE_PASSWORD_REQUEST } from './change.password.actions';
-import { FluxStandardAction } from '../../../../types/FluxStandardActions';
-import { logOut } from '../../../auth/login/store/login.actions';
-import Analytics from '../../../../analytics/analytics';
-import { ACCOUNTS } from '../../../../analytics/accounts/events';
+import { SagaIterator } from "redux-saga";
+import Request, { RequestMethod } from "../../../../api/request";
+import { put, call, takeLatest } from "redux-saga/effects";
+import {
+  changePasswordSuccess,
+  changePasswordFailure,
+  CHANGE_PASSWORD_REQUEST,
+} from "./change.password.actions";
+import { FluxStandardAction } from "../../../../types/FluxStandardActions";
+import { logOut } from "../../../auth/login/store/login.actions";
+import Analytics from "../../../../analytics/analytics";
+import { ACCOUNTS } from "../../../../analytics/accounts/events";
 
 // ========== Chnage Password Saga ===============
 export function* changePassword(action: FluxStandardAction): SagaIterator {
   try {
     yield call(
-      [Request, 'send'],
+      [Request, "send"],
       RequestMethod.POST,
-      '/auth/change-password',
+      "/auth/change-password",
       undefined,
       action.payload.credentials,
       true

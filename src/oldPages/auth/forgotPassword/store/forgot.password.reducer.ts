@@ -1,17 +1,17 @@
-import { FluxStandardAction } from '../../../../types/FluxStandardActions';
+import { FluxStandardAction } from "../../../../types/FluxStandardActions";
 import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
-  RESET_RESET_PASSWORD_SENT
-} from './forgot.password.actions';
-import { ForgotPassword } from './forgot.password.types';
+  RESET_RESET_PASSWORD_SENT,
+} from "./forgot.password.actions";
+import { ForgotPassword } from "./forgot.password.types";
 
 export const initialState: ForgotPassword = {
   hasSentResetPasswordLink: false,
   error: null,
   isFetching: false,
-  email: ''
+  email: "",
 };
 
 const forgotPassword = (state = initialState, action: FluxStandardAction) => {
@@ -21,7 +21,7 @@ const forgotPassword = (state = initialState, action: FluxStandardAction) => {
         ...state,
         email: action.payload.email.email,
         isFetching: true,
-        error: null
+        error: null,
       };
 
     case RESET_PASSWORD_SUCCESS:
@@ -29,21 +29,21 @@ const forgotPassword = (state = initialState, action: FluxStandardAction) => {
         ...state,
         isFetching: false,
         hasSentResetPasswordLink: true,
-        error: null
+        error: null,
       };
 
     case RESET_PASSWORD_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: action.payload.error
+        error: action.payload.error,
       };
 
     case RESET_RESET_PASSWORD_SENT:
       return {
         ...state,
         hasSentResetPasswordLink: false,
-        error: null
+        error: null,
       };
 
     default:

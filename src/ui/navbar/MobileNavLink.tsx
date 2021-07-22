@@ -28,7 +28,7 @@ const Container = styled.div`
 const Image = styled.div`
   height: 100%;
   width: 80px;
-  background-image: url('${({ url }: { url: string }) => url}');
+  background-image: url("${({ url }: { url: string }) => url}");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

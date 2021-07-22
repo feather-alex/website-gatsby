@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from "@emotion/core";
 
 export interface Props {
   step: string;
@@ -20,15 +20,27 @@ const QuizOptionCard = (props: Props) => {
     <div
       role="button"
       tabIndex={0}
-      className={`quiz-option-card radio-card ${checked ? ` checked ` : ``}` + className}
+      className={
+        `quiz-option-card radio-card ${checked ? ` checked ` : ``}` + className
+      }
       onClick={props.handleNextStep}
     >
-      <input type="radio" id={choice} name={step} value={choice} checked={checked} />
-      <label data-cy="quiz-radio-card" className="clickable content" htmlFor={choice}>
+      <input
+        type="radio"
+        id={choice}
+        name={step}
+        value={choice}
+        checked={checked}
+      />
+      <label
+        data-cy="quiz-radio-card"
+        className="clickable content"
+        htmlFor={choice}
+      >
         <div
           className="image"
           css={css`
-            height: ${text ? '80%' : '100%'};
+            height: ${text ? "80%" : "100%"};
           `}
         >
           <div className="icon">{image}</div>

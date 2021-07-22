@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import React from 'react';
-import { css, jsx } from '@emotion/core';
-import { BRAND } from '../../ui/variables';
-import Panel from 'react-bootstrap/lib/Panel';
-import Header3 from '../../ui/headers/Header3';
-import Title3 from '../../ui/titles/Title3';
-import CaratIcon, { Direction } from '../../ui/icons/small/CaratIcon';
+import React from "react";
+import { css, jsx } from "@emotion/core";
+import { BRAND } from "../../ui/variables";
+import Panel from "react-bootstrap/lib/Panel";
+import Header3 from "../../ui/headers/Header3";
+import Title3 from "../../ui/titles/Title3";
+import CaratIcon, { Direction } from "../../ui/icons/small/CaratIcon";
 
 interface Props {
   header: string;
@@ -15,7 +15,13 @@ interface Props {
   sortOption?: string | null;
 }
 
-const MobileProductFilterAccordion = ({ header, activeKey, children, nbSelectedFilters, sortOption }: Props) => {
+const MobileProductFilterAccordion = ({
+  header,
+  activeKey,
+  children,
+  nbSelectedFilters,
+  sortOption,
+}: Props) => {
   return (
     <div
       css={css`
@@ -71,9 +77,14 @@ const MobileProductFilterAccordion = ({ header, activeKey, children, nbSelectedF
                 }
               `}
             >
-              {nbSelectedFilters && nbSelectedFilters > 0 ? <Title3>{nbSelectedFilters} selected</Title3> : null}
+              {nbSelectedFilters && nbSelectedFilters > 0 ? (
+                <Title3>{nbSelectedFilters} selected</Title3>
+              ) : null}
               <Title3>{sortOption}</Title3>
-              <CaratIcon direction={activeKey === header ? Direction.Up : Direction.Down} width={12} />
+              <CaratIcon
+                direction={activeKey === header ? Direction.Up : Direction.Down}
+                width={12}
+              />
             </div>
           </Panel.Title>
         </Panel.Heading>

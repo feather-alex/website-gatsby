@@ -1,14 +1,14 @@
-import { EntryCollection } from 'contentful';
+import { EntryCollection } from "contentful";
 
-import { APIError } from '../../../types/ReduxState';
+import { APIError } from "../../../types/ReduxState";
 import {
   FAQCategoryContentful,
   FAQ,
   HowItWorksStep,
   HowItWorksStepContentful,
   Meta,
-  MetaContentful
-} from '../../../contentful/contentful.types';
+  MetaContentful,
+} from "../../../contentful/contentful.types";
 
 export interface HowItWorksState {
   error: APIError | null;

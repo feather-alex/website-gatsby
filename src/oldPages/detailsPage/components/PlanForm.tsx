@@ -1,13 +1,16 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import FormField from '../../../ui/formElements/FormField';
-import React from 'react';
-import { Form, Field, reduxForm, InjectedFormProps } from 'redux-form';
-import Button from '../../../ui/buttons/Button';
-import { ZipcodeFormData } from '../../../components/selectPlan/components/EnterZipcode';
-import { validateZipcode } from '../../../app/store/plan/plan.validator';
-import { MembershipState, MembershipStateDisplayName } from '../../../app/store/plan/plan.types';
-import Title3 from '../../../ui/titles/Title3';
+import { css, jsx } from "@emotion/core";
+import FormField from "../../../ui/formElements/FormField";
+import React from "react";
+import { Form, Field, reduxForm, InjectedFormProps } from "redux-form";
+import Button from "../../../ui/buttons/Button";
+import { ZipcodeFormData } from "../../../components/selectPlan/components/EnterZipcode";
+import { validateZipcode } from "../../../app/store/plan/plan.validator";
+import {
+  MembershipState,
+  MembershipStateDisplayName,
+} from "../../../app/store/plan/plan.types";
+import Title3 from "../../../ui/titles/Title3";
 
 interface Props {
   isFetching: boolean;
@@ -15,30 +18,36 @@ interface Props {
   planType: MembershipState;
   // TODO: Fix this the next time the file is edited.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSubmit: (formValues: { zipcode: string }, dispatch: Function, props: any) => void;
+  onSubmit: (
+    formValues: { zipcode: string },
+    dispatch: Function,
+    props: any
+  ) => void;
   handleFocusZipCode: (event: React.FocusEvent<HTMLInputElement>) => void;
   resetZipcode: () => void;
   isMobileBreakpoint: boolean;
 }
 
 const validate = (values: ZipcodeFormData) => ({
-  zipcode: validateZipcode(values.zipcode)
+  zipcode: validateZipcode(values.zipcode),
 });
 
-const OVERFLOW_SCREEN = '@media screen and (max-width: 1268px)';
+const OVERFLOW_SCREEN = "@media screen and (max-width: 1268px)";
 
-class PlanForm extends React.Component<Props & InjectedFormProps<ZipcodeFormData, Props>> {
+class PlanForm extends React.Component<
+  Props & InjectedFormProps<ZipcodeFormData, Props>
+> {
   renderButtonText = () => {
     const { isFetching, isInDeliveryZone, planType } = this.props;
 
     if (isInDeliveryZone === false) {
-      return 'Outside Delivery Area';
+      return "Outside Delivery Area";
     } else if (isFetching) {
-      return 'Submitting...';
+      return "Submitting...";
     } else if (isInDeliveryZone) {
       return `Select ${MembershipStateDisplayName[planType]}`;
     } else {
-      return 'Enter Zip Code';
+      return "Enter Zip Code";
     }
   };
 
@@ -55,7 +64,7 @@ class PlanForm extends React.Component<Props & InjectedFormProps<ZipcodeFormData
       resetZipcode,
       isMobileBreakpoint,
       handleFocusZipCode,
-      isInDeliveryZone
+      isInDeliveryZone,
     } = this.props;
 
     return (
@@ -85,7 +94,11 @@ class PlanForm extends React.Component<Props & InjectedFormProps<ZipcodeFormData
           `}
         >
           <Field
-            props={{ disabled: isInDeliveryZone, label: 'Delivery zip code', inputMode: 'numeric' }}
+            props={{
+              disabled: isInDeliveryZone,
+              label: "Delivery zip code",
+              inputMode: "numeric",
+            }}
             onFocus={handleFocusZipCode}
             name="zipcode"
             type="tel"
@@ -121,7 +134,12 @@ class PlanForm extends React.Component<Props & InjectedFormProps<ZipcodeFormData
             }
           `}
         >
-          <Button dataCy="submit-button" type="submit" isDisabled={this.isButtonDisabled()} isFullWidth={true}>
+          <Button
+            dataCy="submit-button"
+            type="submit"
+            isDisabled={this.isButtonDisabled()}
+            isFullWidth={true}
+          >
             {this.renderButtonText()}
           </Button>
         </div>
@@ -131,6 +149,6 @@ class PlanForm extends React.Component<Props & InjectedFormProps<ZipcodeFormData
 }
 
 export default reduxForm<ZipcodeFormData, Props>({
-  form: 'planForm',
-  validate
+  form: "planForm",
+  validate,
 })(PlanForm);

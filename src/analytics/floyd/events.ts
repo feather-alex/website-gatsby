@@ -1,3 +1,3 @@
 export const FLOYD = {
-  CLICK_CTA: 'Shop Floyd Furniture Link Clicked'
+  CLICK_CTA: "Shop Floyd Furniture Link Clicked",
 };

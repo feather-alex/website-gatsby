@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface Props {
   // TODO: Fix this the next time the file is edited.
@@ -18,7 +18,7 @@ class MasonryGrid extends React.Component<Props, State> {
   private masonryRef = React.createRef<HTMLDivElement>();
 
   public readonly state = {
-    columns: 2
+    columns: 2,
   };
 
   componentDidMount() {
@@ -26,7 +26,10 @@ class MasonryGrid extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.windowWidth !== this.props.windowWidth || prevProps.windowHeight !== this.props.windowHeight) {
+    if (
+      prevProps.windowWidth !== this.props.windowWidth ||
+      prevProps.windowHeight !== this.props.windowHeight
+    ) {
       this.onResize();
     }
   }
@@ -65,10 +68,13 @@ class MasonryGrid extends React.Component<Props, State> {
     for (let i = 0; i < nbColumns; i++) {
       col.push([]);
     }
-    return this.props.children.reduce((prev: number, curr: number, index: number) => {
-      prev[index % nbColumns].push(curr);
-      return prev;
-    }, col);
+    return this.props.children.reduce(
+      (prev: number, curr: number, index: number) => {
+        prev[index % nbColumns].push(curr);
+        return prev;
+      },
+      col
+    );
   }
 
   render() {

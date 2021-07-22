@@ -1,17 +1,23 @@
-import productDetailsReducer, { initialState, initialProductDetails } from './product.reducer';
-import { ProductDetailsRequestPayload, ProductDetailsState } from './product.types';
-import { FullProductDetails } from '../../../../types/Product';
-import * as actions from './product.actions';
-import { APIError } from '../../../../types/ReduxState';
+import productDetailsReducer, {
+  initialState,
+  initialProductDetails,
+} from "./product.reducer";
+import {
+  ProductDetailsRequestPayload,
+  ProductDetailsState,
+} from "./product.types";
+import { FullProductDetails } from "../../../../types/Product";
+import * as actions from "./product.actions";
+import { APIError } from "../../../../types/ReduxState";
 
-describe('Product Details - Reducer', () => {
+describe("Product Details - Reducer", () => {
   let state: ProductDetailsState;
 
   beforeEach(() => (state = { ...initialState }));
 
-  it('Should handle action: GET_PRODUCT_DETAILS_REQUEST', () => {
+  it("Should handle action: GET_PRODUCT_DETAILS_REQUEST", () => {
     const samplePayload: ProductDetailsRequestPayload = {
-      productIdentifier: 'athene-chair'
+      productIdentifier: "athene-chair",
     };
 
     const action = actions.getProductDetailsRequest(samplePayload);
@@ -23,10 +29,13 @@ describe('Product Details - Reducer', () => {
     expect(reduced.error).toBeNull();
   });
 
-  it('Should handle action: GET_PRODUCT_DETAILS_SUCCESS', () => {
+  it("Should handle action: GET_PRODUCT_DETAILS_SUCCESS", () => {
     // TODO: Fix this the next time the file is edited.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mockResponse: FullProductDetails[] = [{ title: 'Athene chair' }, { title: 'Batis sofa' }] as any;
+    const mockResponse: FullProductDetails[] = [
+      { title: "Athene chair" },
+      { title: "Batis sofa" },
+    ] as any;
 
     const action = actions.getProductDetailsSuccess(mockResponse);
 
@@ -37,11 +46,11 @@ describe('Product Details - Reducer', () => {
     expect(reduced.error).toBeNull();
   });
 
-  it('Should handle action: GET_PRODUCT_DETAILS_FAILURE', () => {
+  it("Should handle action: GET_PRODUCT_DETAILS_FAILURE", () => {
     const mockError: APIError = {
-      error: 'omnomnom',
+      error: "omnomnom",
       status: 404,
-      message: 'om. nom. nom.'
+      message: "om. nom. nom.",
     };
 
     const action = actions.getProductDetailsFailure(mockError);

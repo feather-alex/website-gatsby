@@ -1,19 +1,23 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import { useDispatch, useSelector } from 'react-redux';
-import Analytics from '../../../analytics/analytics';
-import PAGES from '../../../analytics/pages';
-import Loading from '../../../components/Loading';
-import { CONTENTFUL_IDS } from '../../../contentful/contentful.types';
-import Header1 from '../../../ui/headers/Header1';
-import ErrorPage from '../../../components/ErrorPage';
-import { BREAKPOINTS, MARGINS } from '../../../ui/variables';
-import useMount from '../../../utils/useMount';
-import FeatherPerkCard from './FeatherPerkCard';
-import { getFeatherPerksContent } from './store/featherPerks.actions';
-import { getError, getIsFetching, getPerks } from './store/featherPerks.selectors';
+import { useDispatch, useSelector } from "react-redux";
+import Analytics from "../../../analytics/analytics";
+import PAGES from "../../../analytics/pages";
+import Loading from "../../../components/Loading";
+import { CONTENTFUL_IDS } from "../../../contentful/contentful.types";
+import Header1 from "../../../ui/headers/Header1";
+import ErrorPage from "../../../components/ErrorPage";
+import { BREAKPOINTS, MARGINS } from "../../../ui/variables";
+import useMount from "../../../utils/useMount";
+import FeatherPerkCard from "./FeatherPerkCard";
+import { getFeatherPerksContent } from "./store/featherPerks.actions";
+import {
+  getError,
+  getIsFetching,
+  getPerks,
+} from "./store/featherPerks.selectors";
 
 const FeatherPerksContainer = styled.div`
   @media ${BREAKPOINTS.MOBILE} {
@@ -41,7 +45,9 @@ const FeatherPerksPage = () => {
   const perks = useSelector(getPerks);
 
   useMount(() => {
-    dispatch(getFeatherPerksContent.request({ id: CONTENTFUL_IDS.FEATHER_PERKS }));
+    dispatch(
+      getFeatherPerksContent.request({ id: CONTENTFUL_IDS.FEATHER_PERKS })
+    );
     Analytics.trackPage(PAGES.ACCOUNT_PERKS);
   });
 

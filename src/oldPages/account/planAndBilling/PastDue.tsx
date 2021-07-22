@@ -1,25 +1,28 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import Title1 from '../../../ui/titles/Title1';
-import { HashLink } from 'react-router-hash-link';
-import AllCaps from '../../../ui/headers/AllCaps';
-import ErrorIcon from '../../../ui/icons/ErrorIcon';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import { BRAND, SHADES } from '../../../ui/variables';
-import Title3 from '../../../ui/titles/Title3';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import Title1 from "../../../ui/titles/Title1";
+import { HashLink } from "react-router-hash-link";
+import AllCaps from "../../../ui/headers/AllCaps";
+import ErrorIcon from "../../../ui/icons/ErrorIcon";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import { BRAND, SHADES } from "../../../ui/variables";
+import Title3 from "../../../ui/titles/Title3";
 
 export interface Props {
   shouldDisplayPastDue: boolean;
   shouldDisplayThankYou: boolean;
 }
 
-export const PastDue = ({ shouldDisplayPastDue, shouldDisplayThankYou }: Props) => {
+export const PastDue = ({
+  shouldDisplayPastDue,
+  shouldDisplayThankYou,
+}: Props) => {
   React.useEffect(() => {
     if (shouldDisplayThankYou) {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   }, [shouldDisplayThankYou]);
@@ -55,7 +58,7 @@ export const PastDue = ({ shouldDisplayPastDue, shouldDisplayThankYou }: Props) 
             <Title1 isBold={true}>Please update your card on file</Title1>
             <HashLink
               to="/account/billing/#payment-information"
-              scroll={(el) => el.scrollIntoView({ behavior: 'smooth' })}
+              scroll={(el) => el.scrollIntoView({ behavior: "smooth" })}
             >
               <span
                 css={css`
@@ -85,8 +88,13 @@ export const PastDue = ({ shouldDisplayPastDue, shouldDisplayThankYou }: Props) 
           `}
         >
           <AllCaps>billing issue</AllCaps>
-          <Title1 isBold={true}>Thank you for updating your information!</Title1>
-          <Paragraph2>Your outstanding payment for this month will be processed in the next few days</Paragraph2>
+          <Title1 isBold={true}>
+            Thank you for updating your information!
+          </Title1>
+          <Paragraph2>
+            Your outstanding payment for this month will be processed in the
+            next few days
+          </Paragraph2>
         </div>
       ) : null}
     </div>

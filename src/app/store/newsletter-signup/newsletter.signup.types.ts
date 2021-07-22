@@ -1,4 +1,4 @@
-import { APIError } from '../../../types/ReduxState';
+import { APIError } from "../../../types/ReduxState";
 
 export interface NewsletterState {
   email: string | null;
@@ -8,9 +8,9 @@ export interface NewsletterState {
 }
 
 export enum NewsletterInputOrigin {
-  NAVBAR = 'Navbar',
-  FOOTER = 'Footer',
-  HOMEPAGE = 'Homepage'
+  NAVBAR = "Navbar",
+  FOOTER = "Footer",
+  HOMEPAGE = "Homepage",
 }
 
 export interface NewsletterSignupRequestResource {

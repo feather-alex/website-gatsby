@@ -1,23 +1,25 @@
 /** @jsx jsx */
 
-import { useSelector } from 'react-redux';
-import { css, jsx } from '@emotion/core';
-import { PkgItem } from '../../../../types/Package';
-import { SHADES, BRAND } from '../../../../ui/variables';
-import Paragraph2 from '../../../../ui/paragraphs/Paragraph2';
-import Paragraph1 from '../../../../ui/paragraphs/Paragraph1';
-import { getIsMobileBreakpoint } from '../../../../app/store/dimensions/dimensions.selectors';
-import { MembershipState } from '../../../../app/store/plan/plan.types';
-import { isInStockAndEnabled } from '../../../../utils';
-import { getDeliveryAreaIdentifier } from '../../../../app/store/plan/plan.selectors';
-import QuantitySelect from '../../../../ui/formElements/quantitySelect/QuantitySelect';
+import { useSelector } from "react-redux";
+import { css, jsx } from "@emotion/core";
+import { PkgItem } from "../../../../types/Package";
+import { SHADES, BRAND } from "../../../../ui/variables";
+import Paragraph2 from "../../../../ui/paragraphs/Paragraph2";
+import Paragraph1 from "../../../../ui/paragraphs/Paragraph1";
+import { getIsMobileBreakpoint } from "../../../../app/store/dimensions/dimensions.selectors";
+import { MembershipState } from "../../../../app/store/plan/plan.types";
+import { isInStockAndEnabled } from "../../../../utils";
+import { getDeliveryAreaIdentifier } from "../../../../app/store/plan/plan.selectors";
+import QuantitySelect from "../../../../ui/formElements/quantitySelect/QuantitySelect";
 
 interface Props {
   items: PkgItem[];
   membershipState: MembershipState;
   isQuizResults?: boolean;
   selectedItemsQuantity: { [id: string]: number };
-  handleSelectedItemsQuantity: (identifier: string) => (itemsQuantity: number) => void;
+  handleSelectedItemsQuantity: (
+    identifier: string
+  ) => (itemsQuantity: number) => void;
 }
 
 const PackageItemsList = ({
@@ -25,9 +27,11 @@ const PackageItemsList = ({
   membershipState,
   isQuizResults = false,
   selectedItemsQuantity,
-  handleSelectedItemsQuantity
+  handleSelectedItemsQuantity,
 }: Props) => {
-  const Paragraph = useSelector(getIsMobileBreakpoint) ? Paragraph2 : Paragraph1;
+  const Paragraph = useSelector(getIsMobileBreakpoint)
+    ? Paragraph2
+    : Paragraph1;
   const planMonths = membershipState === MembershipState.MEMBER ? 12 : 3;
 
   const deliveryAreaIdentifier = useSelector(getDeliveryAreaIdentifier);
@@ -36,7 +40,9 @@ const PackageItemsList = ({
     <ul>
       {items.map((item, index) => {
         const quantity = selectedItemsQuantity[item.identifier];
-        const isItemInStock = isQuizResults || isInStockAndEnabled(deliveryAreaIdentifier, item.availability);
+        const isItemInStock =
+          isQuizResults ||
+          isInStockAndEnabled(deliveryAreaIdentifier, item.availability);
 
         return (
           <li
@@ -54,7 +60,10 @@ const PackageItemsList = ({
                   color: ${SHADES.SHADE_LIGHT};
                 `}
               >
-                {item.options.length > 0 && ` (${item.options.map((option) => option.valueName).join(', ')})`}
+                {item.options.length > 0 &&
+                  ` (${item.options
+                    .map((option) => option.valueName)
+                    .join(", ")})`}
               </span>
             </Paragraph>
             {isItemInStock ? (
@@ -66,7 +75,9 @@ const PackageItemsList = ({
                 `}
               >
                 {quantity > 0 ? (
-                  <Paragraph>{`$${item.rentalPrices[planMonths] * quantity}/mo`}</Paragraph>
+                  <Paragraph>{`$${
+                    item.rentalPrices[planMonths] * quantity
+                  }/mo`}</Paragraph>
                 ) : (
                   <Paragraph color={SHADES.SHADE_LIGHT}>Removed</Paragraph>
                 )}

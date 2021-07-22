@@ -1,8 +1,8 @@
-import Request, { RequestMethod } from '../../../../api/request';
-import { takeLatest, call, put } from 'redux-saga/effects';
-import { FluxStandardAction } from '../../../../types/FluxStandardActions';
-import { APIError } from '../../../../types/ReduxState';
-import { SagaIterator } from 'redux-saga';
+import Request, { RequestMethod } from "../../../../api/request";
+import { takeLatest, call, put } from "redux-saga/effects";
+import { FluxStandardAction } from "../../../../types/FluxStandardActions";
+import { APIError } from "../../../../types/ReduxState";
+import { SagaIterator } from "redux-saga";
 import {
   addBillingCardFailure,
   setPrimaryCardFailure,
@@ -13,18 +13,22 @@ import {
   GET_PAYMENT_PROFILE_REQUEST,
   getPaymentProfileRequest,
   getPaymentProfileSuccess,
-  getPaymentProfileFailure
-} from './billing.information.actions';
-import { BillingSourcesResource } from './billing.information.types';
-import { logOut } from '../../../auth/login/store/login.actions';
-import Analytics from '../../../../analytics/analytics';
-import { ACCOUNTS } from '../../../../analytics/accounts/events';
+  getPaymentProfileFailure,
+} from "./billing.information.actions";
+import { BillingSourcesResource } from "./billing.information.types";
+import { logOut } from "../../../auth/login/store/login.actions";
+import Analytics from "../../../../analytics/analytics";
+import { ACCOUNTS } from "../../../../analytics/accounts/events";
 
 export function* getPaymentProfile(): SagaIterator {
   try {
     // TODO: Fix this the next time the file is edited.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const response: any = yield call([Request, 'send'], RequestMethod.GET, '/account/payment-sources');
+    const response: any = yield call(
+      [Request, "send"],
+      RequestMethod.GET,
+      "/account/payment-sources"
+    );
     yield put(getPaymentProfileSuccess(response as BillingSourcesResource));
   } catch (error) {
     yield put(getPaymentProfileFailure(error));
@@ -37,7 +41,14 @@ export function* getPaymentProfile(): SagaIterator {
 // Add new billing card
 export function* addBillingCard(action: FluxStandardAction): SagaIterator {
   try {
-    yield call([Request, 'send'], RequestMethod.POST, '/account/payment-sources', undefined, action.payload, false);
+    yield call(
+      [Request, "send"],
+      RequestMethod.POST,
+      "/account/payment-sources",
+      undefined,
+      action.payload,
+      false
+    );
     yield call(Analytics.trackEvent, ACCOUNTS.ADD_CARD_SUCCESS);
     yield put(getPaymentProfileRequest());
   } catch (error) {
@@ -47,7 +58,7 @@ export function* addBillingCard(action: FluxStandardAction): SagaIterator {
       errorPayload = {
         status: error.status,
         message: error.body.error,
-        error: error.error
+        error: error.error,
       };
     }
     yield call(Analytics.trackEvent, ACCOUNTS.ADD_CARD_FAILURE);
@@ -61,7 +72,11 @@ export function* addBillingCard(action: FluxStandardAction): SagaIterator {
 // Set card as primary
 export function* setPrimaryCard(action: FluxStandardAction): SagaIterator {
   try {
-    yield call([Request, 'send'], RequestMethod.PUT, `/account/payment-sources/${action.payload.token}/default`);
+    yield call(
+      [Request, "send"],
+      RequestMethod.PUT,
+      `/account/payment-sources/${action.payload.token}/default`
+    );
     yield call(Analytics.trackEvent, ACCOUNTS.CHANGE_PRIMARY_CARD);
     yield put(getPaymentProfileRequest());
   } catch (error) {
@@ -75,7 +90,11 @@ export function* setPrimaryCard(action: FluxStandardAction): SagaIterator {
 // Remove billing card
 export function* removeBillingCard(action: FluxStandardAction): SagaIterator {
   try {
-    yield call([Request, 'send'], RequestMethod.DELETE, `/account/payment-sources/${action.payload.token}`);
+    yield call(
+      [Request, "send"],
+      RequestMethod.DELETE,
+      `/account/payment-sources/${action.payload.token}`
+    );
 
     yield call(Analytics.trackEvent, ACCOUNTS.REMOVE_CARD_SUCCESS);
     yield put(getPaymentProfileRequest());

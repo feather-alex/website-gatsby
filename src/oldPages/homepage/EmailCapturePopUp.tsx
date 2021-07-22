@@ -1,13 +1,14 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { NewsletterInputOrigin } from '../../app/store/newsletter-signup/newsletter.signup.types';
-import EmailInput from '../../components/EmailInput';
-import CloseSignIcon from '../../ui/icons/CloseSignIcon';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
-import { SHADES } from '../../ui/variables';
-import { Z_INDICIES } from '../../ui/zIndicies';
+import { css, jsx } from "@emotion/core";
+import { NewsletterInputOrigin } from "../../app/store/newsletter-signup/newsletter.signup.types";
+import EmailInput from "../../components/EmailInput";
+import CloseSignIcon from "../../ui/icons/CloseSignIcon";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
+import { SHADES } from "../../ui/variables";
+import { Z_INDICIES } from "../../ui/zIndicies";
 
-const INITIAL_MESSAGE = "Your inbox is sacred. We'll only send high‑quality content.";
+const INITIAL_MESSAGE =
+  "Your inbox is sacred. We'll only send high‑quality content.";
 const SUCCESS_MESSAGE =
   "Thanks for signing up to get Feather emails! We'll keep you in the know about essential furniture updates.";
 
@@ -16,7 +17,10 @@ export interface Props {
   displayNewsletterSignupSuccess: boolean;
 }
 
-const EmailCapturePopUp = ({ displayNewsletterSignupSuccess, dismissEmailCapture }: Props) => (
+const EmailCapturePopUp = ({
+  displayNewsletterSignupSuccess,
+  dismissEmailCapture,
+}: Props) => (
   <section
     css={css`
       position: absolute;
@@ -35,7 +39,9 @@ const EmailCapturePopUp = ({ displayNewsletterSignupSuccess, dismissEmailCapture
         margin-bottom: 8px;
       `}
     >
-      <Paragraph1>{displayNewsletterSignupSuccess ? SUCCESS_MESSAGE : INITIAL_MESSAGE}</Paragraph1>
+      <Paragraph1>
+        {displayNewsletterSignupSuccess ? SUCCESS_MESSAGE : INITIAL_MESSAGE}
+      </Paragraph1>
     </div>
     <div
       css={css`
@@ -47,7 +53,9 @@ const EmailCapturePopUp = ({ displayNewsletterSignupSuccess, dismissEmailCapture
     >
       <CloseSignIcon onClick={dismissEmailCapture} />
     </div>
-    {!displayNewsletterSignupSuccess && <EmailInput isFullWidth={true} origin={NewsletterInputOrigin.HOMEPAGE} />}
+    {!displayNewsletterSignupSuccess && (
+      <EmailInput isFullWidth={true} origin={NewsletterInputOrigin.HOMEPAGE} />
+    )}
   </section>
 );
 

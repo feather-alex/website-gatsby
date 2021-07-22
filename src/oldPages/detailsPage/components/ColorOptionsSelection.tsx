@@ -1,10 +1,17 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import { SelectedOptions, SelectedOption } from '../store/productDetails/product.types';
-import { ProductVariant, ProductOption, OptionType } from '../../../types/Product';
-import BaseImage from '../../../ui/images/BaseImage';
-import { BRAND, SHADES } from '../../../ui/variables';
-import Title1 from '../../../ui/titles/Title1';
+import { jsx, css } from "@emotion/core";
+import {
+  SelectedOptions,
+  SelectedOption,
+} from "../store/productDetails/product.types";
+import {
+  ProductVariant,
+  ProductOption,
+  OptionType,
+} from "../../../types/Product";
+import BaseImage from "../../../ui/images/BaseImage";
+import { BRAND, SHADES } from "../../../ui/variables";
+import Title1 from "../../../ui/titles/Title1";
 
 interface Props {
   selectedOptions: SelectedOptions;
@@ -14,7 +21,11 @@ interface Props {
 }
 
 type SwatchesObj = {
-  [identifier: string]: { imgUrl: string; optionName: string; type: OptionType };
+  [identifier: string]: {
+    imgUrl: string;
+    optionName: string;
+    type: OptionType;
+  };
 };
 
 const isSwatchSelected = (
@@ -22,14 +33,20 @@ const isSwatchSelected = (
   swatchesObj: SwatchesObj,
   optionValueIdentifier: string
 ): boolean => {
-  const selectedColorOption = selectedOptions[swatchesObj[optionValueIdentifier].type];
+  const selectedColorOption =
+    selectedOptions[swatchesObj[optionValueIdentifier].type];
   if (selectedColorOption) {
     return optionValueIdentifier === selectedColorOption.identifier;
   }
   return false;
 };
 
-const ColorOptionsSelection = ({ selectedOptions, variants, options, handleOptionSelect }: Props) => {
+const ColorOptionsSelection = ({
+  selectedOptions,
+  variants,
+  options,
+  handleOptionSelect,
+}: Props) => {
   if (!variants || variants.length === 0 || !options || options.length === 0) {
     return null;
   }
@@ -41,7 +58,8 @@ const ColorOptionsSelection = ({ selectedOptions, variants, options, handleOptio
         variant.options.find(
           (variantOption) =>
             variantOption.type === OptionType.Structure &&
-            variantOption.valueIdentifier === selectedOptions[OptionType.Structure]?.identifier
+            variantOption.valueIdentifier ===
+              selectedOptions[OptionType.Structure]?.identifier
         )
       )
     : variants;
@@ -59,7 +77,7 @@ const ColorOptionsSelection = ({ selectedOptions, variants, options, handleOptio
             swatchesObj[optionValue.identifier] = {
               imgUrl: variant.swatchImage.desktop,
               optionName: optionValue.name,
-              type: variantOption.type
+              type: variantOption.type,
             };
           }
         });
@@ -67,7 +85,7 @@ const ColorOptionsSelection = ({ selectedOptions, variants, options, handleOptio
     });
   });
 
-  const color = 'Color: ';
+  const color = "Color: ";
 
   return (
     <div
@@ -101,7 +119,7 @@ const ColorOptionsSelection = ({ selectedOptions, variants, options, handleOptio
               handleOptionSelect &&
               handleOptionSelect({
                 identifier: optionValueIdentifier,
-                name: swatchesObj[optionValueIdentifier].optionName
+                name: swatchesObj[optionValueIdentifier].optionName,
               })
             }
             css={css`
@@ -111,9 +129,13 @@ const ColorOptionsSelection = ({ selectedOptions, variants, options, handleOptio
               width: 58px;
               height: 58px;
               margin-right: 12px;
-              ${isSwatchSelected(selectedOptions, swatchesObj, optionValueIdentifier)
+              ${isSwatchSelected(
+                selectedOptions,
+                swatchesObj,
+                optionValueIdentifier
+              )
                 ? `border: 2px solid ${BRAND.PRIMARY_TEXT}; border-radius: 50%;`
-                : ''}
+                : ""}
 
               &:hover {
                 border: 2px solid ${SHADES.SHADE_LIGHT};

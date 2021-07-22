@@ -1,20 +1,28 @@
 /** @jsx jsx */
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
-import { addParameters, AddParameters } from '../reducers/tracking-parameters';
-import { getSearchParams } from '../utils/url-parser';
-import FreshChatIcon from '../components/FreshChatIcon';
-import Navbar from './navbar/Navbar';
-import Footer from '../ui/footers/Footer';
-import { BRAND } from '../ui/variables';
-import { State as GlobalState } from '../types/ReduxState';
-import { getBodyMarginTop } from './store/dimensions/dimensions.selectors';
+import { addParameters, AddParameters } from "../reducers/tracking-parameters";
+import { getSearchParams } from "../utils/url-parser";
+import FreshChatIcon from "../components/FreshChatIcon";
+import Navbar from "./navbar/Navbar";
+import Footer from "../ui/footers/Footer";
+import { BRAND } from "../ui/variables";
+import { State as GlobalState } from "../types/ReduxState";
+import { getBodyMarginTop } from "./store/dimensions/dimensions.selectors";
 
-const validUtmKeys = ['gclid', 'ref', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'irclickid'];
+const validUtmKeys = [
+  "gclid",
+  "ref",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "irclickid",
+];
 
 interface Props extends RouteComponentProps {
   bodyMarginTop: number;
@@ -25,7 +33,11 @@ class Layout extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
 
-    const searchParams = getSearchParams(this.props.location.search, 'string', validUtmKeys);
+    const searchParams = getSearchParams(
+      this.props.location.search,
+      "string",
+      validUtmKeys
+    );
 
     this.props.addParameters(searchParams);
   }
@@ -60,11 +72,11 @@ class Layout extends React.Component<Props> {
 }
 
 const mapState = (state: GlobalState) => ({
-  bodyMarginTop: getBodyMarginTop(state)
+  bodyMarginTop: getBodyMarginTop(state),
 });
 
 const mapDispatch = {
-  addParameters
+  addParameters,
 };
 
 export default compose(withRouter, connect(mapState, mapDispatch))(Layout);

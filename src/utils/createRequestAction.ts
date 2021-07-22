@@ -1,4 +1,4 @@
-import { createAction } from '@reduxjs/toolkit';
+import { createAction } from "@reduxjs/toolkit";
 
 /*
  This helper method automatically creates three actions
@@ -10,6 +10,6 @@ export default function createRequestAction<R, S, F>(actionType: string) {
   return {
     request: createAction<R>(`${actionType}_REQUEST`),
     success: createAction<S>(`${actionType}_SUCCESS`),
-    failure: createAction<F>(`${actionType}_FAILURE`)
+    failure: createAction<F>(`${actionType}_FAILURE`),
   };
 }

@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { toggleOverlay } from '../../app/store/overlay/overlay.actions';
-import { Overlays } from '../../app/store/overlay/overlay.types';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { toggleOverlay } from "../../app/store/overlay/overlay.actions";
+import { Overlays } from "../../app/store/overlay/overlay.types";
 
 const Quiz = () => {
   const dispatch = useDispatch();

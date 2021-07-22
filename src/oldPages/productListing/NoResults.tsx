@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import Header2 from '../../ui/headers/Header2';
+import { jsx, css } from "@emotion/core";
+import Header2 from "../../ui/headers/Header2";
 
 const NoResults = () => (
   <div

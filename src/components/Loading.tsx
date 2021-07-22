@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import { ReactNode } from 'react';
+import { jsx, css } from "@emotion/core";
+import { ReactNode } from "react";
 
-import Caption from '../ui/captions/Caption';
-import Subheader2 from '../ui/subheaders/Subheader2';
-import { BRAND, SHADES, BREAKPOINTS } from '../ui/variables';
-import LoadingFeatherArch from '../ui/miscellaneous/LoadingFeatherArch';
+import Caption from "../ui/captions/Caption";
+import Subheader2 from "../ui/subheaders/Subheader2";
+import { BRAND, SHADES, BREAKPOINTS } from "../ui/variables";
+import LoadingFeatherArch from "../ui/miscellaneous/LoadingFeatherArch";
 
 interface Props {
   message?: ReactNode;

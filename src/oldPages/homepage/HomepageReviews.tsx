@@ -1,20 +1,23 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import ColorBorder, { ColorBorderArray, ShadowAngle } from '../../ui/borders/ColorBorder';
-import Star from '../../ui/icons/SingleStarIcon';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
-import Paragraph2 from '../../ui/paragraphs/Paragraph2';
-import Header1 from '../../ui/headers/Header1';
-import { ReviewsFeature } from '../../contentful/contentful.types';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import { COLORS, GRID_BREAKPOINTS } from '../../ui/variables';
-import ArrowRightBold from '../../ui/icons/ArrowRightBold';
-import Bold from '../../ui/paragraphs/Bold';
-import Analytics from '../../analytics/analytics';
-import { AnalyticsEventKey, HOMEPAGE } from '../../analytics/homepage/events';
-import { homepageClickLinkPayloadMapping } from '../../analytics/homepage/payload-mappings';
+import ColorBorder, {
+  ColorBorderArray,
+  ShadowAngle,
+} from "../../ui/borders/ColorBorder";
+import Star from "../../ui/icons/SingleStarIcon";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
+import Paragraph2 from "../../ui/paragraphs/Paragraph2";
+import Header1 from "../../ui/headers/Header1";
+import { ReviewsFeature } from "../../contentful/contentful.types";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import { COLORS, GRID_BREAKPOINTS } from "../../ui/variables";
+import ArrowRightBold from "../../ui/icons/ArrowRightBold";
+import Bold from "../../ui/paragraphs/Bold";
+import Analytics from "../../analytics/analytics";
+import { AnalyticsEventKey, HOMEPAGE } from "../../analytics/homepage/events";
+import { homepageClickLinkPayloadMapping } from "../../analytics/homepage/payload-mappings";
 
 const StarContainer = styled.div`
   display: flex;
@@ -100,11 +103,13 @@ const BrowseCard = () => (
       onClick={() =>
         Analytics.trackEvent(
           HOMEPAGE.CLICK_CTA,
-          homepageClickLinkPayloadMapping({ link: AnalyticsEventKey.reviewsReadAll })
+          homepageClickLinkPayloadMapping({
+            link: AnalyticsEventKey.reviewsReadAll,
+          })
         )
       }
     >
-      All Reviews{' '}
+      All Reviews{" "}
       <ArrowRightBold
         css={css`
           margin-top: 3px;
@@ -166,7 +171,11 @@ const HomepageReviews = ({ reviews }: { reviews: ReviewsFeature }) => (
     <CardScrollContainer>
       <CardContainer>
         {reviews.reviews.map((review, idx) => (
-          <ReviewCard key={review.name} {...review} color={ColorBorderArray[idx % ColorBorderArray.length]} />
+          <ReviewCard
+            key={review.name}
+            {...review}
+            color={ColorBorderArray[idx % ColorBorderArray.length]}
+          />
         ))}
         <BrowseCard />
         <RightMargin />

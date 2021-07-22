@@ -1,3 +1,3 @@
 export const SEARCH = {
-  NEW_SEARCH: 'Product Searched'
+  NEW_SEARCH: "Product Searched",
 };

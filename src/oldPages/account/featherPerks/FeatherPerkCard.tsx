@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import ResponsiveImage from '../../../ui/images/ResponsiveImage';
-import { BRAND, BREAKPOINTS, SHADES } from '../../../ui/variables';
-import RichTextWrapper from '../../../contentful/RichTextWrapper';
-import Analytics from '../../../analytics/analytics';
-import { ACCOUNTS } from '../../../analytics/accounts/events';
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import ResponsiveImage from "../../../ui/images/ResponsiveImage";
+import { BRAND, BREAKPOINTS, SHADES } from "../../../ui/variables";
+import RichTextWrapper from "../../../contentful/RichTextWrapper";
+import Analytics from "../../../analytics/analytics";
+import { ACCOUNTS } from "../../../analytics/accounts/events";
 
 interface Props {
   name: string;
@@ -64,7 +64,14 @@ const trackClick = (brandName: string) => () => {
   Analytics.trackEvent(ACCOUNTS.FEATHER_PERKS, { brand: `${brandName}` });
 };
 
-const FeatherPerkCard = ({ discount, imageUrl, logo, caption, website, name }: Props) => (
+const FeatherPerkCard = ({
+  discount,
+  imageUrl,
+  logo,
+  caption,
+  website,
+  name,
+}: Props) => (
   <CardContainer>
     <Discount>{discount}</Discount>
     <ImageContainer>
@@ -73,7 +80,11 @@ const FeatherPerkCard = ({ discount, imageUrl, logo, caption, website, name }: P
     <CardBody>
       <img src={logo} alt={name} />
       <CaptionRichTextWrapper text={caption} />
-      <Button style={ButtonStyle.TEXT} external={website} onClick={trackClick(name)}>
+      <Button
+        style={ButtonStyle.TEXT}
+        external={website}
+        onClick={trackClick(name)}
+      >
         Shop Now
       </Button>
     </CardBody>

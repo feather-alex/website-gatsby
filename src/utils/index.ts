@@ -1,6 +1,6 @@
-import { Image, Availability } from '../types/Product';
-import { getIsMobileDevice } from '../app/store/dimensions/dimensions.selectors';
-import store from '../store';
+import { Image, Availability } from "../types/Product";
+import { getIsMobileDevice } from "../app/store/dimensions/dimensions.selectors";
+import store from "../store";
 
 export const getImageSourceArray = (image: Image): string[] => {
   const sources: string[] = [];
@@ -30,10 +30,12 @@ export const getProductEntity = (id: string, entities: object) => {
       // TODO: Fix this the next time the file is edited.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return !!entity.find((e: any) => e.identifier === id);
-    } else if (key === 'categories' && Array.isArray(entity.products)) {
+    } else if (key === "categories" && Array.isArray(entity.products)) {
       // TODO: Fix this the next time the file is edited.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return !!entity.products.find((product: any) => product.identifier === id);
+      return !!entity.products.find(
+        (product: any) => product.identifier === id
+      );
     }
 
     return false;
@@ -48,59 +50,77 @@ export const getProductEntity = (id: string, entities: object) => {
 
 export const getParams = (id: string, entities: object): object | string => {
   switch (getProductEntity(id, entities)) {
-    case 'types':
+    case "types":
       return { type: id };
-    case 'cities':
+    case "cities":
       return { location: id };
-    case 'brands':
+    case "brands":
       return { brand: id };
-    case 'styles':
+    case "styles":
       return { style: id };
-    case 'categories':
+    case "categories":
       return { category: id };
     default:
       return id;
   }
 };
 
-export const isEnabled = (location: string | null, availability: Array<Availability> | null): boolean => {
+export const isEnabled = (
+  location: string | null,
+  availability: Array<Availability> | null
+): boolean => {
   if (!availability) {
     return false;
   }
 
-  if (location === 'all' || location === 'none' || !location) {
+  if (location === "all" || location === "none" || !location) {
     const enabledStatus = availability.map((detail) => detail.isEnabled);
     return enabledStatus.some((status) => status === true);
   } else {
-    const availabilityDetails = availability.find((detail) => detail.deliveryArea === location);
+    const availabilityDetails = availability.find(
+      (detail) => detail.deliveryArea === location
+    );
     return availabilityDetails?.isEnabled || false;
   }
 };
 
-export const isInStock = (location: string | null, availability: Array<Availability> | null): boolean => {
+export const isInStock = (
+  location: string | null,
+  availability: Array<Availability> | null
+): boolean => {
   if (!availability) {
     return false;
   }
 
-  if (location === 'all' || location === 'none' || !location) {
+  if (location === "all" || location === "none" || !location) {
     const stockStatus = availability.map((detail) => detail.isInStock);
     return !!stockStatus.find((status) => status === true);
   } else {
-    const stockInfo = availability.find((detail) => detail.deliveryArea === location);
+    const stockInfo = availability.find(
+      (detail) => detail.deliveryArea === location
+    );
     return stockInfo?.isInStock || false;
   }
 };
 
-export const isInStockAndEnabled = (location: string | null, availability: Array<Availability> | null): boolean => {
+export const isInStockAndEnabled = (
+  location: string | null,
+  availability: Array<Availability> | null
+): boolean => {
   return isEnabled(location, availability) && isInStock(location, availability);
 };
 
-export const backInStockDate = (location: string | null, availability: Availability[] | null): string | null => {
-  if (!availability || location === 'all' || location === 'none' || !location) {
+export const backInStockDate = (
+  location: string | null,
+  availability: Availability[] | null
+): string | null => {
+  if (!availability || location === "all" || location === "none" || !location) {
     return null;
   }
 
-  const stockInfo = availability.find((detail) => detail.deliveryArea === location);
+  const stockInfo = availability.find(
+    (detail) => detail.deliveryArea === location
+  );
 
   return stockInfo?.stockExpectedDate || null;
 };

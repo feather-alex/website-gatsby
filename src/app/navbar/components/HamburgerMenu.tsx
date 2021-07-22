@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import HamburgerMenuIcon from '../../../ui/icons/HamburgerMenuIcon';
+import { css, jsx } from "@emotion/core";
+import HamburgerMenuIcon from "../../../ui/icons/HamburgerMenuIcon";
 
 interface Props {
   onClick: () => void;

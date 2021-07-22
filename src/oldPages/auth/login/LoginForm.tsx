@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import FormField from '../../../ui/formElements/FormField';
-import { APIError } from '../../../types/ReduxState';
-import { Credentials as LoginFormData } from './store/login.types';
-import { Form, Field, reduxForm, InjectedFormProps } from 'redux-form';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import Title2 from '../../../ui/titles/Title2';
-import { BRAND } from '../../../ui/variables';
-import { validateEmail, validatePassword } from '../auth.validator';
+import { css, jsx } from "@emotion/core";
+import FormField from "../../../ui/formElements/FormField";
+import { APIError } from "../../../types/ReduxState";
+import { Credentials as LoginFormData } from "./store/login.types";
+import { Form, Field, reduxForm, InjectedFormProps } from "redux-form";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import Title2 from "../../../ui/titles/Title2";
+import { BRAND } from "../../../ui/variables";
+import { validateEmail, validatePassword } from "../auth.validator";
 
 export interface OwnProps {
   loginError: APIError | null;
@@ -19,20 +19,26 @@ type Props = OwnProps & InjectedFormProps<LoginFormData, OwnProps>;
 
 const validate = (values: LoginFormData) => ({
   email: validateEmail(values.email),
-  password: validatePassword(values.password)
+  password: validatePassword(values.password),
 });
 
 const getErrorMessage = (error: APIError) => {
   if (error.status === 401) {
-    return 'The email and password combination you entered was invalid';
+    return "The email and password combination you entered was invalid";
   }
-  if (error.error === 'too_many_attempts') {
+  if (error.error === "too_many_attempts") {
     return "Your account has been blocked after multiple consecutive login attempts. We've sent you an email with instructions on how to unblock it.";
   }
-  return 'Something went wrong when trying to log in. Please try again';
+  return "Something went wrong when trying to log in. Please try again";
 };
 
-const LoginForm = ({ handleSubmit, loginError, invalid, toggleForgotPasswordModal, isFetching }: Props) => (
+const LoginForm = ({
+  handleSubmit,
+  loginError,
+  invalid,
+  toggleForgotPasswordModal,
+  isFetching,
+}: Props) => (
   <Form
     onSubmit={handleSubmit}
     css={css`
@@ -70,8 +76,12 @@ const LoginForm = ({ handleSubmit, loginError, invalid, toggleForgotPasswordModa
         margin-top: 40px;
       `}
     >
-      <Button dataCy="login-button" type="submit" isDisabled={invalid || isFetching}>
-        {isFetching ? 'Logging in...' : 'Log in'}
+      <Button
+        dataCy="login-button"
+        type="submit"
+        isDisabled={invalid || isFetching}
+      >
+        {isFetching ? "Logging in..." : "Log in"}
       </Button>
     </div>
     <div
@@ -87,6 +97,6 @@ const LoginForm = ({ handleSubmit, loginError, invalid, toggleForgotPasswordModa
 );
 
 export default reduxForm<LoginFormData, OwnProps>({
-  form: 'loginForm',
-  validate
+  form: "loginForm",
+  validate,
 })(LoginForm);

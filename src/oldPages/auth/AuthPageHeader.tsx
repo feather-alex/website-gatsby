@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import Header2 from '../../ui/headers/Header2';
-import Header3 from '../../ui/headers/Header3';
+import { css, jsx } from "@emotion/core";
+import Header2 from "../../ui/headers/Header2";
+import Header3 from "../../ui/headers/Header3";
 
 interface Props {
   headerText: string;
@@ -13,7 +13,7 @@ const AuthPageHeader = ({ isMobileBreakpoint, headerText }: Props) => {
   return (
     <div
       css={css`
-        padding-top: ${isMobileBreakpoint ? '71px' : '131px'};
+        padding-top: ${isMobileBreakpoint ? "71px" : "131px"};
         text-align: center;
       `}
     >

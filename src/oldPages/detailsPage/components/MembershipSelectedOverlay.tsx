@@ -1,19 +1,22 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import { connect } from 'react-redux';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import { connect } from "react-redux";
 
-import { State as GlobalState } from '../../../types/ReduxState';
-import FeatherModal from '../../../ui/modals/FeatherModal';
-import ResponsiveImage from '../../../ui/images/ResponsiveImage';
-import Header3 from '../../../ui/headers/Header3';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { BRAND } from '../../../ui/variables';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import { getIsMembershipSelectedOverlayOpen } from '../../../app/store/overlay/overlay.selectors';
-import { Overlays } from '../../../app/store/overlay/overlay.types';
-import { toggleOverlay, ToggleOverlay } from '../../../app/store/overlay/overlay.actions';
+import { State as GlobalState } from "../../../types/ReduxState";
+import FeatherModal from "../../../ui/modals/FeatherModal";
+import ResponsiveImage from "../../../ui/images/ResponsiveImage";
+import Header3 from "../../../ui/headers/Header3";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { BRAND } from "../../../ui/variables";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import { getIsMembershipSelectedOverlayOpen } from "../../../app/store/overlay/overlay.selectors";
+import { Overlays } from "../../../app/store/overlay/overlay.types";
+import {
+  toggleOverlay,
+  ToggleOverlay,
+} from "../../../app/store/overlay/overlay.actions";
 
 interface StateProps {
   isMobileBreakpoint: boolean;
@@ -35,7 +38,11 @@ class MembershipSelectedOverlay extends React.Component<Props> {
     const { isMobileBreakpoint, isOpen } = this.props;
 
     return (
-      <FeatherModal onClose={this.handleCloseOverlay} isOpen={isOpen} isFullscreen={true}>
+      <FeatherModal
+        onClose={this.handleCloseOverlay}
+        isOpen={isOpen}
+        isFullscreen={true}
+      >
         <div
           css={css`
             display: flex;
@@ -55,7 +62,7 @@ class MembershipSelectedOverlay extends React.Component<Props> {
                 height={496}
                 queryParams={{
                   sat: 10,
-                  sharp: 5
+                  sharp: 5,
                 }}
               />
             </div>
@@ -63,18 +70,22 @@ class MembershipSelectedOverlay extends React.Component<Props> {
 
           <div
             css={css`
-              ${isMobileBreakpoint ? 'width: 100%;' : 'width: 50%; padding: 40px 80px;'}
+              ${isMobileBreakpoint
+                ? "width: 100%;"
+                : "width: 50%; padding: 40px 80px;"}
             `}
           >
-            <Header3>{`You've selected Feather${isMobileBreakpoint ? '' : ' Annual'}\xa0Membership`}</Header3>
+            <Header3>{`You've selected Feather${
+              isMobileBreakpoint ? "" : " Annual"
+            }\xa0Membership`}</Header3>
             <div
               css={css`
                 margin: 20px 0 30px;
               `}
             >
               <Paragraph2>
-                By joining Feather for the next 12 months, you’ll be able to add furniture to your cart at reduced
-                prices.
+                By joining Feather for the next 12 months, you’ll be able to add
+                furniture to your cart at reduced prices.
               </Paragraph2>
               <div
                 css={css`
@@ -82,12 +93,15 @@ class MembershipSelectedOverlay extends React.Component<Props> {
                 `}
               >
                 <Paragraph2>
-                  If you eventually decide to purchase any of your items, all monthly furniture payments go toward
-                  buyout. If not, you can swap or return items—our team handles all pickups, deliveries, and assemblies.
+                  If you eventually decide to purchase any of your items, all
+                  monthly furniture payments go toward buyout. If not, you can
+                  swap or return items—our team handles all pickups, deliveries,
+                  and assemblies.
                 </Paragraph2>
               </div>
               <Paragraph2>
-                You get free delivery and assembly to start, plus your first furniture change is free with Membership.
+                You get free delivery and assembly to start, plus your first
+                furniture change is free with Membership.
               </Paragraph2>
             </div>
 
@@ -97,7 +111,9 @@ class MembershipSelectedOverlay extends React.Component<Props> {
                 justify-content: center;
               `}
             >
-              <Button onClick={this.handleCloseOverlay}>Continue shopping</Button>
+              <Button onClick={this.handleCloseOverlay}>
+                Continue shopping
+              </Button>
             </div>
             <div
               role="button"
@@ -107,7 +123,11 @@ class MembershipSelectedOverlay extends React.Component<Props> {
               `}
               onClick={this.handleCloseOverlay}
             >
-              <Button style={ButtonStyle.TEXT} to="/cart" color={BRAND.SECONDARY_TEXT}>
+              <Button
+                style={ButtonStyle.TEXT}
+                to="/cart"
+                color={BRAND.SECONDARY_TEXT}
+              >
                 Checkout to finalize your membership
               </Button>
             </div>
@@ -120,11 +140,14 @@ class MembershipSelectedOverlay extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   isMobileBreakpoint: getIsMobileBreakpoint(state),
-  isOpen: getIsMembershipSelectedOverlayOpen(state)
+  isOpen: getIsMembershipSelectedOverlayOpen(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
-  toggleOverlay
+  toggleOverlay,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MembershipSelectedOverlay);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MembershipSelectedOverlay);

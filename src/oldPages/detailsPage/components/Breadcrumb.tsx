@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
-import { IdName } from '../../../types/Product';
-import Title1 from '../../../ui/titles/Title1';
-import { BRAND, SHADES } from '../../../ui/variables';
-import Title3 from '../../../ui/titles/Title3';
-import { Z_INDICIES } from '../../../ui/zIndicies';
+import { IdName } from "../../../types/Product";
+import Title1 from "../../../ui/titles/Title1";
+import { BRAND, SHADES } from "../../../ui/variables";
+import Title3 from "../../../ui/titles/Title3";
+import { Z_INDICIES } from "../../../ui/zIndicies";
 
 export enum CurrentType {
-  Product = 'products',
-  Package = 'packages'
+  Product = "products",
+  Package = "packages",
 }
 
 interface Props {
@@ -34,7 +34,9 @@ const Breadcrumb = ({ type, category, title, isMobileBreakpoint }: Props) => {
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
-        padding: ${isMobileBreakpoint ? '24px 0 24px' : `64px 0 24px ${type === CurrentType.Package ? '9vw' : '48px'}`};
+        padding: ${isMobileBreakpoint
+          ? "24px 0 24px"
+          : `64px 0 24px ${type === CurrentType.Package ? "9vw" : "48px"}`};
         width: ${isMobileBreakpoint ? 100 : 50}%;
         background-color: ${BRAND.BACKGROUND};
         z-index: ${Z_INDICIES.BREADCRUMB};
@@ -46,16 +48,20 @@ const Breadcrumb = ({ type, category, title, isMobileBreakpoint }: Props) => {
           & p {
             font-size: 12px;
           }`
-          : ''}
+          : ""}
       `}
     >
       <Link to={`/${type}`}>
-        <Title color={SHADES.SHADE_DARK}>{type === CurrentType.Product ? 'Furniture' : 'Packages'}</Title>
+        <Title color={SHADES.SHADE_DARK}>
+          {type === CurrentType.Product ? "Furniture" : "Packages"}
+        </Title>
       </Link>
       <Slash>/</Slash>
       <Link
         to={`/${type}${
-          type === CurrentType.Product ? `/${category.identifier}` : `#${category.name.replace(' ', '')}`
+          type === CurrentType.Product
+            ? `/${category.identifier}`
+            : `#${category.name.replace(" ", "")}`
         }`}
       >
         <Title color={SHADES.SHADE_DARK}>{category.name}</Title>

@@ -215,52 +215,51 @@ class ProductDetailsPage extends React.Component<Props, State> {
     this.props.getProductDetailsRequest({ productIdentifier });
   };
 
-  handleOptionSelect = (optionType: OptionType) => (
-    selection: SelectedOption
-  ) => {
-    this.setState((prevState, prevProps) => {
-      const newSelectedOptions = {
-        ...prevState.selectedOptions,
-        [optionType]: {
-          identifier: selection.identifier,
-          name: selection.name,
-        },
-      };
+  handleOptionSelect =
+    (optionType: OptionType) => (selection: SelectedOption) => {
+      this.setState((prevState, prevProps) => {
+        const newSelectedOptions = {
+          ...prevState.selectedOptions,
+          [optionType]: {
+            identifier: selection.identifier,
+            name: selection.name,
+          },
+        };
 
-      let newSelectedVariant = determineSelectedVariant(
-        newSelectedOptions,
-        prevProps.productData.variants
-      );
-
-      // if we don't find a match with these options, don't fret we just need to find
-      // the first variant which contains the latest option selection
-      if (!newSelectedVariant) {
-        const firstVariantWithSelection = prevProps.productData.variants.find(
-          (variant) =>
-            variant.options.some(
-              (option) =>
-                option.type === optionType &&
-                option.valueIdentifier === selection.identifier
-            )
+        let newSelectedVariant = determineSelectedVariant(
+          newSelectedOptions,
+          prevProps.productData.variants
         );
-        if (firstVariantWithSelection) {
-          // set the selected options to the options of the selected variant
-          firstVariantWithSelection.options.map((option) => {
-            newSelectedOptions[option.type] = {
-              identifier: option.valueIdentifier,
-              name: option.valueName,
-            };
-          });
-          newSelectedVariant = firstVariantWithSelection;
-        }
-      }
 
-      return {
-        selectedOptions: newSelectedOptions,
-        selectedVariant: newSelectedVariant,
-      };
-    });
-  };
+        // if we don't find a match with these options, don't fret we just need to find
+        // the first variant which contains the latest option selection
+        if (!newSelectedVariant) {
+          const firstVariantWithSelection = prevProps.productData.variants.find(
+            (variant) =>
+              variant.options.some(
+                (option) =>
+                  option.type === optionType &&
+                  option.valueIdentifier === selection.identifier
+              )
+          );
+          if (firstVariantWithSelection) {
+            // set the selected options to the options of the selected variant
+            firstVariantWithSelection.options.map((option) => {
+              newSelectedOptions[option.type] = {
+                identifier: option.valueIdentifier,
+                name: option.valueName,
+              };
+            });
+            newSelectedVariant = firstVariantWithSelection;
+          }
+        }
+
+        return {
+          selectedOptions: newSelectedOptions,
+          selectedVariant: newSelectedVariant,
+        };
+      });
+    };
 
   handleOpen3DModal = () => {
     const { selectedVariant } = this.state;

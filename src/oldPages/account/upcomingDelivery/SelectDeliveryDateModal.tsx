@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import Caption from '../../../ui/captions/Caption';
-import DayPicker, { DayModifiers } from 'react-day-picker';
-import FeatherModal from '../../../ui/modals/FeatherModal';
-import Header3 from '../../../ui/headers/Header3';
-import { SHADES, BREAKPOINTS } from '../../../ui/variables';
-import Request, { RequestMethod } from '../../../api/request';
-import Button from '../../../ui/buttons/Button';
-import { setAccountSubscriptionStartDate } from '../accountOverview/store/account.overview.actions';
+import Caption from "../../../ui/captions/Caption";
+import DayPicker, { DayModifiers } from "react-day-picker";
+import FeatherModal from "../../../ui/modals/FeatherModal";
+import Header3 from "../../../ui/headers/Header3";
+import { SHADES, BREAKPOINTS } from "../../../ui/variables";
+import Request, { RequestMethod } from "../../../api/request";
+import Button from "../../../ui/buttons/Button";
+import { setAccountSubscriptionStartDate } from "../accountOverview/store/account.overview.actions";
 
 const DeliveryDateContainer = styled.div`
   border: 1px solid ${SHADES.SHADE_LIGHTER};
@@ -87,7 +87,7 @@ const SelectDeliveryDateModal = (props: Props) => {
         `/account/subscription/${props.subscriptionId}/startDate`,
         undefined,
         {
-          startDate: selectedDate
+          startDate: selectedDate,
         },
         true
       );
@@ -105,7 +105,8 @@ const SelectDeliveryDateModal = (props: Props) => {
     <FeatherModal isOpen={props.isOpen} onClose={handleClose}>
       <Header3>Choose Your Delivery Date</Header3>
       <DeliveryDateCaption>
-        Choose an available date and we’ll be in touch with your 2-hour arrival window.
+        Choose an available date and we’ll be in touch with your 2-hour arrival
+        window.
       </DeliveryDateCaption>
       <DeliveryDateContainer>
         <DayPicker
@@ -115,10 +116,14 @@ const SelectDeliveryDateModal = (props: Props) => {
           showOutsideDays={true}
         />
       </DeliveryDateContainer>
-      <ConfirmDateButton isDisabled={!selectedDate || loading} onClick={handleSubmit}>
+      <ConfirmDateButton
+        isDisabled={!selectedDate || loading}
+        onClick={handleSubmit}
+      >
         Confirm Selection
       </ConfirmDateButton>
-      {hasError && 'There was an error and your selection could not be made, please try again.'}
+      {hasError &&
+        "There was an error and your selection could not be made, please try again."}
     </FeatherModal>
   );
 };

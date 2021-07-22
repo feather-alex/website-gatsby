@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { useSelector } from 'react-redux';
-import Layout from '../../../app/Layout';
-import ErrorPage from '../../../components/ErrorPage';
-import Loading from '../../../components/Loading';
-import { getQuizResultsError } from '../../detailsPage/components/packages/quizResults/store/quizResults.selectors';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { useSelector } from "react-redux";
+import Layout from "../../../app/Layout";
+import ErrorPage from "../../../components/ErrorPage";
+import Loading from "../../../components/Loading";
+import { getQuizResultsError } from "../../detailsPage/components/packages/quizResults/store/quizResults.selectors";
 
 const LoadingScreen = styled(Loading)`
   height: 100vh;
@@ -28,7 +28,9 @@ const QuizLoadingScreen = () => {
     );
   }
 
-  return <LoadingScreen message="Your dream space is right around the corner." />;
+  return (
+    <LoadingScreen message="Your dream space is right around the corner." />
+  );
 };
 
 export default QuizLoadingScreen;

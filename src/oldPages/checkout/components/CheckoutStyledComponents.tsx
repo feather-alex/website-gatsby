@@ -1,8 +1,8 @@
-import styled from '@emotion/styled';
-import Dropdown from '../../../ui/formElements/Dropdown';
-import Header2 from '../../../ui/headers/Header2';
-import { BRAND, BREAKPOINTS, SHADES } from '../../../ui/variables';
-import { InputContainer } from './CheckoutInputField';
+import styled from "@emotion/styled";
+import Dropdown from "../../../ui/formElements/Dropdown";
+import Header2 from "../../../ui/headers/Header2";
+import { BRAND, BREAKPOINTS, SHADES } from "../../../ui/variables";
+import { InputContainer } from "./CheckoutInputField";
 
 export const CheckoutPageForm = styled.div`
   display: flex;

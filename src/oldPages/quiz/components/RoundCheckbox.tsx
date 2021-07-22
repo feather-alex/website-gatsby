@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface Props {
   choice?: string;
@@ -13,8 +13,16 @@ const RoundCheckbox = (props: Props) => {
 
   return (
     <label className="round-checkbox-container">
-      <input type="checkbox" onClick={handleClick} checked={props.checked} data-choice={props.choice} />
-      <span data-cy="quiz-checkmark" className={`checkmark ${props.checked ? ` checked` : ``}`} />
+      <input
+        type="checkbox"
+        onClick={handleClick}
+        checked={props.checked}
+        data-choice={props.choice}
+      />
+      <span
+        data-cy="quiz-checkmark"
+        className={`checkmark ${props.checked ? ` checked` : ``}`}
+      />
     </label>
   );
 };

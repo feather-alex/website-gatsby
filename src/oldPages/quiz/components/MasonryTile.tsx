@@ -1,5 +1,5 @@
-import React from 'react';
-import RoundCheckbox from './RoundCheckbox';
+import React from "react";
+import RoundCheckbox from "./RoundCheckbox";
 
 export interface Props {
   src: string;

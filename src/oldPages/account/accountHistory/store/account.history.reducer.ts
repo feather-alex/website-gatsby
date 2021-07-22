@@ -1,11 +1,11 @@
-import { AccountHistory } from './account.history.types';
-import { FluxStandardAction } from '../../../../types/FluxStandardActions';
+import { AccountHistory } from "./account.history.types";
+import { FluxStandardAction } from "../../../../types/FluxStandardActions";
 import {
   GET_ACCOUNT_HISTORY_REQUEST,
   GET_ACCOUNT_HISTORY_SUCCESS,
   GET_ACCOUNT_HISTORY_FAILURE,
-  RESET_STATE
-} from './account.history.actions';
+  RESET_STATE,
+} from "./account.history.actions";
 
 export const pageIncrements = 7;
 
@@ -14,7 +14,7 @@ export const initialState: AccountHistory = {
   hasMore: false,
   isFetching: false,
   error: null,
-  perPage: pageIncrements
+  perPage: pageIncrements,
 };
 
 const accountHistory = (state = initialState, action: FluxStandardAction) => {
@@ -22,14 +22,14 @@ const accountHistory = (state = initialState, action: FluxStandardAction) => {
     case GET_ACCOUNT_HISTORY_REQUEST:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
 
     case GET_ACCOUNT_HISTORY_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: action.payload
+        error: action.payload,
       };
 
     case GET_ACCOUNT_HISTORY_SUCCESS:
@@ -38,12 +38,12 @@ const accountHistory = (state = initialState, action: FluxStandardAction) => {
         isFetching: false,
         charges: [...state.charges, ...action.payload.charges],
         hasMore: action.payload.hasMore,
-        error: null
+        error: null,
       };
 
     case RESET_STATE:
       return {
-        ...initialState
+        ...initialState,
       };
 
     default:

@@ -15,7 +15,7 @@ const Image = styled.div`
   height: 100px;
   width: 100%;
   background-color: ${COLORS.CLOUD};
-  background-image: url('${({ url }: { url: string }) => url}');
+  background-image: url("${({ url }: { url: string }) => url}");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

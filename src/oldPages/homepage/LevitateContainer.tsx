@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from "@emotion/core";
 
-import Button from '../../ui/buttons/Button';
-import Header3 from '../../ui/headers/Header3';
-import LevitateIllustration from '../../ui/miscellaneous/LevitateIllustration';
-import Analytics from '../../analytics/analytics';
-import { HOMEPAGE, AnalyticsEventKey } from '../../analytics/homepage/events';
-import { homepageClickLinkPayloadMapping } from '../../analytics/homepage/payload-mappings';
+import Button from "../../ui/buttons/Button";
+import Header3 from "../../ui/headers/Header3";
+import LevitateIllustration from "../../ui/miscellaneous/LevitateIllustration";
+import Analytics from "../../analytics/analytics";
+import { HOMEPAGE, AnalyticsEventKey } from "../../analytics/homepage/events";
+import { homepageClickLinkPayloadMapping } from "../../analytics/homepage/payload-mappings";
 
 const LevitateContainer = () => {
   return (
@@ -32,11 +32,13 @@ const LevitateContainer = () => {
       </div>
 
       <Button
-        to={'/products'}
+        to={"/products"}
         onClick={() =>
           Analytics.trackEvent(
             HOMEPAGE.CLICK_CTA,
-            homepageClickLinkPayloadMapping({ link: AnalyticsEventKey.stressFreeFurniture })
+            homepageClickLinkPayloadMapping({
+              link: AnalyticsEventKey.stressFreeFurniture,
+            })
           )
         }
       >

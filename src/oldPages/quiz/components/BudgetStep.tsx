@@ -1,10 +1,10 @@
-import QuizOptionCardRadio from './QuizOptionCardRadio';
-import Budget1Icon from '../../../assets/icons/quiz/icon_budget_1.svg';
-import Budget2Icon from '../../../assets/icons/quiz/icon_budget_2.svg';
-import Budget3Icon from '../../../assets/icons/quiz/icon_budget_3.svg';
-import React from 'react';
-import Header3 from '../../../ui/headers/Header3';
-import { BudgetTier, QuizStepChoices } from '../store/quiz.types';
+import QuizOptionCardRadio from "./QuizOptionCardRadio";
+import Budget1Icon from "../../../assets/icons/quiz/icon_budget_1.svg";
+import Budget2Icon from "../../../assets/icons/quiz/icon_budget_2.svg";
+import Budget3Icon from "../../../assets/icons/quiz/icon_budget_3.svg";
+import React from "react";
+import Header3 from "../../../ui/headers/Header3";
+import { BudgetTier, QuizStepChoices } from "../store/quiz.types";
 
 export interface Props {
   budget: string | null;
@@ -15,16 +15,16 @@ const BudgetStep = (props: Props) => {
   const options = [
     {
       image: <Budget1Icon />,
-      choice: BudgetTier.Tier1
+      choice: BudgetTier.Tier1,
     },
     {
       image: <Budget2Icon />,
-      choice: BudgetTier.Tier2
+      choice: BudgetTier.Tier2,
     },
     {
       image: <Budget3Icon />,
-      choice: BudgetTier.Tier3
-    }
+      choice: BudgetTier.Tier3,
+    },
   ];
 
   return (

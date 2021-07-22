@@ -1,11 +1,11 @@
-import { ProductListState } from './productList.types';
+import { ProductListState } from "./productList.types";
 import {
   GET_PRODUCT_LIST_REQUEST,
   GET_PRODUCT_LIST_SUCCESS,
   GET_PRODUCT_LIST_FAILURE,
   RESET_PRODUCT_LIST,
-  ProductListActions
-} from './productList.actions';
+  ProductListActions,
+} from "./productList.actions";
 
 export const initialState: ProductListState = {
   isFetching: false,
@@ -17,17 +17,20 @@ export const initialState: ProductListState = {
     availableFilters: {
       brands: [],
       classes: [],
-      subclasses: []
-    }
-  }
+      subclasses: [],
+    },
+  },
 };
 
-const productList = (state: ProductListState = initialState, action: ProductListActions) => {
+const productList = (
+  state: ProductListState = initialState,
+  action: ProductListActions
+) => {
   switch (action.type) {
     case GET_PRODUCT_LIST_REQUEST:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
 
     case GET_PRODUCT_LIST_SUCCESS:
@@ -36,18 +39,18 @@ const productList = (state: ProductListState = initialState, action: ProductList
         isFetching: false,
         meta: {
           ...action.payload.meta,
-          pageNumber: state.meta.pageNumber
+          pageNumber: state.meta.pageNumber,
         },
         products: action.payload.isInfiniteLoading
           ? state.products.concat(action.payload.products)
-          : action.payload.products
+          : action.payload.products,
       };
 
     case GET_PRODUCT_LIST_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: action.payload
+        error: action.payload,
       };
 
     case RESET_PRODUCT_LIST:
@@ -55,8 +58,8 @@ const productList = (state: ProductListState = initialState, action: ProductList
         ...initialState,
         meta: {
           ...initialState.meta,
-          availableFilters: state.meta.availableFilters
-        }
+          availableFilters: state.meta.availableFilters,
+        },
       };
 
     default:

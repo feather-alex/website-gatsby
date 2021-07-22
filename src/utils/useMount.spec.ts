@@ -1,8 +1,8 @@
-import { renderHook } from '@testing-library/react-hooks';
-import useMount from './useMount';
+import { renderHook } from "@testing-library/react-hooks";
+import useMount from "./useMount";
 
-describe('useMount', () => {
-  it('should only run for the first render', () => {
+describe("useMount", () => {
+  it("should only run for the first render", () => {
     let count = 0;
     const { rerender } = renderHook(() =>
       useMount(() => {

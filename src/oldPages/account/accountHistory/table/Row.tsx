@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { PaymentDetails } from '../../accountHistory/store/account.history.types';
-import { css, jsx } from '@emotion/core';
-import { COLORS, BRAND } from '../../../../ui/variables';
-import { Column } from './Column';
-import React from 'react';
-import Title2 from '../../../../ui/titles/Title2';
+import { PaymentDetails } from "../../accountHistory/store/account.history.types";
+import { css, jsx } from "@emotion/core";
+import { COLORS, BRAND } from "../../../../ui/variables";
+import { Column } from "./Column";
+import React from "react";
+import Title2 from "../../../../ui/titles/Title2";
 
 interface Props {
   paymentDetails: PaymentDetails;
@@ -12,12 +12,18 @@ interface Props {
   formatCharge: (charge: number) => string | JSX.Element;
 }
 
-export const MobileRow = ({ formatDate, formatCharge, paymentDetails }: Props) => {
+export const MobileRow = ({
+  formatDate,
+  formatCharge,
+  paymentDetails,
+}: Props) => {
   const isRefund = paymentDetails.amountRefunded > 0;
-  const isFailedPayment = paymentDetails.status === 'failed';
+  const isFailedPayment = paymentDetails.status === "failed";
   const isFullRefund = paymentDetails.amount === paymentDetails.amountRefunded;
 
-  const description = isFailedPayment ? paymentDetails.reasonForFailure! : paymentDetails.description;
+  const description = isFailedPayment
+    ? paymentDetails.reasonForFailure!
+    : paymentDetails.description;
 
   return (
     <div
@@ -37,7 +43,9 @@ export const MobileRow = ({ formatDate, formatCharge, paymentDetails }: Props) =
           width: 80%;
         `}
       >
-        <Title2 isBold={true}>{formatDate(paymentDetails.chargedAt, true)}</Title2>
+        <Title2 isBold={true}>
+          {formatDate(paymentDetails.chargedAt, true)}
+        </Title2>
         {description}
         {isRefund && (
           <span
@@ -65,15 +73,21 @@ export const MobileRow = ({ formatDate, formatCharge, paymentDetails }: Props) =
   );
 };
 
-export const DesktopRow = ({ formatDate, formatCharge, paymentDetails }: Props) => {
+export const DesktopRow = ({
+  formatDate,
+  formatCharge,
+  paymentDetails,
+}: Props) => {
   const isRefund = paymentDetails.amountRefunded > 0;
-  const isFailedPayment = paymentDetails.status === 'failed';
+  const isFailedPayment = paymentDetails.status === "failed";
   const isFullRefund = paymentDetails.amount === paymentDetails.amountRefunded;
 
   const description = () => {
     return (
       <React.Fragment>
-        {isFailedPayment ? paymentDetails.reasonForFailure! : paymentDetails.description}
+        {isFailedPayment
+          ? paymentDetails.reasonForFailure!
+          : paymentDetails.description}
         {isRefund && (
           <span
             css={css`
@@ -108,9 +122,18 @@ export const DesktopRow = ({ formatDate, formatCharge, paymentDetails }: Props) 
         ${isFailedPayment && `color: ${BRAND.ERROR};`}
       `}
     >
-      <Column width="20%" textAlign="start" value={formatDate(paymentDetails.chargedAt)} />
+      <Column
+        width="20%"
+        textAlign="start"
+        value={formatDate(paymentDetails.chargedAt)}
+      />
       <Column width="55%" textAlign="start" value={description()} />
-      <Column dataCy="charge-amount" width="25%" textAlign="end" value={chargeAmount()} />
+      <Column
+        dataCy="charge-amount"
+        width="25%"
+        textAlign="end"
+        value={chargeAmount()}
+      />
     </div>
   );
 };

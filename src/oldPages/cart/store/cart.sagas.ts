@@ -1,31 +1,39 @@
-import { put, call, select, takeEvery, takeLatest } from 'redux-saga/effects';
-import { SagaIterator } from 'redux-saga';
-import * as actions from './cart.actions';
-import { CartItem, ProductIdentifiers, ProductRecommendation } from './cart.types';
-import Analytics from '../../../analytics/analytics';
-import { CART } from '../../../analytics/cart/events';
+import { put, call, select, takeEvery, takeLatest } from "redux-saga/effects";
+import { SagaIterator } from "redux-saga";
+import * as actions from "./cart.actions";
+import {
+  CartItem,
+  ProductIdentifiers,
+  ProductRecommendation,
+} from "./cart.types";
+import Analytics from "../../../analytics/analytics";
+import { CART } from "../../../analytics/cart/events";
 import {
   addItemPayloadMapping,
   removeItemPayloadMapping,
-  updateCartPayloadMapping
-} from '../../../analytics/cart/payload-mappings';
-import { getCartItems, getCartUuid, getUnavailableItems } from './cart.selectors';
-import { getIsAuthenticated } from '../../auth/login/store/login.selectors';
-import { toggleOverlay } from '../../../app/store/overlay/overlay.actions';
-import { Overlays } from '../../../app/store/overlay/overlay.types';
-import Request, { QueryParam, RequestMethod } from '../../../api/request';
-import { filterOutDuplicateProducts } from './cart.utils';
-import { MembershipState } from '../../../app/store/plan/plan.types';
-import { getMembershipFee } from '../../account/accountOverview/store/account.overview.selectors';
+  updateCartPayloadMapping,
+} from "../../../analytics/cart/payload-mappings";
+import {
+  getCartItems,
+  getCartUuid,
+  getUnavailableItems,
+} from "./cart.selectors";
+import { getIsAuthenticated } from "../../auth/login/store/login.selectors";
+import { toggleOverlay } from "../../../app/store/overlay/overlay.actions";
+import { Overlays } from "../../../app/store/overlay/overlay.types";
+import Request, { QueryParam, RequestMethod } from "../../../api/request";
+import { filterOutDuplicateProducts } from "./cart.utils";
+import { MembershipState } from "../../../app/store/plan/plan.types";
+import { getMembershipFee } from "../../account/accountOverview/store/account.overview.selectors";
 import {
   getRentalLength,
   getDeliveryFee,
   getMembershipState,
   getDeliveryZipCode,
-  getDeliveryAreaIdentifier
-} from '../../../app/store/plan/plan.selectors';
-import { calcSubTotal } from '../../../utils/cart';
-import { CheckoutAmountsResource } from '../../../types/Checkout';
+  getDeliveryAreaIdentifier,
+} from "../../../app/store/plan/plan.selectors";
+import { calcSubTotal } from "../../../utils/cart";
+import { CheckoutAmountsResource } from "../../../types/Checkout";
 
 export function* addItemToCart(action: actions.AddToCartAction): SagaIterator {
   // If a user is currently logged in, we want to display a modal
@@ -48,7 +56,7 @@ export function* addItemToCart(action: actions.AddToCartAction): SagaIterator {
     bundleVariantIdentifier,
     categories,
     brand,
-    image
+    image,
   } = action.payload;
 
   const items: CartItem[] = yield select(getCartItems);
@@ -59,7 +67,7 @@ export function* addItemToCart(action: actions.AddToCartAction): SagaIterator {
   for (let i = 0; i < quantity; i++) {
     newItems.push({
       ...action.payload,
-      quantity: 1
+      quantity: 1,
     });
   }
 
@@ -92,26 +100,43 @@ export function* addItemToCart(action: actions.AddToCartAction): SagaIterator {
       title,
       image,
       bundleVariantIdentifier,
-      bundleIdentifier
+      bundleIdentifier,
     })
   );
 }
 
-export function* removeItem(action: actions.RemoveFromCartAction): SagaIterator {
-  const { identifier, variantIdentifier, rentalPrices, rentalLength, categories, brand, title, image } = action.payload;
+export function* removeItem(
+  action: actions.RemoveFromCartAction
+): SagaIterator {
+  const {
+    identifier,
+    variantIdentifier,
+    rentalPrices,
+    rentalLength,
+    categories,
+    brand,
+    title,
+    image,
+  } = action.payload;
 
   const updatedCartItems: CartItem[] = [];
   const updatedUnavailableItems: ProductIdentifiers[] = [];
 
   const currentCartItems: CartItem[] = yield select(getCartItems);
-  const unavailableItems: ProductIdentifiers[] = yield select(getUnavailableItems);
+  const unavailableItems: ProductIdentifiers[] = yield select(
+    getUnavailableItems
+  );
 
   // If this is the first occurrence of this product, don't
   // push it to the updated cart. We're only removing the
   // first occurrence of a product.
   let shouldRemoveItem = true;
   currentCartItems.forEach((item) => {
-    if (item.identifier === identifier && item.variantIdentifier === variantIdentifier && shouldRemoveItem) {
+    if (
+      item.identifier === identifier &&
+      item.variantIdentifier === variantIdentifier &&
+      shouldRemoveItem
+    ) {
       shouldRemoveItem = false;
     } else {
       updatedCartItems.push(item);
@@ -120,11 +145,15 @@ export function* removeItem(action: actions.RemoveFromCartAction): SagaIterator 
 
   // Does this item occur more than once in the user's cart?
   const additionalItemInstances = updatedCartItems.find(
-    (item) => item.identifier === identifier && item.variantIdentifier === variantIdentifier
+    (item) =>
+      item.identifier === identifier &&
+      item.variantIdentifier === variantIdentifier
   );
   // Is this item included in our list of unavailable items?
   const isItemUnavailable = unavailableItems.find(
-    (item) => item.productIdentifier === identifier && item.variantIdentifier === variantIdentifier
+    (item) =>
+      item.productIdentifier === identifier &&
+      item.variantIdentifier === variantIdentifier
   );
 
   // If this is the only instance of this item in the cart,
@@ -132,7 +161,10 @@ export function* removeItem(action: actions.RemoveFromCartAction): SagaIterator 
   // remove this item from our list of unavailable cart items.
   if (!additionalItemInstances && isItemUnavailable) {
     unavailableItems.forEach((item) => {
-      if (item.productIdentifier !== identifier && item.variantIdentifier !== variantIdentifier) {
+      if (
+        item.productIdentifier !== identifier &&
+        item.variantIdentifier !== variantIdentifier
+      ) {
         updatedUnavailableItems.push(item);
       }
     });
@@ -153,18 +185,20 @@ export function* removeItem(action: actions.RemoveFromCartAction): SagaIterator 
       categories,
       brand,
       title,
-      image
+      image,
     })
   );
 }
 
-export function* normalizeCartPrices(action: actions.NormalizeCartAction): SagaIterator {
+export function* normalizeCartPrices(
+  action: actions.NormalizeCartAction
+): SagaIterator {
   const { membershipState } = action.payload;
   const items: CartItem[] = yield select(getCartItems);
 
   const newItems = items.map((item) => ({
     ...item,
-    rentalLength: membershipState === MembershipState.MEMBER ? 12 : 3
+    rentalLength: membershipState === MembershipState.MEMBER ? 12 : 3,
   }));
 
   yield put(actions.updateCartItems(newItems));
@@ -177,20 +211,22 @@ export function* getUnavailableProducts(): SagaIterator {
 
     const uniqueCartItems = filterOutDuplicateProducts(cartItems);
 
-    const formattedCartItems: ProductIdentifiers[] = uniqueCartItems.map((item) => ({
-      productIdentifier: item.identifier,
-      variantIdentifier: item.variantIdentifier
-    }));
+    const formattedCartItems: ProductIdentifiers[] = uniqueCartItems.map(
+      (item) => ({
+        productIdentifier: item.identifier,
+        variantIdentifier: item.variantIdentifier,
+      })
+    );
 
     const requestBody = {
       deliveryAreaIdentifier,
-      products: formattedCartItems
+      products: formattedCartItems,
     };
 
     const unavailableItems: ProductIdentifiers[] = yield call(
-      [Request, 'send'],
+      [Request, "send"],
       RequestMethod.POST,
-      '/products/availability',
+      "/products/availability",
       undefined,
       requestBody
     );
@@ -221,17 +257,21 @@ export function* handleCartItemsUpdate(action: actions.UpdateCartItemsAction) {
       deliveryFee,
       monthlyTotal: cartSubtotal + membershipFee,
       totalDueNow: cartSubtotal + membershipFee + deliveryFee,
-      planType: membershipState === MembershipState.MEMBER ? 'member' : 'non-member',
+      planType:
+        membershipState === MembershipState.MEMBER ? "member" : "non-member",
       deliveryZipCode,
       deliveryAreaIdentifier,
       cartItems,
-      cartUuid
+      cartUuid,
     })
   );
 }
 
-export function* handleGetPromo(action: actions.GetPromoRequestAction): SagaIterator {
-  const { promo, rentalLength, subTotal, deliveryAreaIdentifier } = action.payload;
+export function* handleGetPromo(
+  action: actions.GetPromoRequestAction
+): SagaIterator {
+  const { promo, rentalLength, subTotal, deliveryAreaIdentifier } =
+    action.payload;
   if (promo === null) {
     yield put(actions.resetPromo());
   }
@@ -240,15 +280,15 @@ export function* handleGetPromo(action: actions.GetPromoRequestAction): SagaIter
     promoCode: promo ? promo.trim() : undefined,
     subtotal: subTotal,
     delivery: {
-      area: deliveryAreaIdentifier ? deliveryAreaIdentifier.trim() : undefined
-    }
+      area: deliveryAreaIdentifier ? deliveryAreaIdentifier.trim() : undefined,
+    },
   };
 
   try {
     const response: CheckoutAmountsResource = yield call(
-      [Request, 'send'],
+      [Request, "send"],
       RequestMethod.POST,
-      '/checkout/amounts',
+      "/checkout/amounts",
       undefined,
       amountData
     );
@@ -262,22 +302,24 @@ export function* getCartRecommendations(): SagaIterator {
   const deliveryAreaIdentifier = yield select(getDeliveryAreaIdentifier);
   const cartItems: CartItem[] = yield select(getCartItems);
   const uniqueCartItems = filterOutDuplicateProducts(cartItems);
-  const productIdentifiers: string[] = uniqueCartItems.map((item) => item.identifier);
+  const productIdentifiers: string[] = uniqueCartItems.map(
+    (item) => item.identifier
+  );
 
   const queryParams: QueryParam[] = [
     {
-      name: 'deliveryArea',
-      value: deliveryAreaIdentifier ? deliveryAreaIdentifier.trim() : ''
+      name: "deliveryArea",
+      value: deliveryAreaIdentifier ? deliveryAreaIdentifier.trim() : "",
     },
     {
-      name: 'productIdentifiers',
-      value: productIdentifiers
-    }
+      name: "productIdentifiers",
+      value: productIdentifiers,
+    },
   ];
 
   try {
     const response: { products: ProductRecommendation[] } = yield call(
-      [Request, 'send'],
+      [Request, "send"],
       RequestMethod.GET,
       `/recommendations/products`,
       queryParams
@@ -293,7 +335,10 @@ export default function* cartWatcher(): SagaIterator {
   yield takeEvery(actions.ADD_ITEM_TO_CART, addItemToCart);
   yield takeEvery(actions.REMOVE_ITEM_FROM_CART, removeItem);
   yield takeLatest(actions.NORMALIZE_CART_PRICES, normalizeCartPrices);
-  yield takeLatest(actions.GET_UNAVAILABLE_PRODUCTS_REQUEST, getUnavailableProducts);
+  yield takeLatest(
+    actions.GET_UNAVAILABLE_PRODUCTS_REQUEST,
+    getUnavailableProducts
+  );
   yield takeLatest(actions.UPDATE_CART_ITEMS, handleCartItemsUpdate);
   yield takeLatest(actions.GET_PROMO_REQUEST, handleGetPromo);
   yield takeLatest(actions.GET_RECOMMENDATIONS_REQUEST, getCartRecommendations);

@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import Header3 from '../../../ui/headers/Header3';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
+import { css, jsx } from "@emotion/core";
+import Header3 from "../../../ui/headers/Header3";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
 
 interface Props {
   closeMiniCart: () => void;

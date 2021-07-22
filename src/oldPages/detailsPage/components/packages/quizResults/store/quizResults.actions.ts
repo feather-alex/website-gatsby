@@ -1,86 +1,114 @@
-import { FluxStandardAction } from '../../../../../../types/FluxStandardActions';
-import { QuizAnswers } from '../../../../../quiz/store/quiz.types';
-import { QuizPkgs, StyleQuizResult, QuizRoom } from './quizResults.types';
-import { APIError } from '../../../../../../types/ReduxState';
+import { FluxStandardAction } from "../../../../../../types/FluxStandardActions";
+import { QuizAnswers } from "../../../../../quiz/store/quiz.types";
+import { QuizPkgs, StyleQuizResult, QuizRoom } from "./quizResults.types";
+import { APIError } from "../../../../../../types/ReduxState";
 
 // Get quiz results request
-export const FETCH_QUIZ_RESULTS_REQUEST = 'FETCH_QUIZ_RESULTS_REQUEST';
+export const FETCH_QUIZ_RESULTS_REQUEST = "FETCH_QUIZ_RESULTS_REQUEST";
 
 export type FetchQuizResults = (quizAnswers: QuizAnswers) => QuizResultsActions;
 
-export const fetchQuizResults: FetchQuizResults = (quizAnswers: QuizAnswers) => ({
+export const fetchQuizResults: FetchQuizResults = (
+  quizAnswers: QuizAnswers
+) => ({
   type: FETCH_QUIZ_RESULTS_REQUEST,
-  payload: { quizAnswers }
+  payload: { quizAnswers },
 });
 
 // Get quiz results by uuid request
-export const FETCH_QUIZ_RESULTS_BY_UUID_REQUEST = 'FETCH_QUIZ_RESULTS_BY_UUID_REQUEST';
+export const FETCH_QUIZ_RESULTS_BY_UUID_REQUEST =
+  "FETCH_QUIZ_RESULTS_BY_UUID_REQUEST";
 
 export type FetchQuizResultsByUuid = (uuid: string) => QuizResultsActions;
 
-export const fetchQuizResultsByUuid: FetchQuizResultsByUuid = (uuid: string) => ({
+export const fetchQuizResultsByUuid: FetchQuizResultsByUuid = (
+  uuid: string
+) => ({
   type: FETCH_QUIZ_RESULTS_BY_UUID_REQUEST,
-  payload: { uuid }
+  payload: { uuid },
 });
 
 // Get quiz results success
-export const FETCH_QUIZ_RESULTS_SUCCESS = 'FETCH_QUIZ_RESULTS_SUCCESS';
+export const FETCH_QUIZ_RESULTS_SUCCESS = "FETCH_QUIZ_RESULTS_SUCCESS";
 
-export type FetchQuizResultsSuccess = (quizPkgs: QuizPkgs) => QuizResultsActions;
+export type FetchQuizResultsSuccess = (
+  quizPkgs: QuizPkgs
+) => QuizResultsActions;
 
-export const fetchQuizResultsSuccess: FetchQuizResultsSuccess = (quizPkgs: QuizPkgs) => ({
+export const fetchQuizResultsSuccess: FetchQuizResultsSuccess = (
+  quizPkgs: QuizPkgs
+) => ({
   type: FETCH_QUIZ_RESULTS_SUCCESS,
-  payload: { quizPkgs }
+  payload: { quizPkgs },
 });
 
 // Get quiz results failure
-export const FETCH_QUIZ_RESULTS_FAILURE = 'FETCH_QUIZ_RESULTS_FAILURE';
+export const FETCH_QUIZ_RESULTS_FAILURE = "FETCH_QUIZ_RESULTS_FAILURE";
 
 export type FetchQuizResultsFailure = (error: APIError) => QuizResultsActions;
 
-export const fetchQuizResultsFailure: FetchQuizResultsFailure = (error: APIError) => ({
+export const fetchQuizResultsFailure: FetchQuizResultsFailure = (
+  error: APIError
+) => ({
   type: FETCH_QUIZ_RESULTS_FAILURE,
-  payload: { error }
+  payload: { error },
 });
 
 // Update quiz packages request
-export const UPDATE_QUIZ_RESULTS_REQUEST = 'UPDATE_QUIZ_RESULTS_REQUEST';
+export const UPDATE_QUIZ_RESULTS_REQUEST = "UPDATE_QUIZ_RESULTS_REQUEST";
 
-export type UpdateQuizResultsRequest = (uuid: string, quizPackages: StyleQuizResult) => QuizResultsActions;
+export type UpdateQuizResultsRequest = (
+  uuid: string,
+  quizPackages: StyleQuizResult
+) => QuizResultsActions;
 
-export const updateQuizResultsRequest: UpdateQuizResultsRequest = (uuid: string, quizPackages: StyleQuizResult) => ({
+export const updateQuizResultsRequest: UpdateQuizResultsRequest = (
+  uuid: string,
+  quizPackages: StyleQuizResult
+) => ({
   type: UPDATE_QUIZ_RESULTS_REQUEST,
-  payload: { uuid, quizPackages }
+  payload: { uuid, quizPackages },
 });
 
 // Update quiz packages success
-export const UPDATE_QUIZ_RESULTS_SUCCESS = 'UPDATE_QUIZ_RESULTS_SUCCESS';
+export const UPDATE_QUIZ_RESULTS_SUCCESS = "UPDATE_QUIZ_RESULTS_SUCCESS";
 
-export type UpdateQuizResultsSuccess = (quizPkgs: QuizPkgs) => QuizResultsActions;
+export type UpdateQuizResultsSuccess = (
+  quizPkgs: QuizPkgs
+) => QuizResultsActions;
 
-export const updateQuizResultsSuccess: UpdateQuizResultsSuccess = (quizPkgs: QuizPkgs) => ({
+export const updateQuizResultsSuccess: UpdateQuizResultsSuccess = (
+  quizPkgs: QuizPkgs
+) => ({
   type: UPDATE_QUIZ_RESULTS_SUCCESS,
-  payload: { quizPkgs }
+  payload: { quizPkgs },
 });
 
 // Update quiz packages failure
-export const UPDATE_QUIZ_RESULTS_FAILURE = 'UPDATE_QUIZ_RESULTS_FAILURE';
+export const UPDATE_QUIZ_RESULTS_FAILURE = "UPDATE_QUIZ_RESULTS_FAILURE";
 
 export type UpdateQuizResultsFailure = (error: APIError) => QuizResultsActions;
 
-export const updateQuizResultsFailure: UpdateQuizResultsFailure = (error: APIError) => ({
+export const updateQuizResultsFailure: UpdateQuizResultsFailure = (
+  error: APIError
+) => ({
   type: UPDATE_QUIZ_RESULTS_FAILURE,
-  payload: { error }
+  payload: { error },
 });
 
 // Set the active quiz room and toggle the edit quiz results overlay
-export const TOGGLE_EDIT_QUIZ_RESULTS_OVERLAY = 'TOGGLE_EDIT_QUIZ_RESULTS_OVERLAY';
+export const TOGGLE_EDIT_QUIZ_RESULTS_OVERLAY =
+  "TOGGLE_EDIT_QUIZ_RESULTS_OVERLAY";
 
-export type ToggleEditQuizResultsOverlay = (roomId: QuizRoom) => QuizResultsActions;
+export type ToggleEditQuizResultsOverlay = (
+  roomId: QuizRoom
+) => QuizResultsActions;
 
-export const toggleEditQuizResultsOverlay: ToggleEditQuizResultsOverlay = (roomId: QuizRoom) => ({
+export const toggleEditQuizResultsOverlay: ToggleEditQuizResultsOverlay = (
+  roomId: QuizRoom
+) => ({
   type: TOGGLE_EDIT_QUIZ_RESULTS_OVERLAY,
-  payload: { roomId }
+  payload: { roomId },
 });
 
 export type QuizResultsActions =

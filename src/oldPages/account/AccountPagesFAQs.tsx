@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import styled from '@emotion/styled';
-import { jsx } from '@emotion/core';
+import styled from "@emotion/styled";
+import { jsx } from "@emotion/core";
 
-import Title1 from '../../ui/titles/Title1';
-import RichTextWrapper from '../../contentful/RichTextWrapper';
+import Title1 from "../../ui/titles/Title1";
+import RichTextWrapper from "../../contentful/RichTextWrapper";
 
 interface Props {
   titleText: string;

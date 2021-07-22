@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import React from 'react';
-import { jsx, css } from '@emotion/core';
-import { Field, Form, reduxForm, InjectedFormProps } from 'redux-form';
-import FormField from '../../../ui/formElements/FormField';
-import Button from '../../../ui/buttons/Button';
-import { validateEmail } from '../auth.validator';
-import { ForgotPasswordFormData } from './store/forgot.password.types';
+import React from "react";
+import { jsx, css } from "@emotion/core";
+import { Field, Form, reduxForm, InjectedFormProps } from "redux-form";
+import FormField from "../../../ui/formElements/FormField";
+import Button from "../../../ui/buttons/Button";
+import { validateEmail } from "../auth.validator";
+import { ForgotPasswordFormData } from "./store/forgot.password.types";
 
 interface Props {
   isFetching: boolean;
@@ -13,10 +13,12 @@ interface Props {
 }
 
 const validate = (values: ForgotPasswordFormData) => ({
-  email: validateEmail(values.email)
+  email: validateEmail(values.email),
 });
 
-class ForgotPasswordForm extends React.Component<Props & InjectedFormProps<ForgotPasswordFormData, Props>> {
+class ForgotPasswordForm extends React.Component<
+  Props & InjectedFormProps<ForgotPasswordFormData, Props>
+> {
   render() {
     const { isFetching, handleSubmit, onSubmit, invalid } = this.props;
 
@@ -37,7 +39,9 @@ class ForgotPasswordForm extends React.Component<Props & InjectedFormProps<Forgo
             margin-top: 40px;
           `}
         >
-          <Button isDisabled={invalid || isFetching}>{isFetching ? 'Submitting...' : 'Submit'}</Button>
+          <Button isDisabled={invalid || isFetching}>
+            {isFetching ? "Submitting..." : "Submit"}
+          </Button>
         </div>
       </Form>
     );
@@ -45,6 +49,6 @@ class ForgotPasswordForm extends React.Component<Props & InjectedFormProps<Forgo
 }
 
 export default reduxForm<ForgotPasswordFormData, Props>({
-  form: 'forgotPassword',
-  validate
+  form: "forgotPassword",
+  validate,
 })(ForgotPasswordForm);

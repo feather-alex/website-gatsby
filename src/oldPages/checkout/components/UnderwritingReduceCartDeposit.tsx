@@ -1,33 +1,33 @@
 /** @jsx jsx */
-import React, { useEffect } from 'react';
-import { v1 } from 'uuid';
-import { css, jsx } from '@emotion/core';
-import { useState } from 'react';
-import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import { v1 } from "uuid";
+import { css, jsx } from "@emotion/core";
+import { useState } from "react";
+import styled from "@emotion/styled";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import Header2 from '../../../ui/headers/Header2';
-import Header3 from '../../../ui/headers/Header3';
-import Paragraph1 from '../../../ui/paragraphs/Paragraph1';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { LineBreak } from '../AdditionalUnderwriting';
-import { COLORS, BREAKPOINTS, SHADES, BRAND } from '../../../ui/variables';
-import RemoveCartItems from './RemoveCartItems';
-import { CheckoutStep } from '../store/checkout.types';
-import UnderwritingDeposit from './UnderwritingDeposit';
-import { CartItem } from '../../cart/store/cart.types';
-import { removeCartItem } from '../../cart/store/cart.actions';
-import { calcSubTotal } from '../../../utils/cart';
+import Header2 from "../../../ui/headers/Header2";
+import Header3 from "../../../ui/headers/Header3";
+import Paragraph1 from "../../../ui/paragraphs/Paragraph1";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { LineBreak } from "../AdditionalUnderwriting";
+import { COLORS, BREAKPOINTS, SHADES, BRAND } from "../../../ui/variables";
+import RemoveCartItems from "./RemoveCartItems";
+import { CheckoutStep } from "../store/checkout.types";
+import UnderwritingDeposit from "./UnderwritingDeposit";
+import { CartItem } from "../../cart/store/cart.types";
+import { removeCartItem } from "../../cart/store/cart.actions";
+import { calcSubTotal } from "../../../utils/cart";
 import {
   getMaxTCVMonthlyCartTotal,
   getRemovalAmountToMeetMaxTCV,
   cartItemTotalMinimumMet,
-  formatCurrency
-} from '../store/checkout.service';
-import { DepositOrigin } from '../store/checkout.types';
-import Caption from '../../../ui/captions/Caption';
-import { APIError } from '../../../types/ReduxState';
+  formatCurrency,
+} from "../store/checkout.service";
+import { DepositOrigin } from "../store/checkout.types";
+import Caption from "../../../ui/captions/Caption";
+import { APIError } from "../../../types/ReduxState";
 
 const Head = styled.div`
   max-width: 754px;
@@ -90,7 +90,7 @@ const ErrorMessage = styled(Caption)`
 
 enum Views {
   ReduceCart,
-  Deposit
+  Deposit,
 }
 
 interface Props {
@@ -122,7 +122,7 @@ const UnderwritingReduceCartDeposit = ({
   eligibleForDeposit,
   onDepositSubmission,
   isSubmittingDeposit,
-  depositError
+  depositError,
 }: Props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -132,7 +132,7 @@ const UnderwritingReduceCartDeposit = ({
   useEffect(() => {
     const itemsWithCacheId: CachedCartItem[] = cartItems.map((item) => ({
       ...item,
-      cacheId: v1()
+      cacheId: v1(),
     }));
     setCachedCartItems(itemsWithCacheId);
   }, [cartItems]);
@@ -142,11 +142,16 @@ const UnderwritingReduceCartDeposit = ({
     return null;
   }
 
-  const nonRemovedItems = cachedCartItems.filter((item) => !removedCartItems.includes(item.cacheId));
+  const nonRemovedItems = cachedCartItems.filter(
+    (item) => !removedCartItems.includes(item.cacheId)
+  );
 
   const maxMonthlyCartTotal = getMaxTCVMonthlyCartTotal(maxTCV, rentalLength);
   const nonRemovedItemTotal = calcSubTotal(nonRemovedItems, rentalLength);
-  const amountNeededToRemoveTotal = getRemovalAmountToMeetMaxTCV(maxMonthlyCartTotal, nonRemovedItemTotal);
+  const amountNeededToRemoveTotal = getRemovalAmountToMeetMaxTCV(
+    maxMonthlyCartTotal,
+    nonRemovedItemTotal
+  );
 
   const onSubmitCartEdits = () => {
     removedCartItems.forEach((cacheId) => {
@@ -167,7 +172,8 @@ const UnderwritingReduceCartDeposit = ({
             margin-bottom: 24px;
           `}
         >
-          Sorry, your intended furniture spend is more than we can approve at this time.
+          Sorry, your intended furniture spend is more than we can approve at
+          this time.
         </Header2>
         <Paragraph1
           css={css`
@@ -175,8 +181,10 @@ const UnderwritingReduceCartDeposit = ({
             margin: auto;
           `}
         >
-          Based on your credit score and reported income of ${formatCurrency(Number(statedIncome))}, you have been
-          approved for up to a monthly furniture total of ${formatCurrency(maxMonthlyCartTotal)}/mo.
+          Based on your credit score and reported income of $
+          {formatCurrency(Number(statedIncome))}, you have been approved for up
+          to a monthly furniture total of ${formatCurrency(maxMonthlyCartTotal)}
+          /mo.
         </Paragraph1>
       </Head>
 
@@ -196,7 +204,9 @@ const UnderwritingReduceCartDeposit = ({
           <FlowToggle>
             <ToggleButton
               data-cy="remove-items-toggle"
-              className={currentView === Views.ReduceCart ? 'selected' : undefined}
+              className={
+                currentView === Views.ReduceCart ? "selected" : undefined
+              }
               css={css`
                 border-right: 0;
               `}
@@ -207,7 +217,7 @@ const UnderwritingReduceCartDeposit = ({
             </ToggleButton>
             <ToggleButton
               data-cy="submit-deposit-toggle"
-              className={currentView === Views.Deposit ? 'selected' : undefined}
+              className={currentView === Views.Deposit ? "selected" : undefined}
               css={css`
                 border-left: 0;
               `}
@@ -256,7 +266,10 @@ const UnderwritingReduceCartDeposit = ({
       )}
 
       {currentView === Views.Deposit && (
-        <UnderwritingDeposit monthlyFurnitureTotal={monthlyFurnitureTotal} depositAmount={depositAmount} />
+        <UnderwritingDeposit
+          monthlyFurnitureTotal={monthlyFurnitureTotal}
+          depositAmount={depositAmount}
+        />
       )}
 
       <FormSubmit>
@@ -284,15 +297,21 @@ const UnderwritingReduceCartDeposit = ({
             dataCy="submit-deposit-review"
             isDisabled={isSubmittingDeposit}
           >
-            {isSubmittingDeposit ? 'Sending...' : 'Submit Order for Review'}
+            {isSubmittingDeposit ? "Sending..." : "Submit Order for Review"}
           </SubmitButton>
         )}
 
         {depositError && (
-          <ErrorMessage color={BRAND.ERROR}>Uh oh! Something unexpected happened. Please try again.</ErrorMessage>
+          <ErrorMessage color={BRAND.ERROR}>
+            Uh oh! Something unexpected happened. Please try again.
+          </ErrorMessage>
         )}
 
-        <Button to="/cart" color={BRAND.SECONDARY_TEXT} style={ButtonStyle.COMPACT_TEXT}>
+        <Button
+          to="/cart"
+          color={BRAND.SECONDARY_TEXT}
+          style={ButtonStyle.COMPACT_TEXT}
+        >
           Cancel Order &amp; Return to Cart
         </Button>
       </FormSubmit>

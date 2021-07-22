@@ -1,6 +1,6 @@
 export enum ValidationMessage {
-  requireZipcode = 'Zip code is required',
-  invalidZipcode = 'Enter valid zip code'
+  requireZipcode = "Zip code is required",
+  invalidZipcode = "Enter valid zip code",
 }
 
 export const validateZipcode = (zipcode: string) => {

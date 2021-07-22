@@ -1,8 +1,8 @@
-import request, { RequestMethod } from '../../../api/request';
-import isEmail from 'validator/lib/isEmail';
-import React from 'react';
-import Modal from 'react-bootstrap/lib/Modal';
-import Button from '../../../ui/buttons/Button';
+import request, { RequestMethod } from "../../../api/request";
+import isEmail from "validator/lib/isEmail";
+import React from "react";
+import Modal from "react-bootstrap/lib/Modal";
+import Button from "../../../ui/buttons/Button";
 
 export interface Props {
   zipcode: string;
@@ -18,13 +18,13 @@ export interface State {
 
 class OutOfDeliveryZoneModal extends React.Component<Props, State> {
   public readonly state = {
-    email: '',
+    email: "",
     displayError: false,
-    displayThanks: false
+    displayThanks: false,
   };
 
   handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && this.state.email.length) {
+    if (event.key === "Enter" && this.state.email.length) {
       this.submitEmail();
     }
   };
@@ -37,13 +37,13 @@ class OutOfDeliveryZoneModal extends React.Component<Props, State> {
     const { email } = this.state;
     if (email.length && isEmail(email)) {
       request
-        .send(RequestMethod.POST, '/signup', undefined, { email }, true)
+        .send(RequestMethod.POST, "/signup", undefined, { email }, true)
         .then(() => {
           this.setState(
             {
               displayThanks: true,
               displayError: false,
-              email: ''
+              email: "",
             },
             () => {
               setTimeout(() => {
@@ -56,7 +56,7 @@ class OutOfDeliveryZoneModal extends React.Component<Props, State> {
         .catch(() => {
           this.setState({
             displayError: true,
-            displayThanks: false
+            displayThanks: false,
           });
         });
     } else {
@@ -66,9 +66,9 @@ class OutOfDeliveryZoneModal extends React.Component<Props, State> {
 
   resetState = () => {
     this.setState({
-      email: '',
+      email: "",
       displayError: false,
-      displayThanks: false
+      displayThanks: false,
     });
   };
 
@@ -78,16 +78,28 @@ class OutOfDeliveryZoneModal extends React.Component<Props, State> {
 
   render() {
     return (
-      <Modal className="out-of-zone-modal" show={this.props.isOpen} onHide={this.closeOverlay}>
+      <Modal
+        className="out-of-zone-modal"
+        show={this.props.isOpen}
+        onHide={this.closeOverlay}
+      >
         <Modal.Body className="modal-body">
-          <div role="button" tabIndex={0} className="close-modal clickable futura cap-10" onClick={this.closeOverlay}>
+          <div
+            role="button"
+            tabIndex={0}
+            className="close-modal clickable futura cap-10"
+            onClick={this.closeOverlay}
+          >
             CLOSE
           </div>
           <div className="custom-content">
-            <h5 className="value reg-24">We currently do not deliver to your area</h5>
+            <h5 className="value reg-24">
+              We currently do not deliver to your area
+            </h5>
             <p className="currently">
-              {this.props.zipcode} is not currently within our delivery zone. Get on our email list to be the first to
-              know when we do offer delivery!
+              {this.props.zipcode} is not currently within our delivery zone.
+              Get on our email list to be the first to know when we do offer
+              delivery!
             </p>
             <div className="email-submit">
               {!this.state.displayError && !this.state.displayThanks ? (

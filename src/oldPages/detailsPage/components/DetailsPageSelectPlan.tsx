@@ -1,15 +1,22 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { useDispatch, useSelector } from 'react-redux';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import { getDeliveryZipCode, getIsFetching, getIsInDeliveryZone } from '../../../app/store/plan/plan.selectors';
-import { zipcodeSubmit, resetZipcode } from '../../../app/store/plan/plan.actions';
-import DetailsPagePlanOption from './DetailsPagePlanOption';
-import MemberBulletPoints from '../../../components/selectPlan/components/MemberBulletPoints';
-import NonMemberBulletPoints from '../../../components/selectPlan/components/NonMemberBulletPoints';
-import { ZipcodeFormData } from '../../../components/selectPlan/components/EnterZipcode';
-import { MembershipState } from '../../../app/store/plan/plan.types';
-import PanelGroup from 'react-bootstrap/lib/PanelGroup';
+import { css, jsx } from "@emotion/core";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import {
+  getDeliveryZipCode,
+  getIsFetching,
+  getIsInDeliveryZone,
+} from "../../../app/store/plan/plan.selectors";
+import {
+  zipcodeSubmit,
+  resetZipcode,
+} from "../../../app/store/plan/plan.actions";
+import DetailsPagePlanOption from "./DetailsPagePlanOption";
+import MemberBulletPoints from "../../../components/selectPlan/components/MemberBulletPoints";
+import NonMemberBulletPoints from "../../../components/selectPlan/components/NonMemberBulletPoints";
+import { ZipcodeFormData } from "../../../components/selectPlan/components/EnterZipcode";
+import { MembershipState } from "../../../app/store/plan/plan.types";
+import PanelGroup from "react-bootstrap/lib/PanelGroup";
 
 interface Props {
   memberRentalPrice: number;
@@ -17,7 +24,11 @@ interface Props {
   retailPrice: number;
 }
 
-const DetailsPageSelectPlan = ({ memberRentalPrice, nonMemberRentalPrice, retailPrice }: Props) => {
+const DetailsPageSelectPlan = ({
+  memberRentalPrice,
+  nonMemberRentalPrice,
+  retailPrice,
+}: Props) => {
   const dispatch = useDispatch();
   const isInDeliveryZone = useSelector(getIsInDeliveryZone);
   const isMobileBreakpoint = useSelector(getIsMobileBreakpoint);
@@ -26,14 +37,21 @@ const DetailsPageSelectPlan = ({ memberRentalPrice, nonMemberRentalPrice, retail
 
   const handleScrollTop = () => {
     if (isMobileBreakpoint) {
-      window.scrollTo({ top: 400, behavior: 'smooth' });
+      window.scrollTo({ top: 400, behavior: "smooth" });
     }
   };
 
-  const handleSubmitOption = (membershipState: MembershipState) => (values: ZipcodeFormData) => {
-    handleScrollTop();
-    dispatch(zipcodeSubmit({ zipcode: values.zipcode, shouldShowError: true, shouldSelectPlan: membershipState }));
-  };
+  const handleSubmitOption =
+    (membershipState: MembershipState) => (values: ZipcodeFormData) => {
+      handleScrollTop();
+      dispatch(
+        zipcodeSubmit({
+          zipcode: values.zipcode,
+          shouldShowError: true,
+          shouldSelectPlan: membershipState,
+        })
+      );
+    };
 
   const handleFocusZipCode = () => {
     if (isInDeliveryZone === false) {

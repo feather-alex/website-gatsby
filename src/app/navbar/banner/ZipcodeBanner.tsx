@@ -1,19 +1,22 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React, { ReactNode } from 'react';
-import { connect } from 'react-redux';
+import { css, jsx } from "@emotion/core";
+import React, { ReactNode } from "react";
+import { connect } from "react-redux";
 
-import { State as GlobalState } from '../../../types/ReduxState';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import { BRAND, SHADES, COLORS } from '../../../ui/variables';
-import { zipcodeSubmit, ZipcodeSubmit } from '../../store/plan/plan.actions';
+import { State as GlobalState } from "../../../types/ReduxState";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import { BRAND, SHADES, COLORS } from "../../../ui/variables";
+import { zipcodeSubmit, ZipcodeSubmit } from "../../store/plan/plan.actions";
 
-import Banner from './Banner';
-import BannerInputField from './BannerInputField';
-import { getIsMobileBreakpoint } from '../../store/dimensions/dimensions.selectors';
-import { showNavbarBanner } from '../../store/navbar/navbar.actions';
-import { BannerType, ShowNavbarBannerPayload } from '../../store/navbar/navbar.types';
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import Banner from "./Banner";
+import BannerInputField from "./BannerInputField";
+import { getIsMobileBreakpoint } from "../../store/dimensions/dimensions.selectors";
+import { showNavbarBanner } from "../../store/navbar/navbar.actions";
+import {
+  BannerType,
+  ShowNavbarBannerPayload,
+} from "../../store/navbar/navbar.types";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 interface Props {
   message?: ReactNode;
@@ -29,7 +32,8 @@ class ZipcodeBanner extends React.Component<Props> {
     } else {
       this.props.showNavbarBanner({
         bannerType: BannerType.ZipCode,
-        message: 'Oops! Please enter a valid zip code in NYC, LA or OC to make sure we deliver in your area.'
+        message:
+          "Oops! Please enter a valid zip code in NYC, LA or OC to make sure we deliver in your area.",
       });
     }
   };
@@ -41,11 +45,12 @@ class ZipcodeBanner extends React.Component<Props> {
       <Banner backgroundColor={message ? BRAND.ERROR : COLORS.CITRON}>
         <div
           css={css`
-            ${isMobileBreakpoint && 'margin-bottom: 16px;'}
+            ${isMobileBreakpoint && "margin-bottom: 16px;"}
           `}
         >
           <Paragraph2 color={message ? SHADES.WHITE : BRAND.PRIMARY_TEXT}>
-            {message || `Currently available in 2,000+ zip codes. Make sure we deliver to you!`}
+            {message ||
+              `Currently available in 2,000+ zip codes. Make sure we deliver to you!`}
           </Paragraph2>
         </div>
         <BannerInputField
@@ -61,12 +66,12 @@ class ZipcodeBanner extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState) => ({
-  isMobileBreakpoint: getIsMobileBreakpoint(state)
+  isMobileBreakpoint: getIsMobileBreakpoint(state),
 });
 
 const mapDispatchToProps = {
   zipcodeSubmit,
-  showNavbarBanner
+  showNavbarBanner,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ZipcodeBanner);

@@ -1,18 +1,21 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import { connect } from 'react-redux';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import { connect } from "react-redux";
 
-import { getIsMobileBreakpoint } from '../../../../../app/store/dimensions/dimensions.selectors';
-import { Overlays } from '../../../../../app/store/overlay/overlay.types';
-import { toggleOverlay, ToggleOverlay } from '../../../../../app/store/overlay/overlay.actions';
-import { getIsProductInfoOverlayOpen } from '../../../../../app/store/overlay/overlay.selectors';
-import { getDeliveryAreaIdentifier } from '../../../../../app/store/plan/plan.selectors';
-import ProductInfoModal from '../ProductInfoModal';
-import { PkgItem } from '../../../../../types/Package';
-import { State as GlobalState } from '../../../../../types/ReduxState';
-import PackageItemsDisplay from '../PackageItemsDisplay';
-import { DeliveryAreaIdentifier } from '../../../../../app/store/plan/plan.types';
+import { getIsMobileBreakpoint } from "../../../../../app/store/dimensions/dimensions.selectors";
+import { Overlays } from "../../../../../app/store/overlay/overlay.types";
+import {
+  toggleOverlay,
+  ToggleOverlay,
+} from "../../../../../app/store/overlay/overlay.actions";
+import { getIsProductInfoOverlayOpen } from "../../../../../app/store/overlay/overlay.selectors";
+import { getDeliveryAreaIdentifier } from "../../../../../app/store/plan/plan.selectors";
+import ProductInfoModal from "../ProductInfoModal";
+import { PkgItem } from "../../../../../types/Package";
+import { State as GlobalState } from "../../../../../types/ReduxState";
+import PackageItemsDisplay from "../PackageItemsDisplay";
+import { DeliveryAreaIdentifier } from "../../../../../app/store/plan/plan.types";
 
 interface StateProps {
   deliveryAreaIdentifier: DeliveryAreaIdentifier | null;
@@ -39,13 +42,13 @@ interface State {
 
 class ThisPackageIncludes extends React.Component<Props, State> {
   public readonly state: Readonly<State> = {
-    selectedPkgItem: null
+    selectedPkgItem: null,
   };
 
   handleOpenProductInfo = (selectedItem: PkgItem) => {
     this.setState(
       {
-        selectedPkgItem: selectedItem
+        selectedPkgItem: selectedItem,
       },
       () => {
         this.props.dispatchToggleOverlay(Overlays.ProductInfoOverlay, true);
@@ -60,7 +63,7 @@ class ThisPackageIncludes extends React.Component<Props, State> {
       isMobileBreakpoint,
       isProductInfoOverlayOpen,
       selectedItems,
-      selectedItemsQuantity
+      selectedItemsQuantity,
     } = this.props;
     const { selectedPkgItem } = this.state;
 
@@ -78,7 +81,7 @@ class ThisPackageIncludes extends React.Component<Props, State> {
         <section
           css={css`
             width: ${isMobileBreakpoint ? 100 : 50}%;
-            ${!isMobileBreakpoint && 'padding-left: 9vw'};
+            ${!isMobileBreakpoint && "padding-left: 9vw"};
           `}
         >
           <PackageItemsDisplay
@@ -97,11 +100,14 @@ class ThisPackageIncludes extends React.Component<Props, State> {
 const mapStateToProps = (state: GlobalState): StateProps => ({
   deliveryAreaIdentifier: getDeliveryAreaIdentifier(state),
   isMobileBreakpoint: getIsMobileBreakpoint(state),
-  isProductInfoOverlayOpen: getIsProductInfoOverlayOpen(state)
+  isProductInfoOverlayOpen: getIsProductInfoOverlayOpen(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
-  dispatchToggleOverlay: toggleOverlay
+  dispatchToggleOverlay: toggleOverlay,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ThisPackageIncludes);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ThisPackageIncludes);

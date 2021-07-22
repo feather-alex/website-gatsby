@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { BRAND } from '../../../ui/variables';
+import { css, jsx } from "@emotion/core";
+import { BRAND } from "../../../ui/variables";
 
 interface Props {
   isCartPage?: boolean;
@@ -13,7 +13,7 @@ export const OutOfStock = ({ isCartPage, isMobileBreakPoint }: Props) => {
       css={css`
         color: ${BRAND.ERROR};
         font-weight: ${isCartPage ? 400 : 500};
-        font-size: ${!isCartPage || isMobileBreakPoint ? '14px' : '16px'};
+        font-size: ${!isCartPage || isMobileBreakPoint ? "14px" : "16px"};
       `}
       data-cy="out-of-stock-item"
     >

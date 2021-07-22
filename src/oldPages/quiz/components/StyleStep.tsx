@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import MasonryGrid from './MasonryGrid';
-import MasonryTile from './MasonryTile';
-import React from 'react';
-import Header3 from '../../../ui/headers/Header3';
-import Button from '../../../ui/buttons/Button';
-import { QuizStepChoices } from '../store/quiz.types';
-import { images } from './styleStepImages';
+import { css, jsx } from "@emotion/core";
+import MasonryGrid from "./MasonryGrid";
+import MasonryTile from "./MasonryTile";
+import React from "react";
+import Header3 from "../../../ui/headers/Header3";
+import Button from "../../../ui/buttons/Button";
+import { QuizStepChoices } from "../store/quiz.types";
+import { images } from "./styleStepImages";
 
 export interface Props {
   selectedImages: string[];
@@ -25,7 +25,7 @@ class WhyStep extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      selections: props.selectedImages
+      selections: props.selectedImages,
     };
   }
 
@@ -42,11 +42,13 @@ class WhyStep extends React.Component<Props, State> {
     const currentSelection = event.currentTarget.dataset.choice;
 
     if (currentSelection && selections.indexOf(currentSelection) !== -1) {
-      const newSelections = selections.filter((item: string) => item !== currentSelection);
+      const newSelections = selections.filter(
+        (item: string) => item !== currentSelection
+      );
       this.setState({ selections: newSelections });
     } else if (currentSelection) {
       this.setState({
-        selections: [...selections, currentSelection]
+        selections: [...selections, currentSelection],
       });
     }
   };
@@ -64,7 +66,10 @@ class WhyStep extends React.Component<Props, State> {
 
         <div className="quiz-step__options">
           <div className="masonry-container">
-            <MasonryGrid windowWidth={this.props.windowWidth} windowHeight={this.props.windowHeight}>
+            <MasonryGrid
+              windowWidth={this.props.windowWidth}
+              windowHeight={this.props.windowHeight}
+            >
               {images.map((image, id) => {
                 return (
                   <MasonryTile
@@ -91,10 +96,19 @@ class WhyStep extends React.Component<Props, State> {
           `}
           className="quiz-actions-masonry"
         >
-          <Button dataCy="quiz-next-button" isDisabled={buttonDisabled} onClick={this.handleNextStep}>
+          <Button
+            dataCy="quiz-next-button"
+            isDisabled={buttonDisabled}
+            onClick={this.handleNextStep}
+          >
             Next
           </Button>
-          <div role="button" tabIndex={0} className="clickable" onClick={this.props.handleQuizClose}>
+          <div
+            role="button"
+            tabIndex={0}
+            className="clickable"
+            onClick={this.props.handleQuizClose}
+          >
             Close
           </div>
         </div>

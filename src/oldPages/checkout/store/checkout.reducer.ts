@@ -1,4 +1,4 @@
-import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
   processCheckout,
   processCheckoutAmounts,
@@ -8,8 +8,8 @@ import {
   updateSSNInfo,
   changeCheckoutStep,
   toggleDeliverySameAsBilling,
-  depositRequest
-} from './checkout.actions';
+  depositRequest,
+} from "./checkout.actions";
 import {
   CheckoutState,
   ItemUnavailableError,
@@ -19,10 +19,10 @@ import {
   AmountsSuccessPayload,
   CheckoutStateStep,
   CheckoutStep,
-  ChangeStepPayload
-} from './checkout.types';
-import { APIError } from '../../../api/error';
-import { CheckoutFormDataPayload, SSNInfoFields } from './checkoutForms.types';
+  ChangeStepPayload,
+} from "./checkout.types";
+import { APIError } from "../../../api/error";
+import { CheckoutFormDataPayload, SSNInfoFields } from "./checkoutForms.types";
 
 export const initialState: CheckoutState = {
   isPlacingOrder: false,
@@ -48,35 +48,35 @@ export const initialState: CheckoutState = {
   orderTCV: 0,
   step: CheckoutStep.CustomerInfo,
   customerInfo: {
-    firstName: '',
-    lastName: '',
+    firstName: "",
+    lastName: "",
     persona: null,
-    email: '',
-    company: ''
+    email: "",
+    company: "",
   },
   deliveryInfo: {
-    streetAddress: '',
-    apt: '',
-    city: '',
-    state: '',
-    zipcode: '',
-    phone: '',
-    googleDeliveryStreetAddress: ''
+    streetAddress: "",
+    apt: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    phone: "",
+    googleDeliveryStreetAddress: "",
   },
   billingAddressInfo: {
-    billingStreetAddress: '',
-    billingApt: '',
-    billingCity: '',
-    billingState: '',
-    billingPostalCode: '',
-    googleBillingStreetAddress: ''
+    billingStreetAddress: "",
+    billingApt: "",
+    billingCity: "",
+    billingState: "",
+    billingPostalCode: "",
+    googleBillingStreetAddress: "",
   },
   ssnInfo: {
-    ssn: '',
-    legalFirstName: '',
-    legalLastName: ''
+    ssn: "",
+    legalFirstName: "",
+    legalLastName: "",
   },
-  isDeliverySameAsBilling: true
+  isDeliverySameAsBilling: true,
 };
 
 export default createReducer(initialState, {
@@ -100,71 +100,79 @@ export default createReducer(initialState, {
     state.cardError = { error: null };
   },
 
-  [processCheckout.failure.type](state: CheckoutState, { payload: error }: PayloadAction<APIError>) {
+  [processCheckout.failure.type](
+    state: CheckoutState,
+    { payload: error }: PayloadAction<APIError>
+  ) {
     state.isPlacingOrder = false;
     // Encountered an error while placing an order?
     // Let's replace that old Stripe token!
     state.generateNewStripeToken = true;
 
-    if (error.status === 400 && typeof error.body === 'object' && error.body && error.body['data']) {
-      const errorData = error.body['data'];
+    if (
+      error.status === 400 &&
+      typeof error.body === "object" &&
+      error.body &&
+      error.body["data"]
+    ) {
+      const errorData = error.body["data"];
       if (errorData.type && errorData.type === CheckoutErrors.StripeCardError) {
         switch (errorData.code) {
           case StripeErrorCodes.InvalidExpiryYear:
           case StripeErrorCodes.InvalidExpiryMonth:
             state.cardError = {
-              error: UIErrorMessages.InvalidExpirationDate
+              error: UIErrorMessages.InvalidExpirationDate,
             };
             break;
           case StripeErrorCodes.InvalidCVC:
           case StripeErrorCodes.IncorrectCVC:
             state.cardError = {
-              error: UIErrorMessages.InvalidCVC
+              error: UIErrorMessages.InvalidCVC,
             };
             break;
           case StripeErrorCodes.IncorrectNumber:
             state.cardError = {
-              error: UIErrorMessages.InvalidCreditCardNumber
+              error: UIErrorMessages.InvalidCreditCardNumber,
             };
             break;
           case StripeErrorCodes.IncorrectZip:
             state.cardError = {
-              error: UIErrorMessages.InvalidBillingZipCode
+              error: UIErrorMessages.InvalidBillingZipCode,
             };
             break;
           case StripeErrorCodes.CardDeclined:
             state.cardError = {
-              error: UIErrorMessages.CardDeclined
+              error: UIErrorMessages.CardDeclined,
             };
             break;
           case StripeErrorCodes.InsufficientFunds:
             state.cardError = {
-              error: UIErrorMessages.InsufficientFunds
+              error: UIErrorMessages.InsufficientFunds,
             };
             break;
           case StripeErrorCodes.ProcessingError:
             state.cardError = {
-              error: UIErrorMessages.GenericError
+              error: UIErrorMessages.GenericError,
             };
             break;
           case StripeErrorCodes.ExpiredCard:
             state.cardError = {
-              error: UIErrorMessages.ExpiredCard
+              error: UIErrorMessages.ExpiredCard,
             };
             break;
           case StripeErrorCodes.InvalidFunding:
             state.cardError = {
-              error: UIErrorMessages.InvalidFunding
+              error: UIErrorMessages.InvalidFunding,
             };
             break;
           case StripeErrorCodes.NoToken:
             state.cardError = {
-              error: UIErrorMessages.CardTokenError
+              error: UIErrorMessages.CardTokenError,
             };
             break;
           default:
             state.cardError = {
-              error: UIErrorMessages.GenericError
+              error: UIErrorMessages.GenericError,
             };
             break;
         }
@@ -215,7 +223,7 @@ export default createReducer(initialState, {
           case CheckoutErrors.MaxTCVError: {
             state.maxTCVError = {
               maxTCV: errorData.maxTCV,
-              eligibleForDeposit: errorData.eligibleForDeposit
+              eligibleForDeposit: errorData.eligibleForDeposit,
             };
             state.isSSNNotValid = false;
             state.isSSNNotFound = false;
@@ -251,7 +259,10 @@ export default createReducer(initialState, {
     state.depositError = null;
   },
 
-  [depositRequest.failure.type](state: CheckoutState, { payload: error }: PayloadAction<APIError>) {
+  [depositRequest.failure.type](
+    state: CheckoutState,
+    { payload: error }: PayloadAction<APIError>
+  ) {
     state.isSubmittingDeposit = false;
     state.depositError = error;
   },
@@ -272,7 +283,10 @@ export default createReducer(initialState, {
     state.amountError = null;
   },
 
-  [processCheckoutAmounts.success.type](state: CheckoutState, action: PayloadAction<AmountsSuccessPayload>) {
+  [processCheckoutAmounts.success.type](
+    state: CheckoutState,
+    action: PayloadAction<AmountsSuccessPayload>
+  ) {
     state.isFetchingAmount = false;
     state.amountError = null;
     state.taxDueNow = action.payload.taxDueNow;
@@ -285,12 +299,18 @@ export default createReducer(initialState, {
     state.orderTCV = action.payload.orderTCV;
   },
 
-  [processCheckoutAmounts.failure.type](state: CheckoutState, action: PayloadAction<APIError>) {
+  [processCheckoutAmounts.failure.type](
+    state: CheckoutState,
+    action: PayloadAction<APIError>
+  ) {
     state.isFetchingAmount = false;
     state.amountError = action.payload;
   },
 
-  [checkoutStepCompleted.type](state: CheckoutState, { payload }: PayloadAction<CheckoutFormDataPayload>) {
+  [checkoutStepCompleted.type](
+    state: CheckoutState,
+    { payload }: PayloadAction<CheckoutFormDataPayload>
+  ) {
     switch (payload.step) {
       case CheckoutStateStep.CustomerInfo:
         state.customerInfo = payload.data;
@@ -311,7 +331,8 @@ export default createReducer(initialState, {
               billingPostalCode: payload.data.zipcode,
               billingCity: payload.data.city,
               billingState: payload.data.state,
-              googleBillingStreetAddress: payload.data.googleDeliveryStreetAddress
+              googleBillingStreetAddress:
+                payload.data.googleDeliveryStreetAddress,
             });
 
           // Otherwise, send them to the next step in the checkout progression (Billing Address).
@@ -330,7 +351,10 @@ export default createReducer(initialState, {
     }
   },
 
-  [updateSSNInfo.type](state: CheckoutState, action: PayloadAction<SSNInfoFields>) {
+  [updateSSNInfo.type](
+    state: CheckoutState,
+    action: PayloadAction<SSNInfoFields>
+  ) {
     state.ssnInfo = action.payload;
   },
 
@@ -341,11 +365,14 @@ export default createReducer(initialState, {
     state.billingAddressInfo = initialState.billingAddressInfo;
   },
 
-  [changeCheckoutStep.type](state: CheckoutState, { payload }: PayloadAction<ChangeStepPayload>) {
+  [changeCheckoutStep.type](
+    state: CheckoutState,
+    { payload }: PayloadAction<ChangeStepPayload>
+  ) {
     state.step = payload.step;
   },
 
   [toggleDeliverySameAsBilling.type](state: CheckoutState) {
     state.isDeliverySameAsBilling = !state.isDeliverySameAsBilling;
-  }
+  },
 });

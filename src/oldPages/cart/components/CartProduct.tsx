@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { CartItem } from '../store/cart.types';
-import { OutOfStock } from './OutOfStock';
-import FixedSizeImage from '../../../ui/images/FixedSizeImage';
-import { removeCartItem } from '../store/cart.actions';
-import { BREAKPOINTS, SHADES } from '../../../ui/variables';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import Caption from '../../../ui/captions/Caption';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { CartItem } from "../store/cart.types";
+import { OutOfStock } from "./OutOfStock";
+import FixedSizeImage from "../../../ui/images/FixedSizeImage";
+import { removeCartItem } from "../store/cart.actions";
+import { BREAKPOINTS, SHADES } from "../../../ui/variables";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import Caption from "../../../ui/captions/Caption";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
 
 const ItemPrice = styled(Paragraph2)`
   text-align: right;
@@ -62,34 +62,52 @@ interface Props {
   isMobileBreakpoint: boolean;
 }
 
-const CartProduct = ({ product, isItemUnavailable, isMobileBreakpoint }: Props) => {
+const CartProduct = ({
+  product,
+  isItemUnavailable,
+  isMobileBreakpoint,
+}: Props) => {
   const dispatch = useDispatch();
-  const packagesOrProducts = product.type === 'bundle' ? 'packages' : 'products';
+  const packagesOrProducts =
+    product.type === "bundle" ? "packages" : "products";
   return (
     <CartPageProduct>
       <Product>
         <Link to={`/${packagesOrProducts}/${product.identifier}`}>
-          <FixedSizeImage src={product.image.mobile || product.image.desktop || ''} width={80} height={80} />
+          <FixedSizeImage
+            src={product.image.mobile || product.image.desktop || ""}
+            width={80}
+            height={80}
+          />
         </Link>
 
         <ProductInfo>
           <Link to={`/${packagesOrProducts}/${product.identifier}`}>
             <Paragraph2>{product.title}</Paragraph2>
             <Caption color={SHADES.SHADE_LIGHT}>
-              {product.type !== 'bundle' && !product.variantName.length ? 'One Size' : product.variantName}
+              {product.type !== "bundle" && !product.variantName.length
+                ? "One Size"
+                : product.variantName}
             </Caption>
           </Link>
 
-          {isItemUnavailable && isMobileBreakpoint && <OutOfStock isMobileBreakPoint={true} isCartPage={true} />}
+          {isItemUnavailable && isMobileBreakpoint && (
+            <OutOfStock isMobileBreakPoint={true} isCartPage={true} />
+          )}
         </ProductInfo>
       </Product>
       <RemoveButtonAndItemPrice>
-        <Button style={ButtonStyle.COMPACT_TEXT} onClick={() => dispatch(removeCartItem(product))}>
+        <Button
+          style={ButtonStyle.COMPACT_TEXT}
+          onClick={() => dispatch(removeCartItem(product))}
+        >
           Remove
         </Button>
         <ItemPrice>
           ${product.quantity * product.rentalPrices[product.rentalLength]}/mo
-          {isItemUnavailable && !isMobileBreakpoint && <OutOfStock isMobileBreakPoint={false} isCartPage={true} />}
+          {isItemUnavailable && !isMobileBreakpoint && (
+            <OutOfStock isMobileBreakPoint={false} isCartPage={true} />
+          )}
         </ItemPrice>
       </RemoveButtonAndItemPrice>
     </CartPageProduct>

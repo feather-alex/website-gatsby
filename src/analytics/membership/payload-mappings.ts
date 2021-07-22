@@ -1,3 +1,7 @@
-export const openOverlayPayloadMappings = ({ product }: { product: string }) => ({
-  product_identifier: product
+export const openOverlayPayloadMappings = ({
+  product,
+}: {
+  product: string;
+}) => ({
+  product_identifier: product,
 });

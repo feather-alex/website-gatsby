@@ -1,18 +1,21 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { css, jsx } from "@emotion/core";
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
 
-import { Overlays } from '../../../../../app/store/overlay/overlay.types';
-import { getIsMobileBreakpoint } from '../../../../../app/store/dimensions/dimensions.selectors';
-import { getDeliveryAreaIdentifier } from '../../../../../app/store/plan/plan.selectors';
-import { toggleOverlay, ToggleOverlay } from '../../../../../app/store/overlay/overlay.actions';
-import { getIsProductInfoOverlayOpen } from '../../../../../app/store/overlay/overlay.selectors';
-import { PkgItem } from '../../../../../types/Package';
-import { State as GlobalState } from '../../../../../types/ReduxState';
-import ProductInfoModal from '../ProductInfoModal';
-import PackageItemsDisplay from '../PackageItemsDisplay';
-import { DeliveryAreaIdentifier } from '../../../../../app/store/plan/plan.types';
+import { Overlays } from "../../../../../app/store/overlay/overlay.types";
+import { getIsMobileBreakpoint } from "../../../../../app/store/dimensions/dimensions.selectors";
+import { getDeliveryAreaIdentifier } from "../../../../../app/store/plan/plan.selectors";
+import {
+  toggleOverlay,
+  ToggleOverlay,
+} from "../../../../../app/store/overlay/overlay.actions";
+import { getIsProductInfoOverlayOpen } from "../../../../../app/store/overlay/overlay.selectors";
+import { PkgItem } from "../../../../../types/Package";
+import { State as GlobalState } from "../../../../../types/ReduxState";
+import ProductInfoModal from "../ProductInfoModal";
+import PackageItemsDisplay from "../PackageItemsDisplay";
+import { DeliveryAreaIdentifier } from "../../../../../app/store/plan/plan.types";
 
 interface StateProps {
   deliveryAreaIdentifier: DeliveryAreaIdentifier | null;
@@ -41,13 +44,13 @@ interface State {
 
 class QuizResultsIncludes extends React.Component<Props, State> {
   public readonly state: Readonly<State> = {
-    selectedPkgItem: null
+    selectedPkgItem: null,
   };
 
   handleOpenProductInfo = (selectedItem: PkgItem) => {
     this.setState(
       {
-        selectedPkgItem: selectedItem
+        selectedPkgItem: selectedItem,
       },
       () => {
         this.props.dispatchToggleOverlay(Overlays.ProductInfoOverlay, true);
@@ -58,7 +61,7 @@ class QuizResultsIncludes extends React.Component<Props, State> {
   handleCloseProductInfo = (overlay: Overlays, isOpen: false) => {
     this.setState(
       {
-        selectedPkgItem: null
+        selectedPkgItem: null,
       },
       () => {
         this.props.dispatchToggleOverlay(overlay, isOpen);
@@ -75,7 +78,7 @@ class QuizResultsIncludes extends React.Component<Props, State> {
       deliveryAreaIdentifier,
       isItemSwappable,
       handleSwapItem,
-      selectedItemsQuantity
+      selectedItemsQuantity,
     } = this.props;
 
     return (
@@ -92,7 +95,7 @@ class QuizResultsIncludes extends React.Component<Props, State> {
         <section
           css={css`
             width: ${isMobileBreakpoint ? 100 : 50}%;
-            ${!isMobileBreakpoint && 'padding-left: 9vw'};
+            ${!isMobileBreakpoint && "padding-left: 9vw"};
           `}
         >
           <PackageItemsDisplay
@@ -114,11 +117,14 @@ class QuizResultsIncludes extends React.Component<Props, State> {
 const mapStateToProps = (state: GlobalState): StateProps => ({
   deliveryAreaIdentifier: getDeliveryAreaIdentifier(state),
   isMobileBreakpoint: getIsMobileBreakpoint(state),
-  isProductInfoOverlayOpen: getIsProductInfoOverlayOpen(state)
+  isProductInfoOverlayOpen: getIsProductInfoOverlayOpen(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
-  dispatchToggleOverlay: toggleOverlay
+  dispatchToggleOverlay: toggleOverlay,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuizResultsIncludes);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QuizResultsIncludes);

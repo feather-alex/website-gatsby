@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import React, { useEffect, useRef, useState } from 'react';
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import Subheader2 from '../../../ui/subheaders/Subheader2';
-import FixedSizeImage from '../../../ui/images/FixedSizeImage';
-import Paragraph1 from '../../../ui/paragraphs/Paragraph1';
-import Caption from '../../../ui/captions/Caption';
-import { BREAKPOINTS, SHADES, BRAND } from '../../../ui/variables';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { CartItem } from '../../cart/store/cart.types';
-import { formatCurrency } from '../store/checkout.service';
-import { CachedCartItem } from './UnderwritingReduceCartDeposit';
-import { getCartItemImage } from '../../cart/store/cart.utils';
+import React, { useEffect, useRef, useState } from "react";
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import Subheader2 from "../../../ui/subheaders/Subheader2";
+import FixedSizeImage from "../../../ui/images/FixedSizeImage";
+import Paragraph1 from "../../../ui/paragraphs/Paragraph1";
+import Caption from "../../../ui/captions/Caption";
+import { BREAKPOINTS, SHADES, BRAND } from "../../../ui/variables";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { CartItem } from "../../cart/store/cart.types";
+import { formatCurrency } from "../store/checkout.service";
+import { CachedCartItem } from "./UnderwritingReduceCartDeposit";
+import { getCartItemImage } from "../../cart/store/cart.utils";
 
 const ItemContent = styled.div`
   display: flex;
@@ -25,14 +25,19 @@ interface CartItemProps {
   onToggleRemoveItem: (cacheId: string) => void;
 }
 
-const CartItem = ({ item, onToggleRemoveItem, isRemoved, rentalLength }: CartItemProps) => {
+const CartItem = ({
+  item,
+  onToggleRemoveItem,
+  isRemoved,
+  rentalLength,
+}: CartItemProps) => {
   return (
     <li
       css={css`
         display: flex;
         height: 118px;
         padding: 16px;
-        background: ${isRemoved ? 'rgba(255, 255, 255, 0.5)' : SHADES.WHITE};
+        background: ${isRemoved ? "rgba(255, 255, 255, 0.5)" : SHADES.WHITE};
         margin-bottom: 4px;
         display: flex;
         justify-content: space-between;
@@ -44,7 +49,11 @@ const CartItem = ({ item, onToggleRemoveItem, isRemoved, rentalLength }: CartIte
             opacity: ${isRemoved ? 0.5 : 1};
           `}
         >
-          <FixedSizeImage src={getCartItemImage(item.image)} width={86} height={86} />
+          <FixedSizeImage
+            src={getCartItemImage(item.image)}
+            width={86}
+            height={86}
+          />
         </span>
 
         <span
@@ -52,7 +61,9 @@ const CartItem = ({ item, onToggleRemoveItem, isRemoved, rentalLength }: CartIte
             padding-left: 20px;
           `}
         >
-          <Paragraph1 color={isRemoved ? BRAND.ACCENT : BRAND.PRIMARY_TEXT}>{item.title}</Paragraph1>
+          <Paragraph1 color={isRemoved ? BRAND.ACCENT : BRAND.PRIMARY_TEXT}>
+            {item.title}
+          </Paragraph1>
           <Caption
             css={css`
               color: ${BRAND.ACCENT};
@@ -88,7 +99,7 @@ const CartItem = ({ item, onToggleRemoveItem, isRemoved, rentalLength }: CartIte
           `}
           dataCy="remove-add-back-button"
         >
-          {isRemoved ? 'Add Back' : 'Remove'}
+          {isRemoved ? "Add Back" : "Remove"}
         </Button>
         <Paragraph1
           css={css`
@@ -153,8 +164,8 @@ const LockingSubheader = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', checkHeight);
-    return () => window.removeEventListener('scroll', checkHeight);
+    window.addEventListener("scroll", checkHeight);
+    return () => window.removeEventListener("scroll", checkHeight);
   }, []);
 
   return (
@@ -173,7 +184,11 @@ const LockingSubheader = ({ children }: { children: React.ReactNode }) => {
             z-index: 2;
             padding-top: 24px;
             padding-bottom: 42px;
-            background: linear-gradient(180deg, ${BRAND.BACKGROUND} 60%, rgba(255, 255, 255, 0) 100%);
+            background: linear-gradient(
+              180deg,
+              ${BRAND.BACKGROUND} 60%,
+              rgba(255, 255, 255, 0) 100%
+            );
           `};
         `}
       >
@@ -197,7 +212,7 @@ const RemoveCartItems = ({
   removedCartItems,
   amountNeededToRemoveTotal,
   rentalLength,
-  monthlyFurnitureTotal
+  monthlyFurnitureTotal,
 }: Props) => {
   let neededTotal = amountNeededToRemoveTotal;
   if (amountNeededToRemoveTotal < 0) {

@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { BRAND } from '../../../../ui/variables';
+import styled from "@emotion/styled";
+import { BRAND } from "../../../../ui/variables";
 
 export const ScrollableContainer = styled.div`
   flex: 1 1;
@@ -21,7 +21,11 @@ export const FixedFooterContainer = styled.div`
 export const FooterFade = styled.div`
   position: fixed;
   bottom: ${({ bottom }: { bottom: number }) => bottom}px;
-  background: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 0, ${BRAND.BACKGROUND} 70%);
+  background: linear-gradient(
+    180deg,
+    hsla(0, 0%, 100%, 0) 0,
+    ${BRAND.BACKGROUND} 70%
+  );
   height: 60px;
   width: 100%;
 `;

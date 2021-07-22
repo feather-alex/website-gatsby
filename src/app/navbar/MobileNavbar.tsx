@@ -1,18 +1,18 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { Fragment, useState } from 'react';
-import { BRAND } from '../../ui/variables';
-import FeatherLogo from '../../ui/logos/FeatherWordMarkLogo';
-import CartNavListItem from './components/CartNavListItem';
-import HamburgerMenu from './components/HamburgerMenu';
-import MobileNavOverlay from './components/MobileNavOverlay';
-import CloseSignIcon from '../../ui/icons/CloseSignIcon';
-import { NAVBAR_MOBILE_HEIGHT } from '../store/dimensions/dimensions.selectors';
-import SearchIcon from '../../ui/icons/SearchIcon';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import { Z_INDICIES } from '../../ui/zIndicies';
-import useMount from '../../utils/useMount';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { Fragment, useState } from "react";
+import { BRAND } from "../../ui/variables";
+import FeatherLogo from "../../ui/logos/FeatherWordMarkLogo";
+import CartNavListItem from "./components/CartNavListItem";
+import HamburgerMenu from "./components/HamburgerMenu";
+import MobileNavOverlay from "./components/MobileNavOverlay";
+import CloseSignIcon from "../../ui/icons/CloseSignIcon";
+import { NAVBAR_MOBILE_HEIGHT } from "../store/dimensions/dimensions.selectors";
+import SearchIcon from "../../ui/icons/SearchIcon";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import { Z_INDICIES } from "../../ui/zIndicies";
+import useMount from "../../utils/useMount";
 
 type FakeNavbarProps = {
   isBoxShadowActive: boolean;
@@ -30,7 +30,8 @@ const FakeNavbar = styled.div`
   transition: box-shadow 200ms linear;
   z-index: ${Z_INDICIES.PSEUDO_NAVBAR};
   top: ${(props: FakeNavbarProps) => props.top}px;
-  box-shadow: ${(props: FakeNavbarProps) => (props.isBoxShadowActive ? `0px 4px 8px rgba(0, 0, 0, 0.08)` : 'none')};
+  box-shadow: ${(props: FakeNavbarProps) =>
+    props.isBoxShadowActive ? `0px 4px 8px rgba(0, 0, 0, 0.08)` : "none"};
 `;
 
 const BaseNavbar = styled.div`
@@ -102,16 +103,16 @@ const MobileNavbar = ({
   toggleMiniCartOverlay,
   toggleMobileNavOverlay,
   bodyMarginTop,
-  bannerHeight
+  bannerHeight,
 }: Props) => {
   const top = isBannerVisible ? bannerHeight : 0;
   const [isShadowVisible, setIsShadowVisible] = useState(false);
   const handleScroll = () => setIsShadowVisible(window.scrollY > 0);
 
   useMount(() => {
-    document.addEventListener('scroll', handleScroll);
+    document.addEventListener("scroll", handleScroll);
     return () => {
-      document.removeEventListener('scroll', handleScroll);
+      document.removeEventListener("scroll", handleScroll);
     };
   });
 
@@ -129,7 +130,10 @@ const MobileNavbar = ({
                   margin-top: 5px;
                 `}
               >
-                <CloseSignIcon dataCy="close-nav" onClick={toggleMobileNavOverlay} />
+                <CloseSignIcon
+                  dataCy="close-nav"
+                  onClick={toggleMobileNavOverlay}
+                />
               </div>
             ) : (
               <HamburgerMenu onClick={toggleMobileNavOverlay} />
@@ -143,11 +147,15 @@ const MobileNavbar = ({
               dataCy="nav-search"
               style={ButtonStyle.COMPACT}
               to="/search"
-              onClick={handleNavLinkClick('search button')}
+              onClick={handleNavLinkClick("search button")}
             >
               <SearchIcon />
             </Button>
-            <CartNavListItem dataCy="nav-cart" totalItems={totalItems} toggleMiniCart={toggleMiniCartOverlay} />
+            <CartNavListItem
+              dataCy="nav-cart"
+              totalItems={totalItems}
+              toggleMiniCart={toggleMiniCartOverlay}
+            />
           </SideIconSearch>
         </IconsContainer>
       </BaseNavbar>

@@ -39,8 +39,8 @@ export interface PersonalInfoResource {
 }
 
 export enum ValidationMessage {
-  requirePhone = 'Phone is required',
-  invalidPhone = 'Phone is invalid'
+  requirePhone = "Phone is required",
+  invalidPhone = "Phone is invalid",
 }
 
 export interface PersonalInfoRequestResource {

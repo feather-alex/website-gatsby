@@ -1,5 +1,5 @@
-declare module 'react-router-hash-link' {
-  import React from 'react';
+declare module "react-router-hash-link" {
+  import React from "react";
 
   interface HashEl {
     scrollIntoView: Function;

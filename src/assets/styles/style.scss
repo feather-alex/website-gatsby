@@ -1,5 +1,5 @@
-@import 'variables.scss';
-@import 'bootstrap.min.css';
+@import "variables.scss";
+@import "bootstrap.min.css";
 
 h1,
 h2,
@@ -242,7 +242,7 @@ a {
   background-color: transparent;
 }
 
-div[role='dialog'] {
+div[role="dialog"] {
   z-index: 1039;
 
   &.modal {
@@ -413,7 +413,7 @@ div:focus {
 
   &:before,
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -2px;
     width: 0px;
@@ -580,23 +580,23 @@ div:focus {
   fill: $text-color;
 }
 
-@import 'fonts.scss';
-@import 'transitions.scss';
-@import 'product-card.scss';
-@import 'quiz-overlay.scss';
-@import 'quiz-masonry.scss';
-@import 'product-info-modal.scss';
-@import 'edit-package-modal.scss';
-@import 'checkout-page.scss';
-@import 'account-page.scss';
-@import 'custom-elements.scss';
-@import 'four-oh-four.scss';
-@import 'utility-page.scss';
-@import 'out-of-zone-modal.scss';
-@import 'content.scss';
-@import 'checkout-order-summary.scss';
-@import 'personal-information.scss';
-@import 'account-history.scss';
-@import 'billing-information.scss';
-@import 'upcoming-delivery.scss';
-@import 'plan-and-billing.scss';
+@import "fonts.scss";
+@import "transitions.scss";
+@import "product-card.scss";
+@import "quiz-overlay.scss";
+@import "quiz-masonry.scss";
+@import "product-info-modal.scss";
+@import "edit-package-modal.scss";
+@import "checkout-page.scss";
+@import "account-page.scss";
+@import "custom-elements.scss";
+@import "four-oh-four.scss";
+@import "utility-page.scss";
+@import "out-of-zone-modal.scss";
+@import "content.scss";
+@import "checkout-order-summary.scss";
+@import "personal-information.scss";
+@import "account-history.scss";
+@import "billing-information.scss";
+@import "upcoming-delivery.scss";
+@import "plan-and-billing.scss";

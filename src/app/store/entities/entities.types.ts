@@ -1,4 +1,4 @@
-import { APIError } from '../../../types/ReduxState';
+import { APIError } from "../../../types/ReduxState";
 
 export interface IdName {
   identifier: string;

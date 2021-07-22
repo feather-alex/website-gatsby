@@ -1,51 +1,54 @@
-import { MobileNavContentRequestPayload, MobileNavContentSuccessPayload } from './navbar.types';
-import { APIError } from '../../../api/error';
+import {
+  MobileNavContentRequestPayload,
+  MobileNavContentSuccessPayload,
+} from "./navbar.types";
+import { APIError } from "../../../api/error";
 
 export const mockRequestPayload: MobileNavContentRequestPayload = {
-  id: 'ID'
+  id: "ID",
 };
 
 export const mockError: APIError = {
-  name: 'error',
-  error: 'error',
+  name: "error",
+  error: "error",
   status: 404,
-  message: 'error'
+  message: "error",
 };
 
 export const mockSuccessPayload: MobileNavContentSuccessPayload = {
   categories: [
     {
-      name: 'test',
+      name: "test",
       image: {
-        url: 'test',
+        url: "test",
         details: {
-          size: 123
+          size: 123,
         },
-        fileName: 'test',
-        contentType: 'test'
+        fileName: "test",
+        contentType: "test",
       },
-      link: '/test',
-      designWithArrow: false
-    }
-  ]
+      link: "/test",
+      designWithArrow: false,
+    },
+  ],
 };
 
 export const mockContentfulNavCategoryDirectLink = {
-  name: 'test',
+  name: "test",
   image: {
     fields: {
       file: {
-        url: 'test',
+        url: "test",
         details: {
-          size: 123
+          size: 123,
         },
-        fileName: 'test',
-        contentType: 'test'
-      }
-    }
+        fileName: "test",
+        contentType: "test",
+      },
+    },
   },
-  link: '/test',
-  designWithArrow: false
+  link: "/test",
+  designWithArrow: false,
 };
 
 export const mockContentfulResponse = {
@@ -54,10 +57,10 @@ export const mockContentfulResponse = {
       fields: {
         categories: [
           {
-            fields: mockContentfulNavCategoryDirectLink
-          }
-        ]
-      }
-    }
-  ]
+            fields: mockContentfulNavCategoryDirectLink,
+          },
+        ],
+      },
+    },
+  ],
 };

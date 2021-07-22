@@ -1,14 +1,18 @@
-import { APIError } from '../../../types/ReduxState';
-import * as actions from './plan.actions';
-import { ZipcodeRequestResource, ZipcodeResponseResource, MembershipState } from './plan.types';
+import { APIError } from "../../../types/ReduxState";
+import * as actions from "./plan.actions";
+import {
+  ZipcodeRequestResource,
+  ZipcodeResponseResource,
+  MembershipState,
+} from "./plan.types";
 
-describe('Plan - Actions', () => {
-  it('should create an action to select the membership plan', () => {
+describe("Plan - Actions", () => {
+  it("should create an action to select the membership plan", () => {
     const membershipState = MembershipState.MEMBER;
 
     const expectedAction: actions.PlanActionTypes = {
       type: actions.CHANGE_MEMBERSHIP_SELECTION,
-      payload: { membershipState }
+      payload: { membershipState },
     };
 
     const action = actions.changeMembershipSelection(membershipState);
@@ -16,12 +20,12 @@ describe('Plan - Actions', () => {
     expect(action).toEqual(expectedAction);
   });
 
-  it('should create an action to select the non membership plan', () => {
+  it("should create an action to select the non membership plan", () => {
     const membershipState = MembershipState.NON_MEMBER;
 
     const expectedAction: actions.PlanActionTypes = {
       type: actions.CHANGE_MEMBERSHIP_SELECTION,
-      payload: { membershipState }
+      payload: { membershipState },
     };
 
     const action = actions.changeMembershipSelection(membershipState);
@@ -29,14 +33,14 @@ describe('Plan - Actions', () => {
     expect(action).toEqual(expectedAction);
   });
 
-  it('should create a zipcode submit action', () => {
+  it("should create a zipcode submit action", () => {
     const zipcode: ZipcodeRequestResource = {
-      zipcode: '10023'
+      zipcode: "10023",
     };
 
     const expectedAction: actions.PlanActionTypes = {
       type: actions.ZIPCODE_SUBMIT_REQUEST,
-      payload: zipcode
+      payload: zipcode,
     };
 
     const action = actions.zipcodeSubmit(zipcode);
@@ -44,15 +48,15 @@ describe('Plan - Actions', () => {
     expect(action).toEqual(expectedAction);
   });
 
-  it('should create a zipcode submit success action', () => {
+  it("should create a zipcode submit success action", () => {
     const postalData: ZipcodeResponseResource = {
-      postal: '10023',
-      identifier: 'new-york'
+      postal: "10023",
+      identifier: "new-york",
     };
 
     const expectedAction: actions.PlanActionTypes = {
       type: actions.ZIPCODE_SUBMIT_SUCCESS,
-      payload: { postalData }
+      payload: { postalData },
     };
 
     const action = actions.zipcodeSubmitSuccess(postalData);
@@ -60,16 +64,16 @@ describe('Plan - Actions', () => {
     expect(action).toEqual(expectedAction);
   });
 
-  it('should create a zipcode submit failure action', () => {
+  it("should create a zipcode submit failure action", () => {
     const error: APIError = {
-      error: 'This is an error',
-      message: 'Something bad happened',
-      status: 400
+      error: "This is an error",
+      message: "Something bad happened",
+      status: 400,
     };
 
     const expectedAction: actions.PlanActionTypes = {
       type: actions.ZIPCODE_SUBMIT_FAILURE,
-      payload: { error }
+      payload: { error },
     };
 
     const action = actions.zipcodeSubmitFailure(error);
@@ -77,9 +81,9 @@ describe('Plan - Actions', () => {
     expect(action).toEqual(expectedAction);
   });
 
-  it('should create a reset zipcode action', () => {
+  it("should create a reset zipcode action", () => {
     const expectedAction: actions.PlanActionTypes = {
-      type: actions.RESET_ZIPCODE
+      type: actions.RESET_ZIPCODE,
     };
 
     const action = actions.resetZipcode();
@@ -87,9 +91,9 @@ describe('Plan - Actions', () => {
     expect(action).toEqual(expectedAction);
   });
 
-  it('should create a reset plan selection action', () => {
+  it("should create a reset plan selection action", () => {
     const expectedAction: actions.PlanActionTypes = {
-      type: actions.RESET_SELECTION
+      type: actions.RESET_SELECTION,
     };
 
     const action = actions.resetSelection();

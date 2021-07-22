@@ -1,3 +1,3 @@
 export const FOOTER = {
-  CLICK_CTA: 'Footer Link Clicked'
+  CLICK_CTA: "Footer Link Clicked",
 };

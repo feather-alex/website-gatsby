@@ -1,4 +1,4 @@
-import { CheckoutStateStep } from './checkout.types';
+import { CheckoutStateStep } from "./checkout.types";
 
 export interface CustomerInfoFields {
   firstName: string;
@@ -33,9 +33,15 @@ export interface SSNInfoFields {
   legalLastName?: string;
 }
 
-export type CheckoutStepDataOptions = CustomerInfoFields | DeliveryInfoFields | BillingAddressInfoFields;
+export type CheckoutStepDataOptions =
+  | CustomerInfoFields
+  | DeliveryInfoFields
+  | BillingAddressInfoFields;
 
-export type CheckoutStepAction<T = CheckoutStateStep, C = CheckoutStepDataOptions> = {
+export type CheckoutStepAction<
+  T = CheckoutStateStep,
+  C = CheckoutStepDataOptions
+> = {
   step: T;
   data: C;
 };
@@ -43,4 +49,7 @@ export type CheckoutStepAction<T = CheckoutStateStep, C = CheckoutStepDataOption
 export type CheckoutFormDataPayload =
   | CheckoutStepAction<CheckoutStateStep.CustomerInfo, CustomerInfoFields>
   | CheckoutStepAction<CheckoutStateStep.DeliveryInfo, DeliveryInfoFields>
-  | CheckoutStepAction<CheckoutStateStep.BillingAddress, BillingAddressInfoFields>;
+  | CheckoutStepAction<
+      CheckoutStateStep.BillingAddress,
+      BillingAddressInfoFields
+    >;

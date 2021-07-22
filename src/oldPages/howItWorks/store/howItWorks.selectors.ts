@@ -1,4 +1,4 @@
-import { State as GlobalState } from '../../../types/ReduxState';
+import { State as GlobalState } from "../../../types/ReduxState";
 
 export const getFAQs = ({ howItWorks }: GlobalState) => howItWorks.faqs;
 
@@ -10,4 +10,5 @@ export const getError = ({ howItWorks }: GlobalState) => howItWorks.error;
 
 export const getHeader = ({ howItWorks }: GlobalState) => howItWorks.header;
 
-export const getIsFetching = ({ howItWorks }: GlobalState) => howItWorks.isFetching;
+export const getIsFetching = ({ howItWorks }: GlobalState) =>
+  howItWorks.isFetching;

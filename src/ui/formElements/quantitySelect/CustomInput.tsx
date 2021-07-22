@@ -26,17 +26,16 @@ export default function CustomInput({ handleUpdate }: Props) {
     }
   };
 
-  const handleKeydown = (trigger: "Escape" | "Tab") => (
-    e: KeyboardEvent | ReactKeyboardEvent
-  ) => {
-    if (e.key === trigger) {
-      if (trigger === "Tab" && customValue) {
-        handleUpdate({ label: customValue.toString(), value: customValue });
-      } else {
-        handleUpdate({ label: "1", value: 1 });
+  const handleKeydown =
+    (trigger: "Escape" | "Tab") => (e: KeyboardEvent | ReactKeyboardEvent) => {
+      if (e.key === trigger) {
+        if (trigger === "Tab" && customValue) {
+          handleUpdate({ label: customValue.toString(), value: customValue });
+        } else {
+          handleUpdate({ label: "1", value: 1 });
+        }
       }
-    }
-  };
+    };
 
   useMount(() => {
     document.addEventListener("keydown", handleKeydown("Escape"));

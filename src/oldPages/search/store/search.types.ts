@@ -1,6 +1,6 @@
-import { ProductForListing } from '../../../types/Product';
-import { PackageForListing } from '../../../types/Package';
-import { APIError } from '../../../types/ReduxState';
+import { ProductForListing } from "../../../types/Product";
+import { PackageForListing } from "../../../types/Package";
+import { APIError } from "../../../types/ReduxState";
 
 interface SearchProducts {
   total: number;

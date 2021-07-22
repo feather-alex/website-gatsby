@@ -1,20 +1,30 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { useSelector, useDispatch } from 'react-redux';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import { getDeliveryAreaIdentifier, getMembershipState } from '../../../app/store/plan/plan.selectors';
-import Loading from '../../../components/Loading';
-import Header2 from '../../../ui/headers/Header2';
-import ItemCard, { DescriptionDisplay, ItemType } from '../../../ui/products/ItemCard';
-import { MembershipState } from '../../../app/store/plan/plan.types';
-import { isThereAVariantPriceDifference } from '../../productListing/productList.service';
-import { getProductPairingsRequest } from '../store/productPairings/productPairings.actions';
-import { getProductPairing, getError, getIsFetching } from '../store/productPairings/productPairings.selectors';
-import { BRAND, SHADES } from '../../../ui/variables';
-import useMount from '../../../utils/useMount';
-import Analytics from '../../../analytics/analytics';
-import { DETAILS_PAGE } from '../../../analytics/details-page/events';
-import { clickRelatedItemPayloadMapping } from '../../../analytics/details-page/payload-mappings';
+import { css, jsx } from "@emotion/core";
+import { useSelector, useDispatch } from "react-redux";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import {
+  getDeliveryAreaIdentifier,
+  getMembershipState,
+} from "../../../app/store/plan/plan.selectors";
+import Loading from "../../../components/Loading";
+import Header2 from "../../../ui/headers/Header2";
+import ItemCard, {
+  DescriptionDisplay,
+  ItemType,
+} from "../../../ui/products/ItemCard";
+import { MembershipState } from "../../../app/store/plan/plan.types";
+import { isThereAVariantPriceDifference } from "../../productListing/productList.service";
+import { getProductPairingsRequest } from "../store/productPairings/productPairings.actions";
+import {
+  getProductPairing,
+  getError,
+  getIsFetching,
+} from "../store/productPairings/productPairings.selectors";
+import { BRAND, SHADES } from "../../../ui/variables";
+import useMount from "../../../utils/useMount";
+import Analytics from "../../../analytics/analytics";
+import { DETAILS_PAGE } from "../../../analytics/details-page/events";
+import { clickRelatedItemPayloadMapping } from "../../../analytics/details-page/payload-mappings";
 
 interface Props {
   productIdentifiers: string[];
@@ -35,13 +45,16 @@ const ProductPairings = ({ productIdentifiers, categoryIdentifier }: Props) => {
     const requestBody = {
       identifiers: productIdentifiers,
       categoryIdentifier,
-      ...(deliveryArea && { deliveryArea })
+      ...(deliveryArea && { deliveryArea }),
     };
 
     dispatch(getProductPairingsRequest(requestBody));
   });
 
-  if (apiError || (!isFetching && (!productPairings || productPairings.length === 0))) {
+  if (
+    apiError ||
+    (!isFetching && (!productPairings || productPairings.length === 0))
+  ) {
     return null;
   }
 
@@ -56,7 +69,9 @@ const ProductPairings = ({ productIdentifiers, categoryIdentifier }: Props) => {
         flex-direction: column;
         align-items: center;
         background-color: ${BRAND.BACKGROUND};
-        ${isMobileBreakpoint ? 'padding: 64px 24px 80px' : 'padding: 112px 32px 144px'};
+        ${isMobileBreakpoint
+          ? "padding: 64px 24px 80px"
+          : "padding: 112px 32px 144px"};
       `}
     >
       <Header2>Complete the look</Header2>
@@ -64,9 +79,9 @@ const ProductPairings = ({ productIdentifiers, categoryIdentifier }: Props) => {
       <div
         data-cy="product-pairings"
         css={css`
-          padding: ${isMobileBreakpoint ? '48px 48px 0' : '64px 164px 0'};
+          padding: ${isMobileBreakpoint ? "48px 48px 0" : "64px 164px 0"};
           ${isMobileBreakpoint
-            ? 'max-width: 664px;'
+            ? "max-width: 664px;"
             : `display: flex;
               flex-direction: row;
               justify-content: center;
@@ -88,7 +103,9 @@ const ProductPairings = ({ productIdentifiers, categoryIdentifier }: Props) => {
               featherPrice={featherPrice}
               isMobileBreakpoint={isMobileBreakpoint}
               itemType={ItemType.Product}
-              shouldShowFromPrice={isThereAVariantPriceDifference(product.variants)}
+              shouldShowFromPrice={isThereAVariantPriceDifference(
+                product.variants
+              )}
               listingImage={product.variants[0].listingImage}
               key={product.identifier}
               name={product.title}
@@ -98,7 +115,7 @@ const ProductPairings = ({ productIdentifiers, categoryIdentifier }: Props) => {
                   DETAILS_PAGE.CLICK_RELATED,
                   clickRelatedItemPayloadMapping({
                     currentItemIdentifier: productIdentifiers[0],
-                    relatedItemIdentifier: product.identifier
+                    relatedItemIdentifier: product.identifier,
                   })
                 )
               }

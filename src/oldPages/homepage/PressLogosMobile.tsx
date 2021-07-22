@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from "@emotion/core";
 
-import Header4 from '../../ui/headers/Header4';
-import ForbesLogo from '../../ui/logos/pressLogos/ForbesLogo';
-import NYTimesLogo from '../../ui/logos/pressLogos/NYTimesLogo';
-import Refinery29Logo from '../../ui/logos/pressLogos/Refinery29Logo';
-import TechCrunchLogo from '../../ui/logos/pressLogos/TechCrunchLogo';
-import VogueLogo from '../../ui/logos/pressLogos/VogueLogo';
+import Header4 from "../../ui/headers/Header4";
+import ForbesLogo from "../../ui/logos/pressLogos/ForbesLogo";
+import NYTimesLogo from "../../ui/logos/pressLogos/NYTimesLogo";
+import Refinery29Logo from "../../ui/logos/pressLogos/Refinery29Logo";
+import TechCrunchLogo from "../../ui/logos/pressLogos/TechCrunchLogo";
+import VogueLogo from "../../ui/logos/pressLogos/VogueLogo";
 
 const PressLogosMobile = () => {
   return (

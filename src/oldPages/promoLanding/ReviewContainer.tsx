@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
-import StarIcon from '../../ui/icons/FiveStarIcon';
-import Title2 from '../../ui/titles/Title2';
+import { css, jsx } from "@emotion/core";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
+import StarIcon from "../../ui/icons/FiveStarIcon";
+import Title2 from "../../ui/titles/Title2";
 
 interface Props {
   review: string;

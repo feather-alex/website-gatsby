@@ -1,15 +1,19 @@
 /** @jsx jsx */
-import { useSelector } from 'react-redux';
-import { jsx, css } from '@emotion/core';
-import styled from '@emotion/styled';
-import BaseImage from '../../../ui/images/BaseImage';
-import Header2 from '../../../ui/headers/Header2';
-import Paragraph1 from '../../../ui/paragraphs/Paragraph1';
-import { ProductDimension, ProductBrand, ProductMaterial } from '../../../types/Product';
-import Title1 from '../../../ui/titles/Title1';
-import { SHADES, BRAND, BREAKPOINTS, COLORS } from '../../../ui/variables';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
+import { useSelector } from "react-redux";
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
+import BaseImage from "../../../ui/images/BaseImage";
+import Header2 from "../../../ui/headers/Header2";
+import Paragraph1 from "../../../ui/paragraphs/Paragraph1";
+import {
+  ProductDimension,
+  ProductBrand,
+  ProductMaterial,
+} from "../../../types/Product";
+import Title1 from "../../../ui/titles/Title1";
+import { SHADES, BRAND, BREAKPOINTS, COLORS } from "../../../ui/variables";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
 
 const DimensionContainer = styled.div`
   display: flex;
@@ -36,11 +40,16 @@ interface Props {
   materials: ProductMaterial[];
 }
 
-const ProductDetailsInfo = ({ description, dimensions, brand, materials }: Props) => {
+const ProductDetailsInfo = ({
+  description,
+  dimensions,
+  brand,
+  materials,
+}: Props) => {
   const isMobileBreakpoint = useSelector(getIsMobileBreakpoint);
   const Paragraph = isMobileBreakpoint ? Paragraph2 : Paragraph1;
   const tabletBreakpoint = BREAKPOINTS.MOBILE;
-  const mobileBreakpoint = 'screen and (max-width: 425px)';
+  const mobileBreakpoint = "screen and (max-width: 425px)";
 
   const dimensionsImage = dimensions.image.desktop || null;
 
@@ -104,8 +113,8 @@ const ProductDetailsInfo = ({ description, dimensions, brand, materials }: Props
       >
         <div
           css={css`
-            min-width: ${dimensionsImage ? '300px' : '416px'};
-            margin-right: ${dimensionsImage ? '96px' : '0'};
+            min-width: ${dimensionsImage ? "300px" : "416px"};
+            margin-right: ${dimensionsImage ? "96px" : "0"};
 
             @media ${tabletBreakpoint} {
               max-width: 400px;
@@ -155,7 +164,7 @@ const ProductDetailsInfo = ({ description, dimensions, brand, materials }: Props
               margin-top: 8px;
             `}
           >
-            <Title1>{materials.join(', ')}</Title1>
+            <Title1>{materials.join(", ")}</Title1>
           </div>
         </div>
         {dimensionsImage && (

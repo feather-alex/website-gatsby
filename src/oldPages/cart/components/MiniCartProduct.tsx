@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from "@emotion/core";
 
-import { ItemUnavailableError } from '../../checkout/store/checkout.types';
-import { CartItem } from '../store/cart.types';
-import Title3 from '../../../ui/titles/Title3';
-import { BRAND } from '../../../ui/variables';
-import MiniCartProductInfo from './MiniCartProductInfo';
-import { useCallback } from 'react';
-import { getCartItemImage } from '../store/cart.utils';
-import { useDispatch } from 'react-redux';
-import { removeCartItem } from '../store/cart.actions';
+import { ItemUnavailableError } from "../../checkout/store/checkout.types";
+import { CartItem } from "../store/cart.types";
+import Title3 from "../../../ui/titles/Title3";
+import { BRAND } from "../../../ui/variables";
+import MiniCartProductInfo from "./MiniCartProductInfo";
+import { useCallback } from "react";
+import { getCartItemImage } from "../store/cart.utils";
+import { useDispatch } from "react-redux";
+import { removeCartItem } from "../store/cart.actions";
 
 export interface Props {
   product: CartItem;
@@ -20,7 +20,14 @@ export interface Props {
   isItemUnavailable: boolean;
 }
 
-const MiniCartProduct = ({ product, closeCart, itemsErrors, rentalLength, isItemUnavailable, inCheckout }: Props) => {
+const MiniCartProduct = ({
+  product,
+  closeCart,
+  itemsErrors,
+  rentalLength,
+  isItemUnavailable,
+  inCheckout,
+}: Props) => {
   const dispatch = useDispatch();
   const backgroundImage = getCartItemImage(product.image);
 
@@ -29,7 +36,8 @@ const MiniCartProduct = ({ product, closeCart, itemsErrors, rentalLength, isItem
       if (itemsErrors && itemsErrors.length > 0) {
         const errorFound = itemsErrors.find((err) => {
           return (
-            (err.identifier === cartItem.identifier || err.identifier === cartItem.bundleIdentifier) &&
+            (err.identifier === cartItem.identifier ||
+              err.identifier === cartItem.bundleIdentifier) &&
             (err.variantIdentifier === cartItem.variantIdentifier ||
               err.variantIdentifier === cartItem.bundleVariantIdentifier)
           );
@@ -40,12 +48,12 @@ const MiniCartProduct = ({ product, closeCart, itemsErrors, rentalLength, isItem
         }
       }
 
-      return '';
+      return "";
     },
     [itemsErrors]
   );
 
-  const urlCategory = product.type === 'bundle' ? '/packages' : '/products';
+  const urlCategory = product.type === "bundle" ? "/packages" : "/products";
 
   return (
     <div
@@ -78,7 +86,11 @@ const MiniCartProduct = ({ product, closeCart, itemsErrors, rentalLength, isItem
             margin-top: 13px;
           `}
         >
-          {rentalLength && <Title3 isBold={true}>${product.rentalPrices![rentalLength] * product.quantity}/mo</Title3>}
+          {rentalLength && (
+            <Title3 isBold={true}>
+              ${product.rentalPrices![rentalLength] * product.quantity}/mo
+            </Title3>
+          )}
           {!inCheckout && (
             <div
               role="button"

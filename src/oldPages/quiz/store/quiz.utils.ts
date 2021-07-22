@@ -1,16 +1,24 @@
-import { initialRoomState } from './quiz.reducer';
-import { Steps, Quiz, QuizStepChoicesAndSelections, WhatRoomsChoice } from './quiz.types';
+import { initialRoomState } from "./quiz.reducer";
+import {
+  Steps,
+  Quiz,
+  QuizStepChoicesAndSelections,
+  WhatRoomsChoice,
+} from "./quiz.types";
 
-export const handleQuizStepCompleted = (state: Quiz, quizStepAction: QuizStepChoicesAndSelections): Partial<Quiz> => {
+export const handleQuizStepCompleted = (
+  state: Quiz,
+  quizStepAction: QuizStepChoicesAndSelections
+): Partial<Quiz> => {
   switch (quizStepAction.step) {
     case Steps.SelectLocation:
       return {
-        deliveryArea: quizStepAction.choice
+        deliveryArea: quizStepAction.choice,
       };
 
     case Steps.Why:
       return {
-        reason: quizStepAction.choice
+        reason: quizStepAction.choice,
       };
 
     case Steps.WhatRooms: {
@@ -34,7 +42,7 @@ export const handleQuizStepCompleted = (state: Quiz, quizStepAction: QuizStepCho
       return {
         rooms: { ...initialRoomState },
         selectedRooms: quizStepAction.choice,
-        steps: newSteps.concat(Steps.Budget, Steps.Style, Steps.Final)
+        steps: newSteps.concat(Steps.Budget, Steps.Style, Steps.Final),
       };
     }
 
@@ -60,25 +68,27 @@ export const handleQuizStepCompleted = (state: Quiz, quizStepAction: QuizStepCho
         numberOfBedrooms: numberOfBedroomsSelected,
         rooms: {
           ...state.rooms,
-          bedrooms: newBedrooms
+          bedrooms: newBedrooms,
         },
-        steps: newSteps
+        steps: newSteps,
       };
     }
 
     case Steps.BedSize: {
       const newBedrooms = [...state.rooms.bedrooms];
-      newBedrooms[state.currentBedroomIndex] = { bedSize: quizStepAction.choice };
+      newBedrooms[state.currentBedroomIndex] = {
+        bedSize: quizStepAction.choice,
+      };
 
       return {
         rooms: {
           ...state.rooms,
-          bedrooms: newBedrooms
+          bedrooms: newBedrooms,
         },
         currentBedroomIndex:
           state.currentBedroomIndex + 1 < state.numberOfBedrooms
             ? state.currentBedroomIndex + 1
-            : state.currentBedroomIndex
+            : state.currentBedroomIndex,
       };
     }
 
@@ -88,9 +98,9 @@ export const handleQuizStepCompleted = (state: Quiz, quizStepAction: QuizStepCho
           ...state.rooms,
           livingRoom: {
             ...state.rooms.livingRoom,
-            roomSize: quizStepAction.choice
-          }
-        }
+            roomSize: quizStepAction.choice,
+          },
+        },
       };
 
     case Steps.LivingRoomFunction:
@@ -99,9 +109,9 @@ export const handleQuizStepCompleted = (state: Quiz, quizStepAction: QuizStepCho
           ...state.rooms,
           livingRoom: {
             ...state.rooms.livingRoom,
-            function: quizStepAction.choice
-          }
-        }
+            function: quizStepAction.choice,
+          },
+        },
       };
 
     case Steps.DiningRoomChairs:
@@ -110,9 +120,9 @@ export const handleQuizStepCompleted = (state: Quiz, quizStepAction: QuizStepCho
           ...state.rooms,
           diningRoom: {
             ...state.rooms.diningRoom,
-            chairs: quizStepAction.choice
-          }
-        }
+            chairs: quizStepAction.choice,
+          },
+        },
       };
 
     case Steps.HomeOffice:
@@ -121,23 +131,23 @@ export const handleQuizStepCompleted = (state: Quiz, quizStepAction: QuizStepCho
           ...state.rooms,
           homeOffice: {
             ...state.rooms.homeOffice,
-            workFrequency: quizStepAction.choice
-          }
-        }
+            workFrequency: quizStepAction.choice,
+          },
+        },
       };
 
     case Steps.Budget:
       return {
-        budget: quizStepAction.choice
+        budget: quizStepAction.choice,
       };
 
     case Steps.Style:
       return {
         selectedImages: quizStepAction.choice,
         styles: quizStepAction.choice
-          .map((i: string) => i.split('_')[1])
+          .map((i: string) => i.split("_")[1])
           .join()
-          .split(',')
+          .split(","),
       };
 
     default:

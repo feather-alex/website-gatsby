@@ -1,10 +1,18 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import { useLocation } from 'react-router-dom';
-import Loading from './Loading';
-import { BREAKPOINTS, BRAND } from '../ui/variables';
+import { jsx, css } from "@emotion/core";
+import { useLocation } from "react-router-dom";
+import Loading from "./Loading";
+import { BREAKPOINTS, BRAND } from "../ui/variables";
 
-const splashPages = ['/about', '/faqs', '/search', '/contact', '/reviews', '/privacy-policy', '/terms-and-conditions'];
+const splashPages = [
+  "/about",
+  "/faqs",
+  "/search",
+  "/contact",
+  "/reviews",
+  "/privacy-policy",
+  "/terms-and-conditions",
+];
 
 const LazyLoading = () => {
   const location = useLocation();

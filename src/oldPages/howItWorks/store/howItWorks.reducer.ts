@@ -1,21 +1,21 @@
-import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 
-import { APIError } from '../../../types/ReduxState';
-import { getHowItWorksContent } from './howItWorks.actions';
-import { HowItWorksState, HowItWorksSuccessPayload } from './howItWorks.types';
+import { APIError } from "../../../types/ReduxState";
+import { getHowItWorksContent } from "./howItWorks.actions";
+import { HowItWorksState, HowItWorksSuccessPayload } from "./howItWorks.types";
 
 export const initialState: HowItWorksState = {
   isFetching: false,
   error: null,
-  header: '',
+  header: "",
   faqs: [],
   steps: [],
   meta: {
-    name: '',
-    description: '',
-    imageUrl: '',
-    title: ''
-  }
+    name: "",
+    description: "",
+    imageUrl: "",
+    title: "",
+  },
 };
 
 export default createReducer(initialState, {
@@ -24,7 +24,10 @@ export default createReducer(initialState, {
     state.error = null;
   },
 
-  [getHowItWorksContent.success.type](state: HowItWorksState, action: PayloadAction<HowItWorksSuccessPayload>) {
+  [getHowItWorksContent.success.type](
+    state: HowItWorksState,
+    action: PayloadAction<HowItWorksSuccessPayload>
+  ) {
     state.header = action.payload.header;
     state.steps = action.payload.steps;
     state.meta = action.payload.meta;
@@ -33,8 +36,11 @@ export default createReducer(initialState, {
     state.error = null;
   },
 
-  [getHowItWorksContent.failure.type](state: HowItWorksState, action: PayloadAction<APIError>) {
+  [getHowItWorksContent.failure.type](
+    state: HowItWorksState,
+    action: PayloadAction<APIError>
+  ) {
     state.error = action.payload;
     state.isFetching = false;
-  }
+  },
 });

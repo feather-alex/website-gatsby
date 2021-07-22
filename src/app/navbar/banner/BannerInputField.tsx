@@ -1,15 +1,23 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import { BREAKPOINTS } from '../../../ui/variables';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import { BREAKPOINTS } from "../../../ui/variables";
 
 interface Props {
   placeholder: string;
   onSubmit: (input: string) => void;
   color: string;
   type?: string;
-  inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+  inputMode?:
+    | "none"
+    | "text"
+    | "tel"
+    | "url"
+    | "email"
+    | "numeric"
+    | "decimal"
+    | "search";
 }
 
 interface State {
@@ -17,7 +25,7 @@ interface State {
 }
 
 class BannerInputField extends React.Component<Props, State> {
-  readonly state = { inputValue: '' };
+  readonly state = { inputValue: "" };
 
   handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ inputValue: event.target.value });
@@ -31,7 +39,7 @@ class BannerInputField extends React.Component<Props, State> {
 
   handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     event.preventDefault();
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       // enter key is pressed
       this.handleOnSubmit();
     }
@@ -69,8 +77,8 @@ class BannerInputField extends React.Component<Props, State> {
             }
           `}
           placeholder={placeholder}
-          type={type || 'email'}
-          inputMode={inputMode || 'email'}
+          type={type || "email"}
+          inputMode={inputMode || "email"}
           value={inputValue}
           onChange={this.handleOnChange}
           onKeyUp={this.handleKeyUp}

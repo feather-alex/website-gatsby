@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { useCallback } from 'react';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { useCallback } from "react";
 
-import { PkgItem } from '../../../../types/Package';
-import { BRAND, SHADES, BREAKPOINTS, COLORS } from '../../../../ui/variables';
-import { Z_INDICIES } from '../../../../ui/zIndicies';
-import { getImageSrc } from '../../detailsPage.service';
-import BaseImage from '../../../../ui/images/BaseImage';
-import Title3 from '../../../../ui/titles/Title3';
-import { isInStockAndEnabled } from '../../../../utils';
-import Button, { ButtonStyle } from '../../../../ui/buttons/Button';
-import { DeliveryAreaIdentifier } from '../../../../app/store/plan/plan.types';
+import { PkgItem } from "../../../../types/Package";
+import { BRAND, SHADES, BREAKPOINTS, COLORS } from "../../../../ui/variables";
+import { Z_INDICIES } from "../../../../ui/zIndicies";
+import { getImageSrc } from "../../detailsPage.service";
+import BaseImage from "../../../../ui/images/BaseImage";
+import Title3 from "../../../../ui/titles/Title3";
+import { isInStockAndEnabled } from "../../../../utils";
+import Button, { ButtonStyle } from "../../../../ui/buttons/Button";
+import { DeliveryAreaIdentifier } from "../../../../app/store/plan/plan.types";
 
 interface Props {
   deliveryAreaIdentifier: DeliveryAreaIdentifier | null;
@@ -30,10 +30,13 @@ interface CardTextProps {
   dataCy?: string;
 }
 
-const CardsContainer = styled('section')`
+const CardsContainer = styled("section")`
   display: grid;
-  grid-template-columns: ${({ isThreeColumnLayout }: { isThreeColumnLayout: boolean }) =>
-    isThreeColumnLayout ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)'};
+  grid-template-columns: ${({
+    isThreeColumnLayout,
+  }: {
+    isThreeColumnLayout: boolean;
+  }) => (isThreeColumnLayout ? "repeat(3, 1fr)" : "repeat(2, 1fr)")};
   margin-left: -4px;
 
   @media ${BREAKPOINTS.MOBILE} {
@@ -48,7 +51,7 @@ const CardsContainer = styled('section')`
       Relevant link: https://chenhuijing.com/blog/flexbox-and-padding/
     */
     &:after {
-      content: '';
+      content: "";
       padding-right: 24px;
     }
   }
@@ -100,7 +103,7 @@ const PackageItemsDisplay = ({
   handleSwapItem,
   isItemSwappable,
   selectedItemsQuantity,
-  isQuizResults = false
+  isQuizResults = false,
 }: Props) => {
   const isThreeColumnLayout = selectedItems.length >= 7;
 
@@ -113,21 +116,26 @@ const PackageItemsDisplay = ({
     [handleOpenProductInfo]
   );
 
-  const handleSwapItemClick = (index: number, identifier: string) => (event: React.MouseEvent) => {
-    // make sure we do not open the product details overlay with onClick of the swap button
-    event.stopPropagation();
+  const handleSwapItemClick =
+    (index: number, identifier: string) => (event: React.MouseEvent) => {
+      // make sure we do not open the product details overlay with onClick of the swap button
+      event.stopPropagation();
 
-    if (isQuizResults && handleSwapItem) {
-      handleSwapItem(index, identifier);
-    }
-  };
+      if (isQuizResults && handleSwapItem) {
+        handleSwapItem(index, identifier);
+      }
+    };
 
   const packageItemCards = selectedItems.map((item, index) => {
     const imageSrc = getImageSrc(isMobileBreakpoint, item.image);
     const numItems = selectedItemsQuantity[item.identifier];
-    const isItemInStock = isQuizResults || isInStockAndEnabled(deliveryAreaIdentifier, item.availability);
+    const isItemInStock =
+      isQuizResults ||
+      isInStockAndEnabled(deliveryAreaIdentifier, item.availability);
     const productCardNameColor =
-      isItemInStock && selectedItemsQuantity[item.identifier] > 0 ? BRAND.PRIMARY_TEXT : SHADES.SHADE_LIGHT;
+      isItemInStock && selectedItemsQuantity[item.identifier] > 0
+        ? BRAND.PRIMARY_TEXT
+        : SHADES.SHADE_LIGHT;
 
     if (imageSrc) {
       return (
@@ -156,28 +164,40 @@ const PackageItemsDisplay = ({
               </Title3>
             </div>
           )}
-          {isQuizResults && isItemSwappable && isItemSwappable(index) && selectedItemsQuantity[item.identifier] > 0 && (
-            <div
-              css={css`
-                position: absolute;
-                top: 26px;
-                left: 32px;
-                z-index: ${Z_INDICIES.PACKAGE_ITEMS_CARD_SWAP};
-              `}
-            >
-              <Button style={ButtonStyle.COMPACT_TEXT} onClick={handleSwapItemClick(index, item.identifier)}>
-                Swap
-              </Button>
-            </div>
-          )}
+          {isQuizResults &&
+            isItemSwappable &&
+            isItemSwappable(index) &&
+            selectedItemsQuantity[item.identifier] > 0 && (
+              <div
+                css={css`
+                  position: absolute;
+                  top: 26px;
+                  left: 32px;
+                  z-index: ${Z_INDICIES.PACKAGE_ITEMS_CARD_SWAP};
+                `}
+              >
+                <Button
+                  style={ButtonStyle.COMPACT_TEXT}
+                  onClick={handleSwapItemClick(index, item.identifier)}
+                >
+                  Swap
+                </Button>
+              </div>
+            )}
 
-          {!isItemInStock && <CardText text="Out of Stock" color={BRAND.ERROR} />}
+          {!isItemInStock && (
+            <CardText text="Out of Stock" color={BRAND.ERROR} />
+          )}
           {selectedItemsQuantity[item.identifier] === 0 && (
-            <CardText dataCy="removed-from-package-text" text="Removed" color={SHADES.SHADE_LIGHT} />
+            <CardText
+              dataCy="removed-from-package-text"
+              text="Removed"
+              color={SHADES.SHADE_LIGHT}
+            />
           )}
           <div
             onClick={openProductInfoOverlay(item)}
-            role={'button'}
+            role={"button"}
             tabIndex={0}
             css={css`
               width: 100%;
@@ -185,7 +205,9 @@ const PackageItemsDisplay = ({
               height: 0;
               padding-bottom: 100%;
               position: relative;
-              ${!isItemInStock || selectedItemsQuantity[item.identifier] === 0 ? 'opacity: 0.7;' : ''}
+              ${!isItemInStock || selectedItemsQuantity[item.identifier] === 0
+                ? "opacity: 0.7;"
+                : ""}
               img {
                 object-position: bottom;
                 position: absolute;
@@ -212,7 +234,11 @@ const PackageItemsDisplay = ({
     return null; // shouldn't hit this
   });
 
-  return <CardsContainer isThreeColumnLayout={isThreeColumnLayout}>{packageItemCards}</CardsContainer>;
+  return (
+    <CardsContainer isThreeColumnLayout={isThreeColumnLayout}>
+      {packageItemCards}
+    </CardsContainer>
+  );
 };
 
 export default PackageItemsDisplay;

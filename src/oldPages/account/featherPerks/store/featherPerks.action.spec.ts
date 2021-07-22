@@ -1,15 +1,22 @@
-import { PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction } from "@reduxjs/toolkit";
 
-import { mockRequestPayload, mockSuccessPayload, mockError } from './featherPerks.fixtures';
-import { APIError } from '../../../../api/error';
-import { FeatherPerksRequestPayload, FeatherPerksSuccessPayload } from './featherPerks.types';
-import { getFeatherPerksContent } from './featherPerks.actions';
+import {
+  mockRequestPayload,
+  mockSuccessPayload,
+  mockError,
+} from "./featherPerks.fixtures";
+import { APIError } from "../../../../api/error";
+import {
+  FeatherPerksRequestPayload,
+  FeatherPerksSuccessPayload,
+} from "./featherPerks.types";
+import { getFeatherPerksContent } from "./featherPerks.actions";
 
-describe('Feather perks - Actions', () => {
-  it('Should handle action: GET_FEATHER_PERKS_REQUEST', () => {
+describe("Feather perks - Actions", () => {
+  it("Should handle action: GET_FEATHER_PERKS_REQUEST", () => {
     const expectedAction: PayloadAction<FeatherPerksRequestPayload> = {
       type: getFeatherPerksContent.request.type,
-      payload: mockRequestPayload
+      payload: mockRequestPayload,
     };
 
     const action = getFeatherPerksContent.request(mockRequestPayload);
@@ -18,10 +25,10 @@ describe('Feather perks - Actions', () => {
   });
 });
 
-it('Should handle action: GET_FEATHER_PERKS_SUCCESS', () => {
+it("Should handle action: GET_FEATHER_PERKS_SUCCESS", () => {
   const expectedAction: PayloadAction<FeatherPerksSuccessPayload> = {
     type: getFeatherPerksContent.success.type,
-    payload: mockSuccessPayload
+    payload: mockSuccessPayload,
   };
 
   const action = getFeatherPerksContent.success(mockSuccessPayload);
@@ -29,10 +36,10 @@ it('Should handle action: GET_FEATHER_PERKS_SUCCESS', () => {
   expect(action).toEqual(expectedAction);
 });
 
-it('Should handle action: GET_FEATHER_PERKS_FAILURE', () => {
+it("Should handle action: GET_FEATHER_PERKS_FAILURE", () => {
   const expectedAction: PayloadAction<APIError> = {
     type: getFeatherPerksContent.failure.type,
-    payload: mockError
+    payload: mockError,
   };
 
   const action = getFeatherPerksContent.failure(mockError);

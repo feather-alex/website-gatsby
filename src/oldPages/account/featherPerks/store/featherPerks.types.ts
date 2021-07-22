@@ -1,6 +1,9 @@
-import { EntryCollection } from 'contentful';
-import { APIError } from '../../../../api/error';
-import { FeatherPerksCard, FeatherPerksCardContentful } from '../../../../contentful/contentful.types';
+import { EntryCollection } from "contentful";
+import { APIError } from "../../../../api/error";
+import {
+  FeatherPerksCard,
+  FeatherPerksCardContentful,
+} from "../../../../contentful/contentful.types";
 
 export interface FeatherPerksRequestPayload {
   id: string;

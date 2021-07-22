@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import Layout from '../../app/Layout';
-import Button from '../../ui/buttons/Button';
-import Header1 from '../../ui/headers/Header1';
-import Paragraph2 from '../../ui/paragraphs/Paragraph2';
-import Subheader2 from '../../ui/subheaders/Subheader2';
-import { BREAKPOINTS, SHADES } from '../../ui/variables';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getIsAuthenticated } from '../auth/login/store/login.selectors';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import Button from "../../ui/buttons/Button";
+import Header1 from "../../ui/headers/Header1";
+import Paragraph2 from "../../ui/paragraphs/Paragraph2";
+import Subheader2 from "../../ui/subheaders/Subheader2";
+import { BREAKPOINTS, SHADES } from "../../ui/variables";
+import { Link } from "gatsby";
+import { useSelector } from "react-redux";
+import { getIsAuthenticated } from "../auth/login/store/login.selectors";
+import { RouteComponentProps } from "@reach/router";
 
 const Container = styled.section`
   display: flex;
@@ -48,29 +48,31 @@ const ActivateAccountLink = styled(Link)`
   text-decoration: underline;
 `;
 
-const LeaseSignedConfirmation = () => {
+const LeaseSignedConfirmation = (props: RouteComponentProps) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
 
   return (
-    <Layout>
-      <Container>
-        <Header>Thank you for signing your Feather&nbsp;Lease!</Header>
-        <CTAContainer>
-          <Subheader>Be sure to check your account for delivery confirmation & details.</Subheader>
-          {isAuthenticated ? (
-            <CTAButton to="/account">Go to Account</CTAButton>
-          ) : (
-            <CTAButton to="/login">Log In to Account</CTAButton>
-          )}
-          {!isAuthenticated && (
-            <Paragraph2>
-              Don't have an account yet?{' '}
-              <ActivateAccountLink to="/setup-account">Activate&nbsp;Today</ActivateAccountLink>
-            </Paragraph2>
-          )}
-        </CTAContainer>
-      </Container>
-    </Layout>
+    <Container>
+      <Header>Thank you for signing your Feather&nbsp;Lease!</Header>
+      <CTAContainer>
+        <Subheader>
+          Be sure to check your account for delivery confirmation &amp; details.
+        </Subheader>
+        {isAuthenticated ? (
+          <CTAButton to="/account">Go to Account</CTAButton>
+        ) : (
+          <CTAButton to="/login">Log In to Account</CTAButton>
+        )}
+        {!isAuthenticated && (
+          <Paragraph2>
+            Don't have an account yet?{" "}
+            <ActivateAccountLink to="/setup-account">
+              Activate&nbsp;Today
+            </ActivateAccountLink>
+          </Paragraph2>
+        )}
+      </CTAContainer>
+    </Container>
   );
 };
 

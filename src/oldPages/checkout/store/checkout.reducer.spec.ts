@@ -1,4 +1,4 @@
-import checkoutReducer, { initialState } from './checkout.reducer';
+import checkoutReducer, { initialState } from "./checkout.reducer";
 import {
   processCheckout,
   processCheckoutAmounts,
@@ -7,8 +7,8 @@ import {
   resetCheckoutForms,
   updateSSNInfo,
   toggleDeliverySameAsBilling,
-  depositRequest
-} from './checkout.actions';
+  depositRequest,
+} from "./checkout.actions";
 import {
   CheckoutState,
   StripeErrorCodes,
@@ -16,36 +16,44 @@ import {
   UIErrorMessages,
   CheckoutStateStep,
   DepositRequestPayload,
-  DepositOrigin
-} from './checkout.types';
+  DepositOrigin,
+} from "./checkout.types";
 import {
   exampleAmountsRequestPayload,
   exampleAmountsSuccessPayload,
-  exampleCheckoutRequestPayload
-} from './checkout.fixtures';
+  exampleCheckoutRequestPayload,
+} from "./checkout.fixtures";
 
-describe('Checkout reducer', () => {
+describe("Checkout reducer", () => {
   let state: CheckoutState;
 
   beforeEach(() => {
     state = { ...initialState };
   });
 
-  it('should handle a checkout request', () => {
+  it("should handle a checkout request", () => {
     state = {
       ...state,
-      itemsError: [{ identifier: 'ludlow-sofa', variantIdentifier: 'default', type: 'product' }],
+      itemsError: [
+        {
+          identifier: "ludlow-sofa",
+          variantIdentifier: "default",
+          type: "product",
+        },
+      ],
       serverError: {
-        name: 'Error',
+        name: "Error",
         status: 500,
-        error: 'an error!',
-        message: ''
+        error: "an error!",
+        message: "",
       },
       cardError: { error: StripeErrorCodes.InsufficientFunds },
-      generateNewStripeToken: true
+      generateNewStripeToken: true,
     };
 
-    const action = processCheckout.request({ ...exampleCheckoutRequestPayload });
+    const action = processCheckout.request({
+      ...exampleCheckoutRequestPayload,
+    });
     const reduced = checkoutReducer(state, action);
 
     expect(reduced.itemsError).toEqual(null);
@@ -55,24 +63,33 @@ describe('Checkout reducer', () => {
     expect(reduced.isPlacingOrder).toEqual(true);
   });
 
-  it('should handle a successful checkout', () => {
+  it("should handle a successful checkout", () => {
     state = {
       ...state,
       isPlacingOrder: true,
-      itemsError: [{ identifier: 'ludlow-sofa', variantIdentifier: 'default', type: 'product' }],
+      itemsError: [
+        {
+          identifier: "ludlow-sofa",
+          variantIdentifier: "default",
+          type: "product",
+        },
+      ],
       serverError: {
-        name: 'Error',
+        name: "Error",
         status: 500,
-        error: 'an error!',
-        message: ''
+        error: "an error!",
+        message: "",
       },
       cardError: { error: StripeErrorCodes.InsufficientFunds },
       isSSNNotFound: true,
       isSSNNotValid: true,
-      isCreditNotFound: true
+      isCreditNotFound: true,
     };
 
-    const action = processCheckout.success({ id: 10001000, ...exampleCheckoutRequestPayload });
+    const action = processCheckout.success({
+      id: 10001000,
+      ...exampleCheckoutRequestPayload,
+    });
     const reduced = checkoutReducer(state, action);
 
     expect(reduced.itemsError).toEqual(null);
@@ -85,8 +102,8 @@ describe('Checkout reducer', () => {
     expect(reduced.isPlacingOrder).toEqual(false);
   });
 
-  describe('Handling unsuccessful checkout', () => {
-    const unknownErrorCode = 'unknown_code';
+  describe("Handling unsuccessful checkout", () => {
+    const unknownErrorCode = "unknown_code";
     it.each`
       errorCode                              | expectedErrorMessage
       ${StripeErrorCodes.InvalidExpiryMonth} | ${UIErrorMessages.InvalidExpirationDate}
@@ -102,40 +119,45 @@ describe('Checkout reducer', () => {
       ${StripeErrorCodes.InvalidFunding}     | ${UIErrorMessages.InvalidFunding}
       ${StripeErrorCodes.NoToken}            | ${UIErrorMessages.CardTokenError}
       ${unknownErrorCode}                    | ${UIErrorMessages.GenericError}
-    `('should handle the stripe error $errorCode', ({ errorCode, expectedErrorMessage }) => {
-      const action = processCheckout.failure({
-        name: 'Error',
-        status: 400,
-        error: 'Stripe Processing Error',
-        message: 'A payment error',
-        body: { data: { type: CheckoutErrors.StripeCardError, code: errorCode } }
-      });
-      const reduced = checkoutReducer(state, action);
+    `(
+      "should handle the stripe error $errorCode",
+      ({ errorCode, expectedErrorMessage }) => {
+        const action = processCheckout.failure({
+          name: "Error",
+          status: 400,
+          error: "Stripe Processing Error",
+          message: "A payment error",
+          body: {
+            data: { type: CheckoutErrors.StripeCardError, code: errorCode },
+          },
+        });
+        const reduced = checkoutReducer(state, action);
 
-      expect(reduced.isPlacingOrder).toBeFalsy();
-      expect(reduced.generateNewStripeToken).toBeTruthy();
-      expect(reduced.cardError.error).toEqual(expectedErrorMessage);
-    });
+        expect(reduced.isPlacingOrder).toBeFalsy();
+        expect(reduced.generateNewStripeToken).toBeTruthy();
+        expect(reduced.cardError.error).toEqual(expectedErrorMessage);
+      }
+    );
 
-    it('should handle the items out of stock error', () => {
+    it("should handle the items out of stock error", () => {
       const unavailableItems = [
         {
-          identifier: 'clarkson-side-table',
-          variantIdentifier: 'oak',
-          type: 'product'
-        }
+          identifier: "clarkson-side-table",
+          variantIdentifier: "oak",
+          type: "product",
+        },
       ];
 
       const action = processCheckout.failure({
-        name: 'Error',
+        name: "Error",
         status: 400,
-        error: 'Items out of stock',
-        message: 'some items are no longer available',
+        error: "Items out of stock",
+        message: "some items are no longer available",
         body: {
           data: {
-            items: unavailableItems
-          }
-        }
+            items: unavailableItems,
+          },
+        },
       });
       const reduced = checkoutReducer(state, action);
 
@@ -144,24 +166,24 @@ describe('Checkout reducer', () => {
       expect(reduced.itemsError).toEqual(unavailableItems);
     });
 
-    it('should handle the customer not approved error', () => {
+    it("should handle the customer not approved error", () => {
       // set boolean values that we want to ensure we reset
       state = {
         ...state,
         isSSNNotFound: true,
         isSSNNotValid: true,
-        isCreditNotFound: true
+        isCreditNotFound: true,
       };
       const action = processCheckout.failure({
-        name: 'Error',
+        name: "Error",
         status: 400,
-        error: 'not approved',
-        message: 'customer score does not exceed standards',
+        error: "not approved",
+        message: "customer score does not exceed standards",
         body: {
           data: {
-            message: CheckoutErrors.CustomerNotApproved
-          }
-        }
+            message: CheckoutErrors.CustomerNotApproved,
+          },
+        },
       });
       const reduced = checkoutReducer(state, action);
 
@@ -173,24 +195,24 @@ describe('Checkout reducer', () => {
       expect(reduced.maxTCVError).toBeNull();
     });
 
-    it('should handle the OFAC check failed error', () => {
+    it("should handle the OFAC check failed error", () => {
       // set boolean values that we want to ensure we reset
       state = {
         ...state,
         isSSNNotFound: true,
         isSSNNotValid: true,
-        isCreditNotFound: true
+        isCreditNotFound: true,
       };
       const action = processCheckout.failure({
-        name: 'Error',
+        name: "Error",
         status: 400,
-        error: 'OFAC check failed',
-        message: 'customer failed OFAC check',
+        error: "OFAC check failed",
+        message: "customer failed OFAC check",
         body: {
           data: {
-            message: CheckoutErrors.OFACCheckFailed
-          }
-        }
+            message: CheckoutErrors.OFACCheckFailed,
+          },
+        },
       });
       const reduced = checkoutReducer(state, action);
 
@@ -202,24 +224,24 @@ describe('Checkout reducer', () => {
       expect(reduced.maxTCVError).toBeNull();
     });
 
-    it('should handle the additional information required error', () => {
+    it("should handle the additional information required error", () => {
       // set boolean values that we want to ensure we reset
       state = {
         ...state,
         isSSNNotFound: true,
         isSSNNotValid: true,
-        isCreditNotFound: false
+        isCreditNotFound: false,
       };
       const action = processCheckout.failure({
-        name: 'Error',
+        name: "Error",
         status: 400,
-        error: 'Could not find credit report',
-        message: 'More information required',
+        error: "Could not find credit report",
+        message: "More information required",
         body: {
           data: {
-            message: CheckoutErrors.AdditionalInformationRequired
-          }
-        }
+            message: CheckoutErrors.AdditionalInformationRequired,
+          },
+        },
       });
       const reduced = checkoutReducer(state, action);
 
@@ -231,24 +253,24 @@ describe('Checkout reducer', () => {
       expect(reduced.maxTCVError).toBeNull();
     });
 
-    it('should handle the max total cart value error', () => {
+    it("should handle the max total cart value error", () => {
       // set boolean values that we want to ensure we reset
       state = {
         ...state,
-        maxTCVError: null
+        maxTCVError: null,
       };
       const action = processCheckout.failure({
-        name: 'Error',
+        name: "Error",
         status: 400,
-        error: 'Max cart price threshold exceeded.',
-        message: 'More information required',
+        error: "Max cart price threshold exceeded.",
+        message: "More information required",
         body: {
           data: {
             message: CheckoutErrors.MaxTCVError,
             eligibleForDeposit: true,
-            maxTCV: 4950
-          }
-        }
+            maxTCV: 4950,
+          },
+        },
       });
       const reduced = checkoutReducer(state, action);
 
@@ -259,28 +281,28 @@ describe('Checkout reducer', () => {
       expect(reduced.isCreditNotFound).toBeFalsy();
       expect(reduced.maxTCVError).toEqual({
         maxTCV: 4950,
-        eligibleForDeposit: true
+        eligibleForDeposit: true,
       });
     });
 
-    it('should handle the credit report not found error', () => {
+    it("should handle the credit report not found error", () => {
       // set boolean values that we want to ensure we reset
       state = {
         ...state,
         isSSNNotFound: false,
         isSSNNotValid: true,
-        isCreditNotFound: true
+        isCreditNotFound: true,
       };
       const action = processCheckout.failure({
-        name: 'Error',
+        name: "Error",
         status: 400,
-        error: 'Could not find credit report',
-        message: 'No more information will help find the report',
+        error: "Could not find credit report",
+        message: "No more information will help find the report",
         body: {
           data: {
-            message: CheckoutErrors.CreditReportNotFound
-          }
-        }
+            message: CheckoutErrors.CreditReportNotFound,
+          },
+        },
       });
       const reduced = checkoutReducer(state, action);
 
@@ -292,24 +314,24 @@ describe('Checkout reducer', () => {
       expect(reduced.maxTCVError).toBeNull();
     });
 
-    it('should handle the invalid SSN error', () => {
+    it("should handle the invalid SSN error", () => {
       // set boolean values that we want to ensure we reset
       state = {
         ...state,
         isSSNNotFound: true,
         isSSNNotValid: false,
-        isCreditNotFound: false
+        isCreditNotFound: false,
       };
       const action = processCheckout.failure({
-        name: 'Error',
+        name: "Error",
         status: 400,
-        error: 'Invalid SSN format',
-        message: 'The SSN entered is invalid',
+        error: "Invalid SSN format",
+        message: "The SSN entered is invalid",
         body: {
           data: {
-            message: CheckoutErrors.InvalidSSN
-          }
-        }
+            message: CheckoutErrors.InvalidSSN,
+          },
+        },
       });
       const reduced = checkoutReducer(state, action);
 
@@ -321,24 +343,24 @@ describe('Checkout reducer', () => {
       expect(reduced.maxTCVError).toBeNull();
     });
 
-    it('should handle an unknown 400 level error for which we do not have a case', () => {
+    it("should handle an unknown 400 level error for which we do not have a case", () => {
       // set boolean values that we want to ensure we reset
       state = {
         ...state,
         isSSNNotFound: true,
         isSSNNotValid: true,
-        isCreditNotFound: true
+        isCreditNotFound: true,
       };
       const error = {
-        name: 'Error',
+        name: "Error",
         status: 400,
-        error: 'Unknown Error',
-        message: 'An unknown error occurred on the server',
+        error: "Unknown Error",
+        message: "An unknown error occurred on the server",
         body: {
           data: {
-            message: `Request included something bad, m'kay`
-          }
-        }
+            message: `Request included something bad, m'kay`,
+          },
+        },
       };
       const action = processCheckout.failure(error);
       const reduced = checkoutReducer(state, action);
@@ -352,24 +374,24 @@ describe('Checkout reducer', () => {
       expect(reduced.serverError).toEqual(error);
     });
 
-    it('should handle an unknown 500 level error', () => {
+    it("should handle an unknown 500 level error", () => {
       // set boolean values that we want to ensure we reset
       state = {
         ...state,
         isSSNNotFound: true,
         isSSNNotValid: true,
-        isCreditNotFound: true
+        isCreditNotFound: true,
       };
       const error = {
-        name: 'Error',
+        name: "Error",
         status: 500,
-        error: 'Server Error',
-        message: 'An unknown error occurred on the server',
+        error: "Server Error",
+        message: "An unknown error occurred on the server",
         body: {
           data: {
-            message: `Something real bad happened, m'kay`
-          }
-        }
+            message: `Something real bad happened, m'kay`,
+          },
+        },
       };
       const action = processCheckout.failure(error);
       const reduced = checkoutReducer(state, action);
@@ -384,27 +406,27 @@ describe('Checkout reducer', () => {
     });
   });
 
-  describe('Handling successful deposits', () => {
-    it('should set isSubmittingDeposit flag to true', () => {
+  describe("Handling successful deposits", () => {
+    it("should set isSubmittingDeposit flag to true", () => {
       const payload: DepositRequestPayload = {
         customer: {
-          email: 'email',
-          firstName: 'firstName',
-          lastName: 'lastName',
-          phone: '11111111'
+          email: "email",
+          firstName: "firstName",
+          lastName: "lastName",
+          phone: "11111111",
         },
         originator: DepositOrigin.AdditionalUnderwriting,
         delivery: {
-          area: 'nyc',
-          address1: 'somewhere over the rainbow',
-          city: 'ny',
-          region: '',
-          postal: '10001'
+          area: "nyc",
+          address1: "somewhere over the rainbow",
+          city: "ny",
+          region: "",
+          postal: "10001",
         },
         items: [],
         planMonths: 3,
         maxTCV: 0,
-        depositAmount: 1500
+        depositAmount: 1500,
       };
 
       const action = depositRequest.request(payload);
@@ -413,10 +435,10 @@ describe('Checkout reducer', () => {
       expect(reduced.isSubmittingDeposit).toEqual(true);
     });
 
-    it('should set isSubmittingDeposit flag to false after success', () => {
+    it("should set isSubmittingDeposit flag to false after success", () => {
       state = {
         ...state,
-        isSubmittingDeposit: true
+        isSubmittingDeposit: true,
       };
 
       const action = depositRequest.success({});
@@ -426,23 +448,23 @@ describe('Checkout reducer', () => {
     });
   });
 
-  describe('Handling unsuccessful deposit request', () => {
+  describe("Handling unsuccessful deposit request", () => {
     const error = {
-      name: 'Error',
+      name: "Error",
       status: 500,
-      error: 'Unknown Error',
-      message: 'An unknown error occurred on the server',
+      error: "Unknown Error",
+      message: "An unknown error occurred on the server",
       body: {
         data: {
-          message: `Request included something bad, m'kay`
-        }
-      }
+          message: `Request included something bad, m'kay`,
+        },
+      },
     };
 
-    it('should handle server error', () => {
+    it("should handle server error", () => {
       state = {
         ...state,
-        depositError: null
+        depositError: null,
       };
 
       const action = depositRequest.failure(error);
@@ -451,10 +473,10 @@ describe('Checkout reducer', () => {
       expect(reduced.depositError).toEqual(error);
     });
 
-    it('should only set server error to null after success', () => {
+    it("should only set server error to null after success", () => {
       state = {
         ...state,
-        depositError: error
+        depositError: error,
       };
 
       const action = depositRequest.success({});
@@ -464,36 +486,36 @@ describe('Checkout reducer', () => {
     });
   });
 
-  describe('Handling resetting of all error state properties', () => {
-    it('should reset all possible errors to their defaults', () => {
+  describe("Handling resetting of all error state properties", () => {
+    it("should reset all possible errors to their defaults", () => {
       state = {
         ...state,
         isSSNNotFound: true,
         isSSNNotValid: true,
         isCreditNotFound: true,
         serverError: {
-          name: 'Error',
-          error: 'An error',
-          message: 'something bad happened',
-          status: 500
+          name: "Error",
+          error: "An error",
+          message: "something bad happened",
+          status: 500,
         },
         itemsError: [
           {
-            type: 'product',
-            identifier: 'ogden-bookcase',
-            variantIdentifier: 'honey'
-          }
+            type: "product",
+            identifier: "ogden-bookcase",
+            variantIdentifier: "honey",
+          },
         ],
         depositError: {
-          name: 'Error',
-          error: 'An error',
-          message: 'something bad happened',
-          status: 500
+          name: "Error",
+          error: "An error",
+          message: "something bad happened",
+          status: 500,
         },
         maxTCVError: { eligibleForDeposit: false, maxTCV: 1000 },
         cardError: {
-          error: 'The security code was incorrect'
-        }
+          error: "The security code was incorrect",
+        },
       };
 
       const action = resetErrorsStateValues();
@@ -510,7 +532,7 @@ describe('Checkout reducer', () => {
     });
   });
 
-  it('should handle an amounts request', () => {
+  it("should handle an amounts request", () => {
     const action = processCheckoutAmounts.request(exampleAmountsRequestPayload);
     const reduced = checkoutReducer(state, action);
 
@@ -518,7 +540,7 @@ describe('Checkout reducer', () => {
     expect(reduced.amountError).toEqual(null);
   });
 
-  it('should handle a successful amounts request', () => {
+  it("should handle a successful amounts request", () => {
     const action = processCheckoutAmounts.success(exampleAmountsSuccessPayload);
     const reduced = checkoutReducer(state, action);
 
@@ -534,12 +556,12 @@ describe('Checkout reducer', () => {
     expect(reduced.orderTCV).toEqual(555);
   });
 
-  it('should handle a failed amounts request', () => {
+  it("should handle a failed amounts request", () => {
     const mockError = {
-      name: 'Error',
+      name: "Error",
       status: 500,
-      message: 'A lil copy pasta never hurt nobody!',
-      error: 'Server Error'
+      message: "A lil copy pasta never hurt nobody!",
+      error: "Server Error",
     };
     const action = processCheckoutAmounts.failure(mockError);
     const reduced = checkoutReducer(state, action);
@@ -548,16 +570,19 @@ describe('Checkout reducer', () => {
     expect(reduced.amountError).toEqual(mockError);
   });
 
-  describe('Completing a checkout step', () => {
-    it('should add the corresponding data', () => {
+  describe("Completing a checkout step", () => {
+    it("should add the corresponding data", () => {
       const data = {
-        firstName: 'me',
-        lastName: 'you',
-        email: 'me@mail.com',
-        persona: null
+        firstName: "me",
+        lastName: "you",
+        email: "me@mail.com",
+        persona: null,
       };
 
-      const action = checkoutStepCompleted({ step: CheckoutStateStep.CustomerInfo, data });
+      const action = checkoutStepCompleted({
+        step: CheckoutStateStep.CustomerInfo,
+        data,
+      });
       const reduced = checkoutReducer(state, action);
 
       expect(reduced.customerInfo.firstName).toEqual(data.firstName);
@@ -566,33 +591,33 @@ describe('Checkout reducer', () => {
     });
   });
 
-  describe('Handling resetting the Checkout forms values', () => {
-    it('should reset SNN values to the initial state, empty strings', () => {
+  describe("Handling resetting the Checkout forms values", () => {
+    it("should reset SNN values to the initial state, empty strings", () => {
       state = {
         ...state,
         customerInfo: {
-          firstName: 'me',
-          lastName: 'you',
-          email: 'me@mail.com',
-          company: 'feather',
-          persona: null
+          firstName: "me",
+          lastName: "you",
+          email: "me@mail.com",
+          company: "feather",
+          persona: null,
         },
         deliveryInfo: {
-          streetAddress: '123 somewhere',
-          city: 'Here',
-          state: 'There',
-          zipcode: '12345',
-          phone: '1111111111',
-          googleDeliveryStreetAddress: '123 somewhere. Here There'
+          streetAddress: "123 somewhere",
+          city: "Here",
+          state: "There",
+          zipcode: "12345",
+          phone: "1111111111",
+          googleDeliveryStreetAddress: "123 somewhere. Here There",
         },
         billingAddressInfo: {
-          billingStreetAddress: '987 street',
-          billingApt: '2b',
-          billingCity: 'New York',
-          billingState: 'NY',
-          billingPostalCode: '10025',
-          googleBillingStreetAddress: '987 street, New York NY'
-        }
+          billingStreetAddress: "987 street",
+          billingApt: "2b",
+          billingCity: "New York",
+          billingState: "NY",
+          billingPostalCode: "10025",
+          googleBillingStreetAddress: "987 street, New York NY",
+        },
       };
 
       const action = resetCheckoutForms();
@@ -600,16 +625,18 @@ describe('Checkout reducer', () => {
 
       expect(reduced.customerInfo).toEqual(initialState.customerInfo);
       expect(reduced.deliveryInfo).toEqual(initialState.deliveryInfo);
-      expect(reduced.billingAddressInfo).toEqual(initialState.billingAddressInfo);
+      expect(reduced.billingAddressInfo).toEqual(
+        initialState.billingAddressInfo
+      );
     });
   });
 
-  describe('Updating SSN Info', () => {
-    it('should add the corresponding info', () => {
+  describe("Updating SSN Info", () => {
+    it("should add the corresponding info", () => {
       const data = {
-        ssn: '045678832',
-        legalFirstName: 'Bar',
-        legalLastName: 'Foo'
+        ssn: "045678832",
+        legalFirstName: "Bar",
+        legalLastName: "Foo",
       };
 
       const action = updateSSNInfo(data);
@@ -621,8 +648,8 @@ describe('Checkout reducer', () => {
     });
   });
 
-  describe('Update Delivery is same as Billing', () => {
-    it('should toggle isDeliverySameAsBilling correctly', () => {
+  describe("Update Delivery is same as Billing", () => {
+    it("should toggle isDeliverySameAsBilling correctly", () => {
       const action = toggleDeliverySameAsBilling();
       const reduced = checkoutReducer(state, action);
 

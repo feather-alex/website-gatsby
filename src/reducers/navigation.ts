@@ -1,5 +1,5 @@
-import { Navigation, Action } from '../types/ReduxState';
-import { PostalRequest } from '../types/Postal';
+import { Navigation, Action } from "../types/ReduxState";
+import { PostalRequest } from "../types/Postal";
 import {
   HANDLE_POSTAL_CODE,
   DISPLAY_WE_DELIVER,
@@ -7,8 +7,8 @@ import {
   UPDATE_DELIVERY_AREA,
   DISPLAY_POSTAL_INPUT,
   HANDLE_EMAIL_SUCCESS,
-  TOGGLE_NAVIGATION_BANNER
-} from '../constants/actions';
+  TOGGLE_NAVIGATION_BANNER,
+} from "../constants/actions";
 
 export const initialState: Navigation = {
   postal: null,
@@ -22,7 +22,7 @@ export const initialState: Navigation = {
   customerCanCheckout: false,
   deliveryAreaIdentifier: null,
   displayInitialGreeting: true,
-  displayNavigationBanner: false
+  displayNavigationBanner: false,
 };
 
 // ===== Reducers =====
@@ -31,11 +31,17 @@ const navigation = (state = initialState, action: Action) => {
     case TOGGLE_NAVIGATION_BANNER:
       return {
         ...state,
-        displayNavigationBanner: action.response
+        displayNavigationBanner: action.response,
       };
 
     case HANDLE_POSTAL_CODE: {
-      const { postal, identifier, weDeliver, inputError, showNavigationBanner } = action.response;
+      const {
+        postal,
+        identifier,
+        weDeliver,
+        inputError,
+        showNavigationBanner,
+      } = action.response;
       return {
         ...state,
         postal: inputError ? null : postal,
@@ -46,13 +52,13 @@ const navigation = (state = initialState, action: Action) => {
         invalidPostalInput: inputError ? true : false,
         customerCanCheckout: postal && weDeliver && !inputError,
         deliveryAreaIdentifier: identifier && !inputError ? identifier : null,
-        displayNavigationBanner: showNavigationBanner ? true : false
+        displayNavigationBanner: showNavigationBanner ? true : false,
       };
     }
     case HANDLE_EMAIL_SUCCESS:
       return {
         ...state,
-        hasEnteredEmail: true
+        hasEnteredEmail: true,
       };
 
     case DISPLAY_POSTAL_INPUT:
@@ -63,7 +69,7 @@ const navigation = (state = initialState, action: Action) => {
         invalidPostalInput: false,
         displayPostalInput: action.response ? true : false,
         displayInitialGreeting: false,
-        displayNavigationBanner: action.response ? true : false
+        displayNavigationBanner: action.response ? true : false,
       };
 
     case DISPLAY_NO_DELIVERY:
@@ -73,7 +79,7 @@ const navigation = (state = initialState, action: Action) => {
         displayNoDelivery: true,
         displayEmailInput: false,
         displayPostalInput: false,
-        displayNavigationBanner: true
+        displayNavigationBanner: true,
       };
 
     case DISPLAY_WE_DELIVER:
@@ -83,13 +89,13 @@ const navigation = (state = initialState, action: Action) => {
         displayNoDelivery: false,
         displayEmailInput: false,
         displayPostalInput: false,
-        displayNavigationBanner: true
+        displayNavigationBanner: true,
       };
 
     case UPDATE_DELIVERY_AREA:
       return {
         ...state,
-        deliveryAreaIdentifier: action.response.newDeliveryArea
+        deliveryAreaIdentifier: action.response.newDeliveryArea,
       };
 
     default:
@@ -103,16 +109,18 @@ export default navigation;
 export interface DisplayNavigationBanner {
   (displayNavigationBanner: boolean): { type: string; response: boolean };
 }
-export const displayNavigationBanner: DisplayNavigationBanner = (display: boolean) => ({
+export const displayNavigationBanner: DisplayNavigationBanner = (
+  display: boolean
+) => ({
   type: TOGGLE_NAVIGATION_BANNER,
-  response: display
+  response: display,
 });
 
 export interface HandleEmailSuccess {
   (): { type: string };
 }
 export const handleEmailSuccess: HandleEmailSuccess = () => ({
-  type: HANDLE_EMAIL_SUCCESS
+  type: HANDLE_EMAIL_SUCCESS,
 });
 
 export interface HandlePostalCode {
@@ -129,29 +137,31 @@ export interface HandlePostalCode {
 }
 export const handlePostalCode: HandlePostalCode = (obj: PostalRequest) => ({
   type: HANDLE_POSTAL_CODE,
-  response: obj
+  response: obj,
 });
 
 export interface DisplayPostalInput {
   (displayInput: boolean): { type: string; response: boolean };
 }
-export const displayPostalInput: DisplayPostalInput = (displayInput: boolean) => ({
+export const displayPostalInput: DisplayPostalInput = (
+  displayInput: boolean
+) => ({
   type: DISPLAY_POSTAL_INPUT,
-  response: displayInput
+  response: displayInput,
 });
 
 export interface DisplayNoDelivery {
   (): { type: string };
 }
 export const displayNoDelivery: DisplayNoDelivery = () => ({
-  type: DISPLAY_NO_DELIVERY
+  type: DISPLAY_NO_DELIVERY,
 });
 
 export interface DisplayWeDeliver {
   (): { type: string };
 }
 export const displayWeDeliver: DisplayWeDeliver = () => ({
-  type: DISPLAY_WE_DELIVER
+  type: DISPLAY_WE_DELIVER,
 });
 
 export interface UpdateDeliveryArea {
@@ -160,7 +170,9 @@ export interface UpdateDeliveryArea {
     response: { newDeliveryArea: string };
   };
 }
-export const updateDeliveryArea: UpdateDeliveryArea = (newDeliveryArea: string) => ({
+export const updateDeliveryArea: UpdateDeliveryArea = (
+  newDeliveryArea: string
+) => ({
   type: UPDATE_DELIVERY_AREA,
-  response: { newDeliveryArea }
+  response: { newDeliveryArea },
 });

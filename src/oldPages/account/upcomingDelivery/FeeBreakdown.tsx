@@ -1,6 +1,6 @@
-import React from 'react';
-import Title1 from '../../../ui/titles/Title1';
-import Title2 from '../../../ui/titles/Title2';
+import React from "react";
+import Title1 from "../../../ui/titles/Title1";
+import Title2 from "../../../ui/titles/Title2";
 
 const FeeBreakdown = () => {
   return (
@@ -18,7 +18,9 @@ const FeeBreakdown = () => {
           </tr>
           <tr>
             <td className="fee-type">
-              <Title2>Reschedule or cancel 2 business days prior to scheduled delivery</Title2>
+              <Title2>
+                Reschedule or cancel 2 business days prior to scheduled delivery
+              </Title2>
             </td>
             <td>
               <Title2>$109</Title2>
@@ -26,7 +28,9 @@ const FeeBreakdown = () => {
           </tr>
           <tr>
             <td className="fee-type">
-              <Title2>Reschedule or cancel 1 business day prior to scheduled delivery</Title2>
+              <Title2>
+                Reschedule or cancel 1 business day prior to scheduled delivery
+              </Title2>
             </td>
             <td>
               <Title2>$179</Title2>

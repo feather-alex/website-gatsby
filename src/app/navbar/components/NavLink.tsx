@@ -32,19 +32,22 @@ export const NavLinkWrapper = styled.div`
       : ""}
 `;
 
-export const renderLink = (
-  handleNavLinkClick: (currentLink: string) => () => void,
-  isUnderline = true
-) => (navLinkData: NavLinkData) => (
-  <NavLink
-    label={navLinkData.label}
-    key={navLinkData.label}
-    isUnderline={isUnderline}
-    to={navLinkData.to}
-    onClick={handleNavLinkClick(navLinkData.analyticsKey)}
-    dataCy={navLinkData.dataCy}
-  />
-);
+export const renderLink =
+  (
+    handleNavLinkClick: (currentLink: string) => () => void,
+    isUnderline = true
+  ) =>
+  (navLinkData: NavLinkData) =>
+    (
+      <NavLink
+        label={navLinkData.label}
+        key={navLinkData.label}
+        isUnderline={isUnderline}
+        to={navLinkData.to}
+        onClick={handleNavLinkClick(navLinkData.analyticsKey)}
+        dataCy={navLinkData.dataCy}
+      />
+    );
 
 interface Props {
   to: string;

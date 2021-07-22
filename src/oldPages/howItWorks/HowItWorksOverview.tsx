@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import ResponsiveImage from '../../ui/images/ResponsiveImage';
-import { HowItWorksStep } from '../../contentful/contentful.types';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
-import Header3 from '../../ui/headers/Header3';
-import Header4 from '../../ui/headers/Header4';
-import { BRAND } from '../../ui/variables';
+import ResponsiveImage from "../../ui/images/ResponsiveImage";
+import { HowItWorksStep } from "../../contentful/contentful.types";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
+import Header3 from "../../ui/headers/Header3";
+import Header4 from "../../ui/headers/Header4";
+import { BRAND } from "../../ui/variables";
 
 interface Props {
   isMobileBreakpoint: boolean;
@@ -71,7 +71,10 @@ const renderStep = (step: HowItWorksStep, isMobileBreakpoint: boolean) =>
         src={step.headerImageUrl}
         height={215}
         width={250}
-        queryParams={{ sat: step.detailImageSaturation, sharp: step.detailImageSharpness }}
+        queryParams={{
+          sat: step.detailImageSaturation,
+          sharp: step.detailImageSharpness,
+        }}
       />
       <StepHeader>{`${step.order}. ${step.headerText}`}</StepHeader>
     </StepsImageContainer>
@@ -82,18 +85,22 @@ const Overview = ({ isMobileBreakpoint, steps }: Props) =>
     <MobileOverviewContainer>
       <MobileResponsiveImageContainer>
         <ResponsiveImage
-          src={'https://img.livefeather.com/pages-new/How_it_works/fullroom.png'}
+          src={
+            "https://img.livefeather.com/pages-new/How_it_works/fullroom.png"
+          }
           height={248}
           width={327}
           queryParams={{
-            sat: 25
+            sat: 25,
           }}
         />
       </MobileResponsiveImageContainer>
       {steps.map((step) => renderStep(step, isMobileBreakpoint))}
     </MobileOverviewContainer>
   ) : (
-    <DesktopOverviewContainer>{steps.map((step) => renderStep(step, isMobileBreakpoint))}</DesktopOverviewContainer>
+    <DesktopOverviewContainer>
+      {steps.map((step) => renderStep(step, isMobileBreakpoint))}
+    </DesktopOverviewContainer>
   );
 
 export default Overview;

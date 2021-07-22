@@ -1,31 +1,37 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
+import { css, jsx } from "@emotion/core";
+import React from "react";
 
-import { DeliveryAreaIdentifier, MembershipState } from '../../../../../app/store/plan/plan.types';
-import Analytics from '../../../../../analytics/analytics';
-import { DETAILS_PAGE } from '../../../../../analytics/details-page/events';
-import { packageDetailPageViewedPayloadMapping } from '../../../../../analytics/details-page/payload-mappings';
-import { PACKAGE } from '../../../../../analytics/package/events';
+import {
+  DeliveryAreaIdentifier,
+  MembershipState,
+} from "../../../../../app/store/plan/plan.types";
+import Analytics from "../../../../../analytics/analytics";
+import { DETAILS_PAGE } from "../../../../../analytics/details-page/events";
+import { packageDetailPageViewedPayloadMapping } from "../../../../../analytics/details-page/payload-mappings";
+import { PACKAGE } from "../../../../../analytics/package/events";
 import {
   updateActionsPackagePayloadMapping,
-  removePackageItemPayloadMapping
-} from '../../../../../analytics/package/payload-mappings';
-import { FullPackageDetails, PkgItem } from '../../../../../types/Package';
-import { BRAND } from '../../../../../ui/variables';
+  removePackageItemPayloadMapping,
+} from "../../../../../analytics/package/payload-mappings";
+import { FullPackageDetails, PkgItem } from "../../../../../types/Package";
+import { BRAND } from "../../../../../ui/variables";
 import {
   getInitialSelectedItems,
   getInitialSelectedOptions,
   getPackagePrices,
   getSelectedItemsArray,
   getUniqueItemsData,
-  determineSelectedPackageVariant
-} from '../../../detailsPage.service';
-import DetailsPageInfo from '../../../DetailsPageInfo';
-import ThisPackageIncludes from './ThisPackageIncludes';
-import { isInStockAndEnabled } from '../../../../../utils';
-import { SelectedOptions, SelectedOption } from '../../../store/productDetails/product.types';
-import { OptionType } from '../../../../../types/Product';
+  determineSelectedPackageVariant,
+} from "../../../detailsPage.service";
+import DetailsPageInfo from "../../../DetailsPageInfo";
+import ThisPackageIncludes from "./ThisPackageIncludes";
+import { isInStockAndEnabled } from "../../../../../utils";
+import {
+  SelectedOptions,
+  SelectedOption,
+} from "../../../store/productDetails/product.types";
+import { OptionType } from "../../../../../types/Product";
 
 interface Props {
   deliveryAreaIdentifier: DeliveryAreaIdentifier | null;
@@ -50,74 +56,92 @@ class CuratedPackageDetailsContainer extends React.Component<Props, State> {
   public readonly state: Readonly<State> = {
     packageHasChanged: false,
     selectedOptions: getInitialSelectedOptions(this.props.packageData),
-    ...getUniqueItemsData(getInitialSelectedItems(this.props.packageData))
+    ...getUniqueItemsData(getInitialSelectedItems(this.props.packageData)),
   };
 
   componentDidMount() {
-    const { deliveryAreaIdentifier, membershipState, packageData, postalCode } = this.props;
+    const { deliveryAreaIdentifier, membershipState, packageData, postalCode } =
+      this.props;
 
     Analytics.trackEvent(
       DETAILS_PAGE.VIEW_PACKAGE,
       packageDetailPageViewedPayloadMapping({
         packageData,
         membershipState,
-        postal: postalCode ? postalCode : '',
-        deliveryAreaIdentifier: deliveryAreaIdentifier || DeliveryAreaIdentifier.All
+        postal: postalCode ? postalCode : "",
+        deliveryAreaIdentifier:
+          deliveryAreaIdentifier || DeliveryAreaIdentifier.All,
       })
     );
   }
 
-  handleOptionSelect = (optionType: OptionType) => (selection: SelectedOption) => {
-    this.setState((prevState, prevProps) => {
-      const newSelectedOptions = {
-        ...prevState.selectedOptions,
-        [optionType]: { identifier: selection.identifier, name: selection.name }
-      };
+  handleOptionSelect =
+    (optionType: OptionType) => (selection: SelectedOption) => {
+      this.setState((prevState, prevProps) => {
+        const newSelectedOptions = {
+          ...prevState.selectedOptions,
+          [optionType]: {
+            identifier: selection.identifier,
+            name: selection.name,
+          },
+        };
 
-      return {
-        selectedOptions: newSelectedOptions,
-        selectedVariant: determineSelectedPackageVariant(newSelectedOptions, prevProps.packageData.variants),
-        ...getUniqueItemsData(getSelectedItemsArray(newSelectedOptions, prevProps.packageData)),
-        uniqueItemsQuantity: prevState.uniqueItemsQuantity
-      };
-    });
-  };
+        return {
+          selectedOptions: newSelectedOptions,
+          selectedVariant: determineSelectedPackageVariant(
+            newSelectedOptions,
+            prevProps.packageData.variants
+          ),
+          ...getUniqueItemsData(
+            getSelectedItemsArray(newSelectedOptions, prevProps.packageData)
+          ),
+          uniqueItemsQuantity: prevState.uniqueItemsQuantity,
+        };
+      });
+    };
 
   handleResetPackageItems = () => {
     const { packageData } = this.props;
     const { selectedOptions } = this.state;
 
     const packageItems = getSelectedItemsArray(selectedOptions, packageData);
-    const { uniqueItems, uniqueItemsQuantity } = getUniqueItemsData(packageItems);
+    const { uniqueItems, uniqueItemsQuantity } =
+      getUniqueItemsData(packageItems);
 
     this.setState({
       uniqueItems,
       uniqueItemsQuantity,
-      packageHasChanged: false
+      packageHasChanged: false,
     });
 
     Analytics.trackEvent(
       PACKAGE.UNDO,
-      updateActionsPackagePayloadMapping({ packageIdentifier: packageData.identifier })
+      updateActionsPackagePayloadMapping({
+        packageIdentifier: packageData.identifier,
+      })
     );
   };
 
-  handleSelectedItemsQuantity = (identifier: string) => (itemsQuantity: number) => {
-    this.setState((prevState) => ({
-      uniqueItemsQuantity: { ...prevState.uniqueItemsQuantity, [identifier]: itemsQuantity },
-      packageHasChanged: true
-    }));
-    // fire the removed analytics event if quantity is 0
-    if (itemsQuantity === 0) {
-      Analytics.trackEvent(
-        PACKAGE.REMOVE,
-        removePackageItemPayloadMapping({
-          packageIdentifier: this.props.packageData.identifier,
-          removedItem: identifier
-        })
-      );
-    }
-  };
+  handleSelectedItemsQuantity =
+    (identifier: string) => (itemsQuantity: number) => {
+      this.setState((prevState) => ({
+        uniqueItemsQuantity: {
+          ...prevState.uniqueItemsQuantity,
+          [identifier]: itemsQuantity,
+        },
+        packageHasChanged: true,
+      }));
+      // fire the removed analytics event if quantity is 0
+      if (itemsQuantity === 0) {
+        Analytics.trackEvent(
+          PACKAGE.REMOVE,
+          removePackageItemPayloadMapping({
+            packageIdentifier: this.props.packageData.identifier,
+            removedItem: identifier,
+          })
+        );
+      }
+    };
 
   render() {
     const {
@@ -125,19 +149,25 @@ class CuratedPackageDetailsContainer extends React.Component<Props, State> {
       membershipState,
       packageData,
       deliveryAreaIdentifier,
-      deliveryTimelineText
+      deliveryTimelineText,
     } = this.props;
-    const { uniqueItems, selectedOptions, uniqueItemsQuantity, packageHasChanged } = this.state;
+    const {
+      uniqueItems,
+      selectedOptions,
+      uniqueItemsQuantity,
+      packageHasChanged,
+    } = this.state;
 
     const itemsInStockAndEnabled = uniqueItems.filter((item) =>
       isInStockAndEnabled(deliveryAreaIdentifier, item.availability)
     );
 
-    const { memberRentalPrice, nonMemberRentalPrice, retailPrice } = getPackagePrices(
-      itemsInStockAndEnabled,
-      uniqueItemsQuantity
+    const { memberRentalPrice, nonMemberRentalPrice, retailPrice } =
+      getPackagePrices(itemsInStockAndEnabled, uniqueItemsQuantity);
+    const selectedPackageVariant = determineSelectedPackageVariant(
+      selectedOptions,
+      packageData.variants
     );
-    const selectedPackageVariant = determineSelectedPackageVariant(selectedOptions, packageData.variants);
 
     return (
       <section

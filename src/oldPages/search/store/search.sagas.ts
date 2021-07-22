@@ -1,18 +1,21 @@
-import { put, call, select, takeEvery, takeLatest } from 'redux-saga/effects';
-import Request, { RequestMethod } from '../../../api/request';
-import { FluxStandardAction } from '../../../types/FluxStandardActions';
-import { SagaIterator } from 'redux-saga';
-import * as selectors from './search.selectors';
-import { QueryParam } from '../../../api/request';
-import * as actions from './search.actions';
-import { SEARCH } from '../../../analytics/search/events';
-import Analytics from '../../../analytics/analytics';
-import { searchResultsPayloadMapping } from '../../../analytics/search/payload-mappings';
-import { getDeliveryAreaIdentifier } from '../../../app/store/plan/plan.selectors';
+import { put, call, select, takeEvery, takeLatest } from "redux-saga/effects";
+import Request, { RequestMethod } from "../../../api/request";
+import { FluxStandardAction } from "../../../types/FluxStandardActions";
+import { SagaIterator } from "redux-saga";
+import * as selectors from "./search.selectors";
+import { QueryParam } from "../../../api/request";
+import * as actions from "./search.actions";
+import { SEARCH } from "../../../analytics/search/events";
+import Analytics from "../../../analytics/analytics";
+import { searchResultsPayloadMapping } from "../../../analytics/search/payload-mappings";
+import { getDeliveryAreaIdentifier } from "../../../app/store/plan/plan.selectors";
 
 export function* initSearchResults(action: FluxStandardAction): SagaIterator {
   // Track search keyword
-  Analytics.trackEvent(SEARCH.NEW_SEARCH, searchResultsPayloadMapping({ query: action.payload.keyword }));
+  Analytics.trackEvent(
+    SEARCH.NEW_SEARCH,
+    searchResultsPayloadMapping({ query: action.payload.keyword })
+  );
 
   // Reset search
   yield put(actions.resetSearch());
@@ -32,21 +35,26 @@ export function* getProductsRequest(): SagaIterator {
     const deliveryArea = yield select(getDeliveryAreaIdentifier);
 
     // Hardcoded this as 1000 to force a return of all the results from the api.
-    const numItems = '1000';
+    const numItems = "1000";
 
     // Format values as an array of query parameters.
     const queryParams: QueryParam[] = [
-      { name: 'numItems', value: numItems },
-      { name: 'offset', value: offset.toString() },
-      { name: 'keywords', value: keyword }
+      { name: "numItems", value: numItems },
+      { name: "offset", value: offset.toString() },
+      { name: "keywords", value: keyword },
     ];
 
     if (deliveryArea) {
-      queryParams.push({ name: 'deliveryArea', value: deliveryArea });
+      queryParams.push({ name: "deliveryArea", value: deliveryArea });
     }
 
     // Make API call.
-    const payload = yield call([Request, 'send'], RequestMethod.GET, '/search/products', queryParams);
+    const payload = yield call(
+      [Request, "send"],
+      RequestMethod.GET,
+      "/search/products",
+      queryParams
+    );
 
     // Handle successful response.
     yield put(actions.loadSearchProductsSuccess(payload));
@@ -62,10 +70,15 @@ export function* getPackagesRequest(): SagaIterator {
     const keyword = yield select(selectors.getSearchKeyword);
 
     // Format query parameter array.
-    const queryParams: QueryParam[] = [{ name: 'keywords', value: keyword }];
+    const queryParams: QueryParam[] = [{ name: "keywords", value: keyword }];
 
     // Make API call.
-    const payload = yield call([Request, 'send'], RequestMethod.GET, '/search/bundles', queryParams);
+    const payload = yield call(
+      [Request, "send"],
+      RequestMethod.GET,
+      "/search/bundles",
+      queryParams
+    );
 
     // Handle successful response.
     yield put(actions.loadSearchPackagesSuccess(payload));

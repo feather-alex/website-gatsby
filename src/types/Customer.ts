@@ -1,9 +1,9 @@
-import CreditCard from './CreditCard';
+import CreditCard from "./CreditCard";
 
 export const enum State {
-  NewYork = 'New York',
-  NewJersey = 'New Jersey',
-  California = 'California'
+  NewYork = "New York",
+  NewJersey = "New Jersey",
+  California = "California",
 }
 
 export default interface Customer {

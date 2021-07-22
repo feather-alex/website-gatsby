@@ -1,6 +1,6 @@
-import React from 'react';
-import Header3 from '../../../ui/headers/Header3';
-import { NumberOfBedroomsChoice, QuizStepChoices } from '../store/quiz.types';
+import React from "react";
+import Header3 from "../../../ui/headers/Header3";
+import { NumberOfBedroomsChoice, QuizStepChoices } from "../store/quiz.types";
 
 export interface Props {
   numberBedrooms: number;
@@ -16,7 +16,11 @@ const NumberBedroomsStep = (props: Props) => {
 
       <div className="quiz-step__options">
         <div className="list">
-          <div className={`input-container ${props.numberBedrooms === 1 ? ` checked` : ``}`}>
+          <div
+            className={`input-container ${
+              props.numberBedrooms === 1 ? ` checked` : ``
+            }`}
+          >
             <input
               className="radio-input"
               type="radio"
@@ -26,12 +30,21 @@ const NumberBedroomsStep = (props: Props) => {
               checked={props.numberBedrooms === 1}
               onClick={() => props.handleNextStep(NumberOfBedroomsChoice.One)}
             />
-            <label data-cy="bedroom-choice" className="radio-label" htmlFor="1" data-choice={1}>
+            <label
+              data-cy="bedroom-choice"
+              className="radio-label"
+              htmlFor="1"
+              data-choice={1}
+            >
               1 Bedroom
             </label>
           </div>
 
-          <div className={`input-container ${props.numberBedrooms === 2 ? ` checked` : ``}`}>
+          <div
+            className={`input-container ${
+              props.numberBedrooms === 2 ? ` checked` : ``
+            }`}
+          >
             <input
               className="radio-input"
               type="radio"
@@ -41,12 +54,21 @@ const NumberBedroomsStep = (props: Props) => {
               checked={props.numberBedrooms === 2}
               onClick={() => props.handleNextStep(NumberOfBedroomsChoice.Two)}
             />
-            <label data-cy="bedroom-choice" className="radio-label" htmlFor="2" data-choice={2}>
+            <label
+              data-cy="bedroom-choice"
+              className="radio-label"
+              htmlFor="2"
+              data-choice={2}
+            >
               2 Bedrooms
             </label>
           </div>
 
-          <div className={`input-container ${props.numberBedrooms === 3 ? ` checked` : ``}`}>
+          <div
+            className={`input-container ${
+              props.numberBedrooms === 3 ? ` checked` : ``
+            }`}
+          >
             <input
               className="radio-input"
               type="radio"
@@ -56,7 +78,12 @@ const NumberBedroomsStep = (props: Props) => {
               checked={props.numberBedrooms === 3}
               onClick={() => props.handleNextStep(NumberOfBedroomsChoice.Three)}
             />
-            <label data-cy="bedroom-choice" className="radio-label" htmlFor="3" data-choice={3}>
+            <label
+              data-cy="bedroom-choice"
+              className="radio-label"
+              htmlFor="3"
+              data-choice={3}
+            >
               3 Bedrooms
             </label>
           </div>

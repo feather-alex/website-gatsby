@@ -1,24 +1,29 @@
 /** @jsx jsx */
-import React from 'react';
-import { connect } from 'react-redux';
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import React from "react";
+import { connect } from "react-redux";
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import Analytics from '../../../analytics/analytics';
-import PAGES from '../../../analytics/pages';
-import { State as GlobalState, APIError } from '../../../types/ReduxState';
-import { ActionCreator } from '../../../types/FluxStandardActions';
+import Analytics from "../../../analytics/analytics";
+import PAGES from "../../../analytics/pages";
+import { State as GlobalState, APIError } from "../../../types/ReduxState";
+import { ActionCreator } from "../../../types/FluxStandardActions";
 import {
   registerRequest as registerRequestAction,
   RegisterRequest,
-  resetHasRegistered
-} from './store/register.actions';
-import { getError, getIsFetching, getHasRegistered, getEmail } from './store/register.selectors';
-import RegisterForm from './RegisterForm';
-import AuthPageEmailSentMessage from '../AuthPageEmailSentMessage';
-import { RegisterFormData } from './store/register.types';
-import Layout from '../../../app/Layout';
-import Header1 from '../../../ui/headers/Header1';
+  resetHasRegistered,
+} from "./store/register.actions";
+import {
+  getError,
+  getIsFetching,
+  getHasRegistered,
+  getEmail,
+} from "./store/register.selectors";
+import RegisterForm from "./RegisterForm";
+import AuthPageEmailSentMessage from "../AuthPageEmailSentMessage";
+import { RegisterFormData } from "./store/register.types";
+import Layout from "../../../app/Layout";
+import Header1 from "../../../ui/headers/Header1";
 
 const Container = styled.div`
   display: flex;
@@ -51,7 +56,10 @@ class Register extends React.Component<Props> {
   }
 
   registerRequest = (values: RegisterFormData) => {
-    this.props.registerRequest({ email: values.email, password: values.password });
+    this.props.registerRequest({
+      email: values.email,
+      password: values.password,
+    });
   };
 
   render() {
@@ -83,12 +91,12 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   error: getError(state),
   email: getEmail(state),
   isFetching: getIsFetching(state),
-  hasRegistered: getHasRegistered(state)
+  hasRegistered: getHasRegistered(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
   registerRequest: registerRequestAction,
-  resetHasRegistered
+  resetHasRegistered,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -167,9 +167,7 @@ interface DispatchProps {
   processCheckout: ActionCreatorWithPayload<CheckoutRequestPayload>;
   resetErrorsState: ActionCreator;
   submitDepositRequest: ActionCreatorWithPayload<DepositRequestPayload>;
-  processCheckoutAmountsRequest: ActionCreatorWithPayload<
-    AmountsRequestPayload
-  >;
+  processCheckoutAmountsRequest: ActionCreatorWithPayload<AmountsRequestPayload>;
   resetCheckoutForms: ActionCreator;
   checkoutStepCompleted: ActionCreatorWithPayload<CheckoutFormDataPayload>;
   updateSSNInfo: ActionCreatorWithPayload<SSNInfoFields>;
@@ -208,13 +206,11 @@ class Checkout extends React.Component<Props, State> {
     this.selectRegionByLocation = this.selectRegionByLocation.bind(this);
     this.backToCart = this.backToCart.bind(this);
     this.handleSetStripeToken = this.handleSetStripeToken.bind(this);
-    this.handleNextStepDeliveryInfo = this.handleNextStepDeliveryInfo.bind(
-      this
-    );
+    this.handleNextStepDeliveryInfo =
+      this.handleNextStepDeliveryInfo.bind(this);
     this.backToBillingAddress = this.backToBillingAddress.bind(this);
-    this.handleSetStatedIncomeAndPlaceOrder = this.handleSetStatedIncomeAndPlaceOrder.bind(
-      this
-    );
+    this.handleSetStatedIncomeAndPlaceOrder =
+      this.handleSetStatedIncomeAndPlaceOrder.bind(this);
   }
 
   componentDidMount() {
@@ -350,12 +346,8 @@ class Checkout extends React.Component<Props, State> {
 
   handleDepositRequest = (originator: DepositOrigin) => {
     const { maxTCVAmount, depositAmount } = this.props;
-    const {
-      customer,
-      delivery,
-      planMonths,
-      promoCode,
-    } = this.normalizedCheckoutData().checkoutInfo;
+    const { customer, delivery, planMonths, promoCode } =
+      this.normalizedCheckoutData().checkoutInfo;
 
     const items = this.props.cartItems.map(
       ({ title, variantName, rentalPrices, rentalLength }) => {
@@ -404,22 +396,11 @@ class Checkout extends React.Component<Props, State> {
       subtotal,
     } = this.props;
 
-    const {
-      firstName,
-      lastName,
-      email,
-      company,
-      persona,
-    } = this.props.customerInfo;
+    const { firstName, lastName, email, company, persona } =
+      this.props.customerInfo;
     const { ssn, legalFirstName, legalLastName } = this.props.ssnInfo;
-    const {
-      streetAddress,
-      apt,
-      city,
-      state,
-      zipcode,
-      phone,
-    } = this.props.deliveryInfo;
+    const { streetAddress, apt, city, state, zipcode, phone } =
+      this.props.deliveryInfo;
     const {
       billingStreetAddress,
       billingApt,
@@ -479,11 +460,8 @@ class Checkout extends React.Component<Props, State> {
   };
 
   selectRegionByLocation() {
-    const {
-      productEntities,
-      deliveryAreaIdentifier,
-      deliveryInfo,
-    } = this.props;
+    const { productEntities, deliveryAreaIdentifier, deliveryInfo } =
+      this.props;
     const deliveryArea = productEntities.deliveryAreas.find(
       (a) => a.identifier === deliveryAreaIdentifier
     );

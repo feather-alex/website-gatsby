@@ -1,17 +1,17 @@
-import styled from '@emotion/styled';
-import { connect } from 'react-redux';
-import React, { useState, useLayoutEffect } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import styled from "@emotion/styled";
+import { connect } from "react-redux";
+import React, { useState, useLayoutEffect } from "react";
+import { Route, Switch, useLocation } from "react-router-dom";
 
-import { CheckoutStep } from './store/checkout.types';
-import { BRAND, BREAKPOINTS } from '../../ui/variables';
-import { CartItem, PromoInfo } from '../cart/store/cart.types';
-import { MembershipState } from '../../app/store/plan/plan.types';
-import UnderwritingConfirmIncome from './components/UnderwritingConfirmIncome';
-import UnderwritingReduceCartDeposit from './components/UnderwritingReduceCartDeposit';
-import UnderwritingReviewOrder from './components/UnderwritingReviewOrder';
-import { CheckoutState, DepositOrigin } from './store/checkout.types';
-import { APIError, State as GlobalState } from '../../types/ReduxState';
+import { CheckoutStep } from "./store/checkout.types";
+import { BRAND, BREAKPOINTS } from "../../ui/variables";
+import { CartItem, PromoInfo } from "../cart/store/cart.types";
+import { MembershipState } from "../../app/store/plan/plan.types";
+import UnderwritingConfirmIncome from "./components/UnderwritingConfirmIncome";
+import UnderwritingReduceCartDeposit from "./components/UnderwritingReduceCartDeposit";
+import UnderwritingReviewOrder from "./components/UnderwritingReviewOrder";
+import { CheckoutState, DepositOrigin } from "./store/checkout.types";
+import { APIError, State as GlobalState } from "../../types/ReduxState";
 import {
   getIsPlacingOrder,
   getMaxTCVError,
@@ -21,11 +21,19 @@ import {
   getDueNow,
   getDepositAmount,
   getIsSubmittingDeposit,
-  getDepositError
-} from './store/checkout.selectors';
-import { getMembershipState, getRentalLength } from '../../app/store/plan/plan.selectors';
-import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import { getCartItems, getNumberOfItemsInCart, getPromo, getPromoDescription } from '../cart/store/cart.selectors';
+  getDepositError,
+} from "./store/checkout.selectors";
+import {
+  getMembershipState,
+  getRentalLength,
+} from "../../app/store/plan/plan.selectors";
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import {
+  getCartItems,
+  getNumberOfItemsInCart,
+  getPromo,
+  getPromoDescription,
+} from "../cart/store/cart.selectors";
 
 const UnderwritingContainer = styled.div`
   padding-bottom: 40px;
@@ -61,7 +69,7 @@ interface StateProps {
   totalItems: number;
   promo: PromoInfo | null;
   promoDescription: string;
-  maxTCVError: CheckoutState['maxTCVError'];
+  maxTCVError: CheckoutState["maxTCVError"];
   depositError: APIError | null;
   membershipState: MembershipState;
   rentalLength: number;
@@ -102,14 +110,21 @@ const AdditionalUnderwriting = (props: Props) => {
     <UnderwritingContainer>
       <Content>
         <Switch>
-          <Route exact={true} path={`/checkout/${CheckoutStep.Eligibility}/income`}>
+          <Route
+            exact={true}
+            path={`/checkout/${CheckoutStep.Eligibility}/income`}
+          >
             <UnderwritingConfirmIncome
               isPlacingOrder={props.isPlacingOrder}
               statedIncome={props.statedIncome}
-              onSetStatedIncomeAndPlaceOrder={props.onSetStatedIncomeAndPlaceOrder}
+              onSetStatedIncomeAndPlaceOrder={
+                props.onSetStatedIncomeAndPlaceOrder
+              }
             />
           </Route>
-          <Route path={`/checkout/${CheckoutStep.Eligibility}/reduce-cart-deposit`}>
+          <Route
+            path={`/checkout/${CheckoutStep.Eligibility}/reduce-cart-deposit`}
+          >
             <UnderwritingReduceCartDeposit
               monthlyFurnitureTotal={props.monthlyFurnitureTotal}
               depositAmount={props.depositAmount}
@@ -125,7 +140,10 @@ const AdditionalUnderwriting = (props: Props) => {
               depositError={props.depositError}
             />
           </Route>
-          <Route exact={true} path={`/checkout/${CheckoutStep.Eligibility}/review`}>
+          <Route
+            exact={true}
+            path={`/checkout/${CheckoutStep.Eligibility}/review`}
+          >
             <UnderwritingReviewOrder
               dueNow={props.dueNow}
               taxAmount={props.taxAmount}
@@ -165,7 +183,7 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   promoDescription: getPromoDescription(state),
   maxTCVError: getMaxTCVError(state),
   depositError: getDepositError(state),
-  membershipState: getMembershipState(state)
+  membershipState: getMembershipState(state),
 });
 
 export default connect(mapStateToProps)(AdditionalUnderwriting);

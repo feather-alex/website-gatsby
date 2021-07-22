@@ -1,10 +1,13 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { Fragment } from 'react';
-import Title3 from '../../../ui/titles/Title3';
-import Title4 from '../../../ui/titles/Title4';
-import { BRAND, SHADES } from '../../../ui/variables';
-import { MembershipState, MembershipStateDisplayName } from '../../../app/store/plan/plan.types';
+import { css, jsx } from "@emotion/core";
+import { Fragment } from "react";
+import Title3 from "../../../ui/titles/Title3";
+import Title4 from "../../../ui/titles/Title4";
+import { BRAND, SHADES } from "../../../ui/variables";
+import {
+  MembershipState,
+  MembershipStateDisplayName,
+} from "../../../app/store/plan/plan.types";
 
 interface Props {
   isMobileBreakpoint: boolean;
@@ -23,15 +26,15 @@ const MiniCartBanner = ({
   showBelowMinimum,
   postalCode,
   subtotal,
-  openPlanSelectionOverlay
+  openPlanSelectionOverlay,
 }: Props) => {
   const isVisible = !deliverToPostal || showBelowMinimum;
 
   const dataCy = showBelowMinimum
     ? membershipState === MembershipState.MEMBER
-      ? 'member-minimum'
-      : 'nonmember-minimum'
-    : '';
+      ? "member-minimum"
+      : "nonmember-minimum"
+    : "";
 
   const monthlyMinimum = membershipState === MembershipState.MEMBER ? 29 : 99;
   const memberType = MembershipStateDisplayName[membershipState].toLowerCase();
@@ -47,7 +50,7 @@ const MiniCartBanner = ({
   if (!deliverToPostal) {
     content = (
       <Fragment>
-        Sorry, we don't currently deliver to {postalCode || 'your area'}.{' '}
+        Sorry, we don't currently deliver to {postalCode || "your area"}.{" "}
         <span
           role="button"
           tabIndex={0}

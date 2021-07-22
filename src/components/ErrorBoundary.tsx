@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import Report from '../errorReporter';
-import Button from '../ui/buttons/Button';
-import { history } from '../store/history';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import Report from "../errorReporter";
+import Button from "../ui/buttons/Button";
+import { history } from "../store/history";
 
 interface State {
   hasError: boolean;
@@ -11,7 +11,7 @@ interface State {
 
 export default class ErrorBoundary extends React.Component<{}, State> {
   public readonly state: Readonly<State> = {
-    hasError: false
+    hasError: false,
   };
 
   componentDidCatch(error: Error) {
@@ -19,12 +19,12 @@ export default class ErrorBoundary extends React.Component<{}, State> {
     Report.captureException(error);
 
     this.setState({
-      hasError: true
+      hasError: true,
     });
   }
 
   goHomeAndRefresh = () => {
-    history.push('/');
+    history.push("/");
     window.location.reload();
   };
 
@@ -34,7 +34,12 @@ export default class ErrorBoundary extends React.Component<{}, State> {
         <div className="error-page body">
           <div className="text">
             <h1>Sorry, something went wrong.</h1>
-            <div role="button" tabIndex={0} className="refresh" onClick={() => window.location.reload()}>
+            <div
+              role="button"
+              tabIndex={0}
+              className="refresh"
+              onClick={() => window.location.reload()}
+            >
               Click here to refresh the page
             </div>
             <div

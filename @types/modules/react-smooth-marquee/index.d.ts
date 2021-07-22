@@ -1,5 +1,5 @@
-declare module 'react-smooth-marquee' {
-  import React from 'react';
+declare module "react-smooth-marquee" {
+  import React from "react";
 
   interface Props {
     // TODO: Fix this the next time the file is edited.

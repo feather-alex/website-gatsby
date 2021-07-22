@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import React from 'react';
-import { css, jsx } from '@emotion/core';
-import { BRAND, SHADES } from '../../ui/variables';
-import Panel from 'react-bootstrap/lib/Panel';
-import Header3 from '../../ui/headers/Header3';
-import CaratIcon, { Direction } from '../../ui/icons/small/CaratIcon';
-import Caption from '../../ui/captions/Caption';
+import React from "react";
+import { css, jsx } from "@emotion/core";
+import { BRAND, SHADES } from "../../ui/variables";
+import Panel from "react-bootstrap/lib/Panel";
+import Header3 from "../../ui/headers/Header3";
+import CaratIcon, { Direction } from "../../ui/icons/small/CaratIcon";
+import Caption from "../../ui/captions/Caption";
 
 interface Props {
   header: string;
@@ -13,14 +13,18 @@ interface Props {
   numSelectedFilters: number;
 }
 
-const ProductFilterAccordion = ({ header, children, numSelectedFilters }: Props) => {
+const ProductFilterAccordion = ({
+  header,
+  children,
+  numSelectedFilters,
+}: Props) => {
   const defaultExpanded = true;
   const [isAccordionOpen, setIsAccordionOpen] = React.useState(defaultExpanded);
 
-  const handleAccordionClick = React.useCallback(() => setIsAccordionOpen(!isAccordionOpen), [
-    setIsAccordionOpen,
-    isAccordionOpen
-  ]);
+  const handleAccordionClick = React.useCallback(
+    () => setIsAccordionOpen(!isAccordionOpen),
+    [setIsAccordionOpen, isAccordionOpen]
+  );
 
   return (
     <div
@@ -78,7 +82,10 @@ const ProductFilterAccordion = ({ header, children, numSelectedFilters }: Props)
                   {numSelectedFilters > 0 && `${numSelectedFilters} Selected`}
                 </Caption>
               </div>
-              <CaratIcon direction={isAccordionOpen ? Direction.Up : Direction.Down} width={12} />
+              <CaratIcon
+                direction={isAccordionOpen ? Direction.Up : Direction.Down}
+                width={12}
+              />
             </div>
           </Panel.Title>
         </Panel.Heading>

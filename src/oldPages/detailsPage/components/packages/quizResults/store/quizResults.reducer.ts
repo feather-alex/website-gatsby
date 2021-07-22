@@ -1,4 +1,4 @@
-import { QuizResultsState } from './quizResults.types';
+import { QuizResultsState } from "./quizResults.types";
 import {
   FETCH_QUIZ_RESULTS_REQUEST,
   FETCH_QUIZ_RESULTS_BY_UUID_REQUEST,
@@ -6,24 +6,27 @@ import {
   FETCH_QUIZ_RESULTS_FAILURE,
   UPDATE_QUIZ_RESULTS_REQUEST,
   TOGGLE_EDIT_QUIZ_RESULTS_OVERLAY,
-  QuizResultsActions
-} from './quizResults.actions';
+  QuizResultsActions,
+} from "./quizResults.actions";
 
 export const initialState: QuizResultsState = {
   isFetching: false,
   error: null,
   data: null,
-  activeQuizRoom: null
+  activeQuizRoom: null,
 };
 
-const quizResultsReducer = (state: QuizResultsState = initialState, action: QuizResultsActions) => {
+const quizResultsReducer = (
+  state: QuizResultsState = initialState,
+  action: QuizResultsActions
+) => {
   switch (action.type) {
     case FETCH_QUIZ_RESULTS_REQUEST:
     case FETCH_QUIZ_RESULTS_BY_UUID_REQUEST:
       return {
         ...state,
         isFetching: true,
-        error: null
+        error: null,
       };
 
     case FETCH_QUIZ_RESULTS_SUCCESS:
@@ -31,7 +34,7 @@ const quizResultsReducer = (state: QuizResultsState = initialState, action: Quiz
         ...state,
         isFetching: false,
 
-        data: action.payload.quizPkgs
+        data: action.payload.quizPkgs,
       };
 
     case FETCH_QUIZ_RESULTS_FAILURE:
@@ -39,7 +42,7 @@ const quizResultsReducer = (state: QuizResultsState = initialState, action: Quiz
         ...state,
         isFetching: false,
 
-        error: action.payload.error
+        error: action.payload.error,
       };
 
     case UPDATE_QUIZ_RESULTS_REQUEST:
@@ -47,14 +50,14 @@ const quizResultsReducer = (state: QuizResultsState = initialState, action: Quiz
         ...state,
         data: {
           ...state.data,
-          ...action.payload.quizPackages.items
-        }
+          ...action.payload.quizPackages.items,
+        },
       };
 
     case TOGGLE_EDIT_QUIZ_RESULTS_OVERLAY:
       return {
         ...state,
-        activeQuizRoom: action.payload.roomId
+        activeQuizRoom: action.payload.roomId,
       };
 
     default:

@@ -1,10 +1,10 @@
-import React from 'react';
-import QuizOptionCardRadio from './QuizOptionCardRadio';
-import FishBowelIcon from '../../../assets/icons/quiz/icon_fishbowel.svg';
-import AquariumIcon from '../../../assets/icons/quiz/icon_aquarium.svg';
-import OceanIcon from '../../../assets/icons/quiz/icon_ocean.svg';
-import Header3 from '../../../ui/headers/Header3';
-import { LivingRoomSizeChoice, QuizStepChoices } from '../store/quiz.types';
+import React from "react";
+import QuizOptionCardRadio from "./QuizOptionCardRadio";
+import FishBowelIcon from "../../../assets/icons/quiz/icon_fishbowel.svg";
+import AquariumIcon from "../../../assets/icons/quiz/icon_aquarium.svg";
+import OceanIcon from "../../../assets/icons/quiz/icon_ocean.svg";
+import Header3 from "../../../ui/headers/Header3";
+import { LivingRoomSizeChoice, QuizStepChoices } from "../store/quiz.types";
 
 export interface Props {
   livingRoomSize: string;
@@ -15,22 +15,22 @@ const LivingRoomSizeStep = (props: Props) => {
   const options = [
     {
       image: <FishBowelIcon />,
-      text: 'Small',
-      subtext: 'Could barely fit a loveseat',
-      choice: LivingRoomSizeChoice.Small
+      text: "Small",
+      subtext: "Could barely fit a loveseat",
+      choice: LivingRoomSizeChoice.Small,
     },
     {
       image: <AquariumIcon />,
-      text: 'Medium',
-      subtext: 'Could fit a 3-seater sofa',
-      choice: LivingRoomSizeChoice.Medium
+      text: "Medium",
+      subtext: "Could fit a 3-seater sofa",
+      choice: LivingRoomSizeChoice.Medium,
     },
     {
       image: <OceanIcon />,
-      text: 'Large',
-      subtext: 'Could host a small yoga class',
-      choice: LivingRoomSizeChoice.Large
-    }
+      text: "Large",
+      subtext: "Could host a small yoga class",
+      choice: LivingRoomSizeChoice.Large,
+    },
   ];
 
   return (

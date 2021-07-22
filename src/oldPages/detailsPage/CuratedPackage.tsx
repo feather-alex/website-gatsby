@@ -1,36 +1,47 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { compose } from 'redux';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import { connect } from "react-redux";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import { compose } from "redux";
 
-import Layout from '../../app/Layout';
-import { getIsMobileBreakpoint, getWindowWidth } from '../../app/store/dimensions/dimensions.selectors';
+import Layout from "../../app/Layout";
+import {
+  getIsMobileBreakpoint,
+  getWindowWidth,
+} from "../../app/store/dimensions/dimensions.selectors";
 import {
   getDeliveryAreaIdentifier,
   getDeliveryZipCode,
   getMembershipState,
-  getDeliveryTimelineText
-} from '../../app/store/plan/plan.selectors';
-import { DeliveryAreaIdentifier, MembershipState } from '../../app/store/plan/plan.types';
-import Analytics from '../../analytics/analytics';
-import PAGES from '../../analytics/pages';
-import Helmet from '../../components/Helmet';
-import Loading from '../../components/Loading';
-import ErrorPage from '../../components/ErrorPage';
-import { loadPackage } from '../../reducers/package';
-import { FullPackageDetails } from '../../types/Package';
-import { State as GlobalState, APIError } from '../../types/ReduxState';
-import TakeTheQuizPreFooter from '../../ui/footers/TakeTheQuizPreFooter';
-import Breadcrumb, { CurrentType } from './components/Breadcrumb';
-import DesktopImageCarousel from './components/packages/curatedPackage/DesktopImageCarousel';
-import MobileImageCarousel from './components/MobileImageCarousel';
-import PackageDetailsContainer from './components/packages/curatedPackage/CuratedPackageDetailsContainer';
-import ProductPairings from './components/ProductPairings';
-import { getImageSrc, getImageSrcArray, getDesktopImageSrcArray, getInitialPackagePrices } from './detailsPage.service';
-import { BRAND } from '../../ui/variables';
-import ProductOrPackageNotFound from './ProductOrPackageNotFoundPage';
+  getDeliveryTimelineText,
+} from "../../app/store/plan/plan.selectors";
+import {
+  DeliveryAreaIdentifier,
+  MembershipState,
+} from "../../app/store/plan/plan.types";
+import Analytics from "../../analytics/analytics";
+import PAGES from "../../analytics/pages";
+import Helmet from "../../components/Helmet";
+import Loading from "../../components/Loading";
+import ErrorPage from "../../components/ErrorPage";
+import { loadPackage } from "../../reducers/package";
+import { FullPackageDetails } from "../../types/Package";
+import { State as GlobalState, APIError } from "../../types/ReduxState";
+import TakeTheQuizPreFooter from "../../ui/footers/TakeTheQuizPreFooter";
+import Breadcrumb, { CurrentType } from "./components/Breadcrumb";
+import DesktopImageCarousel from "./components/packages/curatedPackage/DesktopImageCarousel";
+import MobileImageCarousel from "./components/MobileImageCarousel";
+import PackageDetailsContainer from "./components/packages/curatedPackage/CuratedPackageDetailsContainer";
+import ProductPairings from "./components/ProductPairings";
+import {
+  getImageSrc,
+  getImageSrcArray,
+  getDesktopImageSrcArray,
+  getInitialPackagePrices,
+} from "./detailsPage.service";
+import { BRAND } from "../../ui/variables";
+import ProductOrPackageNotFound from "./ProductOrPackageNotFoundPage";
 
 interface MatchParams {
   packageIdentifier: string;
@@ -64,7 +75,10 @@ class CuratedPackage extends React.Component<Props> {
 
   componentDidUpdate(prevProps: Props) {
     // if the package identifier changes, go fetch new package and treat as a new page view
-    if (prevProps.match.params.packageIdentifier !== this.props.match.params.packageIdentifier) {
+    if (
+      prevProps.match.params.packageIdentifier !==
+      this.props.match.params.packageIdentifier
+    ) {
       this.props.loadPackage(this.props.match.params.packageIdentifier);
       Analytics.trackPage(PAGES.CURATED_PACKAGE);
     }
@@ -80,12 +94,18 @@ class CuratedPackage extends React.Component<Props> {
       packageData,
       postalCode,
       windowWidth,
-      deliveryTimelineText
+      deliveryTimelineText,
     } = this.props;
 
     const { image } = packageData.lifestyle;
     const lifestyleImage = getImageSrc(isMobileBreakpoint, image);
-    const carouselImages = getImageSrcArray(isMobileBreakpoint, image, packageData.otherImages, [], []);
+    const carouselImages = getImageSrcArray(
+      isMobileBreakpoint,
+      image,
+      packageData.otherImages,
+      [],
+      []
+    );
     const desktopCarouselImages = getDesktopImageSrcArray(carouselImages);
 
     const { memberRentalPrice } = getInitialPackagePrices(packageData);
@@ -103,12 +123,19 @@ class CuratedPackage extends React.Component<Props> {
       if (errorFetching.status === 404) {
         return <ProductOrPackageNotFound />;
       } else {
-        return <ErrorPage title={errorFetching.error} content={errorFetching.message} />;
+        return (
+          <ErrorPage
+            title={errorFetching.error}
+            content={errorFetching.message}
+          />
+        );
       }
     }
 
     // packages may contain multiples of the same item (i.e a dining package w/ 4 chairs), so we use set for uniqueness
-    const packageItemIdentifiers = [...new Set(packageData.variants[0].items.map((item) => item.identifier))];
+    const packageItemIdentifiers = [
+      ...new Set(packageData.variants[0].items.map((item) => item.identifier)),
+    ];
 
     return (
       <Layout>
@@ -137,9 +164,15 @@ class CuratedPackage extends React.Component<Props> {
           `}
         >
           {isMobileBreakpoint ? (
-            <MobileImageCarousel carouselImages={carouselImages} isPackage={true} />
+            <MobileImageCarousel
+              carouselImages={carouselImages}
+              isPackage={true}
+            />
           ) : (
-            <DesktopImageCarousel carouselImages={desktopCarouselImages} windowWidth={windowWidth} />
+            <DesktopImageCarousel
+              carouselImages={desktopCarouselImages}
+              windowWidth={windowWidth}
+            />
           )}
         </section>
 
@@ -180,11 +213,14 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   packageData: state.entities.pkg.data,
   postalCode: getDeliveryZipCode(state),
   windowWidth: getWindowWidth(state),
-  deliveryTimelineText: getDeliveryTimelineText(state)
+  deliveryTimelineText: getDeliveryTimelineText(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
-  loadPackage
+  loadPackage,
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(CuratedPackage);
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(CuratedPackage);

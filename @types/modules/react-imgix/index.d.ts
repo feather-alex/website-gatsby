@@ -1,5 +1,5 @@
-declare module 'react-imgix' {
-  import React from 'react';
+declare module "react-imgix" {
+  import React from "react";
 
   interface AttributeConfig {
     src?: string;

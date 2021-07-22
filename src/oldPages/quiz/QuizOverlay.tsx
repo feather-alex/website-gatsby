@@ -1,26 +1,34 @@
 /** @jsx jsx */
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter, RouteComponentProps, Switch, Route } from 'react-router-dom';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  withRouter,
+  RouteComponentProps,
+  Switch,
+  Route,
+} from "react-router-dom";
+import CSSTransitionGroup from "react-addons-css-transition-group";
 
-import { State as GlobalState } from '../../types/ReduxState';
-import { getIsQuizOverlayOpen } from '../../app/store/overlay/overlay.selectors';
-import { getWindowHeight, getWindowWidth } from '../../app/store/dimensions/dimensions.selectors';
-import { getProductEntities } from '../../app/store/entities/entities.selectors';
-import { ProductEntities } from '../../app/store/entities/entities.types';
-import LivingRoomFunctionStep from './components/LivingRoomFunctionStep';
-import DiningRoomChairsStep from './components/DiningRoomChairsStep';
-import LivingRoomSizeStep from './components/LivingRoomSizeStep';
-import NumberBedroomsStep from './components/NumberBedroomsStep';
-import SelectLocationStep from './components/SelectLocationStep';
-import HomeOfficeStep from './components/HomeOfficeStep';
-import WhatRoomsStep from './components/WhatRoomsStep';
-import BedSizeStep from './components/BedSizeStep';
-import BudgetStep from './components/BudgetStep';
-import StyleStep from './components/StyleStep';
-import FinalStep from './components/FinalStep';
-import WhyStep from './components/WhyStep';
+import { State as GlobalState } from "../../types/ReduxState";
+import { getIsQuizOverlayOpen } from "../../app/store/overlay/overlay.selectors";
+import {
+  getWindowHeight,
+  getWindowWidth,
+} from "../../app/store/dimensions/dimensions.selectors";
+import { getProductEntities } from "../../app/store/entities/entities.selectors";
+import { ProductEntities } from "../../app/store/entities/entities.types";
+import LivingRoomFunctionStep from "./components/LivingRoomFunctionStep";
+import DiningRoomChairsStep from "./components/DiningRoomChairsStep";
+import LivingRoomSizeStep from "./components/LivingRoomSizeStep";
+import NumberBedroomsStep from "./components/NumberBedroomsStep";
+import SelectLocationStep from "./components/SelectLocationStep";
+import HomeOfficeStep from "./components/HomeOfficeStep";
+import WhatRoomsStep from "./components/WhatRoomsStep";
+import BedSizeStep from "./components/BedSizeStep";
+import BudgetStep from "./components/BudgetStep";
+import StyleStep from "./components/StyleStep";
+import FinalStep from "./components/FinalStep";
+import WhyStep from "./components/WhyStep";
 import {
   submitQuiz as submitQuizAction,
   SubmitQuiz,
@@ -29,8 +37,8 @@ import {
   quizStepBack,
   QuizStepBack,
   resetQuiz as resetQuizAction,
-  ResetQuiz
-} from './store/quiz.actions';
+  ResetQuiz,
+} from "./store/quiz.actions";
 import {
   getLocationPathBeforeQuizOpened,
   getQuizSteps,
@@ -45,15 +53,24 @@ import {
   getRooms,
   getDirection,
   getStyles,
-  getIsSubmitted
-} from './store/quiz.selectors';
-import { Rooms, Steps, Direction, QuizStepChoices, DeliveryAreaChoice, WhatRoomsChoice } from './store/quiz.types';
-import Analytics from '../../analytics/analytics';
-import { QUIZ } from '../../analytics/quiz/events';
-import { quizStepPayloadMapping } from '../../analytics/quiz/payload-mappings';
-import CloseSignIcon from '../../ui/icons/CloseSignIcon';
-import ArrowIcon, { Direction as ArrowDirection } from '../../ui/icons/ArrowIcon';
-import { css, jsx } from '@emotion/core';
+  getIsSubmitted,
+} from "./store/quiz.selectors";
+import {
+  Rooms,
+  Steps,
+  Direction,
+  QuizStepChoices,
+  DeliveryAreaChoice,
+  WhatRoomsChoice,
+} from "./store/quiz.types";
+import Analytics from "../../analytics/analytics";
+import { QUIZ } from "../../analytics/quiz/events";
+import { quizStepPayloadMapping } from "../../analytics/quiz/payload-mappings";
+import CloseSignIcon from "../../ui/icons/CloseSignIcon";
+import ArrowIcon, {
+  Direction as ArrowDirection,
+} from "../../ui/icons/ArrowIcon";
+import { css, jsx } from "@emotion/core";
 
 interface StateProps {
   routeToGoToOnClose: string;
@@ -89,13 +106,24 @@ class QuizOverlay extends React.Component<Props> {
   private quizOverlayRef = React.createRef<HTMLDivElement>();
 
   componentDidUpdate(prevProps: Props) {
-    const { history, isQuizOverlayOpen, location, currentStepIndex, steps, isSubmitted, resetQuiz } = this.props;
+    const {
+      history,
+      isQuizOverlayOpen,
+      location,
+      currentStepIndex,
+      steps,
+      isSubmitted,
+      resetQuiz,
+    } = this.props;
     // on step change, scroll to top, track in analytics, and route to corresponding path
     if (currentStepIndex !== prevProps.currentStepIndex) {
       if (this.quizOverlayRef.current) {
         this.quizOverlayRef.current.scrollTop = 0;
       }
-      Analytics.trackEvent(QUIZ.STEP, quizStepPayloadMapping({ currentStep: steps[currentStepIndex] }));
+      Analytics.trackEvent(
+        QUIZ.STEP,
+        quizStepPayloadMapping({ currentStep: steps[currentStepIndex] })
+      );
       history.replace(`/style-quiz/${steps[currentStepIndex]}`);
     }
 
@@ -105,9 +133,14 @@ class QuizOverlay extends React.Component<Props> {
       // bounds of the array reset the quiz to initial state
       if (isSubmitted || steps[currentStepIndex] === undefined) {
         resetQuiz();
-      } else if (location.pathname !== `/style-quiz/${steps[currentStepIndex]}`) {
+      } else if (
+        location.pathname !== `/style-quiz/${steps[currentStepIndex]}`
+      ) {
         // if the pathname is not in sync with the current quiz step, replace with the correct route path
-        Analytics.trackEvent(QUIZ.STEP, quizStepPayloadMapping({ currentStep: steps[currentStepIndex] }));
+        Analytics.trackEvent(
+          QUIZ.STEP,
+          quizStepPayloadMapping({ currentStep: steps[currentStepIndex] })
+        );
         history.replace(`/style-quiz/${steps[currentStepIndex]}`);
       }
     }
@@ -147,7 +180,7 @@ class QuizOverlay extends React.Component<Props> {
       rooms,
       numberOfBedrooms,
       budget,
-      selectedImages
+      selectedImages,
     } = this.props;
 
     const numberSteps = steps.length < 7 ? 7 : steps.length;
@@ -156,7 +189,9 @@ class QuizOverlay extends React.Component<Props> {
 
     return (
       <div
-        className={`quiz-overlay-container ${isQuizOverlayOpen ? ` show-me` : ``} ${chooseDesigns ? ` overflow` : ``}`}
+        className={`quiz-overlay-container ${
+          isQuizOverlayOpen ? ` show-me` : ``
+        } ${chooseDesigns ? ` overflow` : ``}`}
       >
         <div ref={this.quizOverlayRef} className="quiz-overlay">
           <div className="quiz-progress">
@@ -170,7 +205,7 @@ class QuizOverlay extends React.Component<Props> {
                 padding: 10px;
                 position: relative;
                 top: -1px;
-                visibility: ${currentStepIndex === 0 ? 'hidden' : 'visible'};
+                visibility: ${currentStepIndex === 0 ? "hidden" : "visible"};
               `}
             >
               <ArrowIcon direction={ArrowDirection.Left} width={15} />
@@ -194,7 +229,12 @@ class QuizOverlay extends React.Component<Props> {
             </div>
           </div>
 
-          <div className={`quiz-` + (direction === Direction.Backward ? 'backward' : 'forward')}>
+          <div
+            className={
+              `quiz-` +
+              (direction === Direction.Backward ? "backward" : "forward")
+            }
+          >
             <CSSTransitionGroup
               transitionEnter={true}
               transitionEnterTimeout={600}
@@ -206,13 +246,19 @@ class QuizOverlay extends React.Component<Props> {
                 <Route path={`/style-quiz/${Steps.SelectLocation}`}>
                   <SelectLocationStep
                     key="step-plan-details"
-                    deliveryAreas={productEntities ? productEntities.deliveryAreas : null}
+                    deliveryAreas={
+                      productEntities ? productEntities.deliveryAreas : null
+                    }
                     location={deliveryArea}
                     handleNextStep={this.handleNextStep(Steps.SelectLocation)}
                   />
                 </Route>
                 <Route path={`/style-quiz/${Steps.Why}`}>
-                  <WhyStep key="step-why" reason={reason} handleNextStep={this.handleNextStep(Steps.Why)} />
+                  <WhyStep
+                    key="step-why"
+                    reason={reason}
+                    handleNextStep={this.handleNextStep(Steps.Why)}
+                  />
                 </Route>
                 <Route path={`/style-quiz/${Steps.WhatRooms}`}>
                   <WhatRoomsStep
@@ -231,7 +277,9 @@ class QuizOverlay extends React.Component<Props> {
                 <Route path={`/style-quiz/${Steps.LivingRoomFunction}`}>
                   <LivingRoomFunctionStep
                     key="step-living-room-function"
-                    handleNextStep={this.handleNextStep(Steps.LivingRoomFunction)}
+                    handleNextStep={this.handleNextStep(
+                      Steps.LivingRoomFunction
+                    )}
                     livingRoomFunction={rooms.livingRoom.function}
                   />
                 </Route>
@@ -266,7 +314,11 @@ class QuizOverlay extends React.Component<Props> {
                   />
                 </Route>
                 <Route path={`/style-quiz/${Steps.Budget}`}>
-                  <BudgetStep key="step-budget" budget={budget} handleNextStep={this.handleNextStep(Steps.Budget)} />
+                  <BudgetStep
+                    key="step-budget"
+                    budget={budget}
+                    handleNextStep={this.handleNextStep(Steps.Budget)}
+                  />
                 </Route>
                 <Route path={`/style-quiz/${Steps.Style}`}>
                   <StyleStep
@@ -312,14 +364,16 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   rooms: getRooms(state),
   direction: getDirection(state),
   styles: getStyles(state),
-  isSubmitted: getIsSubmitted(state)
+  isSubmitted: getIsSubmitted(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
   submitQuiz: submitQuizAction,
   quizStepCompleted: quizStepCompletedAction,
   resetQuiz: resetQuizAction,
-  quizStepBack
+  quizStepBack,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(QuizOverlay));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(QuizOverlay)
+);

@@ -1,4 +1,4 @@
-import { EntryCollection } from 'contentful';
+import { EntryCollection } from "contentful";
 import {
   FurnitureFeature,
   HeaderAndButtonSection,
@@ -11,9 +11,9 @@ import {
   MetaContentful,
   FAQCategoryContentful,
   FAQ,
-  Meta
-} from '../../../contentful/contentful.types';
-import { APIError } from '../../../api/error';
+  Meta,
+} from "../../../contentful/contentful.types";
+import { APIError } from "../../../api/error";
 
 export interface EnterpriseRequestPayload {
   id: string;

@@ -1,6 +1,6 @@
-import { FluxStandardAction } from '../../../types/FluxStandardActions';
-import { OverlayState } from './overlay.types';
-import { OPEN_OVERLAY, CLOSE_OVERLAY } from './overlay.actions';
+import { FluxStandardAction } from "../../../types/FluxStandardActions";
+import { OverlayState } from "./overlay.types";
+import { OPEN_OVERLAY, CLOSE_OVERLAY } from "./overlay.actions";
 
 export const initialState: OverlayState = {
   isMiniCartOpen: false,
@@ -18,21 +18,24 @@ export const initialState: OverlayState = {
   isEditQuizResultsOverlayOpen: false,
   isFailedSSNOverlayOpen: false,
   isNoSSNOverlayOpen: false,
-  is3DOverlayOpen: false
+  is3DOverlayOpen: false,
 };
 
-const overlayControl = (state = initialState, action: FluxStandardAction): OverlayState => {
+const overlayControl = (
+  state = initialState,
+  action: FluxStandardAction
+): OverlayState => {
   switch (action.type) {
     case OPEN_OVERLAY:
       return {
         ...state,
-        [action.payload.overlay]: true
+        [action.payload.overlay]: true,
       };
 
     case CLOSE_OVERLAY:
       return {
         ...state,
-        [action.payload.overlay]: false
+        [action.payload.overlay]: false,
       };
 
     default:

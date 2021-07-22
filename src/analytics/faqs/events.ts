@@ -1,3 +1,3 @@
 export const FAQS = {
-  CLICK_FAQ: 'FAQ Question Clicked'
+  CLICK_FAQ: "FAQ Question Clicked",
 };

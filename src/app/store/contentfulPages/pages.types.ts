@@ -1,5 +1,5 @@
-import { APIError } from '../../../api/error';
-import { Pages } from '../../../contentful/contentful.types';
+import { APIError } from "../../../api/error";
+import { Pages } from "../../../contentful/contentful.types";
 
 export interface ContentfulPagesState {
   isFetching: boolean;

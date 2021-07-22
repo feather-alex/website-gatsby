@@ -1,26 +1,30 @@
-import { ContactState, ContactFormData, ReasonsForInquiry } from './contact.types';
-import { FluxStandardAction } from '../../../types/FluxStandardActions';
-import contactReducer from './contact.reducer';
-import { initialState } from './contact.reducer';
-import * as actions from './contact.actions';
+import {
+  ContactState,
+  ContactFormData,
+  ReasonsForInquiry,
+} from "./contact.types";
+import { FluxStandardAction } from "../../../types/FluxStandardActions";
+import contactReducer from "./contact.reducer";
+import { initialState } from "./contact.reducer";
+import * as actions from "./contact.actions";
 
-describe('Contact Page - Reducer', () => {
+describe("Contact Page - Reducer", () => {
   let state: ContactState;
 
   beforeEach(() => (state = { ...initialState }));
 
-  it('Should handle action: SEND_INQUIRY_REQUEST', () => {
+  it("Should handle action: SEND_INQUIRY_REQUEST", () => {
     const payload: ContactFormData = {
-      fullName: 'Jeffrey',
-      emailAddress: 'jnflynn93@aol.com',
-      companyName: 'Feather',
-      messageBody: 'Omg, Feather is toats like the best ever.',
-      reasonForInquiry: ReasonsForInquiry.Affiliates
+      fullName: "Jeffrey",
+      emailAddress: "jnflynn93@aol.com",
+      companyName: "Feather",
+      messageBody: "Omg, Feather is toats like the best ever.",
+      reasonForInquiry: ReasonsForInquiry.Affiliates,
     };
 
     const action: FluxStandardAction = {
       type: actions.SEND_INQUIRY_REQUEST,
-      payload
+      payload,
     };
 
     const reduced = contactReducer(state, action);
@@ -30,9 +34,9 @@ describe('Contact Page - Reducer', () => {
     expect(reduced.displaySuccessMessage).toEqual(false);
   });
 
-  it('Should handle action: SEND_INQUIRY_SUCCESS', () => {
+  it("Should handle action: SEND_INQUIRY_SUCCESS", () => {
     const action: FluxStandardAction = {
-      type: actions.SEND_INQUIRY_SUCCESS
+      type: actions.SEND_INQUIRY_SUCCESS,
     };
 
     const reduced = contactReducer(state, action);
@@ -42,9 +46,9 @@ describe('Contact Page - Reducer', () => {
     expect(reduced.displayErrorMessage).toEqual(false);
   });
 
-  it('Should handle action: SEND_INQUIRY_FAILURE', () => {
+  it("Should handle action: SEND_INQUIRY_FAILURE", () => {
     const action: FluxStandardAction = {
-      type: actions.SEND_INQUIRY_FAILURE
+      type: actions.SEND_INQUIRY_FAILURE,
     };
 
     const reduced = contactReducer(state, action);

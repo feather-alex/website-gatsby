@@ -69,48 +69,48 @@ const ContactPage = React.lazy(() => import("../oldPages/contact/Contact"));
 const ReviewsPage = React.lazy(() => import("../oldPages/reviews/Reviews"));
 const AboutPage = React.lazy(() => import("../oldPages/about/About"));
 // const CheckoutPage = React.lazy(() => import("../oldPages/checkout/Checkout"));
-const CreditCheck = React.lazy(() =>
-  import("../oldPages/checkout/components/CreditCheckDenied")
+const CreditCheck = React.lazy(
+  () => import("../oldPages/checkout/components/CreditCheckDenied")
 );
-const OFACCheckFailed = React.lazy(() =>
-  import("../oldPages/checkout/components/OFACCheckFailed")
+const OFACCheckFailed = React.lazy(
+  () => import("../oldPages/checkout/components/OFACCheckFailed")
 );
-const PrivacyPolicyPage = React.lazy(() =>
-  import("../oldPages/legal/PrivacyPolicy")
+const PrivacyPolicyPage = React.lazy(
+  () => import("../oldPages/legal/PrivacyPolicy")
 );
-const ProductDetailsPage = React.lazy(() =>
-  import("../oldPages/detailsPage/ProductDetailsPage")
+const ProductDetailsPage = React.lazy(
+  () => import("../oldPages/detailsPage/ProductDetailsPage")
 );
-const CheckoutSuccessPage = React.lazy(() =>
-  import("../oldPages/checkout/CheckoutSuccess")
+const CheckoutSuccessPage = React.lazy(
+  () => import("../oldPages/checkout/CheckoutSuccess")
 );
-const DepositRequestSuccessPage = React.lazy(() =>
-  import("../oldPages/checkout/DepositRequestSuccess")
+const DepositRequestSuccessPage = React.lazy(
+  () => import("../oldPages/checkout/DepositRequestSuccess")
 );
-const TermsAndConditionsPage = React.lazy(() =>
-  import("../oldPages/legal/TermsAndConditions")
+const TermsAndConditionsPage = React.lazy(
+  () => import("../oldPages/legal/TermsAndConditions")
 );
-const CuratedPackagePage = React.lazy(() =>
-  import("../oldPages/detailsPage/CuratedPackage")
+const CuratedPackagePage = React.lazy(
+  () => import("../oldPages/detailsPage/CuratedPackage")
 );
-const QuizLoadingScreen = React.lazy(() =>
-  import("../oldPages/quiz/components/QuizLoadingScreen")
+const QuizLoadingScreen = React.lazy(
+  () => import("../oldPages/quiz/components/QuizLoadingScreen")
 );
-const QuizResults = React.lazy(() =>
-  import("../oldPages/detailsPage/QuizResults")
+const QuizResults = React.lazy(
+  () => import("../oldPages/detailsPage/QuizResults")
 );
-const ForgotPasswordPage = React.lazy(() =>
-  import("../oldPages/auth/forgotPassword/ForgotPassword")
+const ForgotPasswordPage = React.lazy(
+  () => import("../oldPages/auth/forgotPassword/ForgotPassword")
 );
-const RegisterPage = React.lazy(() =>
-  import("../oldPages/auth/register/Register")
+const RegisterPage = React.lazy(
+  () => import("../oldPages/auth/register/Register")
 );
-const VerificationPage = React.lazy(() =>
-  import("../oldPages/auth/verification/Verification")
+const VerificationPage = React.lazy(
+  () => import("../oldPages/auth/verification/Verification")
 );
 const AccountPage = React.lazy(() => import("../oldPages/account/Account"));
-const LeaseSignedConfirmation = React.lazy(() =>
-  import("../oldPages/checkout/LeaseSignedConfirmation")
+const LeaseSignedConfirmation = React.lazy(
+  () => import("../oldPages/checkout/LeaseSignedConfirmation")
 );
 
 const LoadingContainer = styled.div`
@@ -135,9 +135,7 @@ interface Props {
   getContentfulPagesRequest: ActionCreatorWithoutPayload;
   contentfulPages: Pages[];
   isFetchingPages: boolean;
-  getMobileNavContentRequest: ActionCreatorWithPayload<
-    MobileNavContentRequestPayload
-  >;
+  getMobileNavContentRequest: ActionCreatorWithPayload<MobileNavContentRequestPayload>;
 }
 
 // const processContentfulPages = (
@@ -242,9 +240,8 @@ class App extends React.Component<Props> {
     const { productIdentifier } = routeProps.match.params;
 
     // Is the `productIdentifier` param actually just a product category?
-    const isProductCategory: boolean = allProductCategories.includes(
-      productIdentifier
-    );
+    const isProductCategory: boolean =
+      allProductCategories.includes(productIdentifier);
 
     // If so, render the product listing page.
     if (isProductCategory) {

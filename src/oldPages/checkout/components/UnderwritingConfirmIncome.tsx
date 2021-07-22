@@ -1,18 +1,18 @@
 /** @jsx jsx */
-import React from 'react';
-import { css, jsx } from '@emotion/core';
-import { useState } from 'react';
-import styled from '@emotion/styled';
+import React from "react";
+import { css, jsx } from "@emotion/core";
+import { useState } from "react";
+import styled from "@emotion/styled";
 
-import Header2 from '../../../ui/headers/Header2';
-import Header3 from '../../../ui/headers/Header3';
-import Paragraph1 from '../../../ui/paragraphs/Paragraph1';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { LineBreak } from '../AdditionalUnderwriting';
-import Caption from '../../../ui/captions/Caption';
-import { BRAND, BREAKPOINTS } from '../../../ui/variables';
-import SelectInput, { InputType } from '../../../ui/formElements/SelectInput';
+import Header2 from "../../../ui/headers/Header2";
+import Header3 from "../../../ui/headers/Header3";
+import Paragraph1 from "../../../ui/paragraphs/Paragraph1";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { LineBreak } from "../AdditionalUnderwriting";
+import Caption from "../../../ui/captions/Caption";
+import { BRAND, BREAKPOINTS } from "../../../ui/variables";
+import SelectInput, { InputType } from "../../../ui/formElements/SelectInput";
 
 const Head = styled.div`
   max-width: 612px;
@@ -49,7 +49,7 @@ const InputWrap = styled.div`
   position: relative;
 
   &::before {
-    content: '$';
+    content: "$";
     color: ${BRAND.PRIMARY_TEXT};
     display: block;
     position: absolute;
@@ -95,7 +95,19 @@ const TermsAgreement = styled(Paragraph2)`
   margin: auto;
 `;
 
-const allowedInputKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Backspace'];
+const allowedInputKeys = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "Backspace",
+];
 
 interface Props {
   isPlacingOrder: boolean;
@@ -103,9 +115,13 @@ interface Props {
   onSetStatedIncomeAndPlaceOrder: Function;
 }
 
-const UnderwritingConfirmIncome = ({ statedIncome, onSetStatedIncomeAndPlaceOrder, isPlacingOrder }: Props) => {
+const UnderwritingConfirmIncome = ({
+  statedIncome,
+  onSetStatedIncomeAndPlaceOrder,
+  isPlacingOrder,
+}: Props) => {
   const incomePreviouslyStated = !!statedIncome;
-  const [income, setIncome] = useState(statedIncome || '');
+  const [income, setIncome] = useState(statedIncome || "");
   const [incomeError, setIncomeError] = useState(false);
   const [verification, setVerification] = useState(false);
 
@@ -116,18 +132,18 @@ const UnderwritingConfirmIncome = ({ statedIncome, onSetStatedIncomeAndPlaceOrde
   };
 
   const handleIncomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const cleanedIncome = event.target.value.replace(/\D/g, '');
+    const cleanedIncome = event.target.value.replace(/\D/g, "");
     setIncome(cleanedIncome);
   };
 
   const handleSubmit = () => {
-    if (income === '0') {
+    if (income === "0") {
       return setIncomeError(true);
     }
     setIncomeError(false);
     onSetStatedIncomeAndPlaceOrder(income);
   };
-  const formattedIncome = income ? Number(income).toLocaleString() : '';
+  const formattedIncome = income ? Number(income).toLocaleString() : "";
 
   return (
     <React.Fragment>
@@ -144,8 +160,8 @@ const UnderwritingConfirmIncome = ({ statedIncome, onSetStatedIncomeAndPlaceOrde
             max-width: 607px;
           `}
         >
-          Like many businesses, Feather uses your credit score and reported income to evaluate your eligibility to rent
-          furniture from us.
+          Like many businesses, Feather uses your credit score and reported
+          income to evaluate your eligibility to rent furniture from us.
         </Paragraph1>
       </Head>
 
@@ -157,7 +173,7 @@ const UnderwritingConfirmIncome = ({ statedIncome, onSetStatedIncomeAndPlaceOrde
           <InputWrap>
             <IncomeInput
               type="tel"
-              className={incomeError ? 'error' : ''}
+              className={incomeError ? "error" : ""}
               data-cy="income-input"
               value={formattedIncome}
               placeholder="Your total annual income"
@@ -168,16 +184,19 @@ const UnderwritingConfirmIncome = ({ statedIncome, onSetStatedIncomeAndPlaceOrde
             />
           </InputWrap>
           {incomeError && (
-            <IncomeError color={BRAND.ERROR}>Uh oh! Please enter an amount greater than zero.</IncomeError>
+            <IncomeError color={BRAND.ERROR}>
+              Uh oh! Please enter an amount greater than zero.
+            </IncomeError>
           )}
         </InputContainer>
         <IncomeDescText>
-          Include all income available to you. If you’re under age 21, only include your own income. Income includes
-          wages, retirement income, investments, rental properties, etc.
+          Include all income available to you. If you’re under age 21, only
+          include your own income. Income includes wages, retirement income,
+          investments, rental properties, etc.
         </IncomeDescText>
         <IncomeDescText>
-          You do not need to include alimony, child support, or separate maintenance income if you do not wish to rely
-          upon it.
+          You do not need to include alimony, child support, or separate
+          maintenance income if you do not wish to rely upon it.
         </IncomeDescText>
       </IncomeForm>
 
@@ -194,7 +213,8 @@ const UnderwritingConfirmIncome = ({ statedIncome, onSetStatedIncomeAndPlaceOrde
               margin-bottom: 31px;
             `}
           >
-            I certify that all information provided is true, correct, and verifiable.
+            I certify that all information provided is true, correct, and
+            verifiable.
           </SelectInput>
         </TermsAgreement>
 
@@ -210,7 +230,11 @@ const UnderwritingConfirmIncome = ({ statedIncome, onSetStatedIncomeAndPlaceOrde
           Submit Income
         </Button>
 
-        <Button to="/cart" color={BRAND.SECONDARY_TEXT} style={ButtonStyle.COMPACT_TEXT}>
+        <Button
+          to="/cart"
+          color={BRAND.SECONDARY_TEXT}
+          style={ButtonStyle.COMPACT_TEXT}
+        >
           Cancel Order &amp; Return to Cart
         </Button>
       </FormSubmit>

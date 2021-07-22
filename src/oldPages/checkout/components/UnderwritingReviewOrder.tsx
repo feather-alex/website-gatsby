@@ -1,18 +1,21 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import Header2 from '../../../ui/headers/Header2';
-import Subheader2 from '../../../ui/subheaders/Subheader2';
-import Title3 from '../../../ui/titles/Title3';
-import { Section, Line } from '../../cart/components/MiniCartFooter';
-import { BRAND, BREAKPOINTS } from '../../../ui/variables';
-import { CartItem, PromoInfo } from '../../cart/store/cart.types';
-import { CheckoutStep } from '../store/checkout.types';
-import { MembershipState, MembershipStateDisplayName } from '../../../app/store/plan/plan.types';
-import { getCartItemImage } from '../../cart/store/cart.utils';
-import ReviewCartItem, { LineBreak } from './ReviewCartItem';
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import Header2 from "../../../ui/headers/Header2";
+import Subheader2 from "../../../ui/subheaders/Subheader2";
+import Title3 from "../../../ui/titles/Title3";
+import { Section, Line } from "../../cart/components/MiniCartFooter";
+import { BRAND, BREAKPOINTS } from "../../../ui/variables";
+import { CartItem, PromoInfo } from "../../cart/store/cart.types";
+import { CheckoutStep } from "../store/checkout.types";
+import {
+  MembershipState,
+  MembershipStateDisplayName,
+} from "../../../app/store/plan/plan.types";
+import { getCartItemImage } from "../../cart/store/cart.utils";
+import ReviewCartItem, { LineBreak } from "./ReviewCartItem";
 
 const ReviewOrderContainer = styled.div`
   display: flex;
@@ -79,7 +82,10 @@ const PlaceOrderContainer = styled.div`
 
 const BackToCartButton = () => {
   return (
-    <Button to={`/checkout/${CheckoutStep.Eligibility}/reduce-cart-deposit`} style={ButtonStyle.COMPACT_TEXT}>
+    <Button
+      to={`/checkout/${CheckoutStep.Eligibility}/reduce-cart-deposit`}
+      style={ButtonStyle.COMPACT_TEXT}
+    >
       Go Back to Edit Items
     </Button>
   );
@@ -116,7 +122,7 @@ const UnderwritingReviewOrder = ({
   dueNow,
   isMobileBreakpoint,
   onPlaceOrder,
-  isPlacingOrder
+  isPlacingOrder,
 }: Props) => {
   const handlePlaceOrder = () => {
     onPlaceOrder();
@@ -125,11 +131,13 @@ const UnderwritingReviewOrder = ({
   return (
     <ReviewOrderContainer>
       <Head>
-        <Header2>Thank you! Please review your items before placing your order. </Header2>
+        <Header2>
+          Thank you! Please review your items before placing your order.{" "}
+        </Header2>
         <OrderSummarySubHeader>
-          Order Summary{' '}
+          Order Summary{" "}
           <ItemCount>
-            ({totalItems} item{totalItems > 1 ? 's' : ''})
+            ({totalItems} item{totalItems > 1 ? "s" : ""})
           </ItemCount>
         </OrderSummarySubHeader>
         <BackToCartButton />
@@ -138,19 +146,24 @@ const UnderwritingReviewOrder = ({
       <ContentContainer>
         <ProductList>
           <LineBreak />
-          {cartItems.map(({ image, title, variantName, rentalPrices, quantity }: CartItem, index: number) => {
-            return (
-              <ReviewCartItem
-                key={index}
-                title={title}
-                variantName={variantName}
-                index={index}
-                backgroundImage={getCartItemImage(image)}
-                price={rentalPrices[rentalLength] * quantity}
-                isMobileBreakpoint={isMobileBreakpoint}
-              />
-            );
-          })}
+          {cartItems.map(
+            (
+              { image, title, variantName, rentalPrices, quantity }: CartItem,
+              index: number
+            ) => {
+              return (
+                <ReviewCartItem
+                  key={index}
+                  title={title}
+                  variantName={variantName}
+                  index={index}
+                  backgroundImage={getCartItemImage(image)}
+                  price={rentalPrices[rentalLength] * quantity}
+                  isMobileBreakpoint={isMobileBreakpoint}
+                />
+              );
+            }
+          )}
         </ProductList>
         <div>
           <LeaseTypeSection>
@@ -160,18 +173,24 @@ const UnderwritingReviewOrder = ({
               {rentalLength} Months
             </Title3>
           </LeaseTypeSection>
-          <LeaseTypeSubText color={BRAND.SECONDARY_TEXT}>Term begins on furniture delivery date.</LeaseTypeSubText>
+          <LeaseTypeSubText color={BRAND.SECONDARY_TEXT}>
+            Term begins on furniture delivery date.
+          </LeaseTypeSubText>
         </div>
         {promo && (
           <Section>
             <Title3>Promo code: {promo.code}</Title3>
             <Line />
-            <PromoDescription dataCy="promo-code">{promoDescription}</PromoDescription>
+            <PromoDescription dataCy="promo-code">
+              {promoDescription}
+            </PromoDescription>
           </Section>
         )}
         <Section>
           <Title3>
-            {membershipState === MembershipState.MEMBER ? 'Membership' : 'Short-Term Plan (3 month minimum)'}
+            {membershipState === MembershipState.MEMBER
+              ? "Membership"
+              : "Short-Term Plan (3 month minimum)"}
           </Title3>
           <Line />
           <Title3 dataCy="membership-fee" className="grey-right">
@@ -182,21 +201,31 @@ const UnderwritingReviewOrder = ({
           <Title3>Monthly Furniture Total</Title3>
           <Line />
           <Title3 dataCy="monthly-subtotal">
-            ${monthlyFurnitureTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            $
+            {monthlyFurnitureTotal.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
             /mo
           </Title3>
         </Section>
         <Section>
           <Title3>White-glove Delivery &amp; Assembly</Title3>
           <Line />
-          <Title3 dataCy="delivery-fee">{!deliveryFee ? `FREE` : `$${deliveryFee}`}</Title3>
+          <Title3 dataCy="delivery-fee">
+            {!deliveryFee ? `FREE` : `$${deliveryFee}`}
+          </Title3>
         </Section>
         {taxAmount > 0 && (
           <Section>
             <Title3>Sales Tax</Title3>
             <Line />
             <Title3 dataCy="sales-tax">
-              ${taxAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              $
+              {taxAmount.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </Title3>
           </Section>
         )}
@@ -204,13 +233,22 @@ const UnderwritingReviewOrder = ({
           <Title3>Total Due Now</Title3>
           <Line />
           <Subheader2 dataCy="amount-due-now">
-            ${dueNow.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            $
+            {dueNow.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </Subheader2>
         </TotalDueSection>
       </ContentContainer>
 
       <PlaceOrderContainer>
-        <Button dataCy="place-order-button" onClick={handlePlaceOrder} isDisabled={isPlacingOrder} isFullWidth={true}>
+        <Button
+          dataCy="place-order-button"
+          onClick={handlePlaceOrder}
+          isDisabled={isPlacingOrder}
+          isFullWidth={true}
+        >
           Place Order
         </Button>
       </PlaceOrderContainer>

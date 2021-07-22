@@ -1,208 +1,214 @@
-import { HomepageContentRequestPayload, HomepageContentSuccessPayload, HomepageContent } from './homepage.types';
-import { APIError } from '../../../api/error';
-import { UrlType } from '../../../contentful/contentful.types';
+import {
+  HomepageContentRequestPayload,
+  HomepageContentSuccessPayload,
+  HomepageContent,
+} from "./homepage.types";
+import { APIError } from "../../../api/error";
+import { UrlType } from "../../../contentful/contentful.types";
 
 export const mockRequestPayload: HomepageContentRequestPayload = {
-  id: 'ID'
+  id: "ID",
 };
 
 export const mockSuccessPayload: HomepageContentSuccessPayload = {
-  meta: { name: 'foo', description: 'foo?', imageUrl: 'foo!', title: 'FOO' },
+  meta: { name: "foo", description: "foo?", imageUrl: "foo!", title: "FOO" },
   hero: {
-    header1: 'test',
-    header2: 'test',
-    paragraph: 'test',
+    header1: "test",
+    header2: "test",
+    paragraph: "test",
     desktopImage: {
-      url: 'test',
+      url: "test",
       details: {
-        size: 123
+        size: 123,
       },
-      fileName: 'test',
-      contentType: 'test'
+      fileName: "test",
+      contentType: "test",
     },
     mobileImage: {
-      url: 'test',
+      url: "test",
       details: {
-        size: 123
+        size: 123,
       },
-      fileName: 'test',
-      contentType: 'test'
+      fileName: "test",
+      contentType: "test",
     },
-    cta: [{ label: 'test', url: 'test', urlType: UrlType.EMAIL }]
+    cta: [{ label: "test", url: "test", urlType: UrlType.EMAIL }],
   },
   homepageSections: [
     {
-      header: 'test',
-      paragraph: 'test',
-      imagePosition: 'left',
-      imageUrl: 'test',
-      cta: { label: 'test', url: 'test', urlType: UrlType.EMAIL },
-      isVertical: false
-    }
+      header: "test",
+      paragraph: "test",
+      imagePosition: "left",
+      imageUrl: "test",
+      cta: { label: "test", url: "test", urlType: UrlType.EMAIL },
+      isVertical: false,
+    },
   ],
-  bestSellers: { title: 'test', furnitureIdentifiers: ['test'] },
-  textLockup: { title: 'test', body: 'test' },
+  bestSellers: { title: "test", furnitureIdentifiers: ["test"] },
+  textLockup: { title: "test", body: "test" },
   shopByRoom: {
-    title: 'test',
+    title: "test",
     rooms: [
       {
-        name: 'test',
-        url: 'test',
+        name: "test",
+        url: "test",
         image: {
-          url: 'test',
+          url: "test",
           details: {
-            size: 123
+            size: 123,
           },
-          fileName: 'test',
-          contentType: 'test'
-        }
-      }
-    ]
+          fileName: "test",
+          contentType: "test",
+        },
+      },
+    ],
   },
   reviews: {
-    title: 'test',
-    reviews: [{ name: 'test', quote: 'test', city: 'test', state: 'test' }]
-  }
+    title: "test",
+    reviews: [{ name: "test", quote: "test", city: "test", state: "test" }],
+  },
 };
 
 export const mockError: APIError = {
-  name: 'sad lil fail boi',
-  error: 'sad lil fail boi',
+  name: "sad lil fail boi",
+  error: "sad lil fail boi",
   status: 404,
-  message: 'it works on my computer'
+  message: "it works on my computer",
 };
 
 export const mockContentfulHomepageHero = {
-  header1: 'test',
-  header2: 'test',
-  paragraph: 'test',
+  header1: "test",
+  header2: "test",
+  paragraph: "test",
   desktopImage: {
     fields: {
       file: {
-        url: 'test',
+        url: "test",
         details: {
-          size: 123
+          size: 123,
         },
-        fileName: 'test',
-        contentType: 'test'
-      }
-    }
+        fileName: "test",
+        contentType: "test",
+      },
+    },
   },
   mobileImage: {
     fields: {
       file: {
-        url: 'test',
+        url: "test",
         details: {
-          size: 123
+          size: 123,
         },
-        fileName: 'test',
-        contentType: 'test'
-      }
-    }
+        fileName: "test",
+        contentType: "test",
+      },
+    },
   },
-  cta: [{ fields: { label: 'test', url: 'test', urlType: 'email' } }]
+  cta: [{ fields: { label: "test", url: "test", urlType: "email" } }],
 };
 
 export const mockContentfulImageText = {
-  header: 'test',
+  header: "test",
   paragraph: {
     data: {},
-    nodeType: 'document',
+    nodeType: "document",
     content: [
       {
         data: {},
         marks: [],
-        nodeType: 'text',
-        value: 'test'
-      }
-    ]
+        nodeType: "text",
+        value: "test",
+      },
+    ],
   },
-  imagePosition: 'left',
-  imageUrl: 'test',
+  imagePosition: "left",
+  imageUrl: "test",
   cta: {
     fields: {
-      label: 'test',
-      url: 'test',
-      urlType: 'email'
-    }
+      label: "test",
+      url: "test",
+      urlType: "email",
+    },
   },
-  isVertical: false
+  isVertical: false,
 };
 
 export const mockContentfulBestSellers = {
-  title: 'test',
-  furnitureIdentifiers: ['test']
+  title: "test",
+  furnitureIdentifiers: ["test"],
 };
 
 export const mockContentfulTextLockup = {
-  title: 'test',
-  body: 'test'
+  title: "test",
+  body: "test",
 };
 
 const mockMeta = {
-  name: 'foo',
-  description: 'foo?',
-  imageUrl: 'foo!',
-  title: 'FOO'
+  name: "foo",
+  description: "foo?",
+  imageUrl: "foo!",
+  title: "FOO",
 };
 
 export const mockShopByRoom = {
-  title: 'test',
+  title: "test",
   rooms: [
     {
       fields: {
-        name: 'test',
-        url: 'test',
+        name: "test",
+        url: "test",
         image: {
           fields: {
             file: {
-              url: 'test',
+              url: "test",
               details: {
-                size: 123
+                size: 123,
               },
-              fileName: 'test',
-              contentType: 'test'
-            }
-          }
-        }
-      }
-    }
-  ]
+              fileName: "test",
+              contentType: "test",
+            },
+          },
+        },
+      },
+    },
+  ],
 };
 
 export const mockContentfulReviewsFeature = {
-  title: 'test',
-  reviews: [{ fields: { name: 'test', quote: 'test', city: 'test', state: 'test' } }]
+  title: "test",
+  reviews: [
+    { fields: { name: "test", quote: "test", city: "test", state: "test" } },
+  ],
 };
 
-export const mockContentfulResponse = ({
+export const mockContentfulResponse = {
   items: [
     {
       fields: {
         hero: {
-          fields: mockContentfulHomepageHero
+          fields: mockContentfulHomepageHero,
         },
         homepageSections: [
           {
-            fields: mockContentfulImageText
-          }
+            fields: mockContentfulImageText,
+          },
         ],
         bestSellers: {
-          fields: mockContentfulBestSellers
+          fields: mockContentfulBestSellers,
         },
         textLockup: {
-          fields: mockContentfulTextLockup
+          fields: mockContentfulTextLockup,
         },
         meta: {
-          fields: mockMeta
+          fields: mockMeta,
         },
         shopByRoom: {
-          fields: mockShopByRoom
+          fields: mockShopByRoom,
         },
         reviews: {
-          fields: mockContentfulReviewsFeature
-        }
-      }
-    }
-  ]
-} as object) as HomepageContent;
+          fields: mockContentfulReviewsFeature,
+        },
+      },
+    },
+  ],
+} as object as HomepageContent;

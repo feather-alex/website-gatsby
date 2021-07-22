@@ -1,20 +1,20 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import React from 'react';
-import ResponsiveImage from '../../../ui/images/ResponsiveImage';
-import { BRAND, SHADES } from '../../../ui/variables';
-import { DETAILS_PAGE } from '../../../analytics/details-page/events';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import React from "react";
+import ResponsiveImage from "../../../ui/images/ResponsiveImage";
+import { BRAND, SHADES } from "../../../ui/variables";
+import { DETAILS_PAGE } from "../../../analytics/details-page/events";
 import {
   productDetailImageViewedMapping,
-  threekitPlayerViewedMapping
-} from '../../../analytics/details-page/payload-mappings';
-import Analytics from '../../../analytics/analytics';
-import BaseImage from '../../../ui/images/BaseImage';
-import { ProductVariant } from '../../../types/Product';
-import { ImagesUrls } from '../detailsPage.service';
-import ThreeDIcon from '../../../ui/icons/ThreeDIcon';
-import ThreekitPlayer from '../../../threekit/ThreekitPlayer';
+  threekitPlayerViewedMapping,
+} from "../../../analytics/details-page/payload-mappings";
+import Analytics from "../../../analytics/analytics";
+import BaseImage from "../../../ui/images/BaseImage";
+import { ProductVariant } from "../../../types/Product";
+import { ImagesUrls } from "../detailsPage.service";
+import ThreeDIcon from "../../../ui/icons/ThreeDIcon";
+import ThreekitPlayer from "../../../threekit/ThreekitPlayer";
 
 const ThumbnailContainer = styled.div`
   display: flex;
@@ -78,17 +78,23 @@ class ProductImages extends React.Component<Props, State> {
   public readonly state: Readonly<State> = {
     selectedMainImages: this.props.imagesUrls[0],
     currentMainImages: this.props.imagesUrls[0],
-    showThreekitPlayer: false
+    showThreekitPlayer: false,
   };
 
   componentDidUpdate(prevProps: Props) {
     const { selectedVariant, imagesUrls } = this.props;
     const { selectedVariant: prevSelectedVariant } = prevProps;
 
-    if (selectedVariant && prevSelectedVariant && selectedVariant.identifier !== prevSelectedVariant.identifier) {
-      const newSelectedMainImages = imagesUrls.find((imageUrls) => imageUrls.url === selectedVariant.mainImage.desktop);
+    if (
+      selectedVariant &&
+      prevSelectedVariant &&
+      selectedVariant.identifier !== prevSelectedVariant.identifier
+    ) {
+      const newSelectedMainImages = imagesUrls.find(
+        (imageUrls) => imageUrls.url === selectedVariant.mainImage.desktop
+      );
       this.setState({
-        selectedMainImages: newSelectedMainImages
+        selectedMainImages: newSelectedMainImages,
       });
     }
 
@@ -96,12 +102,15 @@ class ProductImages extends React.Component<Props, State> {
     if (
       selectedVariant !== prevSelectedVariant &&
       selectedVariant &&
-      selectedVariant.identifier.includes('akepa-color')
+      selectedVariant.identifier.includes("akepa-color")
     ) {
       this.setState({
         currentMainImages: selectedVariant.mainImage.desktop
-          ? { ...this.props.imagesUrls[0], url: selectedVariant.mainImage.desktop }
-          : this.props.imagesUrls[0]
+          ? {
+              ...this.props.imagesUrls[0],
+              url: selectedVariant.mainImage.desktop,
+            }
+          : this.props.imagesUrls[0],
       });
     }
   }
@@ -110,7 +119,7 @@ class ProductImages extends React.Component<Props, State> {
     this.setState({
       selectedMainImages: urls,
       currentMainImages: urls,
-      showThreekitPlayer: false
+      showThreekitPlayer: false,
     });
     Analytics.trackEvent(
       DETAILS_PAGE.PRODUCT_IMAGE_SELECTED,
@@ -123,13 +132,18 @@ class ProductImages extends React.Component<Props, State> {
       this.setState({ currentMainImages: urls });
       Analytics.trackEvent(
         DETAILS_PAGE.PRODUCT_IMAGE_VIEWED,
-        productDetailImageViewedMapping({ imageUrl: urls.url, imageIndex: index })
+        productDetailImageViewedMapping({
+          imageUrl: urls.url,
+          imageIndex: index,
+        })
       );
     }
   };
 
   handleAdditionalImageMouseOut = () => {
-    this.setState((prevState) => ({ currentMainImages: prevState.selectedMainImages }));
+    this.setState((prevState) => ({
+      currentMainImages: prevState.selectedMainImages,
+    }));
   };
 
   renderAdditionalImages = () => {
@@ -139,10 +153,12 @@ class ProductImages extends React.Component<Props, State> {
     return imagesUrls.map((imageUrls, index) => (
       <ThumbnailContainer
         key={imageUrls.url}
-        isSelected={!showThreekitPlayer && imageUrls.url === selectedMainImages.url}
+        isSelected={
+          !showThreekitPlayer && imageUrls.url === selectedMainImages.url
+        }
       >
         <Thumbnail
-          data-attentive={index === 0 ? 'product-image' : undefined}
+          data-attentive={index === 0 ? "product-image" : undefined}
           tabIndex={0}
           role="button"
           onClick={this.handleMainImageSelection(imageUrls, index)}
@@ -163,7 +179,7 @@ class ProductImages extends React.Component<Props, State> {
       DETAILS_PAGE.THREEKIT_VIEWED,
       threekitPlayerViewedMapping({
         productIdentifier: currentProductIdentifier,
-        variant: selectedVariant
+        variant: selectedVariant,
       })
     );
   };
@@ -173,8 +189,14 @@ class ProductImages extends React.Component<Props, State> {
 
     return (
       <ThumbnailContainer isSelected={showThreekitPlayer}>
-        <Thumbnail tabIndex={0} role="button" onClick={this.handleClickThreekit}>
-          <ThreeDIcon color={showThreekitPlayer ? BRAND.PRIMARY_TEXT : SHADES.SHADE_LIGHT} />
+        <Thumbnail
+          tabIndex={0}
+          role="button"
+          onClick={this.handleClickThreekit}
+        >
+          <ThreeDIcon
+            color={showThreekitPlayer ? BRAND.PRIMARY_TEXT : SHADES.SHADE_LIGHT}
+          />
         </Thumbnail>
       </ThumbnailContainer>
     );
@@ -197,7 +219,12 @@ class ProductImages extends React.Component<Props, State> {
       >
         <CurrentImageContainer>
           {!showThreekitPlayer && (
-            <ResponsiveImage src={currentMainImages.url} zoomUrl={currentMainImages.zoomUrl} width={747} height={500} />
+            <ResponsiveImage
+              src={currentMainImages.url}
+              zoomUrl={currentMainImages.zoomUrl}
+              width={747}
+              height={500}
+            />
           )}
 
           {/* Player needs to be mounted in order to load */}
@@ -207,7 +234,9 @@ class ProductImages extends React.Component<Props, State> {
               height={500}
               isVisible={showThreekitPlayer}
               assetId={threekitAssetId}
-              selectedVariantIdentifier={selectedVariant ? selectedVariant.identifier : ''}
+              selectedVariantIdentifier={
+                selectedVariant ? selectedVariant.identifier : ""
+              }
             />
           )}
         </CurrentImageContainer>

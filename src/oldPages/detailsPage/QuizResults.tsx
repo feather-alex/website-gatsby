@@ -1,26 +1,32 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { css, jsx } from "@emotion/core";
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import Analytics from '../../analytics/analytics';
-import PAGES from '../../analytics/pages';
-import Layout from '../../app/Layout';
-import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import { getQuizState, getSubmittedQuizUuid } from '../quiz/store/quiz.selectors';
-import useMount from '../../utils/useMount';
-import { getRoomPackage, getQuizSelectedItems } from './components/packages/quizResults/quizResults.service';
-import QuizResultsDetailsContainer from './components/packages/quizResults/QuizResultsDetailsContainer';
-import { SHADES, BRAND } from '../../ui/variables';
-import QuizLoadingScreen from '../quiz/components/QuizLoadingScreen';
-import { fetchQuizResultsByUuid } from './components/packages/quizResults/store/quizResults.actions';
+import Analytics from "../../analytics/analytics";
+import PAGES from "../../analytics/pages";
+import Layout from "../../app/Layout";
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import {
+  getQuizState,
+  getSubmittedQuizUuid,
+} from "../quiz/store/quiz.selectors";
+import useMount from "../../utils/useMount";
+import {
+  getRoomPackage,
+  getQuizSelectedItems,
+} from "./components/packages/quizResults/quizResults.service";
+import QuizResultsDetailsContainer from "./components/packages/quizResults/QuizResultsDetailsContainer";
+import { SHADES, BRAND } from "../../ui/variables";
+import QuizLoadingScreen from "../quiz/components/QuizLoadingScreen";
+import { fetchQuizResultsByUuid } from "./components/packages/quizResults/store/quizResults.actions";
 import {
   getIsFetchingQuizResults,
-  getQuizResults
-} from './components/packages/quizResults/store/quizResults.selectors';
-import { QuizRoom } from './components/packages/quizResults/store/quizResults.types';
-import Subheader1 from '../../ui/subheaders/Subheader1';
+  getQuizResults,
+} from "./components/packages/quizResults/store/quizResults.selectors";
+import { QuizRoom } from "./components/packages/quizResults/store/quizResults.types";
+import Subheader1 from "../../ui/subheaders/Subheader1";
 
 const QuizResults = () => {
   const { uuid } = useParams();
@@ -44,9 +50,18 @@ const QuizResults = () => {
   const renderRoomPackage = useCallback(
     (room: QuizRoom) => {
       if (quizPackages && quizPackages[room] && quizPackages[room].length) {
-        const pkg = getRoomPackage(room, quizPackages[room], quiz.name, quizPackages.name);
+        const pkg = getRoomPackage(
+          room,
+          quizPackages[room],
+          quiz.name,
+          quizPackages.name
+        );
         return (
-          <QuizResultsDetailsContainer packageInfo={pkg} room={room} selectedItems={getQuizSelectedItems(pkg.items)} />
+          <QuizResultsDetailsContainer
+            packageInfo={pkg}
+            room={room}
+            selectedItems={getQuizSelectedItems(pkg.items)}
+          />
         );
       }
 
@@ -63,7 +78,7 @@ const QuizResults = () => {
     <Layout>
       <div
         css={css`
-          padding: ${isMobileBreakpoint ? '24px 0 32px' : '48px 0'};
+          padding: ${isMobileBreakpoint ? "24px 0 32px" : "48px 0"};
           background-color: ${BRAND.BACKGROUND};
           display: flex;
           justify-content: center;

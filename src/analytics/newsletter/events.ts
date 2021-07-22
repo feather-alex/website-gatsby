@@ -1,3 +1,3 @@
 export const NEWSLETTER = {
-  SIGNUP: 'Newsletter Signup Submitted'
+  SIGNUP: "Newsletter Signup Submitted",
 };

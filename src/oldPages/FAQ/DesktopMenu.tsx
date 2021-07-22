@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import FaqsCategories from './FaqsCategories';
-import { FAQCategory } from '../../contentful/contentful.types';
+import { css, jsx } from "@emotion/core";
+import FaqsCategories from "./FaqsCategories";
+import { FAQCategory } from "../../contentful/contentful.types";
 
 interface Props {
   categories: FAQCategory[];

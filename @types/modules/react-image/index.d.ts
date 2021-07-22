@@ -1,5 +1,5 @@
-declare module 'react-image' {
-  import React from 'react';
+declare module "react-image" {
+  import React from "react";
 
   interface Props {
     src: string[];

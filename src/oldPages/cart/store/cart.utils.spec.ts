@@ -1,35 +1,39 @@
-import { isItemUnavailable, filterOutDuplicateProducts, getCartItemImage } from './cart.utils';
-import { ProductIdentifiers, CartItem } from './cart.types';
-import { Image } from '../../../types/Product';
+import {
+  isItemUnavailable,
+  filterOutDuplicateProducts,
+  getCartItemImage,
+} from "./cart.utils";
+import { ProductIdentifiers, CartItem } from "./cart.types";
+import { Image } from "../../../types/Product";
 
-describe('cart utility functions', () => {
-  describe('isItemUnavailable', () => {
+describe("cart utility functions", () => {
+  describe("isItemUnavailable", () => {
     const unavailableItems: ProductIdentifiers[] = [
       {
-        productIdentifier: 'athene-chair',
-        variantIdentifier: 'default'
+        productIdentifier: "athene-chair",
+        variantIdentifier: "default",
       },
       {
-        productIdentifier: 'akepa-nightstand',
-        variantIdentifier: 'akepa-acorn-color'
-      }
+        productIdentifier: "akepa-nightstand",
+        variantIdentifier: "akepa-acorn-color",
+      },
     ];
 
-    it('should return true if the item is unavailable', () => {
+    it("should return true if the item is unavailable", () => {
       const product: CartItem = {
-        type: 'product',
-        title: 'Athene Chair',
-        brand: 'Feather',
-        categories: [{ identifier: 'bedroom', name: 'Bedroom' }],
-        identifier: 'athene-chair',
-        variantIdentifier: 'default',
-        variantName: 'Default',
-        rentalPrices: { '3': 100, '12': 10 },
-        image: { desktop: '', mobile: '' },
+        type: "product",
+        title: "Athene Chair",
+        brand: "Feather",
+        categories: [{ identifier: "bedroom", name: "Bedroom" }],
+        identifier: "athene-chair",
+        variantIdentifier: "default",
+        variantName: "Default",
+        rentalPrices: { "3": 100, "12": 10 },
+        image: { desktop: "", mobile: "" },
         quantity: 1,
         rentalLength: 12,
-        location: 'new-york',
-        availability: []
+        location: "new-york",
+        availability: [],
       };
 
       const itemAvailability = isItemUnavailable(product, unavailableItems);
@@ -37,21 +41,21 @@ describe('cart utility functions', () => {
       expect(itemAvailability).toEqual(true);
     });
 
-    it('should return false if the item is available', () => {
+    it("should return false if the item is available", () => {
       const product: CartItem = {
-        type: 'product',
-        title: 'Batis Sofa',
-        brand: 'Feather',
-        categories: [{ identifier: 'bedroom', name: 'Bedroom' }],
-        identifier: 'batis-sofa',
-        variantIdentifier: 'default',
-        variantName: 'Default',
-        rentalPrices: { '3': 100, '12': 10 },
-        image: { desktop: '', mobile: '' },
+        type: "product",
+        title: "Batis Sofa",
+        brand: "Feather",
+        categories: [{ identifier: "bedroom", name: "Bedroom" }],
+        identifier: "batis-sofa",
+        variantIdentifier: "default",
+        variantName: "Default",
+        rentalPrices: { "3": 100, "12": 10 },
+        image: { desktop: "", mobile: "" },
         quantity: 1,
         rentalLength: 12,
-        location: 'new-york',
-        availability: []
+        location: "new-york",
+        availability: [],
       };
 
       const itemAvailability = isItemUnavailable(product, unavailableItems);
@@ -60,54 +64,54 @@ describe('cart utility functions', () => {
     });
   });
 
-  describe('filterOutDuplicateProducts', () => {
-    it('should remove all duplicate items from the provided array', () => {
+  describe("filterOutDuplicateProducts", () => {
+    it("should remove all duplicate items from the provided array", () => {
       const cartItems: CartItem[] = [
         {
-          type: 'product',
-          title: 'Athene Chair',
-          brand: 'Feather',
-          categories: [{ identifier: 'bedroom', name: 'Bedroom' }],
-          identifier: 'athene-chair',
-          variantIdentifier: 'default',
-          variantName: 'Default',
-          rentalPrices: { '3': 100, '12': 10 },
-          image: { desktop: '', mobile: '' },
+          type: "product",
+          title: "Athene Chair",
+          brand: "Feather",
+          categories: [{ identifier: "bedroom", name: "Bedroom" }],
+          identifier: "athene-chair",
+          variantIdentifier: "default",
+          variantName: "Default",
+          rentalPrices: { "3": 100, "12": 10 },
+          image: { desktop: "", mobile: "" },
           quantity: 1,
           rentalLength: 12,
-          location: 'new-york',
-          availability: []
+          location: "new-york",
+          availability: [],
         },
         {
-          type: 'product',
-          title: 'Akepa Nightstand',
-          brand: 'Feather',
-          categories: [{ identifier: 'bedroom', name: 'Bedroom' }],
-          identifier: 'akepa-nightstand',
-          variantIdentifier: 'akepa-acorn-color',
-          variantName: 'Acorn',
-          rentalPrices: { '3': 100, '12': 10 },
-          image: { desktop: '', mobile: '' },
+          type: "product",
+          title: "Akepa Nightstand",
+          brand: "Feather",
+          categories: [{ identifier: "bedroom", name: "Bedroom" }],
+          identifier: "akepa-nightstand",
+          variantIdentifier: "akepa-acorn-color",
+          variantName: "Acorn",
+          rentalPrices: { "3": 100, "12": 10 },
+          image: { desktop: "", mobile: "" },
           quantity: 1,
           rentalLength: 12,
-          location: 'new-york',
-          availability: []
+          location: "new-york",
+          availability: [],
         },
         {
-          type: 'product',
-          title: 'Akepa Nightstand',
-          brand: 'Feather',
-          categories: [{ identifier: 'bedroom', name: 'Bedroom' }],
-          identifier: 'akepa-nightstand',
-          variantIdentifier: 'akepa-acorn-color',
-          variantName: 'Acorn',
-          rentalPrices: { '3': 100, '12': 10 },
-          image: { desktop: '', mobile: '' },
+          type: "product",
+          title: "Akepa Nightstand",
+          brand: "Feather",
+          categories: [{ identifier: "bedroom", name: "Bedroom" }],
+          identifier: "akepa-nightstand",
+          variantIdentifier: "akepa-acorn-color",
+          variantName: "Acorn",
+          rentalPrices: { "3": 100, "12": 10 },
+          image: { desktop: "", mobile: "" },
           quantity: 1,
           rentalLength: 12,
-          location: 'new-york',
-          availability: []
-        }
+          location: "new-york",
+          availability: [],
+        },
       ];
 
       const uniqueItems = filterOutDuplicateProducts(cartItems);
@@ -117,32 +121,32 @@ describe('cart utility functions', () => {
     });
   });
 
-  describe('getCartItemImage', () => {
-    it('should use mobile image if available', () => {
+  describe("getCartItemImage", () => {
+    it("should use mobile image if available", () => {
       const image: Image = {
-        desktop: 'desktop_image.jpg',
-        mobile: 'mobile_image.jpg'
+        desktop: "desktop_image.jpg",
+        mobile: "mobile_image.jpg",
       };
 
       expect(getCartItemImage(image)).toBe(`mobile_image.jpg`);
     });
 
-    it('should use desktop image if mobile image is not available', () => {
+    it("should use desktop image if mobile image is not available", () => {
       const image: Image = {
-        desktop: 'desktop_image.jpg',
-        mobile: null
+        desktop: "desktop_image.jpg",
+        mobile: null,
       };
 
       expect(getCartItemImage(image)).toBe(`desktop_image.jpg`);
     });
 
-    it('should return an empty string if both desktop and mobile are null', () => {
+    it("should return an empty string if both desktop and mobile are null", () => {
       const image: Image = {
         desktop: null,
-        mobile: null
+        mobile: null,
       };
 
-      expect(getCartItemImage(image)).toBe('');
+      expect(getCartItemImage(image)).toBe("");
     });
   });
 });

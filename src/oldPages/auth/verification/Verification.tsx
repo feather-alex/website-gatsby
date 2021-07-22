@@ -1,26 +1,30 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import React from 'react';
-import { connect } from 'react-redux';
-import { State as GlobalState } from '../../../types/ReduxState';
-import { ActionCreator } from '../../../types/FluxStandardActions';
-import { APIError } from '../../../types/ReduxState';
-import AlternateLayout from '../../../app/AlternateLayout';
+import { css, jsx } from "@emotion/core";
+import React from "react";
+import { connect } from "react-redux";
+import { State as GlobalState } from "../../../types/ReduxState";
+import { ActionCreator } from "../../../types/FluxStandardActions";
+import { APIError } from "../../../types/ReduxState";
+import AlternateLayout from "../../../app/AlternateLayout";
 import {
   resendVerification as resendVerificationAction,
   ResendVerification,
-  resetResentVerificationEmail
-} from './store/verification.actions';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import AuthPageHeader from '../AuthPageHeader';
-import AuthPageEmailSentMessage from '../AuthPageEmailSentMessage';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import VerificationForm from './VerificationForm';
-import { getIsFetching, getError, getHasResentVerificationEmail } from './store/verification.selectors';
-import { getEmail } from '../register/store/register.selectors';
-import { VerificationFormData } from './store/verification.types';
-import Analytics from '../../../analytics/analytics';
-import PAGES from '../../../analytics/pages';
+  resetResentVerificationEmail,
+} from "./store/verification.actions";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import AuthPageHeader from "../AuthPageHeader";
+import AuthPageEmailSentMessage from "../AuthPageEmailSentMessage";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import VerificationForm from "./VerificationForm";
+import {
+  getIsFetching,
+  getError,
+  getHasResentVerificationEmail,
+} from "./store/verification.selectors";
+import { getEmail } from "../register/store/register.selectors";
+import { VerificationFormData } from "./store/verification.types";
+import Analytics from "../../../analytics/analytics";
+import PAGES from "../../../analytics/pages";
 
 interface Props {
   resendVerification: ResendVerification;
@@ -46,11 +50,20 @@ class Verification extends React.Component<Props> {
   };
 
   render() {
-    const { email, isFetching, verificationError, hasResentVerificationEmail, isMobileBreakpoint } = this.props;
+    const {
+      email,
+      isFetching,
+      verificationError,
+      hasResentVerificationEmail,
+      isMobileBreakpoint,
+    } = this.props;
 
     return (
       <AlternateLayout>
-        <AuthPageHeader headerText="Email verification required" isMobileBreakpoint={isMobileBreakpoint} />
+        <AuthPageHeader
+          headerText="Email verification required"
+          isMobileBreakpoint={isMobileBreakpoint}
+        />
         <div
           css={css`
             display: flex;
@@ -94,12 +107,12 @@ const mapStateToProps = (state: GlobalState) => ({
   isFetching: getIsFetching(state),
   verificationError: getError(state),
   hasResentVerificationEmail: getHasResentVerificationEmail(state),
-  email: getEmail(state)
+  email: getEmail(state),
 });
 
 const mapDispatchToProps = {
   resendVerification: resendVerificationAction,
-  resetResentVerificationEmail
+  resetResentVerificationEmail,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Verification);

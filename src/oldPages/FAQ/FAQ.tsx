@@ -1,40 +1,47 @@
 /** @jsx jsx */
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { css, jsx } from '@emotion/core';
-import { connect } from 'react-redux';
-import React from 'react';
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { css, jsx } from "@emotion/core";
+import { connect } from "react-redux";
+import React from "react";
 
-import Layout from '../../app/Layout';
-import PAGES from '../../analytics/pages';
-import HashLinkId from '../../components/HashLinkId';
-import { displayPostalInput, DisplayPostalInput } from '../../reducers/navigation';
-import { State as GlobalState, APIError } from '../../types/ReduxState';
+import Layout from "../../app/Layout";
+import PAGES from "../../analytics/pages";
+import HashLinkId from "../../components/HashLinkId";
+import {
+  displayPostalInput,
+  DisplayPostalInput,
+} from "../../reducers/navigation";
+import { State as GlobalState, APIError } from "../../types/ReduxState";
 import {
   getWindowHeight,
   getIsMobileBreakpoint,
   getIsDesktopBreakpoint,
-  getBodyMarginTop
-} from '../../app/store/dimensions/dimensions.selectors';
-import { getFaqContent } from './store/faqs.actions';
-import PanelGroup from 'react-bootstrap/lib/PanelGroup';
-import Helmet from '../../components/Helmet';
-import Analytics from '../../analytics/analytics';
-import { FAQS } from '../../analytics/faqs/events';
-import { getFAQCategories, getMeta } from './store/faqs.selectors';
-import { FaqContentRequestPayload } from './store/faqs.types';
-import { BREAKPOINTS, BRAND } from '../../ui/variables';
-import Header2 from '../../ui/headers/Header2';
-import Title1 from '../../ui/titles/Title1';
-import Accordion from '../../ui/miscellaneous/Accordion';
-import MobileMenu from './MobileMenu';
-import DesktopMenu from './DesktopMenu';
-import Header1 from '../../ui/headers/Header1';
-import HeaderContainer from '../../ui/headers/HeaderContainer';
-import { getError, getIsFetching } from './store/faqs.selectors';
-import ErrorPage from '../../components/ErrorPage';
-import Loading from '../../components/Loading';
-import { CONTENTFUL_IDS, FAQCategory, Meta } from '../../contentful/contentful.types';
-import RichTextWrapper from '../../contentful/RichTextWrapper';
+  getBodyMarginTop,
+} from "../../app/store/dimensions/dimensions.selectors";
+import { getFaqContent } from "./store/faqs.actions";
+import PanelGroup from "react-bootstrap/lib/PanelGroup";
+import Helmet from "../../components/Helmet";
+import Analytics from "../../analytics/analytics";
+import { FAQS } from "../../analytics/faqs/events";
+import { getFAQCategories, getMeta } from "./store/faqs.selectors";
+import { FaqContentRequestPayload } from "./store/faqs.types";
+import { BREAKPOINTS, BRAND } from "../../ui/variables";
+import Header2 from "../../ui/headers/Header2";
+import Title1 from "../../ui/titles/Title1";
+import Accordion from "../../ui/miscellaneous/Accordion";
+import MobileMenu from "./MobileMenu";
+import DesktopMenu from "./DesktopMenu";
+import Header1 from "../../ui/headers/Header1";
+import HeaderContainer from "../../ui/headers/HeaderContainer";
+import { getError, getIsFetching } from "./store/faqs.selectors";
+import ErrorPage from "../../components/ErrorPage";
+import Loading from "../../components/Loading";
+import {
+  CONTENTFUL_IDS,
+  FAQCategory,
+  Meta,
+} from "../../contentful/contentful.types";
+import RichTextWrapper from "../../contentful/RichTextWrapper";
 
 interface StateProps {
   bodyMarginTop: number;
@@ -60,7 +67,7 @@ interface State {
 
 class FAQ extends React.Component<Props, State> {
   public readonly state: Readonly<State> = {
-    activeKey: ''
+    activeKey: "",
   };
 
   componentDidMount() {
@@ -79,12 +86,23 @@ class FAQ extends React.Component<Props, State> {
   render() {
     const { activeKey } = this.state;
 
-    const { categories, bodyMarginTop, isMobileBreakpoint, isFetching, apiError, meta } = this.props;
+    const {
+      categories,
+      bodyMarginTop,
+      isMobileBreakpoint,
+      isFetching,
+      apiError,
+      meta,
+    } = this.props;
 
     if (apiError) {
       return (
         <Layout>
-          <Helmet title={meta.title} description={meta.description} imageUrl={meta.imageUrl} />
+          <Helmet
+            title={meta.title}
+            description={meta.description}
+            imageUrl={meta.imageUrl}
+          />
           <ErrorPage
             title="Oh no! Something went wrong when loading this content."
             content="Try refreshing the page, but if that doesn't work you can always reach out to us with questions about renting with Feather."
@@ -98,7 +116,11 @@ class FAQ extends React.Component<Props, State> {
     if (isFetching) {
       return (
         <Layout>
-          <Helmet title={meta.title} description={meta.description} imageUrl={meta.imageUrl} />
+          <Helmet
+            title={meta.title}
+            description={meta.description}
+            imageUrl={meta.imageUrl}
+          />
 
           <Loading />
         </Layout>
@@ -107,7 +129,11 @@ class FAQ extends React.Component<Props, State> {
 
     return (
       <Layout>
-        <Helmet title={meta.title} description={meta.description} imageUrl={meta.imageUrl} />
+        <Helmet
+          title={meta.title}
+          description={meta.description}
+          imageUrl={meta.imageUrl}
+        />
         <section
           css={css`
             background-color: ${BRAND.BACKGROUND};
@@ -122,7 +148,11 @@ class FAQ extends React.Component<Props, State> {
               padding-bottom: 200px;
             `}
           >
-            {isMobileBreakpoint ? <MobileMenu categories={categories} /> : <DesktopMenu categories={categories} />}
+            {isMobileBreakpoint ? (
+              <MobileMenu categories={categories} />
+            ) : (
+              <DesktopMenu categories={categories} />
+            )}
             <div
               css={css`
                 max-width: 710px;
@@ -140,7 +170,12 @@ class FAQ extends React.Component<Props, State> {
                 }
               `}
             >
-              <PanelGroup accordion={true} activeKey={activeKey} id="panel-group-faq-page" onSelect={this.handleSelect}>
+              <PanelGroup
+                accordion={true}
+                activeKey={activeKey}
+                id="panel-group-faq-page"
+                onSelect={this.handleSelect}
+              >
                 {categories.map((category) => (
                   <div key={category.name}>
                     <HashLinkId
@@ -150,8 +185,12 @@ class FAQ extends React.Component<Props, State> {
                             // now that it's dynamic 50 x (amount of categories) seems appropriate.
                             // frankly we're still not sure why it's not the 57px of the categories dropdown height
                             `
-                          padding-top: ${bodyMarginTop + 50 + 50 * categories.length}px;
-                          margin-top: -${bodyMarginTop + 50 * categories.length}px;
+                          padding-top: ${
+                            bodyMarginTop + 50 + 50 * categories.length
+                          }px;
+                          margin-top: -${
+                            bodyMarginTop + 50 * categories.length
+                          }px;
                           `
                           : `
                           :not(:first-child) {
@@ -186,7 +225,11 @@ class FAQ extends React.Component<Props, State> {
                       )}
                       {category.faqs &&
                         category.faqs.map((faq) => (
-                          <Accordion key={faq.question} header={faq.question} activeKey={activeKey}>
+                          <Accordion
+                            key={faq.question}
+                            header={faq.question}
+                            activeKey={activeKey}
+                          >
                             <RichTextWrapper
                               css={css`
                                 & p {
@@ -218,12 +261,12 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   bodyMarginTop: getBodyMarginTop(state),
   meta: getMeta(state),
   isFetching: getIsFetching(state),
-  apiError: getError(state)
+  apiError: getError(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
   displayPostalInput,
-  getFaqRequest: getFaqContent.request
+  getFaqRequest: getFaqContent.request,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FAQ);

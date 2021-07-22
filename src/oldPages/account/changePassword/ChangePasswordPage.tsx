@@ -1,21 +1,29 @@
 /** @jsx jsx */
-import React from 'react';
-import { connect } from 'react-redux';
-import { css, jsx } from '@emotion/core';
-import { State as GlobalState, APIError } from '../../../types/ReduxState';
-import { changePasswordRequest, ChangePasswordRequest, resetIsPasswordUpdated } from './store/change.password.actions';
-import { ActionCreator } from '../../../types/FluxStandardActions';
-import { getError, getIsFetching, getIsPasswordUpdated } from './store/change.password.selectors';
-import ChangePasswordForm from './ChangePasswordForm';
-import { ChangePasswordData } from './store/change.password.types';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import { getEmail } from '../personalInformation/store/personal.information.selectors';
-import Title1 from '../../../ui/titles/Title1';
-import Header1 from '../../../ui/headers/Header1';
-import Header3 from '../../../ui/headers/Header3';
-import Button from '../../../ui/buttons/Button';
-import Analytics from '../../../analytics/analytics';
-import PAGES from '../../../analytics/pages';
+import React from "react";
+import { connect } from "react-redux";
+import { css, jsx } from "@emotion/core";
+import { State as GlobalState, APIError } from "../../../types/ReduxState";
+import {
+  changePasswordRequest,
+  ChangePasswordRequest,
+  resetIsPasswordUpdated,
+} from "./store/change.password.actions";
+import { ActionCreator } from "../../../types/FluxStandardActions";
+import {
+  getError,
+  getIsFetching,
+  getIsPasswordUpdated,
+} from "./store/change.password.selectors";
+import ChangePasswordForm from "./ChangePasswordForm";
+import { ChangePasswordData } from "./store/change.password.types";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import { getEmail } from "../personalInformation/store/personal.information.selectors";
+import Title1 from "../../../ui/titles/Title1";
+import Header1 from "../../../ui/headers/Header1";
+import Header3 from "../../../ui/headers/Header3";
+import Button from "../../../ui/buttons/Button";
+import Analytics from "../../../analytics/analytics";
+import PAGES from "../../../analytics/pages";
 
 interface Props {
   changePasswordRequest: ChangePasswordRequest;
@@ -40,24 +48,25 @@ class ChangePassword extends React.Component<Props> {
     this.props.changePasswordRequest({
       email: this.props.email,
       currentPassword: values.currentPassword,
-      newPassword: values.newPassword
+      newPassword: values.newPassword,
     });
   };
 
   render() {
-    const { isFetching, error, isMobileBreakpoint, isPasswordUpdated } = this.props;
+    const { isFetching, error, isMobileBreakpoint, isPasswordUpdated } =
+      this.props;
 
     return (
       <div>
         <div
           css={css`
-            ${isMobileBreakpoint && isPasswordUpdated && 'display: none;'}
+            ${isMobileBreakpoint && isPasswordUpdated && "display: none;"}
           `}
         >
           {!isMobileBreakpoint && <Header1>Change Password</Header1>}
           <div
             css={css`
-              margin-top: ${isMobileBreakpoint ? '50px' : '20px'};
+              margin-top: ${isMobileBreakpoint ? "50px" : "20px"};
             `}
           >
             <Title1>Choose a new password</Title1>
@@ -67,7 +76,7 @@ class ChangePassword extends React.Component<Props> {
           <div
             css={css`
               ${isMobileBreakpoint ? `margin-top: 130px;` : `margin-top: 56px;`}
-              ${isMobileBreakpoint && 'text-align: center; padding: 0 45px;'}
+              ${isMobileBreakpoint && "text-align: center; padding: 0 45px;"}
             `}
           >
             <Header3>Your password has been successfully changed!</Header3>
@@ -102,12 +111,12 @@ const mapStateToProps = (state: GlobalState) => ({
   isFetching: getIsFetching(state),
   isPasswordUpdated: getIsPasswordUpdated(state),
   isMobileBreakpoint: getIsMobileBreakpoint(state),
-  email: getEmail(state)
+  email: getEmail(state),
 });
 
 const mapDispatchToProps = {
   changePasswordRequest,
-  resetIsPasswordUpdated
+  resetIsPasswordUpdated,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);

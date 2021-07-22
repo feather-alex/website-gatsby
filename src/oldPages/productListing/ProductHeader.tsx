@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import { BRAND } from '../../ui/variables';
-import { Categories } from '../../app/store/entities/entities.types';
-import { useHistory, useRouteMatch } from 'react-router';
+import { jsx, css } from "@emotion/core";
+import { BRAND } from "../../ui/variables";
+import { Categories } from "../../app/store/entities/entities.types";
+import { useHistory, useRouteMatch } from "react-router";
 // TODO: add that analytics events to filters
 // import { categoryPageViewedPayloadMapping } from '../../analytics/product-category/payload-mappings';
 
-import { newProductCategories } from './product.categories';
-import Subheader1 from '../../ui/subheaders/Subheader1';
-import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import { useSelector } from 'react-redux';
+import { newProductCategories } from "./product.categories";
+import Subheader1 from "../../ui/subheaders/Subheader1";
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import { useSelector } from "react-redux";
 
 interface Props {
   categories: Categories | null;
@@ -23,7 +23,7 @@ const ProductHeader = ({ categories }: Props) => {
   const { location } = history;
   const isMobileBreakpoint = useSelector(getIsMobileBreakpoint);
 
-  let currentCategory = 'All Furniture';
+  let currentCategory = "All Furniture";
   if (categories && !location.pathname.match(/\/products\/?$/)) {
     // TODO: temp until API is ready with new product categories
     const allCategories = [...categories.products, ...newProductCategories];
@@ -31,16 +31,18 @@ const ProductHeader = ({ categories }: Props) => {
     const selectedCategory = allCategories.find(
       (category) => category.identifier === routeMatch.params.productIdentifier
     );
-    currentCategory = selectedCategory ? selectedCategory.name : currentCategory;
+    currentCategory = selectedCategory
+      ? selectedCategory.name
+      : currentCategory;
   }
   if (location.pathname.match(/packages(\/|#\S*)?$/)) {
-    currentCategory = 'Curated Packages';
+    currentCategory = "Curated Packages";
   }
 
   return (
     <div
       css={css`
-        padding: ${isMobileBreakpoint ? '24px 8px 32px' : '48px 0'};
+        padding: ${isMobileBreakpoint ? "24px 8px 32px" : "48px 0"};
         height: ${productHeaderHeight}px;
         background-color: ${BRAND.BACKGROUND};
         display: flex;

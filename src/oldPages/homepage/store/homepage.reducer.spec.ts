@@ -1,14 +1,18 @@
-import { mockRequestPayload, mockSuccessPayload, mockError } from './homepage.fixtures';
-import homepageReducer, { initialState } from './homepage.reducer';
-import { getHomepageContent } from './homepage.actions';
-import { HomepageContentState } from './homepage.types';
+import {
+  mockRequestPayload,
+  mockSuccessPayload,
+  mockError,
+} from "./homepage.fixtures";
+import homepageReducer, { initialState } from "./homepage.reducer";
+import { getHomepageContent } from "./homepage.actions";
+import { HomepageContentState } from "./homepage.types";
 
-describe('Enterprise - Reducer', () => {
+describe("Enterprise - Reducer", () => {
   let state: HomepageContentState;
 
   beforeEach(() => (state = { ...initialState }));
 
-  it('Should handle action: GET_HOMEPAGE_REQUEST', () => {
+  it("Should handle action: GET_HOMEPAGE_REQUEST", () => {
     const action = getHomepageContent.request(mockRequestPayload);
     const reduced = homepageReducer(state, action);
 
@@ -23,7 +27,7 @@ describe('Enterprise - Reducer', () => {
     expect(reduced.error).toBeNull();
   });
 
-  it('Should handle action: GET_HOMEPAGE_SUCCESS', () => {
+  it("Should handle action: GET_HOMEPAGE_SUCCESS", () => {
     const action = getHomepageContent.success(mockSuccessPayload);
 
     const reduced = homepageReducer(state, action);
@@ -39,7 +43,7 @@ describe('Enterprise - Reducer', () => {
     expect(reduced.error).toBeNull();
   });
 
-  it('Should handle action: GET_HOMEPAGE_FAILURE', () => {
+  it("Should handle action: GET_HOMEPAGE_FAILURE", () => {
     const action = getHomepageContent.failure(mockError);
 
     const reduced = homepageReducer(state, action);

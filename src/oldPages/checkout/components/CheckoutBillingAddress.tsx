@@ -1,35 +1,43 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import styled from '@emotion/styled';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useFormik } from 'formik';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { CheckoutStateStep, CheckoutStep } from '../store/checkout.types';
-import { validateBillingAddressInfo } from '../store/checkout.validation';
-import CheckoutInputFieldFormik, { InputContainer, InputWidth, Label } from './CheckoutInputField';
-import CheckoutGoogleInputField from './CheckoutGoogleInputField';
-import Analytics from '../../../analytics/analytics';
-import { CHECKOUT } from '../../../analytics/checkout/events';
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFormik } from "formik";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { CheckoutStateStep, CheckoutStep } from "../store/checkout.types";
+import { validateBillingAddressInfo } from "../store/checkout.validation";
+import CheckoutInputFieldFormik, {
+  InputContainer,
+  InputWidth,
+  Label,
+} from "./CheckoutInputField";
+import CheckoutGoogleInputField from "./CheckoutGoogleInputField";
+import Analytics from "../../../analytics/analytics";
+import { CHECKOUT } from "../../../analytics/checkout/events";
 import {
   CheckoutDropdown,
   CheckoutNextStepButtonContainer,
   CheckoutPageForm,
   FormHeader,
-  MultipleInputsLineContainer
-} from './CheckoutStyledComponents';
-import { stepViewedPayloadMapping } from '../../../analytics/checkout/payload-mappings';
-import { CheckoutCTAError } from './CheckoutCTAError';
-import { CHECKOUT_CTA_ERRORS } from './CheckoutCTAErrors.content';
-import { checkoutStepCompleted } from '../store/checkout.actions';
-import { BillingAddressInfoFields } from '../store/checkoutForms.types';
-import { getBillingAddressInfo } from '../store/checkout.selectors';
-import { MenuItem } from '../../../ui/formElements/Dropdown';
-import PreviousStepsInfo from './PreviousStepsInfo';
-import { BRAND } from '../../../ui/variables';
-import { getCartContainsUnavailableProducts, getCartUuid, getIsCartMinimumMet } from '../../cart/store/cart.selectors';
-import { statesUS, provincesCA } from '../store/checkout.service';
-import useMount from '../../../utils/useMount';
+  MultipleInputsLineContainer,
+} from "./CheckoutStyledComponents";
+import { stepViewedPayloadMapping } from "../../../analytics/checkout/payload-mappings";
+import { CheckoutCTAError } from "./CheckoutCTAError";
+import { CHECKOUT_CTA_ERRORS } from "./CheckoutCTAErrors.content";
+import { checkoutStepCompleted } from "../store/checkout.actions";
+import { BillingAddressInfoFields } from "../store/checkoutForms.types";
+import { getBillingAddressInfo } from "../store/checkout.selectors";
+import { MenuItem } from "../../../ui/formElements/Dropdown";
+import PreviousStepsInfo from "./PreviousStepsInfo";
+import { BRAND } from "../../../ui/variables";
+import {
+  getCartContainsUnavailableProducts,
+  getCartUuid,
+  getIsCartMinimumMet,
+} from "../../cart/store/cart.selectors";
+import { statesUS, provincesCA } from "../store/checkout.service";
+import useMount from "../../../utils/useMount";
 
 const BillingStateHeader = styled.span`
   font-weight: 500;
@@ -39,12 +47,12 @@ const BillingStateHeader = styled.span`
 `;
 
 enum identifier {
-  googleBillingStreetAddress = 'googleBillingStreetAddress',
-  billingStreetAddress = 'billingStreetAddress',
-  billingApt = 'billingApt',
-  billingCity = 'billingCity',
-  billingState = 'billingState',
-  billingPostalCode = 'billingPostalCode'
+  googleBillingStreetAddress = "googleBillingStreetAddress",
+  billingStreetAddress = "billingStreetAddress",
+  billingApt = "billingApt",
+  billingCity = "billingCity",
+  billingState = "billingState",
+  billingPostalCode = "billingPostalCode",
 }
 
 interface Props {
@@ -58,14 +66,16 @@ const CheckoutBillingAddress = ({
   backToCustomerInfo,
   backToDeliveryInfo,
   googleScriptFailed,
-  handleGoogleScriptFailed
+  handleGoogleScriptFailed,
 }: Props) => {
   const dispatch = useDispatch();
 
   const [showLoader, setShowLoader] = useState(false);
   const billingAddressInfo = useSelector(getBillingAddressInfo);
   const cartUuid = useSelector(getCartUuid);
-  const cartContainsUnavailableItems = useSelector(getCartContainsUnavailableProducts);
+  const cartContainsUnavailableItems = useSelector(
+    getCartContainsUnavailableProducts
+  );
   const isCartMinimumMet = useSelector(getIsCartMinimumMet);
 
   useMount(() => {
@@ -83,7 +93,9 @@ const CheckoutBillingAddress = ({
 
   const handleNextStep = (data: BillingAddressInfoFields) => {
     setShowLoader(true);
-    dispatch(checkoutStepCompleted({ step: CheckoutStateStep.BillingAddress, data }));
+    dispatch(
+      checkoutStepCompleted({ step: CheckoutStateStep.BillingAddress, data })
+    );
   };
 
   const {
@@ -95,7 +107,7 @@ const CheckoutBillingAddress = ({
     touched,
     setFieldValue,
     setFieldError,
-    setFieldTouched
+    setFieldTouched,
   } = useFormik<BillingAddressInfoFields>({
     initialValues: {
       billingStreetAddress: billingAddressInfo.billingStreetAddress,
@@ -103,19 +115,22 @@ const CheckoutBillingAddress = ({
       billingCity: billingAddressInfo.billingCity,
       billingState: billingAddressInfo.billingState,
       billingPostalCode: billingAddressInfo.billingPostalCode,
-      googleBillingStreetAddress: billingAddressInfo.googleBillingStreetAddress
+      googleBillingStreetAddress: billingAddressInfo.googleBillingStreetAddress,
     },
     validate: validateBillingAddressInfo,
     onSubmit(data: BillingAddressInfoFields) {
       handleNextStep(data);
-    }
+    },
   });
 
   const handleBlurGoogleBillingStreetAddress = () => {
     setFieldTouched(identifier.googleBillingStreetAddress, true);
   };
 
-  const handleGoogleAddressErrorMessage = (error: string | null, field: string) => {
+  const handleGoogleAddressErrorMessage = (
+    error: string | null,
+    field: string
+  ) => {
     if (error === null) {
       setFieldError(field, undefined);
     } else {
@@ -130,7 +145,7 @@ const CheckoutBillingAddress = ({
     streetAddress,
     city,
     state,
-    zipCode
+    zipCode,
   }: {
     autocompleteAddress: string;
     streetAddress: string;
@@ -155,9 +170,9 @@ const CheckoutBillingAddress = ({
     // share the same error message, so when we clear the google field,
     // we need to make sure the streetAddress value and error are set
     // correctly
-    setFieldValue(identifier.googleBillingStreetAddress, '');
-    setFieldValue(identifier.billingStreetAddress, '');
-    setFieldError(identifier.billingStreetAddress, '*required');
+    setFieldValue(identifier.googleBillingStreetAddress, "");
+    setFieldValue(identifier.billingStreetAddress, "");
+    setFieldError(identifier.billingStreetAddress, "*required");
   };
 
   const areFieldsEmpty =
@@ -166,7 +181,9 @@ const CheckoutBillingAddress = ({
     values.billingState.length === 0 &&
     values.billingPostalCode.length === 0;
 
-  const isFormValid = (Object.keys(touched).length > 0 || !areFieldsEmpty) && Object.keys(errors).length === 0;
+  const isFormValid =
+    (Object.keys(touched).length > 0 || !areFieldsEmpty) &&
+    Object.keys(errors).length === 0;
 
   return (
     <CheckoutPageForm>
@@ -212,7 +229,7 @@ const CheckoutBillingAddress = ({
                 handleBlur={handleBlur}
                 isDisabled={true}
               />
-            </MultipleInputsLineContainer>
+            </MultipleInputsLineContainer>,
           ]
         : [
             <CheckoutInputFieldFormik
@@ -264,7 +281,9 @@ const CheckoutBillingAddress = ({
                   dataCy="custom-dropdown"
                   isDefaultStyle={false}
                   title={values.billingState}
-                  onSelect={(selected: string) => setFieldValue(identifier.billingState, selected, true)}
+                  onSelect={(selected: string) =>
+                    setFieldValue(identifier.billingState, selected, true)
+                  }
                   css={css`
                     .dropdown-menu {
                       max-height: 200px;
@@ -285,7 +304,11 @@ const CheckoutBillingAddress = ({
                   ))}
                   <BillingStateHeader>Canada</BillingStateHeader>
                   {provincesCA.map((abvState: string, index: number) => (
-                    <MenuItem key={index} eventKey={abvState} data-identifier={identifier.billingState}>
+                    <MenuItem
+                      key={index}
+                      eventKey={abvState}
+                      data-identifier={identifier.billingState}
+                    >
                       {abvState}
                     </MenuItem>
                   ))}
@@ -304,10 +327,12 @@ const CheckoutBillingAddress = ({
                 handleChange={handleChange}
                 handleBlur={handleBlur}
               />
-            </MultipleInputsLineContainer>
+            </MultipleInputsLineContainer>,
           ]}
 
-      {cartContainsUnavailableItems && <CheckoutCTAError {...CHECKOUT_CTA_ERRORS.outOfStock} />}
+      {cartContainsUnavailableItems && (
+        <CheckoutCTAError {...CHECKOUT_CTA_ERRORS.outOfStock} />
+      )}
 
       <CheckoutNextStepButtonContainer>
         <Button
@@ -322,7 +347,9 @@ const CheckoutBillingAddress = ({
             showLoader
           }
         >
-          {showLoader ? 'Continuing to Billing Info...' : 'Continue to Billing Info'}
+          {showLoader
+            ? "Continuing to Billing Info..."
+            : "Continue to Billing Info"}
         </Button>
       </CheckoutNextStepButtonContainer>
 

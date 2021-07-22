@@ -1,15 +1,18 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { Overlays } from '../app/store/overlay/overlay.types';
-import { toggleOverlay, ToggleOverlay } from '../app/store/overlay/overlay.actions';
-import { getIsAddItemsToCurrentPlanOverlayOpen } from '../app/store/overlay/overlay.selectors';
-import { State as GlobalState } from '../types/ReduxState';
-import FeatherModal from '../ui/modals/FeatherModal';
-import { connect } from 'react-redux';
-import Paragraph2 from '../ui/paragraphs/Paragraph2';
-import Header3 from '../ui/headers/Header3';
-import Button from '../ui/buttons/Button';
-import { FONTS } from '../ui/variables';
+import { css, jsx } from "@emotion/core";
+import { Overlays } from "../app/store/overlay/overlay.types";
+import {
+  toggleOverlay,
+  ToggleOverlay,
+} from "../app/store/overlay/overlay.actions";
+import { getIsAddItemsToCurrentPlanOverlayOpen } from "../app/store/overlay/overlay.selectors";
+import { State as GlobalState } from "../types/ReduxState";
+import FeatherModal from "../ui/modals/FeatherModal";
+import { connect } from "react-redux";
+import Paragraph2 from "../ui/paragraphs/Paragraph2";
+import Header3 from "../ui/headers/Header3";
+import Button from "../ui/buttons/Button";
+import { FONTS } from "../ui/variables";
 
 export interface Props {
   isOpen: boolean;
@@ -45,7 +48,8 @@ const AddItemsToCurrentPlanModal = (props: Props) => {
           `}
         >
           <Paragraph2>
-            To add an item to your membership, contact your account manager who will get it set up for you!
+            To add an item to your membership, contact your account manager who
+            will get it set up for you!
           </Paragraph2>
         </div>
         <div
@@ -56,7 +60,9 @@ const AddItemsToCurrentPlanModal = (props: Props) => {
             width: 100%;
           `}
         >
-          <Button mailto="hello@livefeather.com">Email your account manager</Button>
+          <Button mailto="hello@livefeather.com">
+            Email your account manager
+          </Button>
         </div>
         <a
           css={css`
@@ -73,11 +79,14 @@ const AddItemsToCurrentPlanModal = (props: Props) => {
 };
 
 const mapStateToProps = (state: GlobalState) => ({
-  isOpen: getIsAddItemsToCurrentPlanOverlayOpen(state)
+  isOpen: getIsAddItemsToCurrentPlanOverlayOpen(state),
 });
 
 const mapDispatchToProps = {
-  toggleOverlay
+  toggleOverlay,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddItemsToCurrentPlanModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddItemsToCurrentPlanModal);

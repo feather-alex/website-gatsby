@@ -1,7 +1,10 @@
-import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { HomepageContentState, HomepageContentSuccessPayload } from './homepage.types';
-import { APIError } from '../../../types/ReduxState';
-import { getHomepageContent } from './homepage.actions';
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import {
+  HomepageContentState,
+  HomepageContentSuccessPayload,
+} from "./homepage.types";
+import { APIError } from "../../../types/ReduxState";
+import { getHomepageContent } from "./homepage.actions";
 
 export const initialState: HomepageContentState = {
   isFetching: false,
@@ -12,7 +15,7 @@ export const initialState: HomepageContentState = {
   sections: null,
   bestSellers: null,
   shopByRoom: null,
-  reviews: null
+  reviews: null,
 };
 
 export default createReducer(initialState, {
@@ -21,7 +24,10 @@ export default createReducer(initialState, {
     state.error = null;
   },
 
-  [getHomepageContent.success.type](state: HomepageContentState, action: PayloadAction<HomepageContentSuccessPayload>) {
+  [getHomepageContent.success.type](
+    state: HomepageContentState,
+    action: PayloadAction<HomepageContentSuccessPayload>
+  ) {
     state.isFetching = false;
     state.error = null;
     state.meta = action.payload.meta;
@@ -33,8 +39,11 @@ export default createReducer(initialState, {
     state.reviews = action.payload.reviews;
   },
 
-  [getHomepageContent.failure.type](state: HomepageContentState, action: PayloadAction<APIError>) {
+  [getHomepageContent.failure.type](
+    state: HomepageContentState,
+    action: PayloadAction<APIError>
+  ) {
     state.isFetching = false;
     state.error = action.payload;
-  }
+  },
 });

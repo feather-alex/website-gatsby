@@ -1,32 +1,39 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { useSelector, useDispatch } from 'react-redux';
-import DOMPurify from 'dompurify';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { useSelector, useDispatch } from "react-redux";
+import DOMPurify from "dompurify";
 
-import Analytics from '../../analytics/analytics';
-import PAGES from '../../analytics/pages';
-import { getIsMobileBreakpoint, getWindowWidth } from '../../app/store/dimensions/dimensions.selectors';
+import Analytics from "../../analytics/analytics";
+import PAGES from "../../analytics/pages";
+import {
+  getIsMobileBreakpoint,
+  getWindowWidth,
+} from "../../app/store/dimensions/dimensions.selectors";
 
-import Layout from '../../app/Layout';
-import Helmet from '../../components/Helmet';
-import Header2 from '../../ui/headers/Header2';
-import ImageWithText from '../../ui/pageElements/ImageWithText';
-import Bestsellers from './Bestsellers';
-import HomepageHeader from './HomepageHeader';
-import HomepageReviews from './HomepageReviews';
-import LevitateContainer from './LevitateContainer';
+import Layout from "../../app/Layout";
+import Helmet from "../../components/Helmet";
+import Header2 from "../../ui/headers/Header2";
+import ImageWithText from "../../ui/pageElements/ImageWithText";
+import Bestsellers from "./Bestsellers";
+import HomepageHeader from "./HomepageHeader";
+import HomepageReviews from "./HomepageReviews";
+import LevitateContainer from "./LevitateContainer";
 
-import { BRAND, SHADES, BREAKPOINTS } from '../../ui/variables';
-import { HOMEPAGE, AnalyticsEventKey } from '../../analytics/homepage/events';
-import { homepageClickLinkPayloadMapping } from '../../analytics/homepage/payload-mappings';
-import Subheader2 from '../../ui/subheaders/Subheader2';
-import useMount from '../../utils/useMount';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import FeatherFloydLogo from '../../ui/logos/FeatherFloydLogo';
-import VariableImageFeature from '../../ui/pageElements/VariableImageFeature';
-import { getHomepageContent } from './store/homepage.actions';
-import { CONTENTFUL_IDS, ImageAndText, UrlType } from '../../contentful/contentful.types';
+import { BRAND, SHADES, BREAKPOINTS } from "../../ui/variables";
+import { HOMEPAGE, AnalyticsEventKey } from "../../analytics/homepage/events";
+import { homepageClickLinkPayloadMapping } from "../../analytics/homepage/payload-mappings";
+import Subheader2 from "../../ui/subheaders/Subheader2";
+import useMount from "../../utils/useMount";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import FeatherFloydLogo from "../../ui/logos/FeatherFloydLogo";
+import VariableImageFeature from "../../ui/pageElements/VariableImageFeature";
+import { getHomepageContent } from "./store/homepage.actions";
+import {
+  CONTENTFUL_IDS,
+  ImageAndText,
+  UrlType,
+} from "../../contentful/contentful.types";
 import {
   getHomepageMeta,
   getHomepageHero,
@@ -35,12 +42,12 @@ import {
   getIsFetching,
   getError,
   getHomepageShopByRoom,
-  getHomepageReviews
-} from './store/homepage.selectors';
-import Loading from '../../components/Loading';
-import FullscreenErrorPage from '../../ui/miscellaneous/FullscreenErrorPage';
-import ShopByRoom from './ShopByRoom';
-import HomepagePress from './HomepagePress';
+  getHomepageReviews,
+} from "./store/homepage.selectors";
+import Loading from "../../components/Loading";
+import FullscreenErrorPage from "../../ui/miscellaneous/FullscreenErrorPage";
+import ShopByRoom from "./ShopByRoom";
+import HomepagePress from "./HomepagePress";
 
 const HomepageSection = styled.section`
   background-color: ${BRAND.BACKGROUND};
@@ -66,7 +73,8 @@ const TextLockupSection = styled.section`
 
 const ImageFeaturesSection = styled.section`
   background-color: ${SHADES.WHITE};
-  padding-bottom: ${({ isMobileBreakpoint }: { isMobileBreakpoint: boolean }) => (isMobileBreakpoint ? 48 : 192)}px;
+  padding-bottom: ${({ isMobileBreakpoint }: { isMobileBreakpoint: boolean }) =>
+    isMobileBreakpoint ? 48 : 192}px;
 `;
 
 const FeatherFloydFeature = styled(VariableImageFeature)`
@@ -82,7 +90,10 @@ const FeatherFloydHeader = styled(Header2)`
 `;
 
 const trackCTAClick = (eventKey: AnalyticsEventKey) => () => {
-  Analytics.trackEvent(HOMEPAGE.CLICK_CTA, homepageClickLinkPayloadMapping({ link: eventKey }));
+  Analytics.trackEvent(
+    HOMEPAGE.CLICK_CTA,
+    homepageClickLinkPayloadMapping({ link: eventKey })
+  );
 };
 
 const Homepage = () => {
@@ -105,7 +116,13 @@ const Homepage = () => {
     Analytics.trackPage(PAGES.HOMEPAGE);
   });
 
-  const HomepageMeta = meta && <Helmet title={meta.title} description={meta.description} imageUrl={meta.imageUrl} />;
+  const HomepageMeta = meta && (
+    <Helmet
+      title={meta.title}
+      description={meta.description}
+      imageUrl={meta.imageUrl}
+    />
+  );
 
   if (error) {
     return <FullscreenErrorPage meta={meta} error={error} />;
@@ -120,10 +137,15 @@ const Homepage = () => {
     );
   }
 
-  const renderHorizontalImageWithText = (featureContent: ImageAndText, index: number) => {
+  const renderHorizontalImageWithText = (
+    featureContent: ImageAndText,
+    index: number
+  ) => {
     // Temp until we look more into linking analytics and contentful - will be part of the coming spike
     const analyticsEvent =
-      index === 0 ? AnalyticsEventKey.sectionOneFurniture : AnalyticsEventKey.sectionThreeHowItWorks;
+      index === 0
+        ? AnalyticsEventKey.sectionOneFurniture
+        : AnalyticsEventKey.sectionThreeHowItWorks;
 
     return (
       featureContent && (
@@ -134,9 +156,21 @@ const Homepage = () => {
           queryParams={{}}
           headerText={featureContent.header}
           paragraphText={featureContent.paragraph}
-          external={featureContent.cta?.urlType === UrlType.EXTERNAL ? featureContent.cta?.url : undefined}
-          to={featureContent.cta?.urlType === UrlType.INTERNAL ? featureContent.cta?.url : undefined}
-          mailto={featureContent.cta?.urlType === UrlType.EMAIL ? featureContent.cta?.url : undefined}
+          external={
+            featureContent.cta?.urlType === UrlType.EXTERNAL
+              ? featureContent.cta?.url
+              : undefined
+          }
+          to={
+            featureContent.cta?.urlType === UrlType.INTERNAL
+              ? featureContent.cta?.url
+              : undefined
+          }
+          mailto={
+            featureContent.cta?.urlType === UrlType.EMAIL
+              ? featureContent.cta?.url
+              : undefined
+          }
           onClick={trackCTAClick(analyticsEvent)}
           imageSide="right"
           isParagraphRichText={true}
@@ -145,9 +179,15 @@ const Homepage = () => {
     );
   };
 
-  const renderVerticalImageWithText = (featureContent: ImageAndText, index: number) => {
+  const renderVerticalImageWithText = (
+    featureContent: ImageAndText,
+    index: number
+  ) => {
     // Temp until we look more into linking analytics and contentful - will be part of the coming spike
-    const analyticsEvent = index === 1 ? AnalyticsEventKey.sectionTwoFurniture : AnalyticsEventKey.sectionFourQuiz;
+    const analyticsEvent =
+      index === 1
+        ? AnalyticsEventKey.sectionTwoFurniture
+        : AnalyticsEventKey.sectionFourQuiz;
 
     return (
       featureContent && (
@@ -158,9 +198,21 @@ const Homepage = () => {
           queryParams={{}}
           headerText={featureContent.header}
           paragraphText={featureContent.paragraph}
-          external={featureContent.cta?.urlType === UrlType.EXTERNAL ? featureContent.cta?.url : undefined}
-          to={featureContent.cta?.urlType === UrlType.INTERNAL ? featureContent.cta?.url : undefined}
-          mailto={featureContent.cta?.urlType === UrlType.EMAIL ? featureContent.cta?.url : undefined}
+          external={
+            featureContent.cta?.urlType === UrlType.EXTERNAL
+              ? featureContent.cta?.url
+              : undefined
+          }
+          to={
+            featureContent.cta?.urlType === UrlType.INTERNAL
+              ? featureContent.cta?.url
+              : undefined
+          }
+          mailto={
+            featureContent.cta?.urlType === UrlType.EMAIL
+              ? featureContent.cta?.url
+              : undefined
+          }
           onClick={trackCTAClick(analyticsEvent)}
           imageSide="left"
           isVertical={true}
@@ -174,7 +226,10 @@ const Homepage = () => {
     <Layout>
       {HomepageMeta}
       <HomepageSection>
-        <HomepageHeader isMobileBreakpoint={isMobileBreakpoint} heroContent={hero} />
+        <HomepageHeader
+          isMobileBreakpoint={isMobileBreakpoint}
+          heroContent={hero}
+        />
 
         {shopByRoom && <ShopByRoom shopByRoom={shopByRoom} />}
 
@@ -182,7 +237,11 @@ const Homepage = () => {
           <TextLockupSection isMobileBreakpoint={isMobileBreakpoint}>
             <div>
               <Header2>
-                <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(textLockup.title) }} />
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(textLockup.title),
+                  }}
+                />
               </Header2>
               <Subheader2>{textLockup.body}</Subheader2>
             </div>
@@ -203,14 +262,16 @@ const Homepage = () => {
         <FeatherFloydFeature
           image={{
             src: isFloydCustomBreakpoint
-              ? 'https://img.livefeather.com/pages-new/Homepage/floyd-homepage-mobile.png'
-              : 'https://img.livefeather.com/pages-new/Homepage/floyd-homepage-desktop.png',
-            alt: 'Floyd Furniture'
+              ? "https://img.livefeather.com/pages-new/Homepage/floyd-homepage-mobile.png"
+              : "https://img.livefeather.com/pages-new/Homepage/floyd-homepage-desktop.png",
+            alt: "Floyd Furniture",
           }}
           imageWidthPercentage={65}
         >
           <FeatherFloydLogo width={144} color={SHADES.WHITE} />
-          <FeatherFloydHeader color={SHADES.WHITE}>Floyd Furniture Meets Feather Flexibility</FeatherFloydHeader>
+          <FeatherFloydHeader color={SHADES.WHITE}>
+            Floyd Furniture Meets Feather Flexibility
+          </FeatherFloydHeader>
           <Button
             style={ButtonStyle.PRIMARY_INVERTED}
             onClick={trackCTAClick(AnalyticsEventKey.floydCTA)}

@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import { useState } from 'react';
-import QuizActions from './QuizActions';
-import { DeliveryArea } from '../../../app/store/entities/entities.types';
-import Header3 from '../../../ui/headers/Header3';
-import { DeliveryAreaChoice } from '../store/quiz.types';
-import Dropdown, { MenuItem } from '../../../ui/formElements/Dropdown';
+import { jsx } from "@emotion/core";
+import { useState } from "react";
+import QuizActions from "./QuizActions";
+import { DeliveryArea } from "../../../app/store/entities/entities.types";
+import Header3 from "../../../ui/headers/Header3";
+import { DeliveryAreaChoice } from "../store/quiz.types";
+import Dropdown, { MenuItem } from "../../../ui/formElements/Dropdown";
 
 export interface Props {
   location: DeliveryAreaChoice | null;
@@ -17,12 +17,14 @@ const determineLocationDisplayText = (
   deliveryAreas: DeliveryArea[] | null,
   selectedLocation: DeliveryAreaChoice | null
 ): string => {
-  const defaultLocationDisplay = 'Select your location';
+  const defaultLocationDisplay = "Select your location";
   if (deliveryAreas && selectedLocation) {
-    const selectedArea = deliveryAreas.find((area) => area.identifier === selectedLocation);
+    const selectedArea = deliveryAreas.find(
+      (area) => area.identifier === selectedLocation
+    );
     return selectedArea
-      ? selectedArea.name === 'Los Angeles Area'
-        ? 'Los Angeles / Orange County'
+      ? selectedArea.name === "Los Angeles Area"
+        ? "Los Angeles / Orange County"
         : selectedArea.name
       : defaultLocationDisplay;
   } else {
@@ -34,7 +36,8 @@ const SelectLocationStep = (props: Props) => {
   const { location, deliveryAreas } = props;
   const [selectedLocation, setSelectedLocation] = useState(location);
 
-  const buttonDisabled = !selectedLocation || selectedLocation === DeliveryAreaChoice.All;
+  const buttonDisabled =
+    !selectedLocation || selectedLocation === DeliveryAreaChoice.All;
 
   return (
     <div className="quiz-step">
@@ -46,13 +49,21 @@ const SelectLocationStep = (props: Props) => {
         <Dropdown
           id="custom-dropdown-select-location"
           dataCy="quiz-select-location"
-          onSelect={(selection: DeliveryAreaChoice) => setSelectedLocation(selection)}
+          onSelect={(selection: DeliveryAreaChoice) =>
+            setSelectedLocation(selection)
+          }
           title={determineLocationDisplayText(deliveryAreas, selectedLocation)}
         >
           {deliveryAreas &&
             deliveryAreas.map((area: DeliveryArea) => (
-              <MenuItem data-cy="city-list" key={area.identifier} eventKey={area.identifier}>
-                {area.name === 'Los Angeles Area' ? 'Los Angeles / Orange County' : area.name}
+              <MenuItem
+                data-cy="city-list"
+                key={area.identifier}
+                eventKey={area.identifier}
+              >
+                {area.name === "Los Angeles Area"
+                  ? "Los Angeles / Orange County"
+                  : area.name}
               </MenuItem>
             ))}
         </Dropdown>
@@ -62,7 +73,11 @@ const SelectLocationStep = (props: Props) => {
 
       <QuizActions
         buttonDisabled={buttonDisabled}
-        handleNextStep={() => !buttonDisabled && selectedLocation && props.handleNextStep(selectedLocation)}
+        handleNextStep={() =>
+          !buttonDisabled &&
+          selectedLocation &&
+          props.handleNextStep(selectedLocation)
+        }
       />
     </div>
   );

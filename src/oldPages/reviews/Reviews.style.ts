@@ -1,4 +1,4 @@
-import { BRAND, FONTS, COLORS } from '../../ui/variables';
+import { BRAND, FONTS, COLORS } from "../../ui/variables";
 
 const globalStyleString = `
 .yotpo-container {

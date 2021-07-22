@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-import { ContentfulImage, ShopByRoom } from '../../contentful/contentful.types';
-import ColorBorder, { ColorBorderArray } from '../../ui/borders/ColorBorder';
-import Header1 from '../../ui/headers/Header1';
-import ResponsiveImage from '../../ui/images/ResponsiveImage';
-import Bold from '../../ui/paragraphs/Bold';
-import Paragraph1 from '../../ui/paragraphs/Paragraph1';
-import { GRID_BREAKPOINTS } from '../../ui/variables';
-import Analytics from '../../analytics/analytics';
-import { HOMEPAGE } from '../../analytics/homepage/events';
-import { homepageShopByRoomClickedPayloadMapping } from '../../analytics/homepage/payload-mappings';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
+import { ContentfulImage, ShopByRoom } from "../../contentful/contentful.types";
+import ColorBorder, { ColorBorderArray } from "../../ui/borders/ColorBorder";
+import Header1 from "../../ui/headers/Header1";
+import ResponsiveImage from "../../ui/images/ResponsiveImage";
+import Bold from "../../ui/paragraphs/Bold";
+import Paragraph1 from "../../ui/paragraphs/Paragraph1";
+import { GRID_BREAKPOINTS } from "../../ui/variables";
+import Analytics from "../../analytics/analytics";
+import { HOMEPAGE } from "../../analytics/homepage/events";
+import { homepageShopByRoomClickedPayloadMapping } from "../../analytics/homepage/payload-mappings";
 
 const RoomName = styled(Paragraph1)`
   margin: 16px 0;
@@ -26,7 +26,10 @@ interface RoomCardProps {
 
 const RoomCard = ({ colorSet, name, image, url }: RoomCardProps) => {
   const trackCTAClick = () => {
-    Analytics.trackEvent(HOMEPAGE.SHOP_BY_ROOM, homepageShopByRoomClickedPayloadMapping({ room: name }));
+    Analytics.trackEvent(
+      HOMEPAGE.SHOP_BY_ROOM,
+      homepageShopByRoomClickedPayloadMapping({ room: name })
+    );
   };
 
   return (
@@ -74,7 +77,11 @@ const ShopByRoom = ({ shopByRoom }: { shopByRoom: ShopByRoom }) => (
     <ShopByRoomHeader>{shopByRoom.title}</ShopByRoomHeader>
     <RoomsContainer>
       {shopByRoom.rooms.map((room, index) => (
-        <RoomCard key={room.name} {...room} colorSet={ColorBorderArray[index % ColorBorderArray.length]} />
+        <RoomCard
+          key={room.name}
+          {...room}
+          colorSet={ColorBorderArray[index % ColorBorderArray.length]}
+        />
       ))}
     </RoomsContainer>
   </ShopByRoomSection>

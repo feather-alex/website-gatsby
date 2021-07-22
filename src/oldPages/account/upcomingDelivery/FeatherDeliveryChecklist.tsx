@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import React from 'react';
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import React from "react";
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import { BRAND, BREAKPOINTS } from '../../../ui/variables';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
+import { BRAND, BREAKPOINTS } from "../../../ui/variables";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
 
 export const CompleteNote = styled.div`
   border-top: 1px solid ${BRAND.ACCENT};
@@ -53,7 +53,7 @@ export const StepTitle = styled.strong`
 const FeatherDeliveryChecklist = ({
   buildingQuestionsLink,
   hasSignedLease,
-  handleDisplaySelectDeliveryDate
+  handleDisplaySelectDeliveryDate,
 }: {
   buildingQuestionsLink: string;
   hasSignedLease: boolean;
@@ -61,20 +61,23 @@ const FeatherDeliveryChecklist = ({
 }) => {
   return (
     <React.Fragment>
-      <CompleteNote>Complete the delivery prep checklist to schedule your Feather delivery.</CompleteNote>
+      <CompleteNote>
+        Complete the delivery prep checklist to schedule your Feather delivery.
+      </CompleteNote>
 
       <GetReadySteps>
         <li>
           <StepNumber>1</StepNumber>
           <StepTitle>Sign Your Feather Lease</StepTitle>
-          Check your email inbox. We sent your Feather Lease and need you to review and sign before we can deliver your
-          items.
+          Check your email inbox. We sent your Feather Lease and need you to
+          review and sign before we can deliver your items.
         </li>
         <li>
           <StepNumber>2</StepNumber>
           <StepTitle>Share Your Building Details</StepTitle>
-          Please take a few moments to fill out the building questionnaire. Getting to know your building helps us plan
-          the smoothest delivery possible.
+          Please take a few moments to fill out the building questionnaire.
+          Getting to know your building helps us plan the smoothest delivery
+          possible.
           <Button
             css={css`
               margin-top: 16px;
@@ -89,7 +92,8 @@ const FeatherDeliveryChecklist = ({
         <li>
           <StepNumber>3</StepNumber>
           <StepTitle>Choose Your Delivery Date</StepTitle>
-          Once you've signed your lease and shared your building details, come back here to choose your delivery date.
+          Once you've signed your lease and shared your building details, come
+          back here to choose your delivery date.
           <Button
             css={css`
               margin-top: 36px;

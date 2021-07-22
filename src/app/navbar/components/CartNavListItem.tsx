@@ -1,7 +1,7 @@
 /** @jsx jsx **/
-import { css, jsx } from '@emotion/core';
-import CartIcon from '../../../ui/icons/CartIcon';
-import { FONTS, BRAND, BREAKPOINTS } from '../../../ui/variables';
+import { css, jsx } from "@emotion/core";
+import CartIcon from "../../../ui/icons/CartIcon";
+import { FONTS, BRAND, BREAKPOINTS } from "../../../ui/variables";
 
 interface Props {
   totalItems: number;

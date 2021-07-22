@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { Dropdown, MenuItem } from 'react-bootstrap';
-import { ReasonsForInquiry } from './store/contact.types';
-import { WrappedFieldProps as Props } from 'redux-form';
-import { BRAND } from '../../ui/variables';
-import ArrowIcon, { Direction } from '../../ui/icons/ArrowIcon';
+import { css, jsx } from "@emotion/core";
+import { Dropdown, MenuItem } from "react-bootstrap";
+import { ReasonsForInquiry } from "./store/contact.types";
+import { WrappedFieldProps as Props } from "redux-form";
+import { BRAND } from "../../ui/variables";
+import ArrowIcon, { Direction } from "../../ui/icons/ArrowIcon";
 
 const ReasonForInquiry = ({ input, meta }: Props) => {
   const showError = meta.invalid && meta.touched;
@@ -73,14 +73,20 @@ const ReasonForInquiry = ({ input, meta }: Props) => {
           >
             {!input.value.length ? `Choose a reason for inquiry` : input.value}
           </span>
-          <ArrowIcon color={primaryColor} direction={Direction.Down} width={15} />
+          <ArrowIcon
+            color={primaryColor}
+            direction={Direction.Down}
+            width={15}
+          />
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {Object.values(ReasonsForInquiry).map((reason: ReasonsForInquiry, index: number) => (
-            <MenuItem key={index} eventKey={reason}>
-              {reason}
-            </MenuItem>
-          ))}
+          {Object.values(ReasonsForInquiry).map(
+            (reason: ReasonsForInquiry, index: number) => (
+              <MenuItem key={index} eventKey={reason}>
+                {reason}
+              </MenuItem>
+            )
+          )}
         </Dropdown.Menu>
       </Dropdown>
       {showError && (

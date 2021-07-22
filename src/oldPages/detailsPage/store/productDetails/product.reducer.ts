@@ -1,54 +1,57 @@
-import { ProductDetailsState } from './product.types';
-import { FluxStandardAction } from '../../../../types/FluxStandardActions';
+import { ProductDetailsState } from "./product.types";
+import { FluxStandardAction } from "../../../../types/FluxStandardActions";
 import {
   GET_PRODUCT_DETAILS_REQUEST,
   GET_PRODUCT_DETAILS_SUCCESS,
-  GET_PRODUCT_DETAILS_FAILURE
-} from './product.actions';
-import { FullProductDetails } from '../../../../types/Product';
+  GET_PRODUCT_DETAILS_FAILURE,
+} from "./product.actions";
+import { FullProductDetails } from "../../../../types/Product";
 
 export const initialProductDetails: FullProductDetails = {
-  title: '',
-  identifier: '',
-  description: '',
-  '3dAssetId': null,
+  title: "",
+  identifier: "",
+  description: "",
+  "3dAssetId": null,
   brand: {
-    identifier: '',
-    name: '',
+    identifier: "",
+    name: "",
     image: {
       mobile: null,
-      desktop: null
-    }
+      desktop: null,
+    },
   },
   materials: [],
   categories: [],
-  subclass: { identifier: '', name: '' },
+  subclass: { identifier: "", name: "" },
   styles: [],
   lifestyle: {
-    summary: '',
+    summary: "",
     image: {
       mobile: null,
-      desktop: null
-    }
+      desktop: null,
+    },
   },
   options: [],
   variants: [],
-  availability: []
+  availability: [],
 };
 
 export const initialState: ProductDetailsState = {
   isFetching: false,
   data: initialProductDetails,
-  error: null
+  error: null,
 };
 
-const product = (state: ProductDetailsState = initialState, action: FluxStandardAction) => {
+const product = (
+  state: ProductDetailsState = initialState,
+  action: FluxStandardAction
+) => {
   switch (action.type) {
     case GET_PRODUCT_DETAILS_REQUEST:
       return {
         ...state,
         isFetching: true,
-        error: null
+        error: null,
       };
 
     case GET_PRODUCT_DETAILS_SUCCESS:
@@ -56,14 +59,14 @@ const product = (state: ProductDetailsState = initialState, action: FluxStandard
         ...state,
         error: null,
         isFetching: false,
-        data: action.payload
+        data: action.payload,
       };
 
     case GET_PRODUCT_DETAILS_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: action.payload
+        error: action.payload,
       };
 
     default:

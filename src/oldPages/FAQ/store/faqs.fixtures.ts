@@ -1,102 +1,105 @@
-import { FaqContentRequestPayload, FaqContentSuccessPayload } from './faqs.types';
-import { FAQPageContent } from './faqs.types';
-import { APIError } from '../../../types/ReduxState';
-import { FAQ, FAQCategory } from '../../../contentful/contentful.types';
+import {
+  FaqContentRequestPayload,
+  FaqContentSuccessPayload,
+} from "./faqs.types";
+import { FAQPageContent } from "./faqs.types";
+import { APIError } from "../../../types/ReduxState";
+import { FAQ, FAQCategory } from "../../../contentful/contentful.types";
 
 export const mockRequestPayload: FaqContentRequestPayload = {
-  id: 'ID'
+  id: "ID",
 };
 
 export const mockSuccessPayload: FaqContentSuccessPayload = {
   faqCategories: [
     {
-      name: 'General',
-      faqs: [{ answer: 'a lot', question: 'how much?' }]
-    }
+      name: "General",
+      faqs: [{ answer: "a lot", question: "how much?" }],
+    },
   ],
   meta: {
-    name: 'foo',
-    description: 'foo?',
-    imageUrl: 'foo!',
-    title: 'FOO'
-  }
+    name: "foo",
+    description: "foo?",
+    imageUrl: "foo!",
+    title: "FOO",
+  },
 };
 
 export const mockError: APIError = {
-  error: 'sad lil fail boi',
+  error: "sad lil fail boi",
   status: 404,
-  message: 'it works on my computer'
+  message: "it works on my computer",
 };
 
 export const mockContentfulFaq = {
   answer: {
     data: {},
-    nodeType: 'document',
+    nodeType: "document",
     content: [
       {
         data: {},
         marks: [],
-        nodeType: 'text',
-        value: 'a lot'
-      }
-    ]
+        nodeType: "text",
+        value: "a lot",
+      },
+    ],
   },
-  question: 'how much?'
+  question: "how much?",
 };
 
 const mockMeta = {
-  name: 'foo',
-  description: 'foo?',
-  imageUrl: 'foo!',
-  title: 'FOO'
+  name: "foo",
+  description: "foo?",
+  imageUrl: "foo!",
+  title: "FOO",
 };
 
-export const mockContentfulResponse = ({
+export const mockContentfulResponse = {
   items: [
     {
       fields: {
-        name: 'FAQ Page',
+        name: "FAQ Page",
         faqCategories: [
           {
             fields: {
-              name: 'General',
+              name: "General",
               faqs: [
                 {
-                  fields: mockContentfulFaq
-                }
-              ]
-            }
-          }
+                  fields: mockContentfulFaq,
+                },
+              ],
+            },
+          },
         ],
         meta: {
-          fields: mockMeta
-        }
-      }
-    }
-  ]
-} as object) as FAQPageContent;
+          fields: mockMeta,
+        },
+      },
+    },
+  ],
+} as object as FAQPageContent;
 
 export const mockFormattedResponse = {
   meta: mockMeta,
   faqCategories: [
     {
-      name: 'General',
+      name: "General",
       faqs: [
         {
-          answer: 'a lot',
-          question: 'how much?'
-        }
-      ]
-    }
-  ]
+          answer: "a lot",
+          question: "how much?",
+        },
+      ],
+    },
+  ],
 };
 
 export const makeMockFaqs = (amount: number): FAQ[] => {
   const faqs = [];
   for (let i = 0; i < amount; i++) {
     faqs.push({
-      question: 'does it really matter?',
-      answer: 'perhaps not'
+      question: "does it really matter?",
+      answer: "perhaps not",
     });
   }
 
@@ -105,5 +108,5 @@ export const makeMockFaqs = (amount: number): FAQ[] => {
 
 export const makeMockFaqCategory = (category: string): FAQCategory => ({
   name: category,
-  faqs: makeMockFaqs(5)
+  faqs: makeMockFaqs(5),
 });

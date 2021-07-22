@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import React from 'react';
-import { jsx, css } from '@emotion/core';
-import ProductFilterButtons from './ProductFilterButtons';
-import { getFilters, FilterType, createQuery } from './filter.service';
-import { useHistory } from 'react-router';
-import DesktopSortDropdown from './DesktopSortDropdown';
+import React from "react";
+import { jsx, css } from "@emotion/core";
+import ProductFilterButtons from "./ProductFilterButtons";
+import { getFilters, FilterType, createQuery } from "./filter.service";
+import { useHistory } from "react-router";
+import DesktopSortDropdown from "./DesktopSortDropdown";
 
 interface Props {
   filterNameMap: { [identifier: string]: string };
@@ -19,16 +19,16 @@ const ProductSortOrder = ({ filterNameMap }: Props): JSX.Element => {
   const handleSortOptionClick = React.useCallback(
     (sortIdentifier: string, sortDirection: string) => {
       const partialQuery = createQuery({
-        identifier: sortIdentifier === 'default' ? undefined : sortIdentifier,
+        identifier: sortIdentifier === "default" ? undefined : sortIdentifier,
         filterType: FilterType.SORT_BY,
         locationSearch: location.search,
-        replace: true
+        replace: true,
       });
       const newQuery = createQuery({
-        identifier: sortDirection === 'default' ? undefined : sortDirection,
+        identifier: sortDirection === "default" ? undefined : sortDirection,
         filterType: FilterType.ORDER,
         locationSearch: partialQuery,
-        replace: true
+        replace: true,
       });
 
       history.replace(`${location.pathname}?${newQuery}`);
@@ -60,7 +60,10 @@ const ProductSortOrder = ({ filterNameMap }: Props): JSX.Element => {
           display: flex;
         `}
       >
-        <DesktopSortDropdown activeFilters={activeFilters} handleSortOptionClick={handleSortOptionClick} />
+        <DesktopSortDropdown
+          activeFilters={activeFilters}
+          handleSortOptionClick={handleSortOptionClick}
+        />
       </div>
     </div>
   );

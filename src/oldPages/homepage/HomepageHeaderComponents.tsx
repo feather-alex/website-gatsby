@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-import { GRID_BREAKPOINTS } from '../../ui/variables';
-import { Z_INDICIES } from '../../ui/zIndicies';
+import { GRID_BREAKPOINTS } from "../../ui/variables";
+import { Z_INDICIES } from "../../ui/zIndicies";
 
 export const Header = styled.header`
   display: flex;
@@ -66,7 +66,8 @@ export const CTAContainer = styled.div`
               `}
 
   * {
-    ${({ isMobileBreakpoint }: { isMobileBreakpoint: boolean }) => (isMobileBreakpoint ? 'width: 100%;' : '')}
+    ${({ isMobileBreakpoint }: { isMobileBreakpoint: boolean }) =>
+      isMobileBreakpoint ? "width: 100%;" : ""}
     margin-bottom: 16px;
     margin-right: 16px;
   }

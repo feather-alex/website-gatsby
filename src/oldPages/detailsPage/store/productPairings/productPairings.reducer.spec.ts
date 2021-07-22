@@ -1,18 +1,23 @@
-import productPairingsReducer, { initialState } from './productPairings.reducer';
-import { ProductPairingsRequestPayload, ProductPairingsState } from './productPairings.types';
-import { ProductForListing } from '../../../../types/Product';
-import { APIError } from '../../../../types/ReduxState';
-import * as actions from './productPairings.actions';
+import productPairingsReducer, {
+  initialState,
+} from "./productPairings.reducer";
+import {
+  ProductPairingsRequestPayload,
+  ProductPairingsState,
+} from "./productPairings.types";
+import { ProductForListing } from "../../../../types/Product";
+import { APIError } from "../../../../types/ReduxState";
+import * as actions from "./productPairings.actions";
 
-describe('Product Pairings - Reducer', () => {
+describe("Product Pairings - Reducer", () => {
   let state: ProductPairingsState;
 
   beforeEach(() => (state = { ...initialState }));
 
-  it('Should handle action: GET_PRODUCT_PAIRINGS_REQUEST', () => {
+  it("Should handle action: GET_PRODUCT_PAIRINGS_REQUEST", () => {
     const samplePayload: ProductPairingsRequestPayload = {
-      identifiers: ['athene-chair'],
-      categoryIdentifier: 'bedroom'
+      identifiers: ["athene-chair"],
+      categoryIdentifier: "bedroom",
     };
 
     const action = actions.getProductPairingsRequest(samplePayload);
@@ -24,10 +29,13 @@ describe('Product Pairings - Reducer', () => {
     expect(reduced.error).toBeNull();
   });
 
-  it('Should handle action: GET_PRODUCT_PAIRINGS_SUCCESS', () => {
+  it("Should handle action: GET_PRODUCT_PAIRINGS_SUCCESS", () => {
     // TODO: Fix this the next time the file is edited.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mockResponse: ProductForListing[] = [{ title: 'Athene chair' }, { title: 'Batis sofa' }] as any;
+    const mockResponse: ProductForListing[] = [
+      { title: "Athene chair" },
+      { title: "Batis sofa" },
+    ] as any;
 
     const action = actions.getProductPairingsSuccess(mockResponse);
 
@@ -38,11 +46,11 @@ describe('Product Pairings - Reducer', () => {
     expect(reduced.error).toBeNull();
   });
 
-  it('Should handle action: GET_PRODUCT_PAIRINGS_FAILURE', () => {
+  it("Should handle action: GET_PRODUCT_PAIRINGS_FAILURE", () => {
     const mockError: APIError = {
-      error: 'foobarbar',
+      error: "foobarbar",
       status: 404,
-      message: 'foo. bar. bar.'
+      message: "foo. bar. bar.",
     };
 
     const action = actions.getProductPairingsFailure(mockError);

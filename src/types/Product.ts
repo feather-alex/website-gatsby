@@ -1,18 +1,18 @@
-import { DeliveryAreaIdentifier } from '../app/store/plan/plan.types';
-import { Meta } from './ReduxState';
+import { DeliveryAreaIdentifier } from "../app/store/plan/plan.types";
+import { Meta } from "./ReduxState";
 
 export enum Category {
-  Bedroom = 'Bedroom',
-  LivingRoom = 'Living Room',
-  DiningRoom = 'Dining Room',
-  HomeOffice = 'Home Office',
-  BusinessOffice = 'Business Office'
+  Bedroom = "Bedroom",
+  LivingRoom = "Living Room",
+  DiningRoom = "Dining Room",
+  HomeOffice = "Home Office",
+  BusinessOffice = "Business Office",
 }
 
 export enum OptionType {
-  Structure = 'structure',
-  Color = 'color',
-  Material = 'material'
+  Structure = "structure",
+  Color = "color",
+  Material = "material",
 }
 
 export interface IdName {
@@ -81,7 +81,7 @@ export interface FullProductDetails {
   title: string;
   identifier: string;
   description: string;
-  '3dAssetId': string | null;
+  "3dAssetId": string | null;
   brand: ProductBrand;
   materials: ProductMaterial[];
   options: ProductOption[];
@@ -99,8 +99,8 @@ export interface FullProductDetails {
 export interface ProductListRequest {
   offset: number;
   numItems: number;
-  sort: 'price' | 'title' | null;
-  order: 'a' | 'd' | null;
+  sort: "price" | "title" | null;
+  order: "a" | "d" | null;
   categories: string[];
   classes: string[];
   subclasses: string[];
@@ -138,8 +138,8 @@ export interface VariantDetails {
 }
 
 export interface MembershipLengthToPriceMap {
-  '3': number;
-  '12': number;
+  "3": number;
+  "12": number;
 }
 
 export interface Availability {

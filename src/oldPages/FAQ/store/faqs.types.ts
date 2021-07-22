@@ -1,6 +1,11 @@
-import { EntryCollection } from 'contentful';
-import { APIError } from '../../../types/ReduxState';
-import { Meta, FAQCategoryContentful, MetaContentful, FAQCategory } from '../../../contentful/contentful.types';
+import { EntryCollection } from "contentful";
+import { APIError } from "../../../types/ReduxState";
+import {
+  Meta,
+  FAQCategoryContentful,
+  MetaContentful,
+  FAQCategory,
+} from "../../../contentful/contentful.types";
 
 export interface FaqContentState {
   error: APIError | null;

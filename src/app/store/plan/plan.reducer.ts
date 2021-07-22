@@ -6,10 +6,10 @@ import {
   RESET_ZIPCODE,
   RESET_PLAN,
   RESET_SELECTION,
-  PlanActionTypes
-} from './plan.actions';
-import { Plan, MembershipState } from './plan.types';
-import { NEWSLETTER_SIGNUP_SUCCESS } from '../newsletter-signup/newsletter.signup.actions';
+  PlanActionTypes,
+} from "./plan.actions";
+import { Plan, MembershipState } from "./plan.types";
+import { NEWSLETTER_SIGNUP_SUCCESS } from "../newsletter-signup/newsletter.signup.actions";
 
 export const initialState: Plan = {
   cartMinimum: null,
@@ -22,7 +22,7 @@ export const initialState: Plan = {
   isInDeliveryZone: null,
   isEmailSubmitted: false,
   isFetching: false,
-  error: null
+  error: null,
 };
 
 const plan = (state = initialState, action: PlanActionTypes) => {
@@ -38,7 +38,7 @@ const plan = (state = initialState, action: PlanActionTypes) => {
             cartMinimum: 29,
             rentalLength: 12,
             deliveryFee: 0,
-            monthlyMembershipFee: 19
+            monthlyMembershipFee: 19,
           };
         }
         case MembershipState.NON_MEMBER: {
@@ -48,7 +48,7 @@ const plan = (state = initialState, action: PlanActionTypes) => {
             cartMinimum: 99,
             rentalLength: 3,
             deliveryFee: 99,
-            monthlyMembershipFee: 0
+            monthlyMembershipFee: 0,
           };
         }
         case MembershipState.NONE:
@@ -59,7 +59,7 @@ const plan = (state = initialState, action: PlanActionTypes) => {
             cartMinimum: null,
             rentalLength: null,
             deliveryFee: null,
-            monthlyMembershipFee: null
+            monthlyMembershipFee: null,
           };
         }
       }
@@ -70,7 +70,7 @@ const plan = (state = initialState, action: PlanActionTypes) => {
         ...state,
         isFetching: true,
         error: null,
-        deliveryZipcode: action.payload.zipcode
+        deliveryZipcode: action.payload.zipcode,
       };
     }
 
@@ -79,7 +79,8 @@ const plan = (state = initialState, action: PlanActionTypes) => {
         ...state,
         isFetching: false,
         deliveryAreaIdentifier: action.payload.postalData.identifier,
-        isInDeliveryZone: action.payload.postalData.identifier === null ? false : true
+        isInDeliveryZone:
+          action.payload.postalData.identifier === null ? false : true,
       };
     }
 
@@ -88,7 +89,7 @@ const plan = (state = initialState, action: PlanActionTypes) => {
         ...state,
         isFetching: false,
         error: action.payload.error,
-        isInDeliveryZone: false
+        isInDeliveryZone: false,
       };
     }
 
@@ -97,7 +98,7 @@ const plan = (state = initialState, action: PlanActionTypes) => {
         ...state,
         deliveryZipcode: null,
         deliveryAreaIdentifier: null,
-        isInDeliveryZone: null
+        isInDeliveryZone: null,
       };
     }
 
@@ -108,20 +109,20 @@ const plan = (state = initialState, action: PlanActionTypes) => {
         cartMinimum: null,
         rentalLength: null,
         deliveryFee: null,
-        monthlyMembershipFee: null
+        monthlyMembershipFee: null,
       };
     }
 
     case RESET_SELECTION: {
       return {
-        ...initialState
+        ...initialState,
       };
     }
 
     case NEWSLETTER_SIGNUP_SUCCESS:
       return {
         ...state,
-        isEmailSubmitted: true
+        isEmailSubmitted: true,
       };
 
     default: {

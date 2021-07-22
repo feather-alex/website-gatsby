@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-import Title2 from '../../../ui/titles/Title2';
+import { jsx, css } from "@emotion/core";
+import Title2 from "../../../ui/titles/Title2";
 
 interface Props {
   handleOnClick?: () => void;
@@ -10,7 +10,13 @@ interface Props {
   dataCy?: string;
 }
 
-const NavListItemMenu = ({ handleOnClick, handleMouseOver, handleMouseOut, linkText, dataCy }: Props) => {
+const NavListItemMenu = ({
+  handleOnClick,
+  handleMouseOver,
+  handleMouseOut,
+  linkText,
+  dataCy,
+}: Props) => {
   return (
     <li
       data-cy={dataCy}

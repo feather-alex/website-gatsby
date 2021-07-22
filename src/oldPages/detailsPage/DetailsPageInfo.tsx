@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-import { MembershipState } from '../../app/store/plan/plan.types';
-import { PackageVariant, PkgItem } from '../../types/Package';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
+import { MembershipState } from "../../app/store/plan/plan.types";
+import { PackageVariant, PkgItem } from "../../types/Package";
 import {
   ProductOption,
   ProductBrand,
@@ -11,19 +11,22 @@ import {
   ProductVariant,
   Image,
   OptionType,
-  Availability
-} from '../../types/Product';
-import Title1 from '../../ui/titles/Title1';
-import AddToCart from './components/AddToCart';
-import DetailsPageSelectPlan from './components/DetailsPageSelectPlan';
-import ProductInfo from './components/ProductInfo';
-import { SelectedOptions, SelectedOption } from './store/productDetails/product.types';
-import Header1 from '../../ui/headers/Header1';
-import { COLORS, SHADES, BREAKPOINTS } from '../../ui/variables';
-import FeatherFloydLogo from '../../ui/logos/FeatherFloydLogo';
-import ArrowRightBold from '../../ui/icons/ArrowRightBold';
-import { Z_INDICIES } from '../../ui/zIndicies';
-import { getCustomDetails } from './detailsPage.service';
+  Availability,
+} from "../../types/Product";
+import Title1 from "../../ui/titles/Title1";
+import AddToCart from "./components/AddToCart";
+import DetailsPageSelectPlan from "./components/DetailsPageSelectPlan";
+import ProductInfo from "./components/ProductInfo";
+import {
+  SelectedOptions,
+  SelectedOption,
+} from "./store/productDetails/product.types";
+import Header1 from "../../ui/headers/Header1";
+import { COLORS, SHADES, BREAKPOINTS } from "../../ui/variables";
+import FeatherFloydLogo from "../../ui/logos/FeatherFloydLogo";
+import ArrowRightBold from "../../ui/icons/ArrowRightBold";
+import { Z_INDICIES } from "../../ui/zIndicies";
+import { getCustomDetails } from "./detailsPage.service";
 
 const FeatherFloydTag = styled(Link)`
   position: relative;
@@ -78,8 +81,12 @@ interface Props {
   selectedVariant: ProductVariant | PackageVariant | null;
   selectedItems?: PkgItem[];
   selectedItemsQuantity?: { [id: string]: number };
-  handleSelectedItemsQuantity?: (identifier: string) => (itemsQuantity: number) => void;
-  handleOptionSelect?: (optionType: OptionType) => (selection: SelectedOption) => void;
+  handleSelectedItemsQuantity?: (
+    identifier: string
+  ) => (itemsQuantity: number) => void;
+  handleOptionSelect?: (
+    optionType: OptionType
+  ) => (selection: SelectedOption) => void;
   handleResetPackage?: () => void;
   packageHasChanged?: boolean;
   memberRentalPrice: number;
@@ -118,18 +125,21 @@ const DetailsPageInfo = ({
   membershipState,
   nonMemberRentalPrice,
   isQuizResults,
-  deliveryTimelineText
+  deliveryTimelineText,
 }: Props) => {
   return (
     <div
       css={css`
-        ${isMobileBreakpoint ? 'margin: 0 24px;' : 'width: 100%;'}
+        ${isMobileBreakpoint ? "margin: 0 24px;" : "width: 100%;"}
       `}
     >
-      {brand && brand.identifier === 'floyd' && (
+      {brand && brand.identifier === "floyd" && (
         <FeatherFloydTag to="/floyd">
           <FeatherFloydLogoContainer>
-            <FeatherFloydLogo width={108} color={isMobileBreakpoint ? SHADES.SHADE_DARK : SHADES.BLACK} />
+            <FeatherFloydLogo
+              width={108}
+              color={isMobileBreakpoint ? SHADES.SHADE_DARK : SHADES.BLACK}
+            />
           </FeatherFloydLogoContainer>
           <FeatherFloydArrow color={SHADES.BLACK} />
         </FeatherFloydTag>

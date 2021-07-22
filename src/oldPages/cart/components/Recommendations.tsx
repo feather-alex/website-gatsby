@@ -1,21 +1,21 @@
 /** @jsx jsx */
-import { useEffect, useRef, useState } from 'react';
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from "react";
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
-import Subheader2 from '../../../ui/subheaders/Subheader2';
-import Caption from '../../../ui/captions/Caption';
-import ArrowButton from '../../../ui/buttons/ArrowButton';
-import { BRAND, BREAKPOINTS } from '../../../ui/variables';
-import FixedSizeImage from '../../../ui/images/FixedSizeImage';
-import { ProductRecommendation } from '../store/cart.types';
-import { upsellItemClickedPayloadMapping } from '../../../analytics/cart/payload-mappings';
-import Analytics from '../../../analytics/analytics';
-import { CART } from '../../../analytics/cart/events';
-import { Z_INDICIES } from '../../../ui/zIndicies';
-import { APIError } from '../../../types/ReduxState';
-import useMount from '../../../utils/useMount';
+import Subheader2 from "../../../ui/subheaders/Subheader2";
+import Caption from "../../../ui/captions/Caption";
+import ArrowButton from "../../../ui/buttons/ArrowButton";
+import { BRAND, BREAKPOINTS } from "../../../ui/variables";
+import FixedSizeImage from "../../../ui/images/FixedSizeImage";
+import { ProductRecommendation } from "../store/cart.types";
+import { upsellItemClickedPayloadMapping } from "../../../analytics/cart/payload-mappings";
+import Analytics from "../../../analytics/analytics";
+import { CART } from "../../../analytics/cart/events";
+import { Z_INDICIES } from "../../../ui/zIndicies";
+import { APIError } from "../../../types/ReduxState";
+import useMount from "../../../utils/useMount";
 
 const Container = styled.div`
   max-width: 1440px;
@@ -138,7 +138,14 @@ interface Props {
   cartUuid: string;
 }
 
-const CartRecommendations = ({ products, rentalLength, className, loading, error, cartUuid }: Props) => {
+const CartRecommendations = ({
+  products,
+  rentalLength,
+  className,
+  loading,
+  error,
+  cartUuid,
+}: Props) => {
   const [displayCount, setDisplayCount] = useState<number>(5);
   const [activePage, setActivePage] = useState<number>(1);
   const productsRef = useRef<HTMLDivElement>(null);
@@ -148,9 +155,13 @@ const CartRecommendations = ({ products, rentalLength, className, loading, error
 
     const navigationWidth = 64;
     const maxCarouselWidth = 800;
-    const productsContainerWidth = productsRef.current.offsetWidth - navigationWidth;
+    const productsContainerWidth =
+      productsRef.current.offsetWidth - navigationWidth;
 
-    const width = productsContainerWidth > maxCarouselWidth ? maxCarouselWidth : productsContainerWidth;
+    const width =
+      productsContainerWidth > maxCarouselWidth
+        ? maxCarouselWidth
+        : productsContainerWidth;
     const newCount = Math.floor(width / productWidth);
     setDisplayCount(newCount);
   };
@@ -164,10 +175,10 @@ const CartRecommendations = ({ products, rentalLength, className, loading, error
   }, [displayCount, activePage, products]);
 
   useMount(() => {
-    window.addEventListener('resize', calculateDisplayCount);
+    window.addEventListener("resize", calculateDisplayCount);
 
     return () => {
-      window.removeEventListener('resize', calculateDisplayCount);
+      window.removeEventListener("resize", calculateDisplayCount);
     };
   });
 
@@ -222,7 +233,9 @@ const CartRecommendations = ({ products, rentalLength, className, loading, error
       </Heading>
 
       <Carousel ref={productsRef}>
-        {hasMultiplePages && <ArrowButton prev={true} onClick={handlePrevPage} />}
+        {hasMultiplePages && (
+          <ArrowButton prev={true} onClick={handlePrevPage} />
+        )}
         <Products>
           {activeProducts.map((product) => (
             <Product
@@ -232,16 +245,26 @@ const CartRecommendations = ({ products, rentalLength, className, loading, error
             >
               <Image>
                 <FixedSizeImage
-                  src={product.listingImage.mobile || product.listingImage.desktop || ''}
+                  src={
+                    product.listingImage.mobile ||
+                    product.listingImage.desktop ||
+                    ""
+                  }
                   width={128}
                   height={128}
                 />
               </Image>
-              {rentalLength && <Price color={BRAND.SECONDARY_TEXT}>${product.rentalPrices[rentalLength]}/mo</Price>}
+              {rentalLength && (
+                <Price color={BRAND.SECONDARY_TEXT}>
+                  ${product.rentalPrices[rentalLength]}/mo
+                </Price>
+              )}
             </Product>
           ))}
         </Products>
-        {hasMultiplePages && <ArrowButton next={true} onClick={handleNextPage} />}
+        {hasMultiplePages && (
+          <ArrowButton next={true} onClick={handleNextPage} />
+        )}
       </Carousel>
 
       <Swipe>
@@ -252,11 +275,19 @@ const CartRecommendations = ({ products, rentalLength, className, loading, error
             onClick={handleAnalytics(product.identifier)}
           >
             <FixedSizeImage
-              src={product.listingImage.mobile || product.listingImage.desktop || ''}
+              src={
+                product.listingImage.mobile ||
+                product.listingImage.desktop ||
+                ""
+              }
               width={104}
               height={104}
             />
-            {rentalLength && <Price color={BRAND.SECONDARY_TEXT}>${product.rentalPrices[rentalLength]}/mo</Price>}
+            {rentalLength && (
+              <Price color={BRAND.SECONDARY_TEXT}>
+                ${product.rentalPrices[rentalLength]}/mo
+              </Price>
+            )}
           </Product>
         ))}
       </Swipe>

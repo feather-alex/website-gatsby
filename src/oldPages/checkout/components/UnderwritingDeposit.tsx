@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import React from 'react';
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import Paragraph1 from '../../../ui/paragraphs/Paragraph1';
-import Subheader2 from '../../../ui/subheaders/Subheader2';
-import { BRAND, SHADES } from '../../../ui/variables';
-import { LineBreak } from '../AdditionalUnderwriting';
-import { formatCurrency } from '../store/checkout.service';
+import React from "react";
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import Paragraph1 from "../../../ui/paragraphs/Paragraph1";
+import Subheader2 from "../../../ui/subheaders/Subheader2";
+import { BRAND, SHADES } from "../../../ui/variables";
+import { LineBreak } from "../AdditionalUnderwriting";
+import { formatCurrency } from "../store/checkout.service";
 
 const DepositContainer = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ const HowList = styled.ol`
   position: relative;
 
   li::before {
-    content: counter(li) '. ';
+    content: counter(li) ". ";
     color: ${BRAND.PRIMARY};
     position: absolute;
     left: 0;
@@ -63,7 +63,10 @@ interface Props {
   depositAmount: number;
 }
 
-const UnderwritingDeposit = ({ monthlyFurnitureTotal, depositAmount }: Props) => {
+const UnderwritingDeposit = ({
+  monthlyFurnitureTotal,
+  depositAmount,
+}: Props) => {
   return (
     <React.Fragment>
       <DepositContainer>
@@ -75,8 +78,10 @@ const UnderwritingDeposit = ({ monthlyFurnitureTotal, depositAmount }: Props) =>
             margin: auto;
           `}
         >
-          Send us your original order for review. Based on a furniture spend of ${formatCurrency(monthlyFurnitureTotal)}
-          /mo, Feather may accept a one-time deposit of ${formatCurrency(depositAmount)}.
+          Send us your original order for review. Based on a furniture spend of
+          ${formatCurrency(monthlyFurnitureTotal)}
+          /mo, Feather may accept a one-time deposit of $
+          {formatCurrency(depositAmount)}.
         </Subheader2>
 
         <HowItWorks>
@@ -84,24 +89,29 @@ const UnderwritingDeposit = ({ monthlyFurnitureTotal, depositAmount }: Props) =>
           <HowList>
             <li>
               <Paragraph1>
-                Send us your order for review. We’ll look at the annual furniture total of the items you’re leasing and
-                will ask for 15% as a deposit.
+                Send us your order for review. We’ll look at the annual
+                furniture total of the items you’re leasing and will ask for 15%
+                as a deposit.
               </Paragraph1>
             </li>
             <li>
               <Paragraph1>
-                Our team will follow up via email within 48 hours to accept your deposit and set up your account.
+                Our team will follow up via email within 48 hours to accept your
+                deposit and set up your account.
               </Paragraph1>
             </li>
             <li>
-              <Paragraph1>Upon completion of your lease, we’ll refund your deposit*</Paragraph1>
+              <Paragraph1>
+                Upon completion of your lease, we’ll refund your deposit*
+              </Paragraph1>
             </li>
           </HowList>
         </HowItWorks>
 
         <BulletPoint>
-          *Your deposit is refundable at the end of your lease term if you have met all terms and conditions (including
-          payment of all amounts due) under your Feather furniture lease agreement.
+          *Your deposit is refundable at the end of your lease term if you have
+          met all terms and conditions (including payment of all amounts due)
+          under your Feather furniture lease agreement.
         </BulletPoint>
       </DepositContainer>
       <LineBreak />

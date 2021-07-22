@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { BREAKPOINTS } from '../../../ui/variables';
+import { css, jsx } from "@emotion/core";
+import { BREAKPOINTS } from "../../../ui/variables";
 
 interface Props {
   backgroundColor: string;

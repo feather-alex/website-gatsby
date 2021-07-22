@@ -1,19 +1,19 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import Carousel from 'nuka-carousel';
-import Analytics from '../../../analytics/analytics';
-import { PACKAGE } from '../../../analytics/package/events';
-import { packageDetailImageViewedMapping } from '../../../analytics/package/payload-mappings';
-import { DETAILS_PAGE } from '../../../analytics/details-page/events';
-import { productDetailImageViewedMapping } from '../../../analytics/details-page/payload-mappings';
-import ResponsiveImage from '../../../ui/images/ResponsiveImage';
-import { ImagesUrls } from '../detailsPage.service';
-import { useSelector } from 'react-redux';
-import { getWindowWidth } from '../../../app/store/dimensions/dimensions.selectors';
-import ArrowButton from '../../../ui/buttons/ArrowButton';
-import { SHADES } from '../../../ui/variables';
-import Mobile3DIcon from '../../../ui/icons/Mobile3DIcon';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import Carousel from "nuka-carousel";
+import Analytics from "../../../analytics/analytics";
+import { PACKAGE } from "../../../analytics/package/events";
+import { packageDetailImageViewedMapping } from "../../../analytics/package/payload-mappings";
+import { DETAILS_PAGE } from "../../../analytics/details-page/events";
+import { productDetailImageViewedMapping } from "../../../analytics/details-page/payload-mappings";
+import ResponsiveImage from "../../../ui/images/ResponsiveImage";
+import { ImagesUrls } from "../detailsPage.service";
+import { useSelector } from "react-redux";
+import { getWindowWidth } from "../../../app/store/dimensions/dimensions.selectors";
+import ArrowButton from "../../../ui/buttons/ArrowButton";
+import { SHADES } from "../../../ui/variables";
+import Mobile3DIcon from "../../../ui/icons/Mobile3DIcon";
 
 const CarouselSlide = styled.div`
   height: 336px;
@@ -29,7 +29,12 @@ interface Props {
   threekitAssetId?: string | null;
 }
 
-const MobileImageCarousel = ({ carouselImages, open3DModal, threekitAssetId, isPackage = false }: Props) => {
+const MobileImageCarousel = ({
+  carouselImages,
+  open3DModal,
+  threekitAssetId,
+  isPackage = false,
+}: Props) => {
   const windowWidth = useSelector(getWindowWidth);
 
   if (carouselImages.length === 0) {
@@ -53,7 +58,7 @@ const MobileImageCarousel = ({ carouselImages, open3DModal, threekitAssetId, isP
               PACKAGE.IMAGE_VIEWED,
               packageDetailImageViewedMapping({
                 imageUrl: carouselImages[currentSlideIndex].url,
-                imageIndex: currentSlideIndex
+                imageIndex: currentSlideIndex,
               })
             );
           } else {
@@ -61,7 +66,7 @@ const MobileImageCarousel = ({ carouselImages, open3DModal, threekitAssetId, isP
               DETAILS_PAGE.PRODUCT_IMAGE_VIEWED,
               productDetailImageViewedMapping({
                 imageUrl: carouselImages[currentSlideIndex].url,
-                imageIndex: currentSlideIndex
+                imageIndex: currentSlideIndex,
               })
             );
           }
@@ -94,12 +99,17 @@ const MobileImageCarousel = ({ carouselImages, open3DModal, threekitAssetId, isP
       renderCenterLeftControls={({ previousSlide }) =>
         isPackage ? <ArrowButton prev={true} onClick={previousSlide} /> : null
       }
-      renderCenterRightControls={({ nextSlide }) => (isPackage ? <ArrowButton onClick={nextSlide} /> : null)}
+      renderCenterRightControls={({ nextSlide }) =>
+        isPackage ? <ArrowButton onClick={nextSlide} /> : null
+      }
       slidesToShow={1}
       swiping={true}
     >
       {carouselImages.map((image, index) => (
-        <CarouselSlide key={index} data-attentive={index === 0 ? 'product-image' : undefined}>
+        <CarouselSlide
+          key={index}
+          data-attentive={index === 0 ? "product-image" : undefined}
+        >
           <ResponsiveImage
             src={image.url}
             zoomUrl={image.zoomUrl}

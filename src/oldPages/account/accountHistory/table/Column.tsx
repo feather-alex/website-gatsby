@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { BRAND } from '../../../../ui/variables';
+import { css, jsx } from "@emotion/core";
+import { BRAND } from "../../../../ui/variables";
 
 interface Props {
   value: string | JSX.Element;

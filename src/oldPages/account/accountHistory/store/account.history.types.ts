@@ -1,4 +1,4 @@
-import { APIError } from '../../../../types/ReduxState';
+import { APIError } from "../../../../types/ReduxState";
 
 export interface AccountHistory extends AccountHistoryResource {
   isFetching: boolean;
@@ -9,7 +9,7 @@ export interface AccountHistory extends AccountHistoryResource {
 export interface PaymentDetails {
   id: string;
   amount: number;
-  status: 'failed' | 'succeeded' | 'pending';
+  status: "failed" | "succeeded" | "pending";
   chargedAt: number;
   sourceId: string;
   description: string;

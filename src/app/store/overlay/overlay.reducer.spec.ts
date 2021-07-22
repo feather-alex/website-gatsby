@@ -1,15 +1,15 @@
-import overlayReducer, { initialState } from './overlay.reducer';
-import { OverlayState, Overlays } from './overlay.types';
-import { openOverlay, closeOverlay } from './overlay.actions';
+import overlayReducer, { initialState } from "./overlay.reducer";
+import { OverlayState, Overlays } from "./overlay.types";
+import { openOverlay, closeOverlay } from "./overlay.actions";
 
-describe('Overlay Reducer', () => {
-  it('should handle the open overlay action', () => {
+describe("Overlay Reducer", () => {
+  it("should handle the open overlay action", () => {
     const state: OverlayState = {
-      ...initialState
+      ...initialState,
     };
     const expectedState = {
       ...state,
-      isQuizOverlayOpen: true
+      isQuizOverlayOpen: true,
     };
 
     const action = openOverlay(Overlays.QuizOverlay);
@@ -19,13 +19,13 @@ describe('Overlay Reducer', () => {
     expect(overlayState).toEqual(expectedState);
   });
 
-  it('should handle the close overlay action', () => {
+  it("should handle the close overlay action", () => {
     const state: OverlayState = {
       ...initialState,
-      isMiniCartOpen: true
+      isMiniCartOpen: true,
     };
     const expectedState = {
-      ...initialState
+      ...initialState,
     };
 
     const action = closeOverlay(Overlays.MiniCartOverlay);

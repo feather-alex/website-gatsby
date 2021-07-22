@@ -2,25 +2,28 @@ import {
   NEWSLETTER_SIGNUP_REQUEST,
   NEWSLETTER_SIGNUP_SUCCESS,
   NEWSLETTER_SIGNUP_FAILURE,
-  RESET_NEWSLETTER_SIGNUP
-} from './newsletter.signup.actions';
-import { FluxStandardAction } from '../../../types/FluxStandardActions';
-import { NewsletterState } from './newsletter.signup.types';
+  RESET_NEWSLETTER_SIGNUP,
+} from "./newsletter.signup.actions";
+import { FluxStandardAction } from "../../../types/FluxStandardActions";
+import { NewsletterState } from "./newsletter.signup.types";
 
 export const initialState: NewsletterState = {
   email: null,
   isFetching: false,
   error: null,
-  displaySuccess: false
+  displaySuccess: false,
 };
 
-const newsletter = (state: NewsletterState = initialState, action: FluxStandardAction) => {
+const newsletter = (
+  state: NewsletterState = initialState,
+  action: FluxStandardAction
+) => {
   switch (action.type) {
     case NEWSLETTER_SIGNUP_REQUEST: {
       return {
         ...state,
         isFetching: true,
-        email: action.payload.requestData.email
+        email: action.payload.requestData.email,
       };
     }
 
@@ -28,7 +31,7 @@ const newsletter = (state: NewsletterState = initialState, action: FluxStandardA
       return {
         ...state,
         isFetching: false,
-        displaySuccess: true
+        displaySuccess: true,
       };
     }
 
@@ -37,7 +40,7 @@ const newsletter = (state: NewsletterState = initialState, action: FluxStandardA
         ...state,
         isFetching: false,
         error: action.payload.error,
-        displaySuccess: false
+        displaySuccess: false,
       };
     }
 
@@ -46,7 +49,7 @@ const newsletter = (state: NewsletterState = initialState, action: FluxStandardA
         email: null,
         isFetching: false,
         error: null,
-        displaySuccess: false
+        displaySuccess: false,
       };
     }
 

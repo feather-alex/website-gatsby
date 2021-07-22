@@ -1,41 +1,45 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import React from 'react';
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import React from "react";
 
-import { State as GlobalState, APIError } from '../../../types/ReduxState';
-import * as selectors from '../accountOverview/store/account.overview.selectors';
-import { getEmail } from '../personalInformation/store/personal.information.selectors';
-import ErrorPage from '../../../components/ErrorPage';
-import Header1 from '../../../ui/headers/Header1';
-import TruckIcon from '../../../ui/icons/TruckIcon';
-import SofaLampIcon from '../../../ui/icons/SofaLampIcon';
-import DecorativeArrowIcon, { Direction } from '../../../ui/icons/DecorativeArrowIcon';
-import Title2 from '../../../ui/titles/Title2';
-import Title3 from '../../../ui/titles/Title3';
+import { State as GlobalState, APIError } from "../../../types/ReduxState";
+import * as selectors from "../accountOverview/store/account.overview.selectors";
+import { getEmail } from "../personalInformation/store/personal.information.selectors";
+import ErrorPage from "../../../components/ErrorPage";
+import Header1 from "../../../ui/headers/Header1";
+import TruckIcon from "../../../ui/icons/TruckIcon";
+import SofaLampIcon from "../../../ui/icons/SofaLampIcon";
+import DecorativeArrowIcon, {
+  Direction,
+} from "../../../ui/icons/DecorativeArrowIcon";
+import Title2 from "../../../ui/titles/Title2";
+import Title3 from "../../../ui/titles/Title3";
 
-import FeeBreakdown from './FeeBreakdown';
-import LazyLoading from '../../../components/LazyLoading';
-import { SHADES, BRAND, BREAKPOINTS, COLORS } from '../../../ui/variables';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import Analytics from '../../../analytics/analytics';
-import PAGES from '../../../analytics/pages';
-import { ACCOUNTS } from '../../../analytics/accounts/events';
-import Header4 from '../../../ui/headers/Header4';
-import Subheader2 from '../../../ui/subheaders/Subheader2';
-import Button, { ButtonStyle } from '../../../ui/buttons/Button';
-import { constructTypeformLinkData } from '../../../app/navbar/components/navbar.link.data';
-import { DeliveryAreaIdentifier } from '../../../app/store/plan/plan.types';
-import SelectDeliveryDateModal from './SelectDeliveryDateModal';
-import { getDisabledDeliveryDates } from '../accountOverview/store/account.overview.service';
-import { getProductEntities } from '../../../app/store/entities/entities.selectors';
-import { ProductEntities } from '../../../app/store/entities/entities.types';
-import ThirdPartyDeliveryChecklist from './ThirdPartyDeliveryChecklist';
-import FeatherDeliveryChecklist, { CompleteNote } from './FeatherDeliveryChecklist';
-import LegacyChecklist from './LegacyChecklist';
+import FeeBreakdown from "./FeeBreakdown";
+import LazyLoading from "../../../components/LazyLoading";
+import { SHADES, BRAND, BREAKPOINTS, COLORS } from "../../../ui/variables";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import Analytics from "../../../analytics/analytics";
+import PAGES from "../../../analytics/pages";
+import { ACCOUNTS } from "../../../analytics/accounts/events";
+import Header4 from "../../../ui/headers/Header4";
+import Subheader2 from "../../../ui/subheaders/Subheader2";
+import Button, { ButtonStyle } from "../../../ui/buttons/Button";
+import { constructTypeformLinkData } from "../../../app/navbar/components/navbar.link.data";
+import { DeliveryAreaIdentifier } from "../../../app/store/plan/plan.types";
+import SelectDeliveryDateModal from "./SelectDeliveryDateModal";
+import { getDisabledDeliveryDates } from "../accountOverview/store/account.overview.service";
+import { getProductEntities } from "../../../app/store/entities/entities.selectors";
+import { ProductEntities } from "../../../app/store/entities/entities.types";
+import ThirdPartyDeliveryChecklist from "./ThirdPartyDeliveryChecklist";
+import FeatherDeliveryChecklist, {
+  CompleteNote,
+} from "./FeatherDeliveryChecklist";
+import LegacyChecklist from "./LegacyChecklist";
 
 const IconLabel = styled.div`
   display: flex;
@@ -139,7 +143,7 @@ class UpcomingDelivery extends React.Component<StateProps, State> {
     super(props);
 
     this.state = {
-      isDeliveryDateModalOpen: false
+      isDeliveryDateModalOpen: false,
     };
 
     this.closeDeliveryDateModal = this.closeDeliveryDateModal.bind(this);
@@ -156,13 +160,13 @@ class UpcomingDelivery extends React.Component<StateProps, State> {
 
   closeDeliveryDateModal() {
     this.setState({
-      isDeliveryDateModalOpen: false
+      isDeliveryDateModalOpen: false,
     });
   }
 
   openDeliveryDateModal() {
     this.setState({
-      isDeliveryDateModalOpen: true
+      isDeliveryDateModalOpen: true,
     });
   }
 
@@ -176,12 +180,20 @@ class UpcomingDelivery extends React.Component<StateProps, State> {
       deliveryArea,
       email,
       hasSignedLease,
-      productEntities
+      productEntities,
     } = this.props;
-    const buildingQuestionnaireTypeformData = constructTypeformLinkData({ email, orderNumber }).buildingQuestionnaire;
+    const buildingQuestionnaireTypeformData = constructTypeformLinkData({
+      email,
+      orderNumber,
+    }).buildingQuestionnaire;
 
     if (error) {
-      return <ErrorPage title={`${error.status} ${error.error}`} content={error.message} />;
+      return (
+        <ErrorPage
+          title={`${error.status} ${error.error}`}
+          content={error.message}
+        />
+      );
     }
 
     if (isFetching || !productEntities) {
@@ -194,16 +206,21 @@ class UpcomingDelivery extends React.Component<StateProps, State> {
       isFeatherDeliveryArea = [
         DeliveryAreaIdentifier.NY,
         DeliveryAreaIdentifier.SF,
-        DeliveryAreaIdentifier.LA
+        DeliveryAreaIdentifier.LA,
       ].includes(deliveryArea);
     }
 
-    const disabledDeliveryDates = getDisabledDeliveryDates(productEntities.deliveryAreas, deliveryArea);
+    const disabledDeliveryDates = getDisabledDeliveryDates(
+      productEntities.deliveryAreas,
+      deliveryArea
+    );
 
     return (
       <div>
         {isLegacyCheckoutRequestDateSub && (
-          <LegacyChecklist buildingQuestionnaire={buildingQuestionnaireTypeformData} />
+          <LegacyChecklist
+            buildingQuestionnaire={buildingQuestionnaireTypeformData}
+          />
         )}
 
         {!isLegacyCheckoutRequestDateSub && (
@@ -222,7 +239,9 @@ class UpcomingDelivery extends React.Component<StateProps, State> {
 
             {startDate && (
               <React.Fragment>
-                <CompleteNote>Sit back &amp; relax! We're preparing your items for the trip.</CompleteNote>
+                <CompleteNote>
+                  Sit back &amp; relax! We're preparing your items for the trip.
+                </CompleteNote>
 
                 <DeliverySchedule>
                   <ScheduleHeader>Delivery scheduled for:</ScheduleHeader>
@@ -230,8 +249,10 @@ class UpcomingDelivery extends React.Component<StateProps, State> {
                 </DeliverySchedule>
 
                 <div>
-                  Need to reschedule your delivery?{' '}
-                  <Button style={ButtonStyle.COMPACT_TEXT}>Contact Us To Reschedule</Button>
+                  Need to reschedule your delivery?{" "}
+                  <Button style={ButtonStyle.COMPACT_TEXT}>
+                    Contact Us To Reschedule
+                  </Button>
                 </div>
               </React.Fragment>
             )}
@@ -243,7 +264,9 @@ class UpcomingDelivery extends React.Component<StateProps, State> {
                 handleDisplaySelectDeliveryDate={this.openDeliveryDateModal}
               />
             )}
-            {!startDate && !isFeatherDeliveryArea && <ThirdPartyDeliveryChecklist />}
+            {!startDate && !isFeatherDeliveryArea && (
+              <ThirdPartyDeliveryChecklist />
+            )}
           </GetReady>
         )}
 
@@ -276,7 +299,10 @@ class UpcomingDelivery extends React.Component<StateProps, State> {
             >
               <IconLabel>
                 <Title2>Delivery Guide</Title2>
-                <DecorativeArrowIcon color={BRAND.PRIMARY_TEXT} direction={Direction.Right} />
+                <DecorativeArrowIcon
+                  color={BRAND.PRIMARY_TEXT}
+                  direction={Direction.Right}
+                />
               </IconLabel>
             </a>
           </DeliveryGuide>
@@ -286,14 +312,20 @@ class UpcomingDelivery extends React.Component<StateProps, State> {
             <Link to="/account/furniture">
               <IconLabel>
                 <Title2>Your Furniture</Title2>
-                <DecorativeArrowIcon color={BRAND.PRIMARY_TEXT} direction={Direction.Right} />
+                <DecorativeArrowIcon
+                  color={BRAND.PRIMARY_TEXT}
+                  direction={Direction.Right}
+                />
               </IconLabel>
             </Link>
           </YourFurniture>
         </AccountInfo>
 
         <FeeBreakdown />
-        <Title3>*Our delivery team will always wait 20 minutes to attempt your delivery</Title3>
+        <Title3>
+          *Our delivery team will always wait 20 minutes to attempt your
+          delivery
+        </Title3>
       </div>
     );
   }
@@ -309,7 +341,7 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   deliveryArea: selectors.getDeliveryArea(state),
   hasSignedLease: selectors.hasSignedLease(state),
   productEntities: getProductEntities(state),
-  email: getEmail(state)
+  email: getEmail(state),
 });
 
 export default connect(mapStateToProps)(UpcomingDelivery);

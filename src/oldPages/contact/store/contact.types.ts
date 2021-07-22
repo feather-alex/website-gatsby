@@ -1,11 +1,11 @@
 export enum ReasonsForInquiry {
-  CustomerQuestion = 'I have a question - current customer',
+  CustomerQuestion = "I have a question - current customer",
   NonCustomerQuestion = "I have a question - I'm not a customer yet",
-  StagingAndOffice = 'Staging and office inquiries',
-  Affiliates = 'Affiliates & Partners',
-  Press = 'Press',
-  Merchandising = 'Merchandising',
-  Billing = 'Billing'
+  StagingAndOffice = "Staging and office inquiries",
+  Affiliates = "Affiliates & Partners",
+  Press = "Press",
+  Merchandising = "Merchandising",
+  Billing = "Billing",
 }
 
 export interface ContactRequest {

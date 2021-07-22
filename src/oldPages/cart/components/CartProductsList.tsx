@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React from "react";
+import styled from "@emotion/styled";
 
-import CartProduct from './CartProduct';
-import { SHADES } from '../../../ui/variables';
-import { isItemUnavailable } from '../store/cart.utils';
-import { CartItem, ProductIdentifiers } from '../store/cart.types';
+import CartProduct from "./CartProduct";
+import { SHADES } from "../../../ui/variables";
+import { isItemUnavailable } from "../store/cart.utils";
+import { CartItem, ProductIdentifiers } from "../store/cart.types";
 
 const CartPageProductsList = styled.div`
   max-width: 1112px;
@@ -19,7 +19,11 @@ export interface Props {
   unavailableItems: ProductIdentifiers[];
 }
 
-const CartProductsList = ({ products, unavailableItems, isMobileBreakpoint }: Props) => (
+const CartProductsList = ({
+  products,
+  unavailableItems,
+  isMobileBreakpoint,
+}: Props) => (
   <CartPageProductsList>
     {products.map((product: CartItem, index: number) => {
       return (

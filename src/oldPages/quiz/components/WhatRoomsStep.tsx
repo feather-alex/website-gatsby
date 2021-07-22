@@ -1,12 +1,12 @@
-import React from 'react';
-import QuizOptionCardCheckbox from './QuizOptionCardCheckbox';
-import QuizActions from './QuizActions';
-import DinnerwareIcon from '../../../assets/icons/quiz/icon_dinnerware.svg';
+import React from "react";
+import QuizOptionCardCheckbox from "./QuizOptionCardCheckbox";
+import QuizActions from "./QuizActions";
+import DinnerwareIcon from "../../../assets/icons/quiz/icon_dinnerware.svg";
 // import PaperPenIcon from '../../../assets/icons/quiz/icon_paper_and_pen.svg';
-import PillowsIcon from '../../../assets/icons/quiz/icon_pillows.svg';
-import TvIcon from '../../../assets/icons/quiz/icon_flatscreen_tv.svg';
-import Header3 from '../../../ui/headers/Header3';
-import { WhatRoomsChoice, QuizStepChoices } from '../store/quiz.types';
+import PillowsIcon from "../../../assets/icons/quiz/icon_pillows.svg";
+import TvIcon from "../../../assets/icons/quiz/icon_flatscreen_tv.svg";
+import Header3 from "../../../ui/headers/Header3";
+import { WhatRoomsChoice, QuizStepChoices } from "../store/quiz.types";
 
 export interface Props {
   selectedRooms: WhatRoomsChoice[];
@@ -22,7 +22,7 @@ class WhatRoomsStep extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      selections: props.selectedRooms
+      selections: props.selectedRooms,
     };
   }
 
@@ -36,7 +36,9 @@ class WhatRoomsStep extends React.Component<Props, State> {
         });
         this.setState({ selections: newSelections });
       } else {
-        this.setState((prevState) => ({ selections: [...prevState.selections, currentSelection] }));
+        this.setState((prevState) => ({
+          selections: [...prevState.selections, currentSelection],
+        }));
       }
     }
   };
@@ -53,19 +55,19 @@ class WhatRoomsStep extends React.Component<Props, State> {
     const options = [
       {
         image: <PillowsIcon />,
-        text: 'Bedroom',
-        choice: WhatRoomsChoice.Bedroom
+        text: "Bedroom",
+        choice: WhatRoomsChoice.Bedroom,
       },
       {
         image: <TvIcon />,
-        text: 'Living Room',
-        choice: WhatRoomsChoice.Living
+        text: "Living Room",
+        choice: WhatRoomsChoice.Living,
       },
       {
         image: <DinnerwareIcon />,
-        text: 'Dining Room',
-        choice: WhatRoomsChoice.Dining
-      }
+        text: "Dining Room",
+        choice: WhatRoomsChoice.Dining,
+      },
       // {
       //   image: <PaperPenIcon />,
       //   text: 'Home Office',
@@ -93,7 +95,10 @@ class WhatRoomsStep extends React.Component<Props, State> {
           ))}
         </div>
 
-        <QuizActions buttonDisabled={buttonDisabled} handleNextStep={this.handleNextStep} />
+        <QuizActions
+          buttonDisabled={buttonDisabled}
+          handleNextStep={this.handleNextStep}
+        />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useCallback } from 'react';
+import { RefObject, useEffect, useCallback } from "react";
 
 export interface Args<T> {
   callback?: () => void;
@@ -19,7 +19,7 @@ const useIntersect = <T extends Element>({ callback, ref }: Args<T>) => {
     let observer: IntersectionObserver | null = null;
     if (ref.current && callback) {
       observer = new IntersectionObserver(handleOnScreen, {
-        rootMargin: '20%'
+        rootMargin: "20%",
       });
       window.requestAnimationFrame(() => {
         if (observer && ref.current) {

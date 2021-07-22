@@ -1,8 +1,8 @@
-import FourOhFourCon from '../components/ErrorPage';
-import React from 'react';
-import Analytics from '../analytics/analytics';
-import Layout from '../app/Layout';
-import PAGES from '../analytics/pages';
+import FourOhFourCon from "../components/ErrorPage";
+import React from "react";
+import Analytics from "../analytics/analytics";
+import Layout from "../app/Layout";
+import PAGES from "../analytics/pages";
 
 class FourOhFour extends React.Component {
   componentDidMount() {
@@ -10,7 +10,8 @@ class FourOhFour extends React.Component {
   }
   render() {
     const content =
-      'Looks like something broke. Head back to our homepage or send' + ' us a chat message to see how we can help.';
+      "Looks like something broke. Head back to our homepage or send" +
+      " us a chat message to see how we can help.";
 
     return (
       <Layout>

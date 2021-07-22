@@ -1,23 +1,23 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import { parseISO, format as formatDate } from 'date-fns';
+import { css, jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import { parseISO, format as formatDate } from "date-fns";
 
-import ParagraphWithTitle from '../../../ui/textLockups/ParagraphWithTitle';
-import { SHADES, BRAND } from '../../../ui/variables';
-import Bold from '../../../ui/paragraphs/Bold';
-import Paragraph2 from '../../../ui/paragraphs/Paragraph2';
-import Dot from '../../../ui/icons/Dot';
-import Header1 from '../../../ui/headers/Header1';
-import Header4 from '../../../ui/headers/Header4';
-import Subheader2 from '../../../ui/subheaders/Subheader2';
-import { useSelector } from 'react-redux';
+import ParagraphWithTitle from "../../../ui/textLockups/ParagraphWithTitle";
+import { SHADES, BRAND } from "../../../ui/variables";
+import Bold from "../../../ui/paragraphs/Bold";
+import Paragraph2 from "../../../ui/paragraphs/Paragraph2";
+import Dot from "../../../ui/icons/Dot";
+import Header1 from "../../../ui/headers/Header1";
+import Header4 from "../../../ui/headers/Header4";
+import Subheader2 from "../../../ui/subheaders/Subheader2";
+import { useSelector } from "react-redux";
 import {
   getConfirmedDeliveryDate,
-  getRequestedDeliveryDate
-} from '../accountOverview/store/account.overview.selectors';
-import { getIsMobileBreakpoint } from '../../../app/store/dimensions/dimensions.selectors';
-import { ExternalNavLinkData } from '../../../app/navbar/components/navbar.link.data';
+  getRequestedDeliveryDate,
+} from "../accountOverview/store/account.overview.selectors";
+import { getIsMobileBreakpoint } from "../../../app/store/dimensions/dimensions.selectors";
+import { ExternalNavLinkData } from "../../../app/navbar/components/navbar.link.data";
 
 const StepsContainer = styled.div`
   display: grid;
@@ -29,7 +29,11 @@ const StepsContainer = styled.div`
 
 // TODO: Remove legacy when Feather transitions to start date agnostic leases.
 // https://www.notion.so/livefeather/Cleanup-non-start-date-agnostic-lease-code-e8ad00963a964fa1b3c3be6413089d5c
-const LegacyChecklist = ({ buildingQuestionnaire }: { buildingQuestionnaire: ExternalNavLinkData }) => {
+const LegacyChecklist = ({
+  buildingQuestionnaire,
+}: {
+  buildingQuestionnaire: ExternalNavLinkData;
+}) => {
   const requestedDeliveryDate = useSelector(getRequestedDeliveryDate);
   const startDate = useSelector(getConfirmedDeliveryDate);
   const isMobileBreakpoint = useSelector(getIsMobileBreakpoint);
@@ -40,12 +44,12 @@ const LegacyChecklist = ({ buildingQuestionnaire }: { buildingQuestionnaire: Ext
       <div
         className="upcoming-delivery"
         css={css`
-          width: ${isMobileBreakpoint ? '100%' : '532px'};
+          width: ${isMobileBreakpoint ? "100%" : "532px"};
           background: ${SHADES.WHITE};
           border-radius: 3px;
           padding: 32px;
           margin-top: 50px;
-          margin-bottom: ${isMobileBreakpoint ? '54px' : '64px'};
+          margin-bottom: ${isMobileBreakpoint ? "54px" : "64px"};
         `}
       >
         <div
@@ -58,12 +62,19 @@ const LegacyChecklist = ({ buildingQuestionnaire }: { buildingQuestionnaire: Ext
               display: flex;
               margin-bottom: 8px;
               align-items: center;
-              ${isMobileBreakpoint && 'flex-direction: column; > span { margin-top: 5px;}'}
+              ${isMobileBreakpoint &&
+              "flex-direction: column; > span { margin-top: 5px;}"}
             `}
           >
-            <Header4>{startDate ? 'Your confirmed delivery date' : 'Your delivery date - '}</Header4>
+            <Header4>
+              {startDate
+                ? "Your confirmed delivery date"
+                : "Your delivery date - "}
+            </Header4>
 
-            {!startDate && <Header4 color={BRAND.ACCENT}>*pending confirmation</Header4>}
+            {!startDate && (
+              <Header4 color={BRAND.ACCENT}>*pending confirmation</Header4>
+            )}
           </div>
 
           {startDate ? (
@@ -71,7 +82,7 @@ const LegacyChecklist = ({ buildingQuestionnaire }: { buildingQuestionnaire: Ext
           ) : (
             <Subheader2 color={BRAND.ACCENT}>{`${formatDate(
               parseISO(requestedDeliveryDate!),
-              'MMMM d, yyyy'
+              "MMMM d, yyyy"
             )}*`}</Subheader2>
           )}
         </div>
@@ -82,7 +93,7 @@ const LegacyChecklist = ({ buildingQuestionnaire }: { buildingQuestionnaire: Ext
         <StepsContainer>
           <Dot color={BRAND.ACCENT} />
           <Paragraph2>
-            Please answer a few{' '}
+            Please answer a few{" "}
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -99,8 +110,9 @@ const LegacyChecklist = ({ buildingQuestionnaire }: { buildingQuestionnaire: Ext
 
           <Dot color={BRAND.ACCENT} />
           <Paragraph2>
-            Sign your Feather lease. Keep an eye on your inbox, a member of our team will send your lease details via
-            email within 48 hours of your order submission.
+            Sign your Feather lease. Keep an eye on your inbox, a member of our
+            team will send your lease details via email within 48 hours of your
+            order submission.
           </Paragraph2>
         </StepsContainer>
       </div>

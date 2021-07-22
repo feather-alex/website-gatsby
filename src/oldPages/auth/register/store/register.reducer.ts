@@ -1,18 +1,18 @@
-import { FluxStandardAction } from '../../../../types/FluxStandardActions';
+import { FluxStandardAction } from "../../../../types/FluxStandardActions";
 import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
   RESET_HAS_REGISTERED,
-  SET_REGISTER_EMAIL
-} from './register.actions';
-import { Register } from './register.types';
+  SET_REGISTER_EMAIL,
+} from "./register.actions";
+import { Register } from "./register.types";
 
 export const initialState: Register = {
-  email: '',
+  email: "",
   hasRegistered: false,
   isFetching: false,
-  error: null
+  error: null,
 };
 
 const register = (state = initialState, action: FluxStandardAction) => {
@@ -21,7 +21,7 @@ const register = (state = initialState, action: FluxStandardAction) => {
       return {
         ...state,
         isFetching: true,
-        email: action.payload.credentials.email
+        email: action.payload.credentials.email,
       };
 
     case REGISTER_SUCCESS:
@@ -29,7 +29,7 @@ const register = (state = initialState, action: FluxStandardAction) => {
         ...state,
         isFetching: false,
         hasRegistered: true,
-        error: null
+        error: null,
       };
 
     case REGISTER_FAILURE:
@@ -37,14 +37,14 @@ const register = (state = initialState, action: FluxStandardAction) => {
         ...state,
         isFetching: false,
         hasRegistered: false,
-        error: action.payload.error
+        error: action.payload.error,
       };
 
     case RESET_HAS_REGISTERED:
       return {
         ...state,
         hasRegistered: false,
-        error: null
+        error: null,
       };
 
     case SET_REGISTER_EMAIL:
@@ -53,7 +53,7 @@ const register = (state = initialState, action: FluxStandardAction) => {
         email: action.payload.email,
         hasRegistered: false,
         isFetching: false,
-        error: null
+        error: null,
       };
 
     default:

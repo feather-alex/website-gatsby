@@ -1,18 +1,18 @@
-import { EntryCollection } from 'contentful';
+import { EntryCollection } from "contentful";
 import {
   MobileNav,
   NavCategoryWithSubmenu,
   NavCategoryDirectLink,
   NavCategoryWithSubmenuContentful,
-  NavCategoryDirectLinkContentful
-} from '../../../contentful/contentful.types';
+  NavCategoryDirectLinkContentful,
+} from "../../../contentful/contentful.types";
 
 export enum BannerType {
-  ZipCode = 'zipCode',
-  ZipCodeSuccess = 'zipCodeSuccess',
-  ZipCodeFailure = 'zipCodeFailure',
-  Announcement = 'announcement',
-  Success = 'success'
+  ZipCode = "zipCode",
+  ZipCodeSuccess = "zipCodeSuccess",
+  ZipCodeFailure = "zipCodeFailure",
+  Announcement = "announcement",
+  Success = "success",
 }
 
 export interface NavbarState {
@@ -33,7 +33,10 @@ export interface MobileNavContentSuccessPayload {
 }
 
 export type MobileNavContent = EntryCollection<{
-  categories: (NavCategoryWithSubmenuContentful | NavCategoryDirectLinkContentful)[];
+  categories: (
+    | NavCategoryWithSubmenuContentful
+    | NavCategoryDirectLinkContentful
+  )[];
 }>;
 
 export interface ShowNavbarBannerPayload {

@@ -1,4 +1,4 @@
-import { Dispatch, Action } from 'redux';
+import { Dispatch, Action } from "redux";
 
 interface ActionObj {
   types: Array<string>;
@@ -7,7 +7,13 @@ interface ActionObj {
   payload: object;
 }
 
-export default function callAPIMiddleware({ dispatch, getState }: { dispatch: Dispatch<Action>; getState: Function }) {
+export default function callAPIMiddleware({
+  dispatch,
+  getState,
+}: {
+  dispatch: Dispatch<Action>;
+  getState: Function;
+}) {
   return (next: Function) => (action: ActionObj) => {
     const { types, callAPI, shouldCallAPI = () => true, payload = {} } = action;
 
@@ -17,7 +23,7 @@ export default function callAPIMiddleware({ dispatch, getState }: { dispatch: Di
     }
 
     if (types.length !== 3) {
-      throw new Error('Expected an array of three string types.');
+      throw new Error("Expected an array of three string types.");
     }
 
     if (!shouldCallAPI(getState())) {
@@ -28,7 +34,7 @@ export default function callAPIMiddleware({ dispatch, getState }: { dispatch: Di
 
     dispatch(
       Object.assign({}, payload, {
-        type: requestType
+        type: requestType,
       })
     );
 
@@ -40,7 +46,7 @@ export default function callAPIMiddleware({ dispatch, getState }: { dispatch: Di
           dispatch(
             Object.assign({}, payload, {
               response,
-              type: successType
+              type: successType,
             })
           )
         )
@@ -53,9 +59,9 @@ export default function callAPIMiddleware({ dispatch, getState }: { dispatch: Di
                 message: error.message,
                 status: error.status,
                 error: error.error,
-                body: error.body
+                body: error.body,
               },
-              type: failureType
+              type: failureType,
             })
           );
         })

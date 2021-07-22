@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { Overlays } from '../../../../app/store/overlay/overlay.types';
-import React from 'react';
-import { css, jsx } from '@emotion/core';
-import Modal from 'react-bootstrap/lib/Modal';
-import { PkgItem } from '../../../../types/Package';
-import { Link } from 'react-router-dom';
-import CloseSignIcon from '../../../../ui/icons/CloseSignIcon';
-import BaseImage from '../../../../ui/images/BaseImage';
+import { Overlays } from "../../../../app/store/overlay/overlay.types";
+import React from "react";
+import { css, jsx } from "@emotion/core";
+import Modal from "react-bootstrap/lib/Modal";
+import { PkgItem } from "../../../../types/Package";
+import { Link } from "react-router-dom";
+import CloseSignIcon from "../../../../ui/icons/CloseSignIcon";
+import BaseImage from "../../../../ui/images/BaseImage";
 
 export interface Props {
   pkgItem: PkgItem;
@@ -23,12 +23,16 @@ export default class ProductInfoModal extends React.Component<Props> {
   render() {
     const { pkgItem, isMobileDevice, isProductInfoOverlayOpen } = this.props;
 
-    const currentDevice = isMobileDevice ? 'mobile' : 'desktop';
+    const currentDevice = isMobileDevice ? "mobile" : "desktop";
     const d = pkgItem.dimensions;
     const imageSrc = pkgItem.image[currentDevice];
 
     return (
-      <Modal className="product-info-modal-container" show={isProductInfoOverlayOpen} onHide={this.closeOverlay}>
+      <Modal
+        className="product-info-modal-container"
+        show={isProductInfoOverlayOpen}
+        onHide={this.closeOverlay}
+      >
         <Modal.Body className="product-info-modal">
           <div className="close-modal">
             <CloseSignIcon onClick={this.closeOverlay} />
@@ -42,7 +46,12 @@ export default class ProductInfoModal extends React.Component<Props> {
               `}
               className="product-images-carousel"
             >
-              {imageSrc && <BaseImage imgUrl={imageSrc} width={this.props.isMobileDevice ? 300 : 600} />}
+              {imageSrc && (
+                <BaseImage
+                  imgUrl={imageSrc}
+                  width={this.props.isMobileDevice ? 300 : 600}
+                />
+              )}
             </div>
           </div>
 

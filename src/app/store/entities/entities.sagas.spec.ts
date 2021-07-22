@@ -1,20 +1,20 @@
-import { ProductEntities } from './entities.types';
-import { expectSaga } from 'redux-saga-test-plan';
-import * as matchers from 'redux-saga-test-plan/matchers';
-import * as actions from './entities.actions';
-import * as sagas from './entities.sagas';
-import { APIError } from '../../../types/ReduxState';
-import Request from '../../../api/request';
+import { ProductEntities } from "./entities.types";
+import { expectSaga } from "redux-saga-test-plan";
+import * as matchers from "redux-saga-test-plan/matchers";
+import * as actions from "./entities.actions";
+import * as sagas from "./entities.sagas";
+import { APIError } from "../../../types/ReduxState";
+import Request from "../../../api/request";
 
-describe('Product Entities - Sagas', () => {
-  describe('getProductEntities', () => {
-    it('Should handle a successful request.', () => {
+describe("Product Entities - Sagas", () => {
+  describe("getProductEntities", () => {
+    it("Should handle a successful request.", () => {
       const expectedResult: ProductEntities = {
         categories: {
           products: [],
-          bundles: []
+          bundles: [],
         },
-        deliveryAreas: []
+        deliveryAreas: [],
       };
 
       return expectSaga(sagas.getProductEntities)
@@ -23,11 +23,11 @@ describe('Product Entities - Sagas', () => {
         .run();
     });
 
-    it('Should handle a failed request.', () => {
+    it("Should handle a failed request.", () => {
       const error: APIError = {
-        error: 'Some error here.',
-        message: 'And a corresponding error message here.',
-        status: 500
+        error: "Some error here.",
+        message: "And a corresponding error message here.",
+        status: 500,
       };
 
       return expectSaga(sagas.getProductEntities)
@@ -37,14 +37,14 @@ describe('Product Entities - Sagas', () => {
     });
   });
 
-  describe('getUpdatedDeliveryDates', () => {
-    it('Should handle a successful request.', () => {
+  describe("getUpdatedDeliveryDates", () => {
+    it("Should handle a successful request.", () => {
       const expectedResult: ProductEntities = {
         categories: {
           products: [],
-          bundles: []
+          bundles: [],
         },
-        deliveryAreas: []
+        deliveryAreas: [],
       };
 
       return expectSaga(sagas.getUpdatedDeliveryDates)
@@ -53,11 +53,11 @@ describe('Product Entities - Sagas', () => {
         .run();
     });
 
-    it('Should handle a failed request.', () => {
+    it("Should handle a failed request.", () => {
       const error: APIError = {
-        error: 'Some error here.',
-        message: 'And a corresponding error message here.',
-        status: 500
+        error: "Some error here.",
+        message: "And a corresponding error message here.",
+        status: 500,
       };
 
       return expectSaga(sagas.getUpdatedDeliveryDates)

@@ -19,7 +19,10 @@ import {
   UrlType,
 } from "../contentful/contentful.types";
 import { HOMEPAGE, AnalyticsEventKey } from "../analytics/homepage/events";
-import App from "../app/App";
+import { Router, RouteComponentProps, Location } from "@reach/router";
+import LeaseSignedConfirmation from "../oldPages/checkout/LeaseSignedConfirmation";
+
+// import App from "../app/App";
 // import { useSelector } from "react-redux";
 // import { getIsMobileBreakpoint } from "../app/store/dimensions/dimensions.selectors";
 
@@ -143,6 +146,10 @@ const renderVerticalImageWithText = (
   );
 };
 
+const Index = (props: RouteComponentProps & { children: JSX.Element }) => {
+  return <div>{props.children}</div>;
+};
+
 class RootIndex extends React.Component {
   render() {
     // const siteTitle = get(this, "props.data.site.siteMetadata.title");
@@ -153,38 +160,48 @@ class RootIndex extends React.Component {
     // const isMobileBreakpoint = useSelector(getIsMobileBreakpoint);
 
     return [
-      <App />,
+      // <App />,
       <Layout>
-        <Helmet
-          title={homepageData.meta.title}
-          description={homepageData.meta.description.description}
-          imageUrl={homepageData.meta.imageUrl}
-        />
-        <HomepageSection>
-          <HomepageHeader
-            heroContent={homepageData.hero}
-            isMobileBreakpoint={false}
-          />
-          <ShopByRoom shopByRoom={homepageData.shopByRoom} />
-          <TextLockupSection isMobileBreakpoint={false}>
+        <Location>
+          {({ location }) => (
+            <Index>
             <div>
-              <Header2>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(homepageData.textLockup.title),
-                  }}
+              <Helmet
+                title={homepageData.meta.title}
+                description={homepageData.meta.description.description}
+                imageUrl={homepageData.meta.imageUrl}
+              />
+              <HomepageSection>
+                <HomepageHeader
+                  heroContent={homepageData.hero}
+                  isMobileBreakpoint={false}
                 />
-              </Header2>
-              <Subheader2>{homepageData.textLockup.body}</Subheader2>
+                <ShopByRoom shopByRoom={homepageData.shopByRoom} />
+                <TextLockupSection isMobileBreakpoint={false}>
+                  <div>
+                    <Header2>
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: DOMPurify.sanitize(
+                            homepageData.textLockup.title
+                          ),
+                        }}
+                      />
+                    </Header2>
+                    <Subheader2>{homepageData.textLockup.body}</Subheader2>
+                  </div>
+                </TextLockupSection>
+                {/* <ImageFeaturesSection isMobileBreakpoint={false}>
+          {renderHorizontalImageWithText(sections[0], 0)}
+          {renderVerticalImageWithText(sections[1], 1)}
+          {renderHorizontalImageWithText(sections[2], 2)}
+          {renderVerticalImageWithText(sections[3], 3)}
+        </ImageFeaturesSection> */}
+              </HomepageSection>
             </div>
-          </TextLockupSection>
-          <ImageFeaturesSection isMobileBreakpoint={false}>
-            {renderHorizontalImageWithText(sections[0], 0)}
-            {renderVerticalImageWithText(sections[1], 1)}
-            {renderHorizontalImageWithText(sections[2], 2)}
-            {renderVerticalImageWithText(sections[3], 3)}
-          </ImageFeaturesSection>
-        </HomepageSection>
+          </Index>
+          )}
+        </Location>
       </Layout>,
     ];
   }

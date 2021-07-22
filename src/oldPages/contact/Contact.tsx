@@ -1,22 +1,26 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { css, jsx } from "@emotion/core";
+import { useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import Analytics from '../../analytics/analytics';
-import Helmet from '../../components/Helmet';
-import Layout from '../../app/Layout';
-import PAGES from '../../analytics/pages';
-import ContactForm from './ContactForm';
-import { getDisplayErrorMessage, getIsProcessingRequest, getDisplaySuccessMessage } from './store/contact.selectors';
-import { sendInquiryRequest } from './store/contact.actions';
-import { ContactFormData } from './store/contact.types';
-import Header2 from '../../ui/headers/Header2';
-import Button, { ButtonStyle } from '../../ui/buttons/Button';
-import HorizontalImageWithText from '../../ui/pageElements/HorizontalImageWithText';
-import { getIsMobileBreakpoint } from '../../app/store/dimensions/dimensions.selectors';
-import VerticalImageWithText from '../../ui/pageElements/VerticalImageWithText';
-import { BRAND } from '../../ui/variables';
+import Analytics from "../../analytics/analytics";
+import Helmet from "../../components/Helmet";
+import Layout from "../../app/Layout";
+import PAGES from "../../analytics/pages";
+import ContactForm from "./ContactForm";
+import {
+  getDisplayErrorMessage,
+  getIsProcessingRequest,
+  getDisplaySuccessMessage,
+} from "./store/contact.selectors";
+import { sendInquiryRequest } from "./store/contact.actions";
+import { ContactFormData } from "./store/contact.types";
+import Header2 from "../../ui/headers/Header2";
+import Button, { ButtonStyle } from "../../ui/buttons/Button";
+import HorizontalImageWithText from "../../ui/pageElements/HorizontalImageWithText";
+import { getIsMobileBreakpoint } from "../../app/store/dimensions/dimensions.selectors";
+import VerticalImageWithText from "../../ui/pageElements/VerticalImageWithText";
+import { BRAND } from "../../ui/variables";
 
 const IMG_BASE = `https://img.livefeather.com`;
 const TITLE = `Need help? Chat with us now`;
@@ -111,7 +115,7 @@ const Contact = () => {
           mailto="enterprise@livefeather.com"
           queryParams={{
             sat: 50,
-            sharp: 10
+            sharp: 10,
           }}
         />
         <VerticalImageWithText
@@ -120,7 +124,7 @@ const Contact = () => {
           headerText="In the press"
           paragraphText={
             <span>
-              For all inquiries, please reach out directly to{' '}
+              For all inquiries, please reach out directly to{" "}
               <Button style={ButtonStyle.TEXT} mailto="press@livefeather.com">
                 press@livefeather.com
               </Button>
@@ -128,7 +132,7 @@ const Contact = () => {
           }
           queryParams={{
             sat: 24,
-            sharp: 10
+            sharp: 10,
           }}
         />
       </div>

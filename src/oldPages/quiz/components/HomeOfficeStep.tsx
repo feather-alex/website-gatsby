@@ -1,10 +1,10 @@
-import React from 'react';
-import QuizOptionCardRadio from './QuizOptionCardRadio';
-import HourglassIcon from '../../../assets/icons/quiz/icon_hourglass.svg';
-import StopWatchIcon from '../../../assets/icons/quiz/icon_stopwatch.svg';
-import ClockIcon from '../../../assets/icons/quiz/icon_clock.svg';
-import Header3 from '../../../ui/headers/Header3';
-import { HomeOfficeChoice, QuizStepChoices } from '../store/quiz.types';
+import React from "react";
+import QuizOptionCardRadio from "./QuizOptionCardRadio";
+import HourglassIcon from "../../../assets/icons/quiz/icon_hourglass.svg";
+import StopWatchIcon from "../../../assets/icons/quiz/icon_stopwatch.svg";
+import ClockIcon from "../../../assets/icons/quiz/icon_clock.svg";
+import Header3 from "../../../ui/headers/Header3";
+import { HomeOfficeChoice, QuizStepChoices } from "../store/quiz.types";
 
 export interface Props {
   homeOffice: string;
@@ -15,22 +15,22 @@ const HomeOfficeStep = (props: Props) => {
   const options = [
     {
       image: <StopWatchIcon />,
-      text: 'Just a bit',
-      subtext: 'Less than 10 hours a week',
-      choice: HomeOfficeChoice.Rarely
+      text: "Just a bit",
+      subtext: "Less than 10 hours a week",
+      choice: HomeOfficeChoice.Rarely,
     },
     {
       image: <ClockIcon />,
-      text: 'Fairly often',
-      subtext: 'Less than 30 hours a week',
-      choice: HomeOfficeChoice.Sometimes
+      text: "Fairly often",
+      subtext: "Less than 30 hours a week",
+      choice: HomeOfficeChoice.Sometimes,
     },
     {
       image: <HourglassIcon />,
-      text: 'I never leave',
-      subtext: 'More than 30 hours a week',
-      choice: HomeOfficeChoice.Frequent
-    }
+      text: "I never leave",
+      subtext: "More than 30 hours a week",
+      choice: HomeOfficeChoice.Frequent,
+    },
   ];
 
   return (
