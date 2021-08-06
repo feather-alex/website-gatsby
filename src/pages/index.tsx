@@ -6,21 +6,19 @@ import DOMPurify from "dompurify";
 import Analytics from "../analytics/analytics";
 import { homepageClickLinkPayloadMapping } from "../analytics/homepage/payload-mappings";
 import Helmet from "../components/Helmet";
-import Layout from "../components/Layout";
+// import Layout from "../components/Layout";
 import { BRAND, SHADES } from "../ui/variables";
 import Subheader2 from "../ui/subheaders/Subheader2";
 import Header2 from "../ui/headers/Header2";
 import ImageWithText from "../ui/pageElements/ImageWithText";
 import HomepageHeader from "../components/homepage/HomepageHeader";
 import ShopByRoom from "../components/homepage/ShopByRoom";
-import {
-  CONTENTFUL_IDS,
-  ImageAndText,
-  UrlType,
-} from "../contentful/contentful.types";
+import FeatherFloydFeature from "../components/homepage/FeatherFloydFeature";
+import { ImageAndText, UrlType } from "../contentful/contentful.graphql.types";
 import { HOMEPAGE, AnalyticsEventKey } from "../analytics/homepage/events";
 import { Router, RouteComponentProps, Location } from "@reach/router";
-import LeaseSignedConfirmation from "../oldPages/checkout/LeaseSignedConfirmation";
+import Bestsellers from "../oldPages/homepage/Bestsellers";
+// import LeaseSignedConfirmation from "../oldPages/checkout/LeaseSignedConfirmation";
 
 // import App from "../app/App";
 // import { useSelector } from "react-redux";
@@ -79,7 +77,9 @@ const renderHorizontalImageWithText = (
         imageUrl={featureContent.imageUrl}
         queryParams={{}}
         headerText={featureContent.header}
-        paragraphText={featureContent.paragraph}
+        paragraphText={featureContent.paragraph?.content?.map((content1) =>
+          content1.content.map((content2) => content2.value)
+        )}
         external={
           featureContent.cta?.urlType === UrlType.EXTERNAL
             ? featureContent.cta?.url
@@ -121,7 +121,9 @@ const renderVerticalImageWithText = (
         imageUrl={featureContent.imageUrl}
         queryParams={{}}
         headerText={featureContent.header}
-        paragraphText={featureContent.paragraph}
+        paragraphText={featureContent.paragraph?.content?.map((content1) =>
+          content1?.content.map((content2) => content2.value)
+        )}
         external={
           featureContent.cta?.urlType === UrlType.EXTERNAL
             ? featureContent.cta?.url
@@ -146,9 +148,9 @@ const renderVerticalImageWithText = (
   );
 };
 
-const Index = (props: RouteComponentProps & { children: JSX.Element }) => {
-  return <div>{props.children}</div>;
-};
+// const Index = (props: RouteComponentProps & { children: JSX.Element }) => {
+//   return <div>{props.children}</div>;
+// };
 
 class RootIndex extends React.Component {
   render() {
@@ -160,49 +162,38 @@ class RootIndex extends React.Component {
     // const isMobileBreakpoint = useSelector(getIsMobileBreakpoint);
 
     return [
-      // <App />,
-      <Layout>
-        <Location>
-          {({ location }) => (
-            <Index>
-            <div>
-              <Helmet
-                title={homepageData.meta.title}
-                description={homepageData.meta.description.description}
-                imageUrl={homepageData.meta.imageUrl}
+      <Helmet
+        title={homepageData.meta.title}
+        description={homepageData.meta.description.description}
+        imageUrl={homepageData.meta.imageUrl}
+      />,
+      <HomepageSection>
+        <HomepageHeader
+          heroContent={homepageData.hero}
+          isMobileBreakpoint={false}
+        />
+        <ShopByRoom shopByRoom={homepageData.shopByRoom} />
+        <TextLockupSection isMobileBreakpoint={false}>
+          <div>
+            <Header2>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(homepageData.textLockup.title),
+                }}
               />
-              <HomepageSection>
-                <HomepageHeader
-                  heroContent={homepageData.hero}
-                  isMobileBreakpoint={false}
-                />
-                <ShopByRoom shopByRoom={homepageData.shopByRoom} />
-                <TextLockupSection isMobileBreakpoint={false}>
-                  <div>
-                    <Header2>
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: DOMPurify.sanitize(
-                            homepageData.textLockup.title
-                          ),
-                        }}
-                      />
-                    </Header2>
-                    <Subheader2>{homepageData.textLockup.body}</Subheader2>
-                  </div>
-                </TextLockupSection>
-                {/* <ImageFeaturesSection isMobileBreakpoint={false}>
+            </Header2>
+            <Subheader2>{homepageData.textLockup.body}</Subheader2>
+          </div>
+        </TextLockupSection>
+        <ImageFeaturesSection isMobileBreakpoint={false}>
           {renderHorizontalImageWithText(sections[0], 0)}
           {renderVerticalImageWithText(sections[1], 1)}
           {renderHorizontalImageWithText(sections[2], 2)}
           {renderVerticalImageWithText(sections[3], 3)}
-        </ImageFeaturesSection> */}
-              </HomepageSection>
-            </div>
-          </Index>
-          )}
-        </Location>
-      </Layout>,
+        </ImageFeaturesSection>
+        <Bestsellers />
+        <FeatherFloydFeature />
+      </HomepageSection>,
     ];
   }
 }
@@ -273,7 +264,11 @@ export const pageQuery = graphql`
         imagePosition
         isVertical
         paragraph {
-          paragraph
+          content {
+            content {
+              value
+            }
+          }
         }
       }
     }

@@ -1,13 +1,13 @@
+import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import Layout from "./components/Layout";
 
 import { handleWindowResize } from "./app/store/dimensions/dimensions.actions";
 
-type Props = {
-  children: JSX.Element;
-};
+const App: React.FC = ({ children }) => {
+  console.log("render me.");
 
-const App = ({ children }: Props) => {
   const dispatch = useDispatch();
 
   const handleResize = (event: Event) => {
@@ -23,9 +23,7 @@ const App = ({ children }: Props) => {
     return () => window.removeEventListener("resize", handleResize);
   });
 
-  console.log("app is rendering...");
-
-  return children;
+  return <Layout>{children}</Layout>;
 };
 
 export default App;
